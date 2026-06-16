@@ -1,1 +1,1 @@
-# lean-math-note
+# 数学系エンドユーザーのためのLean入門
