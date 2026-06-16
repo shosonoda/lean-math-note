@@ -4,8 +4,6 @@ set_option linter.missingDocs false --#
 /-
 # Chapter 01: 命題論理と述語論理の形式証明
 
-（同期のテスト）
-
 Lean では，命題は `Prop` という型の項として表されます．
 そして，命題 `P : Prop` の証明は，型 `P` をもつ項として扱われます．
 この見方は「命題を型，証明を項として見る」考え方で，Curry--Howard 対応（カリー・ハワード対応），あるいは propositions-as-types（命題＝型対応）と呼ばれます．
