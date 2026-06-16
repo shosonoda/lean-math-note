@@ -2,7 +2,8 @@
 
 「数学系エンドユーザーのためのLean入門」の講義資料です．
 
-- 講義概要: [https://www.math.kyoto-u.ac.jp/ja/event/seminar/6028](https://www.math.kyoto-u.ac.jp/ja/event/seminar/6028)
+- 講義概要:
+    - [https://www.math.kyoto-u.ac.jp/ja/event/seminar/6028](https://www.math.kyoto-u.ac.jp/ja/event/seminar/6028)
 - 講義資料:
     - [https://shosonoda.github.io/lean-math-note/](https://shosonoda.github.io/lean-math-note/)
     - [https://github.com/shosonoda/lean-math-note/](https://github.com/shosonoda/lean-math-note/)
