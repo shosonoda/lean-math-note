@@ -1,0 +1,45 @@
+site_name: "数学系エンドユーザーのためのLean入門"
+site_description: "数学系の大学院生向けに Lean と Mathlib をハンズオン形式で学ぶ講義ノート"
+docs_dir: site-pages
+site_dir: docs
+
+theme:
+  name: material
+  language: ja
+  features:
+    - content.code.copy
+    - navigation.sections
+    - navigation.indexes
+    - navigation.prune
+    - navigation.top
+    - search.highlight
+    - search.share
+    - toc.follow
+
+plugins:
+  - search
+
+not_in_nav: |
+  /index.md
+  /print_page.md
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.superfences
+  - toc:
+      permalink: true
+
+extra_javascript:
+  - javascripts/mathjax.js
+  - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
+
+extra_css:
+  - stylesheets/navigation.css
