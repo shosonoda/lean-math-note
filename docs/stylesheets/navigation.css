@@ -1,0 +1,54 @@
+/*
+ * Keep the primary navigation compact: only the active chapter shows
+ * its generated section pages.
+ */
+.md-nav--primary
+  > .md-nav__list
+  > .md-nav__item--section.md-nav__item--nested:not(.md-nav__item--active)
+  > .md-nav {
+  display: none;
+}
+
+.md-nav--primary
+  > .md-nav__list
+  > .md-nav__item--section.md-nav__item--nested:not(.md-nav__item--active)
+  > .md-nav__toggle {
+  display: none;
+}
+
+.md-nav--primary
+  > .md-nav__list
+  > .md-nav__item--section.md-nav__item--nested:not(.md-nav__item--active)
+  > .md-nav__link
+  .md-nav__icon,
+.md-nav--primary
+  > .md-nav__list
+  > .md-nav__item--section.md-nav__item--nested:not(.md-nav__item--active)
+  > .md-nav__link
+  + .md-nav__icon {
+  display: none;
+}
+
+@media print {
+  .md-header,
+  .md-sidebar,
+  .md-footer,
+  .md-content__button,
+  .md-source-file,
+  .md-top {
+    display: none !important;
+  }
+
+  .md-main__inner,
+  .md-content,
+  .md-content__inner {
+    margin: 0 !important;
+    max-width: none !important;
+    padding: 0 !important;
+  }
+
+  .print-page h1[id^="chapter-"] {
+    break-before: page;
+    page-break-before: always;
+  }
+}
