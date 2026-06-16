@@ -11,6 +11,8 @@
     - [https://shosonoda.github.io/lean-install/](https://shosonoda.github.io/lean-install/)
 - 担当:
     - [園田翔（理化学研究所 / サイバーエージェント）](https://sites.google.com/view/shosonoda/home)
+- Lean version:
+    - leanprover/lean4:v4.30.0
 
 ## 使い方
 GitHubリポジトリをローカルに clone
