@@ -4287,9 +4287,9 @@
 <a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">  </span><span class="bp">·</span><span class="w"> </span><span class="n">right</span>
 <a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">    </span><span class="n">exact</span><span class="w"> </span><span class="n">hR</span>
 </code></pre></div>
-<p>存在命題を作るには，証人とその証明を与えます．
-<code>use</code> は証人を指定する tactic です．
-<code>use 3</code> の後，Lean は残りのゴールとして「その証人が条件を満たすこと」を要求します．
+<p>存在命題を作るには，証拠とその証明を与えます．
+<code>use</code> は証拠を指定する tactic です．
+<code>use 3</code> の後，Lean は残りのゴールとして「その証拠が条件を満たすこと」を要求します．
 ここでは残ったゴール <code>3 + 2 = 5</code> が計算で閉じられます．</p>
 <div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">example</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="bp">∃</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="o">,</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span><span class="n">use</span><span class="w"> </span><span class="mi">3</span>

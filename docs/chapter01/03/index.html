@@ -4494,7 +4494,7 @@
 <code>P a</code> は「対象 <code>a : α</code> が性質 <code>P</code> を満たす」という命題です．</p>
 <p>Lean の <code>∀ x : α, P x</code> は，依存関数型，つまり「各 <code>x : α</code> に対して <code>P x</code> の証明を返す関数型」として読めます．
 そのため，全称命題の証明 <code>h : ∀ x : α, P x</code> は，関数のように具体的な項 <code>a : α</code> に適用して <code>h a : P a</code> を得ます．
-一方，<code>∃ x : α, P x</code> は，証人 <code>x : α</code> とその証人が性質を満たす証明 <code>P x</code> の組として読めます．</p>
+一方，<code>∃ x : α, P x</code> は，証拠 <code>x : α</code> とその証拠が性質を満たす証明 <code>P x</code> の組として読めます．</p>
 <h2 id="introduction">全称導入 <code>∀</code> introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h2>
 <p><code>∀ x : α, Q x</code> を証明するには，任意の <code>x : α</code> を 1 つ取って <code>Q x</code> を証明します．
 Lean では <code>intro x</code> により，全称量化された変数を仮定として導入します．
@@ -4527,21 +4527,21 @@ Lean では，全称命題の証明を関数のように適用します．
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="n">exact</span><span class="w"> </span><span class="n">h</span><span class="w"> </span><span class="n">a</span>
 </code></pre></div>
 <h2 id="introduction_1">存在導入 <code>∃</code> introduction<a class="headerlink" href="#introduction_1" title="Permanent link">&para;</a></h2>
-<p><code>∃ x : α, P x</code> を証明するには，具体的な証人 <code>a : α</code> と，その証人が性質を満たす証明 <code>ha : P a</code> を与えます．
+<p><code>∃ x : α, P x</code> を証明するには，具体的な証拠 <code>a : α</code> と，その証拠が性質を満たす証明 <code>ha : P a</code> を与えます．
 Lean では <code>Exists.intro a ha</code> と書けます．</p>
 <p>証明図:</p>
 <div class="arithmatex">\[
 \frac{\Gamma \vdash P(t)}{\Gamma \vdash \exists x, P(x)}\;(\exists I)
 \]</div>
 <p>具体例:
-「<span class="arithmatex">\(2\)</span> は偶数である」と分かっていれば，証人として <span class="arithmatex">\(2\)</span> を与えることで「偶数が存在する」と証明できます．</p>
+「<span class="arithmatex">\(2\)</span> は偶数である」と分かっていれば，証拠として <span class="arithmatex">\(2\)</span> を与えることで「偶数が存在する」と証明できます．</p>
 <div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">α</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Type</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">P</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">α</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="kt">Prop</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">a</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">α</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">ha</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">P</span><span class="w"> </span><span class="n">a</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="bp">∃</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">α</span><span class="o">,</span><span class="w"> </span><span class="n">P</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="n">exact</span><span class="w"> </span><span class="n">Exists</span><span class="bp">.</span><span class="n">intro</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">ha</span>
 </code></pre></div>
 <h2 id="elimination_1">存在除去 <code>∃</code> elimination<a class="headerlink" href="#elimination_1" title="Permanent link">&para;</a></h2>
-<p><code>hExists : ∃ x : α, P x</code> から結論を得るには，証人 <code>x</code> と証明 <code>hx : P x</code> を取り出し，そのもとで結論を示します．
+<p><code>hExists : ∃ x : α, P x</code> から結論を得るには，証拠 <code>x</code> と証明 <code>hx : P x</code> を取り出し，そのもとで結論を示します．
 Lean では <code>cases hExists with</code> で存在命題を分解できます．
-取り出した証人の名前はその枝の中だけで使える局所的な名前です．
+取り出した証拠の名前はその枝の中だけで使える局所的な名前です．
 したがって，結論そのものはその名前に依存してはいけません．
 これも自然演繹では固有変数条件として表されます．</p>
 <p>証明図:</p>
@@ -4551,7 +4551,7 @@ Lean では <code>cases hExists with</code> で存在命題を分解できます
 \qquad (y \notin \mathrm{FV}(\Gamma, R))
 \]</div>
 <p>具体例:
-「正の実数が存在する」と分かっていて，さらに任意の正の実数 <span class="arithmatex">\(x\)</span> から <span class="arithmatex">\(x^2 &gt; 0\)</span> が従うなら，存在する証人を 1 つ取り出して「平方が正である実数が存在する」と結論できます．</p>
+「正の実数が存在する」と分かっていて，さらに任意の正の実数 <span class="arithmatex">\(x\)</span> から <span class="arithmatex">\(x^2 &gt; 0\)</span> が従うなら，存在する証拠を 1 つ取り出して「平方が正である実数が存在する」と結論できます．</p>
 <div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">α</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Type</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">P</span><span class="w"> </span><span class="n">Q</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">α</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="kt">Prop</span><span class="o">)</span>
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="o">(</span><span class="n">hExists</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="bp">∃</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">α</span><span class="o">,</span><span class="w"> </span><span class="n">P</span><span class="w"> </span><span class="n">x</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">hPQ</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="bp">∀</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">α</span><span class="o">,</span><span class="w"> </span><span class="n">P</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">Q</span><span class="w"> </span><span class="n">x</span><span class="o">)</span><span class="w"> </span><span class="o">:</span>
 <a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="bp">∃</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">α</span><span class="o">,</span><span class="w"> </span><span class="n">Q</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
@@ -4595,7 +4595,7 @@ Lean では <code>cases hExists with</code> で存在命題を分解できます
 <a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">    </span><span class="n">exact</span><span class="w"> </span><span class="o">(</span><span class="n">h</span><span class="w"> </span><span class="n">x</span><span class="o">)</span><span class="bp">.</span><span class="n">right</span>
 </code></pre></div>
 <h2 id="_3">存在と選言の組み合わせ<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
-<p>存在命題を使う証明では，まず証人を取り出してから，命題論理の規則を適用することがよくあります．
+<p>存在命題を使う証明では，まず証拠を取り出してから，命題論理の規則を適用することがよくあります．
 次の例では，<code>∃ x, P x</code> と <code>∀ x, P x → Q x ∨ R x</code> から，<code>∃ x, Q x ∨ R x</code> を示します．</p>
 <p>この例の証明図:</p>
 <div class="arithmatex">\[
@@ -4609,10 +4609,10 @@ Lean では <code>cases hExists with</code> で存在命題を分解できます
   \Gamma \vdash \exists x, Q(x) \lor R(x)
 }\;(\exists E)
 \]</div>
-<p>存在除去で得た局所的な証人 <code>x</code> は，そのまま結論の存在命題の証人として再利用できます．
+<p>存在除去で得た局所的な証拠 <code>x</code> は，そのまま結論の存在命題の証拠として再利用できます．
 このとき外に出しているのは局所変数そのものではなく，<code>Exists.intro x ...</code> で包み直した存在命題の証明です．</p>
 <p>具体例:
-ある整数 <span class="arithmatex">\(n\)</span> が存在し，任意の整数は偶数または奇数であると分かっているなら，証人 <span class="arithmatex">\(n\)</span> を取り出して「偶数または奇数である整数が存在する」と結論できます．</p>
+ある整数 <span class="arithmatex">\(n\)</span> が存在し，任意の整数は偶数または奇数であると分かっているなら，証拠 <span class="arithmatex">\(n\)</span> を取り出して「偶数または奇数である整数が存在する」と結論できます．</p>
 <div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">α</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Type</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">P</span><span class="w"> </span><span class="n">Q</span><span class="w"> </span><span class="n">R</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">α</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="kt">Prop</span><span class="o">)</span>
 <a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span><span class="o">(</span><span class="n">hExists</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="bp">∃</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">α</span><span class="o">,</span><span class="w"> </span><span class="n">P</span><span class="w"> </span><span class="n">x</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">hPQR</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="bp">∀</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">α</span><span class="o">,</span><span class="w"> </span><span class="n">P</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">Q</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="bp">∨</span><span class="w"> </span><span class="n">R</span><span class="w"> </span><span class="n">x</span><span class="o">)</span><span class="w"> </span><span class="o">:</span>
 <a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="bp">∃</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">α</span><span class="o">,</span><span class="w"> </span><span class="n">Q</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="bp">∨</span><span class="w"> </span><span class="n">R</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
@@ -4624,7 +4624,7 @@ Lean では <code>cases hExists with</code> で存在命題を分解できます
 <p>等号つきの述語論理では，任意の項は自分自身に等しいです．
 Lean では反射律を <code>rfl</code> で証明します．
 <code>rfl</code> は単に文字列として同じ式だけでなく，定義展開や計算によって同じ式になる等式も閉じられます．
-このような同一性を定義的な等しさ（definitionally equal）と呼びます．</p>
+このような同一性を定義的等しさと呼びます．</p>
 <p>証明図:</p>
 <div class="arithmatex">\[
 \frac{}{\Gamma \vdash t = t}\;(=I)

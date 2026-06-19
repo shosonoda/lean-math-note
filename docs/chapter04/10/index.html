@@ -4387,7 +4387,7 @@ Mathlib 自体が勝手に新しい推論規則を追加するわけではなく
 <ul>
 <li>命題外延性: 論理的に同値な命題を等しい命題として扱えるようにする．</li>
 <li>商: 同値関係で割った対象を作れるようにする．</li>
-<li>選択: 存在から証人を選ぶ操作を可能にし，古典数学を扱いやすくする．</li>
+<li>選択: 存在から証拠を選ぶ操作を可能にし，古典数学を扱いやすくする．</li>
 </ul>
 <p>これらは数学の形式化を大きく便利にします．
 一方で，選択に依存する定義は一般に計算内容を持たないため，<code>noncomputable</code> として扱われます．
@@ -4414,9 +4414,9 @@ Mathlib 自体が勝手に新しい推論規則を追加するわけではなく
 </code></pre></div>
 <h2 id="classical">選択公理と <code>Classical</code><a class="headerlink" href="#classical" title="Permanent link">&para;</a></h2>
 <p>Mathlib では古典論理を使うことが多くあります．
-<code>Classical.choice</code> は非空な型から要素を選ぶ原理で，存在命題から具体的な証人を取り出す <code>Classical.choose</code> の基礎になっています．
+<code>Classical.choice</code> は非空な型から要素を選ぶ原理で，存在命題から具体的な証拠を取り出す <code>Classical.choose</code> の基礎になっています．
 このような定義は一般に計算できないので，<code>noncomputable</code> として宣言します．
-<code>Classical.choice</code> の入力は <code>Nonempty α</code> であり，<code>∃ x, P x</code> から証人を取り出すときは <code>Classical.choose</code> と <code>Classical.choose_spec</code> を使う，という使い分けを押さえておくとよいです．</p>
+<code>Classical.choice</code> の入力は <code>Nonempty α</code> であり，<code>∃ x, P x</code> から証拠を取り出すときは <code>Classical.choose</code> と <code>Classical.choose_spec</code> を使う，という使い分けを押さえておくとよいです．</p>
 <div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">Classical</span><span class="bp">.</span><span class="n">choice</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">Classical</span><span class="bp">.</span><span class="n">em</span>
 <a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>

@@ -4276,7 +4276,7 @@
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="n">exact</span><span class="w"> </span><span class="n">propext</span><span class="w"> </span><span class="n">h</span>
 </code></pre></div>
 <ol>
-<li><code>Classical.choose</code> と <code>Classical.choose_spec</code> を使って，存在命題から証人を取り出してください．</li>
+<li><code>Classical.choose</code> と <code>Classical.choose_spec</code> を使って，存在命題から証拠を取り出してください．</li>
 </ol>
 <div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">noncomputable</span><span class="w"> </span><span class="kn">def</span><span class="w"> </span><span class="n">chosenNatExercise</span><span class="w"> </span><span class="o">(</span><span class="n">h</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="bp">∃</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="o">,</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="bp">&gt;</span><span class="w"> </span><span class="mi">10</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="w"> </span><span class="o">:=</span>
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span><span class="n">Classical</span><span class="bp">.</span><span class="n">choose</span><span class="w"> </span><span class="n">h</span>

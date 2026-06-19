@@ -4250,16 +4250,16 @@
 しかし，Lean 自体はコマンドラインからも使えます．</p>
 <p>このプロジェクトでは，まず <code>lake env</code> を付けるのが安全です．
 これにより，Mathlib や mdgen など，Lake workspace の依存関係を含んだ環境で <code>lean</code> が起動します．</p>
-<div class="language-bash highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>lake<span class="w"> </span>env<span class="w"> </span>lean<span class="w"> </span>LeanMathNote/gpt/chapter10.lean
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>lake<span class="w"> </span>lean<span class="w"> </span>LeanMathNote/gpt/chapter10.lean
+<div class="language-bash highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>lake<span class="w"> </span>env<span class="w"> </span>lean<span class="w"> </span>LeanMathNote/chapter10.lean
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>lake<span class="w"> </span>lean<span class="w"> </span>LeanMathNote/chapter10.lean
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>lake<span class="w"> </span>build
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>lake<span class="w"> </span>exe<span class="w"> </span>mdgen<span class="w"> </span>LeanMathNote/gpt<span class="w"> </span>out/gpt
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>lake<span class="w"> </span>exe<span class="w"> </span>mdgen<span class="w"> </span>LeanMathNote<span class="w"> </span>out
 </code></pre></div>
 <p><code>lean</code> に直接入力を渡すこともできます．</p>
 <div class="language-bash highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nb">printf</span><span class="w"> </span><span class="s1">&#39;#check Nat\n#eval 2 + 3\n&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>lake<span class="w"> </span>env<span class="w"> </span>lean<span class="w"> </span>--stdin
 </code></pre></div>
 <p>エラーや情報を機械可読にしたい場合は <code>--json</code> が使えます．</p>
-<div class="language-bash highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>lake<span class="w"> </span>env<span class="w"> </span>lean<span class="w"> </span>--json<span class="w"> </span>LeanMathNote/gpt/chapter10.lean
+<div class="language-bash highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>lake<span class="w"> </span>env<span class="w"> </span>lean<span class="w"> </span>--json<span class="w"> </span>LeanMathNote/chapter10.lean
 </code></pre></div>
 <p>language server をエディタなしで起動するには次を使います．</p>
 <div class="language-bash highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>lake<span class="w"> </span>serve
@@ -4268,9 +4268,9 @@
 <p><code>lean --server</code> は LSP クライアントと通信するためのモードです．
 人間が直接対話する REPL というより，エディタや外部ツールが Lean と通信するための入口です．</p>
 <p>便利な調査コマンドもあります．</p>
-<div class="language-bash highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>lake<span class="w"> </span>env<span class="w"> </span>lean<span class="w"> </span>--deps<span class="w"> </span>LeanMathNote/gpt/chapter10.lean
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>lake<span class="w"> </span>env<span class="w"> </span>lean<span class="w"> </span>--src-deps<span class="w"> </span>LeanMathNote/gpt/chapter10.lean
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>lake<span class="w"> </span>env<span class="w"> </span>lean<span class="w"> </span>--profile<span class="w"> </span>LeanMathNote/gpt/chapter10.lean
+<div class="language-bash highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>lake<span class="w"> </span>env<span class="w"> </span>lean<span class="w"> </span>--deps<span class="w"> </span>LeanMathNote/chapter10.lean
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>lake<span class="w"> </span>env<span class="w"> </span>lean<span class="w"> </span>--src-deps<span class="w"> </span>LeanMathNote/chapter10.lean
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>lake<span class="w"> </span>env<span class="w"> </span>lean<span class="w"> </span>--profile<span class="w"> </span>LeanMathNote/chapter10.lean
 <a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>lean<span class="w"> </span>--print-prefix
 <a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>lean<span class="w"> </span>--print-libdir
 <a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>lake<span class="w"> </span>query<span class="w"> </span>LeanMathNote
