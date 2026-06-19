@@ -1,18 +1,24 @@
-## mdgen + MkDocs による静的html生成スクリプト
+## mdgen + MkDocs site generation
 
-`LeanMathNote/*.lean` から `mdgen` で Markdown を生成し，`site-src/` の材料と合わせて MkDocs Material で `docs/` に静的HTMLを生成する．
+`scripts/build-site.sh` builds the public HTML site from the development repository.
 
-- 初回のみ
-  ```bash
-  pip install mkdocs-material "requests>=9.7,<10"
-  ```
-- ローカルビルド・確認
-  ```bash
-  ./scripts/build-site.sh
-  mkdocs serve --livereload
-  ```
-- 生成物
-  - `site-src/chapter*.md`: `mdgen` による生成 Markdown
-  - `site-pages/`: `---` によるページ分割後の MkDocs 入力用 Markdown
-  - `site-pages/print_page.md`: 印刷用に全ページ本文を 1 本に連結した Markdown
-  - `docs/`: MkDocs による HTML 一式
+- Human-edited Markdown and static files live in `site-src/`.
+- Lean-derived chapter Markdown is generated into `site-generated/`.
+- MkDocs input pages are generated into `site-pages/`.
+- Static HTML is generated into `docs/`.
+- Sidebar entries before and after the generated chapters are controlled by
+  `site-src/nav-before.yml` and `site-src/nav-after.yml`.
+
+Initial setup:
+
+```bash
+pip install -r requirements-mkdocs.txt
+```
+
+Build locally:
+
+```bash
+./scripts/build-site.sh
+```
+
+The root `./build-site.sh` is a compatibility wrapper for the same command.

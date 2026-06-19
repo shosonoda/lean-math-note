@@ -76,8 +76,7 @@ def promote_headings(lines: list[str]) -> list[str]:
 
         level = len(match.group(1))
         if index == first_index:
-            level = 1
-            promoted.append(f"{'#' * level} {match.group(2)}\n")
+            promoted.append(f"# {match.group(2)}\n")
         elif level >= base_level:
             level = max(2, level - base_level + 1)
             promoted.append(f"{'#' * level} {match.group(2)}\n")
@@ -96,6 +95,8 @@ def write_page(path: Path, lines: list[str]) -> None:
 def copy_static_files(src_dir: Path, dest_dir: Path) -> None:
     for item in src_dir.iterdir():
         if item.name == "old":
+            continue
+        if item.name in ("nav-before.yml", "nav-after.yml"):
             continue
         if item.is_file() and CHAPTER_RE.fullmatch(item.name):
             continue

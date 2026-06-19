@@ -2,10 +2,20 @@
 set -eu
 
 INPUT_DIR="${INPUT_DIR:-LeanMathNote}"
-DOCS_DIR="${DOCS_DIR:-site-src}"
+CONTENT_DIR="${CONTENT_DIR:-site-src}"
+GENERATED_MD_DIR="${GENERATED_MD_DIR:-site-generated}"
+BUILD_SOURCE_DIR="${BUILD_SOURCE_DIR:-.site-build-src}"
 PAGES_DIR="${PAGES_DIR:-site-pages}"
 SITE_DIR="${SITE_DIR:-docs}"
-MKDOCS_GENERATED_CONFIG=".mkdocs.generated.yml"
+MKDOCS_CONFIG="${MKDOCS_CONFIG:-mkdocs.yml}"
+MKDOCS_GENERATED_CONFIG="${MKDOCS_GENERATED_CONFIG:-.mkdocs.generated.yml}"
+NAV_BEFORE="${NAV_BEFORE:-$CONTENT_DIR/nav-before.yml}"
+NAV_AFTER="${NAV_AFTER:-$CONTENT_DIR/nav-after.yml}"
+
+script_dir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+repo_root=$(CDPATH= cd -- "$script_dir/.." && pwd)
+
+cd "$repo_root"
 
 cleanup_generated_config() {
   rm -f "$MKDOCS_GENERATED_CONFIG"
@@ -13,10 +23,22 @@ cleanup_generated_config() {
 
 trap cleanup_generated_config EXIT HUP INT TERM
 
-echo "Running: lake exe mdgen $INPUT_DIR $DOCS_DIR"
-lake exe mdgen "$INPUT_DIR" "$DOCS_DIR"
+if [ ! -d "$CONTENT_DIR" ]; then
+  echo "Content directory not found: $CONTENT_DIR" >&2
+  exit 1
+fi
 
-for file in "$DOCS_DIR"/chapter*.md; do
+if [ ! -f "$MKDOCS_CONFIG" ]; then
+  echo "MkDocs config not found: $MKDOCS_CONFIG" >&2
+  exit 1
+fi
+
+echo "Running: lake exe mdgen $INPUT_DIR $GENERATED_MD_DIR"
+rm -rf "$GENERATED_MD_DIR"
+mkdir -p "$GENERATED_MD_DIR"
+lake exe mdgen "$INPUT_DIR" "$GENERATED_MD_DIR"
+
+for file in "$GENERATED_MD_DIR"/chapter*.md; do
   [ -e "$file" ] || continue
   tmp="${file}.tmp"
   sed 's/^```lean$/```lean4/' "$file" | awk '
@@ -64,14 +86,29 @@ for file in "$DOCS_DIR"/chapter*.md; do
   mv "$tmp" "$file"
 done
 
-echo "Running: python3 scripts/split_chapters.py $DOCS_DIR $PAGES_DIR"
-python3 scripts/split_chapters.py "$DOCS_DIR" "$PAGES_DIR"
+echo "Preparing MkDocs source: $BUILD_SOURCE_DIR"
+rm -rf "$BUILD_SOURCE_DIR"
+mkdir -p "$BUILD_SOURCE_DIR"
+cp -R "$CONTENT_DIR"/. "$BUILD_SOURCE_DIR"/
+
+for file in "$BUILD_SOURCE_DIR"/chapter*.md; do
+  [ -e "$file" ] || continue
+  rm -f "$file"
+done
+
+for file in "$GENERATED_MD_DIR"/chapter*.md; do
+  [ -e "$file" ] || continue
+  cp "$file" "$BUILD_SOURCE_DIR"/
+done
+
+echo "Running: python3 scripts/split_chapters.py $BUILD_SOURCE_DIR $PAGES_DIR"
+python3 scripts/split_chapters.py "$BUILD_SOURCE_DIR" "$PAGES_DIR"
 
 echo "Running: python3 scripts/generate_print_page.py $PAGES_DIR"
 python3 scripts/generate_print_page.py "$PAGES_DIR"
 
-echo "Running: python3 scripts/generate_mkdocs_config.py $PAGES_DIR mkdocs.yml $MKDOCS_GENERATED_CONFIG"
-python3 scripts/generate_mkdocs_config.py "$PAGES_DIR" mkdocs.yml "$MKDOCS_GENERATED_CONFIG"
+echo "Running: python3 scripts/generate_mkdocs_config.py $PAGES_DIR $MKDOCS_CONFIG $MKDOCS_GENERATED_CONFIG $NAV_BEFORE $NAV_AFTER"
+python3 scripts/generate_mkdocs_config.py "$PAGES_DIR" "$MKDOCS_CONFIG" "$MKDOCS_GENERATED_CONFIG" "$NAV_BEFORE" "$NAV_AFTER"
 
 echo "Running: mkdocs build --strict -f $MKDOCS_GENERATED_CONFIG"
 mkdocs build --strict -f "$MKDOCS_GENERATED_CONFIG"

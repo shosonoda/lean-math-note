@@ -12,7 +12,7 @@
 - Lean version:
     - leanprover/lean4:v4.30.0
 
-## 目次
+<!-- ## 目次
 
 - [Chapter 01: 命題論理と述語論理の形式証明](chapter01/index.md)
 - [Chapter 02: Lean の基本構文・型・データ構造](chapter02/index.md)
@@ -23,10 +23,10 @@
 - [Chapter 07: 位相](chapter07/index.md)
 - [Chapter 08: 微分](chapter08/index.md)
 - [Chapter 09: 積分](chapter09/index.md)
-- [Chapter 10: Lean の仕組み](chapter10/index.md)
+- [Chapter 10: Lean の仕組み](chapter10/index.md) -->
 
 ## このサイトについて
 
-- 本文は `LeanMathNote/*.lean` に書かれた Markdown コメント付き Lean ファイルから `mdgen` と `MkDocs` で生成されています
+- 本文は `LeanMathNote/*.lean` から `mdgen` と `MkDocs` で生成されています
 
 - [印刷用ページ](print_page.md)
