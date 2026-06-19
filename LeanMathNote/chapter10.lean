@@ -476,73 +476,80 @@ Lean の仕組みを理解するうえで，次の対応を押さえておくと
 
 1. 次のコマンドを実行し，Lean のバージョンと toolchain を確認してください．
 
-```bash
-lean --version
-lake --version
-elan show
-cat lean-toolchain
-```
+    ```bash
+    lean --version
+    lake --version
+    elan show
+    cat lean-toolchain
+    ```
 
 2. VS Code を使わずに，この章を単体でチェックしてください．
 
-```bash
-lake env lean LeanMathNote/chapter10.lean
-lake lean LeanMathNote/chapter10.lean
-```
+    ```bash
+    lake env lean LeanMathNote/chapter10.lean
+    lake lean LeanMathNote/chapter10.lean
+    ```
 
 3. 標準入力から Lean にコードを渡してください．
 
-```bash
-printf '#check Nat\n#eval 2 + 3\n' | lake env lean --stdin
-```
+    ```bash
+    printf '#check Nat\n#eval 2 + 3\n' | lake env lean --stdin
+    ```
 
 4. `--json` を付けて Lean を実行し，通常の出力との違いを確認してください．
 
-```bash
-lake env lean --json LeanMathNote/chapter10.lean
-```
+    ```bash
+    lake env lean --json LeanMathNote/chapter10.lean
+    ```
 
 5. `--deps` と `--src-deps` を使って，依存関係の出力を比較してください．
 
-```bash
-lake env lean --deps LeanMathNote/chapter10.lean
-lake env lean --src-deps LeanMathNote/chapter10.lean
-```
+    ```bash
+    lake env lean --deps LeanMathNote/chapter10.lean
+    lake env lean --src-deps LeanMathNote/chapter10.lean
+    ```
 
 6. `Syntax`，`Expr`，`Environment` の型を確認してください．
 
+    ```lean4
+    #check Lean.Syntax
+    #check Lean.Expr
+    #check Lean.Environment
+    ```
+
+7. pretty printer の出力を詳しくして，暗黙引数や型クラス引数が表示されることを確認してください．
+
+    ```lean4
+    set_option pp.all true in
+    #check (fun n : Nat => n + 1)
+    ```
+
+8. `lake build` を実行した後，生成される `.olean` と `.ilean` を探してください．
+
+    ```bash
+    lake build
+    find .lake/build/lib -name '*.olean' | head
+    find .lake/build/lib -name '*.ilean' | head
+    ```
+
+9. module 名とファイルパスの対応を説明してください．
+
+    ```text
+    LeanMathNote.lean
+    LeanMathNote/chapter01.lean
+    LeanMathNote/chapter10.lean
+    ```
+
+10. `lakefile.toml` を読み，`[[lean_lib]]` と `[[require]]` が何を指定しているか説明してください．
 -/
 
+--#--
 #check Lean.Syntax
 #check Lean.Expr
 #check Lean.Environment
 
-/-
-7. pretty printer の出力を詳しくして，暗黙引数や型クラス引数が表示されることを確認してください．
-
--/
-
 set_option pp.all true in
 #check (fun n : Nat => n + 1)
-
-/-
-8. `lake build` を実行した後，生成される `.olean` と `.ilean` を探してください．
-
-```bash
-lake build
-find .lake/build/lib -name '*.olean' | head
-find .lake/build/lib -name '*.ilean' | head
-```
-
-9. module 名とファイルパスの対応を説明してください．
-
-```text
-LeanMathNote.lean
-LeanMathNote/chapter01.lean
-LeanMathNote/chapter10.lean
-```
-
-10. `lakefile.toml` を読み，`[[lean_lib]]` と `[[require]]` が何を指定しているか説明してください．
--/
+--#--
 
 end Chapter10 --#

@@ -4330,35 +4330,35 @@
 <p>この章の演習では，同じ命題を複数の書き方で証明することを重視します．
 まず tactic mode で証明し，余裕があれば term mode や <code>calc</code> でも書き直してください．</p>
 <ol>
-<li><code>intro</code> と <code>exact</code> だけで証明してください．</li>
-</ol>
+<li>
+<p><code>intro</code> と <code>exact</code> だけで証明してください．</p>
 <div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">P</span><span class="w"> </span><span class="n">Q</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Prop</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">hQ</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Q</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">P</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">Q</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="gr">sorry</span>
 </code></pre></div>
-<ol>
-<li><code>constructor</code> と <code>cases</code> を使って，連言の順序を入れ替えてください．</li>
-</ol>
+</li>
+<li>
+<p><code>constructor</code> と <code>cases</code> を使って，連言の順序を入れ替えてください．</p>
 <div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">P</span><span class="w"> </span><span class="n">Q</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Prop</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">P</span><span class="w"> </span><span class="bp">∧</span><span class="w"> </span><span class="n">Q</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">Q</span><span class="w"> </span><span class="bp">∧</span><span class="w"> </span><span class="n">P</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="gr">sorry</span>
 </code></pre></div>
-<ol>
-<li><code>rw</code> を使って等式を書き換えてください．</li>
-</ol>
+</li>
+<li>
+<p><code>rw</code> を使って等式を書き換えてください．</p>
 <div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">a</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">h</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">b</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="gr">sorry</span>
 </code></pre></div>
-<ol>
-<li><code>calc</code> モードで加法の結合律・可換律を使って証明してください．</li>
-</ol>
+</li>
+<li>
+<p><code>calc</code> モードで加法の結合律・可換律を使って証明してください．</p>
 <div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">a</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="k">calc</span>
 <a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="n">a</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
 <a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">      </span><span class="c1">-- `ac_rfl` または `rw [Nat.add_comm a b]` などを試す．</span>
 <a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">      </span><span class="gr">sorry</span>
 </code></pre></div>
-<ol>
-<li><code>induction</code> で自然数の加法単位元を証明してください．</li>
-</ol>
+</li>
+<li>
+<p><code>induction</code> で自然数の加法単位元を証明してください．</p>
 <div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">n</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span><span class="n">induction</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="k">with</span>
 <a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">  </span><span class="bp">|</span><span class="w"> </span><span class="n">zero</span><span class="w"> </span><span class="bp">=&gt;</span>
@@ -4366,27 +4366,29 @@
 <a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">  </span><span class="bp">|</span><span class="w"> </span><span class="n">succ</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="n">ih</span><span class="w"> </span><span class="bp">=&gt;</span>
 <a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">      </span><span class="gr">sorry</span>
 </code></pre></div>
-<ol>
-<li><code>conv</code> を使って，ゴールの一部だけを書き換えてください．</li>
-</ol>
+</li>
+<li>
+<p><code>conv</code> を使って，ゴールの一部だけを書き換えてください．</p>
 <div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">a</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="o">(</span><span class="n">a</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">b</span><span class="o">)</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="o">(</span><span class="n">b</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">a</span><span class="o">)</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
 <a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">  </span><span class="n">conv_lhs</span><span class="w"> </span><span class="bp">=&gt;</span>
 <a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="n">rw</span><span class="w"> </span><span class="o">[</span><span class="n">Nat</span><span class="bp">.</span><span class="n">add_comm</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">b</span><span class="o">]</span>
 </code></pre></div>
-<ol>
-<li><code>simp</code> で証明できる命題を，まず手動で証明し，その後 <code>simp</code> で短くしてください．</li>
-</ol>
+</li>
+<li>
+<p><code>simp</code> で証明できる命題を，まず手動で証明し，その後 <code>simp</code> で短くしてください．</p>
 <div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">n</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
 <a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">  </span><span class="c1">-- まず `induction`，次に `simpa` で試す．</span>
 <a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">  </span><span class="gr">sorry</span>
 </code></pre></div>
-<ol>
-<li><code>aesop</code> または <code>grind</code> で閉じる論理問題を作り，手動証明と比較してください．</li>
-</ol>
+</li>
+<li>
+<p><code>aesop</code> または <code>grind</code> で閉じる論理問題を作り，手動証明と比較してください．</p>
 <div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">P</span><span class="w"> </span><span class="n">Q</span><span class="w"> </span><span class="n">R</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Prop</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">h₁</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">P</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">Q</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">h₂</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Q</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">R</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">hP</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">P</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">R</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
 <a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">  </span><span class="c1">-- `aesop` または `grind`</span>
 <a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">  </span><span class="gr">sorry</span>
 </code></pre></div>
+</li>
+</ol>
 
 
 

@@ -4645,23 +4645,24 @@ Lean では <code>cases hExists with</code> で存在命題を分解できます
 たとえば，すべての <code>x</code> について <code>P x ∧ Q x</code> が成り立つなら，すべての <code>x</code> について <code>P x</code> が成り立ち，すべての <code>x</code> について <code>Q x</code> が成り立ちます．</p>
 <p>この例の証明図:</p>
 <div class="arithmatex">\[
-\frac{
-  \frac{
-    \frac{\Gamma, x : \alpha \vdash \forall z : \alpha, P(z) \land Q(z)}
-          {\Gamma, x : \alpha \vdash P(x)}\;(\forall E;\land E_1)
-  }{
-    \Gamma \vdash \forall x : \alpha, P(x)
-  }\;(\forall I)
-  \quad
-  \frac{
-    \frac{\Gamma, y : \alpha \vdash \forall z : \alpha, P(z) \land Q(z)}
-          {\Gamma, y : \alpha \vdash Q(y)}\;(\forall E;\land E_2)
-  }{
-    \Gamma \vdash \forall y : \alpha, Q(y)
-  }\;(\forall I)
-}{
-  \Gamma \vdash (\forall x, P(x)) \land (\forall x, Q(x))
-}\;(\land I)
+\begin{prooftree}
+\AxiomC{$\Gamma, x : \alpha \vdash \forall z : \alpha, P(z) \land Q(z)$}
+\RightLabel{$(\forall E)$}
+\UnaryInfC{$\Gamma, x : \alpha \vdash P(x) \land Q(x)$}
+\RightLabel{$(\land E_1)$}
+\UnaryInfC{$\Gamma, x : \alpha \vdash P(x)$}
+\RightLabel{$(\forall I)$}
+\UnaryInfC{$\Gamma \vdash \forall x : \alpha, P(x)$}
+\AxiomC{$\Gamma, y : \alpha \vdash \forall z : \alpha, P(z) \land Q(z)$}
+\RightLabel{$(\forall E)$}
+\UnaryInfC{$\Gamma, y : \alpha \vdash P(y) \land Q(y)$}
+\RightLabel{$(\land E_2)$}
+\UnaryInfC{$\Gamma, y : \alpha \vdash Q(y)$}
+\RightLabel{$(\forall I)$}
+\UnaryInfC{$\Gamma \vdash \forall y : \alpha, Q(y)$}
+\RightLabel{$(\land I)$}
+\BinaryInfC{$\Gamma \vdash (\forall x : \alpha, P(x)) \land (\forall x : \alpha, Q(x))$}
+\end{prooftree}
 \]</div>
 <p>Lean のコードでは，<code>constructor</code> で連言の 2 つの成分を別々に証明します．
 それぞれの枝で <code>intro x</code> により任意の <code>x</code> を導入し，<code>h x : P x ∧ Q x</code> から <code>.left</code> または <code>.right</code> で必要な成分を取り出します．</p>
@@ -4680,15 +4681,14 @@ Lean では <code>cases hExists with</code> で存在命題を分解できます
 次の例では，<code>∃ x, P x</code> と <code>∀ x, P x → Q x ∨ R x</code> から，<code>∃ x, Q x ∨ R x</code> を示します．</p>
 <p>この例の証明図:</p>
 <div class="arithmatex">\[
-\frac{
-  \Gamma \vdash \exists x, P(x)
-  \quad
-  \frac{\Gamma, y : \alpha, P(y) \vdash Q(y) \lor R(y)}
-        {\Gamma, y : \alpha, P(y) \vdash \exists x, Q(x) \lor R(x)}
-        \;(\exists I)
-}{
-  \Gamma \vdash \exists x, Q(x) \lor R(x)
-}\;(\exists E)
+\begin{prooftree}
+\AxiomC{$\Gamma \vdash \exists x : \alpha, P(x)$}
+\AxiomC{$\Gamma, y : \alpha, P(y) \vdash Q(y) \lor R(y)$}
+\RightLabel{$(\exists I)$}
+\UnaryInfC{$\Gamma, y : \alpha, P(y) \vdash \exists x : \alpha, Q(x) \lor R(x)$}
+\RightLabel{$(\exists E)$}
+\BinaryInfC{$\Gamma \vdash \exists x : \alpha, Q(x) \lor R(x)$}
+\end{prooftree}
 \]</div>
 <p>存在除去で得た局所的な証拠 <code>x</code> は，そのまま結論の存在命題の証拠として再利用できます．
 このとき外に出しているのは局所変数そのものではなく，<code>Exists.intro x ...</code> で包み直した存在命題の証明です．</p>

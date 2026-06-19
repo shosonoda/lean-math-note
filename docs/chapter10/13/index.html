@@ -4330,64 +4330,66 @@
 <p>この章の演習では，Lean の内部構造とコマンドライン操作を確認します．
 証明を作るだけでなく，実際にターミナルでコマンドを実行して出力を読むことを目標にしてください．</p>
 <ol>
-<li>次のコマンドを実行し，Lean のバージョンと toolchain を確認してください．</li>
-</ol>
+<li>
+<p>次のコマンドを実行し，Lean のバージョンと toolchain を確認してください．</p>
 <div class="language-bash highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>lean<span class="w"> </span>--version
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>lake<span class="w"> </span>--version
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>elan<span class="w"> </span>show
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>cat<span class="w"> </span>lean-toolchain
 </code></pre></div>
-<ol>
-<li>VS Code を使わずに，この章を単体でチェックしてください．</li>
-</ol>
+</li>
+<li>
+<p>VS Code を使わずに，この章を単体でチェックしてください．</p>
 <div class="language-bash highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>lake<span class="w"> </span>env<span class="w"> </span>lean<span class="w"> </span>LeanMathNote/chapter10.lean
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>lake<span class="w"> </span>lean<span class="w"> </span>LeanMathNote/chapter10.lean
 </code></pre></div>
-<ol>
-<li>標準入力から Lean にコードを渡してください．</li>
-</ol>
+</li>
+<li>
+<p>標準入力から Lean にコードを渡してください．</p>
 <div class="language-bash highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nb">printf</span><span class="w"> </span><span class="s1">&#39;#check Nat\n#eval 2 + 3\n&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>lake<span class="w"> </span>env<span class="w"> </span>lean<span class="w"> </span>--stdin
 </code></pre></div>
-<ol>
-<li><code>--json</code> を付けて Lean を実行し，通常の出力との違いを確認してください．</li>
-</ol>
+</li>
+<li>
+<p><code>--json</code> を付けて Lean を実行し，通常の出力との違いを確認してください．</p>
 <div class="language-bash highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>lake<span class="w"> </span>env<span class="w"> </span>lean<span class="w"> </span>--json<span class="w"> </span>LeanMathNote/chapter10.lean
 </code></pre></div>
-<ol>
-<li><code>--deps</code> と <code>--src-deps</code> を使って，依存関係の出力を比較してください．</li>
-</ol>
+</li>
+<li>
+<p><code>--deps</code> と <code>--src-deps</code> を使って，依存関係の出力を比較してください．</p>
 <div class="language-bash highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>lake<span class="w"> </span>env<span class="w"> </span>lean<span class="w"> </span>--deps<span class="w"> </span>LeanMathNote/chapter10.lean
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>lake<span class="w"> </span>env<span class="w"> </span>lean<span class="w"> </span>--src-deps<span class="w"> </span>LeanMathNote/chapter10.lean
 </code></pre></div>
-<ol>
-<li><code>Syntax</code>，<code>Expr</code>，<code>Environment</code> の型を確認してください．</li>
-</ol>
+</li>
+<li>
+<p><code>Syntax</code>，<code>Expr</code>，<code>Environment</code> の型を確認してください．</p>
 <div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">Lean</span><span class="bp">.</span><span class="n">Syntax</span>
 <a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">Lean</span><span class="bp">.</span><span class="n">Expr</span>
 <a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">Lean</span><span class="bp">.</span><span class="n">Environment</span>
 </code></pre></div>
-<ol>
-<li>pretty printer の出力を詳しくして，暗黙引数や型クラス引数が表示されることを確認してください．</li>
-</ol>
+</li>
+<li>
+<p>pretty printer の出力を詳しくして，暗黙引数や型クラス引数が表示されることを確認してください．</p>
 <div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kn">set_option</span><span class="w"> </span><span class="n">pp</span><span class="bp">.</span><span class="n">all</span><span class="w"> </span><span class="n">true</span><span class="w"> </span><span class="k">in</span>
 <a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="w"> </span><span class="bp">=&gt;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="mi">1</span><span class="o">)</span>
 </code></pre></div>
-<ol>
-<li><code>lake build</code> を実行した後，生成される <code>.olean</code> と <code>.ilean</code> を探してください．</li>
-</ol>
+</li>
+<li>
+<p><code>lake build</code> を実行した後，生成される <code>.olean</code> と <code>.ilean</code> を探してください．</p>
 <div class="language-bash highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>lake<span class="w"> </span>build
 <a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>find<span class="w"> </span>.lake/build/lib<span class="w"> </span>-name<span class="w"> </span><span class="s1">&#39;*.olean&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>head
 <a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>find<span class="w"> </span>.lake/build/lib<span class="w"> </span>-name<span class="w"> </span><span class="s1">&#39;*.ilean&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>head
 </code></pre></div>
-<ol>
-<li>module 名とファイルパスの対応を説明してください．</li>
-</ol>
+</li>
+<li>
+<p>module 名とファイルパスの対応を説明してください．</p>
 <div class="language-text highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>LeanMathNote.lean
 <a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>LeanMathNote/chapter01.lean
 <a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>LeanMathNote/chapter10.lean
 </code></pre></div>
-<ol>
-<li><code>lakefile.toml</code> を読み，<code>[[lean_lib]]</code> と <code>[[require]]</code> が何を指定しているか説明してください．</li>
+</li>
+<li>
+<p><code>lakefile.toml</code> を読み，<code>[[lean_lib]]</code> と <code>[[require]]</code> が何を指定しているか説明してください．</p>
+</li>
 </ol>
 
 

@@ -1,10 +1,13 @@
 window.MathJax = {
+  loader: {
+    load: ["[tex]/bussproofs"]
+  },
   tex: {
     inlineMath: [["\\(", "\\)"], ["$", "$"]],
     displayMath: [["\\[", "\\]"], ["$$", "$$"]],
     processEscapes: true,
     processEnvironments: true,
-    packages: {"[+]": ["ams", "noerrors", "noundefined"]}
+    packages: {"[+]": ["ams", "bussproofs", "noerrors", "noundefined"]}
   },
   options: {
     ignoreHtmlClass: ".*|",

@@ -29,6 +29,17 @@
   display: none;
 }
 
+.md-typeset mjx-container[jax="CHTML"][display="true"] {
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.2rem 0;
+}
+
+.md-typeset mjx-container[jax="CHTML"][display="true"] > mjx-math {
+  min-width: max-content;
+}
+
 @media print {
   .md-header,
   .md-sidebar,

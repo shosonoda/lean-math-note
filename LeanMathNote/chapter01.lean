@@ -14,6 +14,44 @@ Lean では，命題は `Prop` という型の項として表されます．
 各タクティックは最終的に証明項を作るための補助であり，完成した証明は Lean の小さなカーネルによって再度型検査されます．
 以下では，自然演繹でよく使う推論規則を 1 つずつ確認し，対応する Lean の書き方を見ます．
 
+## 形式証明を読むための用語
+
+形式証明では，「式がどの規則で導かれたか」と「式が何を意味するか」を分けて考えます．
+この区別は Lean を学ぶ上で重要です．
+
+**証明論**は，記号列としての命題と，それを変形する推論規則を扱います．
+この立場での「証明」は，有限個の推論規則を順に適用して結論に到達する構文的な対象です．
+自然演繹の証明図でいえば，根に結論をもち，各節点で決められた推論規則だけを使っている木が証明です．
+Lean の証明項も，この意味で検査可能な構文的対象です．
+
+**意味論**は，命題を解釈するモデルや構造を与え，その解釈のもとで命題が真か偽かを考えます．
+たとえば命題論理では，各命題変数に真理値を割り当てたときに式全体の真理値が決まります．
+この真理値は「意味」の側の概念であり，形式証明そのものではありません．
+健全性定理は「証明できる式は意味論的に正しい」と述べ，完全性定理は，対象となる論理に応じて「意味論的に正しい式は証明できる」と述べる定理です．
+
+**命題論理**や**述語論理**は，どのような式を作るかを定める論理の言語です．
+命題論理では `P ∧ Q` や `P → Q` のように命題を論理結合子で組み合わせます．
+述語論理ではさらに，対象変数，述語，`∀` や `∃` などの量化子を扱います．
+一方，**自然演繹**や**シーケント計算**は，そのような式をどの規則で証明するかを定める証明体系です．
+同じ命題論理や述語論理に対して，自然演繹で証明することも，シーケント計算で証明することもできます．
+
+**自動証明**では，SAT/SMT solver や theorem prover が，探索によって証明や反例を見つけようとします．
+多くの場合，ユーザは問題を入力し，システムができるだけ自動で結論を出します．
+一方，Lean のような**対話型証明支援系**では，ユーザが証明の方針や中間ステップを与え，システムが現在のゴールを表示しながら証明を組み立てます．
+Lean にも `simp` や `omega` などの自動化されたタクティックはありますが，最終的には生成された証明項をカーネルが型検査する，という点が中心です．
+
+Lean の基礎は，ZFC 集合論ではなく，依存型理論です．
+ZFC では基本的にすべての数学的対象を集合として扱い，定理は一階述語論理の式として表されます．
+Lean では対象は型をもち，命題は `Prop` という型の項として扱われ，その命題の証明はその型の項として扱われます．
+つまり Lean では，`P : Prop` に対して `h : P` という項を構成することが，`P` を証明することです．
+Mathlib の中で集合や位相空間や群を扱うことはできますが，Lean の基礎そのものは「すべてを集合に還元する」立場ではありません．
+
+この「命題を型，証明を項として見る」対応は，型付きラムダ計算と深く結びついています．
+含意 `P → Q` の証明は，`P` の証明を受け取って `Q` の証明を返す関数です．
+含意導入はラムダ抽象 `fun h : P => ...` に対応し，含意除去は関数適用に対応します．
+連言の証明はペア，連言除去は射影に対応します．
+したがって，紙の上の証明木，Lean の tactic proof，Lean が内部で作るラムダ項は，見た目は違っても同じ証明構造を別の表現で見ていると考えられます．
+
 ---
 ## 証明図の読み方
 
@@ -485,23 +523,24 @@ example (α : Type) (P Q : α → Prop)
 
 この例の証明図:
 $$
-\frac{
-  \frac{
-    \frac{\Gamma, x : \alpha \vdash \forall z : \alpha, P(z) \land Q(z)}
-          {\Gamma, x : \alpha \vdash P(x)}\;(\forall E;\land E_1)
-  }{
-    \Gamma \vdash \forall x : \alpha, P(x)
-  }\;(\forall I)
-  \quad
-  \frac{
-    \frac{\Gamma, y : \alpha \vdash \forall z : \alpha, P(z) \land Q(z)}
-          {\Gamma, y : \alpha \vdash Q(y)}\;(\forall E;\land E_2)
-  }{
-    \Gamma \vdash \forall y : \alpha, Q(y)
-  }\;(\forall I)
-}{
-  \Gamma \vdash (\forall x, P(x)) \land (\forall x, Q(x))
-}\;(\land I)
+\begin{prooftree}
+\AxiomC{$\Gamma, x : \alpha \vdash \forall z : \alpha, P(z) \land Q(z)$}
+\RightLabel{$(\forall E)$}
+\UnaryInfC{$\Gamma, x : \alpha \vdash P(x) \land Q(x)$}
+\RightLabel{$(\land E_1)$}
+\UnaryInfC{$\Gamma, x : \alpha \vdash P(x)$}
+\RightLabel{$(\forall I)$}
+\UnaryInfC{$\Gamma \vdash \forall x : \alpha, P(x)$}
+\AxiomC{$\Gamma, y : \alpha \vdash \forall z : \alpha, P(z) \land Q(z)$}
+\RightLabel{$(\forall E)$}
+\UnaryInfC{$\Gamma, y : \alpha \vdash P(y) \land Q(y)$}
+\RightLabel{$(\land E_2)$}
+\UnaryInfC{$\Gamma, y : \alpha \vdash Q(y)$}
+\RightLabel{$(\forall I)$}
+\UnaryInfC{$\Gamma \vdash \forall y : \alpha, Q(y)$}
+\RightLabel{$(\land I)$}
+\BinaryInfC{$\Gamma \vdash (\forall x : \alpha, P(x)) \land (\forall x : \alpha, Q(x))$}
+\end{prooftree}
 $$
 
 Lean のコードでは，`constructor` で連言の 2 つの成分を別々に証明します．
@@ -527,15 +566,14 @@ example (α : Type) (P Q : α → Prop) (h : ∀ x : α, P x ∧ Q x) :
 
 この例の証明図:
 $$
-\frac{
-  \Gamma \vdash \exists x, P(x)
-  \quad
-  \frac{\Gamma, y : \alpha, P(y) \vdash Q(y) \lor R(y)}
-        {\Gamma, y : \alpha, P(y) \vdash \exists x, Q(x) \lor R(x)}
-        \;(\exists I)
-}{
-  \Gamma \vdash \exists x, Q(x) \lor R(x)
-}\;(\exists E)
+\begin{prooftree}
+\AxiomC{$\Gamma \vdash \exists x : \alpha, P(x)$}
+\AxiomC{$\Gamma, y : \alpha, P(y) \vdash Q(y) \lor R(y)$}
+\RightLabel{$(\exists I)$}
+\UnaryInfC{$\Gamma, y : \alpha, P(y) \vdash \exists x : \alpha, Q(x) \lor R(x)$}
+\RightLabel{$(\exists E)$}
+\BinaryInfC{$\Gamma \vdash \exists x : \alpha, Q(x) \lor R(x)$}
+\end{prooftree}
 $$
 
 存在除去で得た局所的な証拠 `x` は，そのまま結論の存在命題の証拠として再利用できます．
@@ -632,53 +670,94 @@ example (α β : Type) (f : α → β) (a b : α) (hEq : a = b) : f a = f b := b
 
 1. 連言の可換性を証明してください．
 
+    ```lean4
+    example (P Q : Prop) : P ∧ Q → Q ∧ P := by
+      -- `intro h` のあと，`constructor` と `h.left`, `h.right` を使う．
+      sorry
+    ```
+
+2. 選言の可換性を証明してください．
+
+    ```lean4
+    example (P Q : Prop) : P ∨ Q → Q ∨ P := by
+      -- `cases` で場合分けする．
+      sorry
+    ```
+
+3. modus ponens を Lean で書いてください．
+
+    ```lean4
+    example (P Q : Prop) (hPQ : P → Q) (hP : P) : Q := by
+      -- 関数適用として読む．
+      sorry
+    ```
+
+4. `False` から任意の命題が従うことを証明してください．
+
+    ```lean4
+    example (P : Prop) (h : False) : P := by
+      -- `False.elim h`
+      sorry
+    ```
+
+5. 全称命題を使って具体的な元に関する結論を得てください．
+
+    ```lean4
+    example (α : Type) (P Q : α → Prop)
+        (h : ∀ x : α, P x → Q x) (a : α) (ha : P a) : Q a := by
+      -- `h a ha`
+      sorry
+    ```
+
+6. 存在命題から証拠を取り出し，同じ証拠で別の存在命題を作ってください．
+
+    ```lean4
+    example (α : Type) (P Q : α → Prop)
+        (h : ∃ x : α, P x) (hpq : ∀ x, P x → Q x) :
+        ∃ x : α, Q x := by
+      -- `cases h with | intro x hx => ...`
+      sorry
+    ```
+
+7. 等式を使って命題を書き換えてください．
+
+    ```lean4
+    example (α : Type) (P : α → Prop) (a b : α)
+        (hab : a = b) (ha : P a) : P b := by
+      -- `hab ▸ ha`
+      sorry
+    ```
+
+8. 証明図を自分で書いてから，次の Lean 証明を完成させてください．
+
+    ```lean4
+    example (P Q R : Prop) (h₁ : P → Q) (h₂ : Q → R) : P → R := by
+      -- `intro hP`
+      sorry
+    ```
 -/
 
+--#--
 example (P Q : Prop) : P ∧ Q → Q ∧ P := by
   -- `intro h` のあと，`constructor` と `h.left`, `h.right` を使う．
   sorry
-
-/-
-2. 選言の可換性を証明してください．
-
--/
 
 example (P Q : Prop) : P ∨ Q → Q ∨ P := by
   -- `cases` で場合分けする．
   sorry
 
-/-
-3. modus ponens を Lean で書いてください．
-
--/
-
 example (P Q : Prop) (hPQ : P → Q) (hP : P) : Q := by
   -- 関数適用として読む．
   sorry
-
-/-
-4. `False` から任意の命題が従うことを証明してください．
-
--/
 
 example (P : Prop) (h : False) : P := by
   -- `False.elim h`
   sorry
 
-/-
-5. 全称命題を使って具体的な元に関する結論を得てください．
-
--/
-
 example (α : Type) (P Q : α → Prop)
     (h : ∀ x : α, P x → Q x) (a : α) (ha : P a) : Q a := by
   -- `h a ha`
   sorry
-
-/-
-6. 存在命題から証拠を取り出し，同じ証拠で別の存在命題を作ってください．
-
--/
 
 example (α : Type) (P Q : α → Prop)
     (h : ∃ x : α, P x) (hpq : ∀ x, P x → Q x) :
@@ -686,21 +765,12 @@ example (α : Type) (P Q : α → Prop)
   -- `cases h with | intro x hx => ...`
   sorry
 
-/-
-7. 等式を使って命題を書き換えてください．
-
--/
-
 example (α : Type) (P : α → Prop) (a b : α)
     (hab : a = b) (ha : P a) : P b := by
   -- `hab ▸ ha`
   sorry
 
-/-
-8. 証明図を自分で書いてから，次の Lean 証明を完成させてください．
-
--/
-
 example (P Q R : Prop) (h₁ : P → Q) (h₂ : Q → R) : P → R := by
   -- `intro hP`
   sorry
+--#--

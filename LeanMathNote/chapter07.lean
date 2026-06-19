@@ -282,66 +282,60 @@ end CompactImage
 
 1. 開集合の連続写像による逆像が開集合であることを示してください．
 
--/
+    ```lean4
+    example {X Y : Type*} [TopologicalSpace X] [TopologicalSpace Y]
+        {f : X → Y} (hf : Continuous f) {U : Set Y} (hU : IsOpen U) :
+        IsOpen (f ⁻¹' U) := by
+      -- `hU.preimage hf` を試す．
+      sorry
+    ```
 
-example {X Y : Type*} [TopologicalSpace X] [TopologicalSpace Y]
-    {f : X → Y} (hf : Continuous f) {U : Set Y} (hU : IsOpen U) :
-    IsOpen (f ⁻¹' U) := by
-  -- `hU.preimage hf` を試す．
-  sorry
-
-/-
 2. 閉集合の連続写像による逆像が閉集合であることを示してください．
 
--/
+    ```lean4
+    example {X Y : Type*} [TopologicalSpace X] [TopologicalSpace Y]
+        {f : X → Y} (hf : Continuous f) {C : Set Y} (hC : IsClosed C) :
+        IsClosed (f ⁻¹' C) := by
+      -- `hC.preimage hf` を試す．
+      sorry
+    ```
 
-example {X Y : Type*} [TopologicalSpace X] [TopologicalSpace Y]
-    {f : X → Y} (hf : Continuous f) {C : Set Y} (hC : IsClosed C) :
-    IsClosed (f ⁻¹' C) := by
-  -- `hC.preimage hf` を試す．
-  sorry
-
-/-
 3. 実数値連続関数 `f g : X → ℝ` について，集合 `{x | f x ≤ g x}` が閉集合であることを示してください．
 
--/
+    ```lean4
+    example {X : Type*} [TopologicalSpace X] {f g : X → ℝ}
+        (hf : Continuous f) (hg : Continuous g) :
+        IsClosed {x : X | f x ≤ g x} := by
+      -- `isClosed_le hf hg` を調べる．
+      sorry
+    ```
 
-example {X : Type*} [TopologicalSpace X] {f g : X → ℝ}
-    (hf : Continuous f) (hg : Continuous g) :
-    IsClosed {x : X | f x ≤ g x} := by
-  -- `isClosed_le hf hg` を調べる．
-  sorry
-
-/-
 4. 距離空間で，開球が開集合であることをもう一度証明してください．
 
--/
+    ```lean4
+    example {X : Type*} [PseudoMetricSpace X] (x : X) (r : ℝ) :
+        IsOpen (Metric.ball x r) := by
+      -- `Metric.isOpen_ball`．
+      sorry
+    ```
 
-example {X : Type*} [PseudoMetricSpace X] (x : X) (r : ℝ) :
-    IsOpen (Metric.ball x r) := by
-  -- `Metric.isOpen_ball`．
-  sorry
-
-/-
 5. `Tendsto` の定義を `map` と filter の順序として読み替えてください．
 
--/
+    ```lean4
+    example {α β : Type*} (f : α → β) (l : Filter α) (m : Filter β) :
+        Tendsto f l m = (map f l ≤ m) := by
+      -- 定義そのもの．
+      sorry
+    ```
 
-example {α β : Type*} (f : α → β) (l : Filter α) (m : Filter β) :
-    Tendsto f l m = (map f l ≤ m) := by
-  -- 定義そのもの．
-  sorry
-
-/-
 6. `closure_mono` を使って，`s ⊆ t` なら `closure s ⊆ closure t` を示してください．
 
--/
+    ```lean4
+    example {X : Type*} [TopologicalSpace X] {s t : Set X} (hst : s ⊆ t) :
+        closure s ⊆ closure t := by
+      exact closure_mono hst
+    ```
 
-example {X : Type*} [TopologicalSpace X] {s t : Set X} (hst : s ⊆ t) :
-    closure s ⊆ closure t := by
-  exact closure_mono hst
-
-/-
 ### 形式化の作戦
 
 位相の形式化では，同じ定理が「集合の言葉」「フィルターの言葉」「距離の言葉」で出てきます．
@@ -355,19 +349,86 @@ example {X : Type*} [TopologicalSpace X] {s t : Set X} (hst : s ⊆ t) :
 
 ### 発展演習
 
-7. `zeroSet` を使わずに `{x | f x = 0}` が閉集合であることを直接証明してください．
+<ol start="7" markdown="1">
+<li markdown="1">
+`zeroSet` を使わずに `{x | f x = 0}` が閉集合であることを直接証明してください．
 
+    ```lean4
+    example {X : Type*} [TopologicalSpace X] {f : X → ℝ} (hf : Continuous f) :
+        IsClosed {x : X | f x = 0} := by
+      -- `isClosed_eq hf continuous_const` を使う．
+      sorry
+    ```
+</li>
+
+<li markdown="1">
+`{x | f x < g x}` が開集合であることを調べてください．
+
+    ```lean4
+    example {X : Type*} [TopologicalSpace X] {f g : X → ℝ}
+        (hf : Continuous f) (hg : Continuous g) :
+        IsOpen {x : X | f x < g x} := by
+      -- `isOpen_lt hf hg` を調べる．
+      sorry
+    ```
+</li>
+
+<li markdown="1">
+`ContinuousAt` が `Tendsto` であることを確認してください．
+
+    ```lean4
+    #check ContinuousAt
+    ```
+</li>
+
+<li markdown="1">
+`interior s ⊆ s` と `s ⊆ closure s` をそれぞれ確認してください．
+
+    ```lean4
+    #check interior_subset
+    #check subset_closure
+    ```
+</li>
+</ol>
 -/
+
+--#--
+example {X Y : Type*} [TopologicalSpace X] [TopologicalSpace Y]
+    {f : X → Y} (hf : Continuous f) {U : Set Y} (hU : IsOpen U) :
+    IsOpen (f ⁻¹' U) := by
+  -- `hU.preimage hf` を試す．
+  sorry
+
+example {X Y : Type*} [TopologicalSpace X] [TopologicalSpace Y]
+    {f : X → Y} (hf : Continuous f) {C : Set Y} (hC : IsClosed C) :
+    IsClosed (f ⁻¹' C) := by
+  -- `hC.preimage hf` を試す．
+  sorry
+
+example {X : Type*} [TopologicalSpace X] {f g : X → ℝ}
+    (hf : Continuous f) (hg : Continuous g) :
+    IsClosed {x : X | f x ≤ g x} := by
+  -- `isClosed_le hf hg` を調べる．
+  sorry
+
+example {X : Type*} [PseudoMetricSpace X] (x : X) (r : ℝ) :
+    IsOpen (Metric.ball x r) := by
+  -- `Metric.isOpen_ball`．
+  sorry
+
+example {α β : Type*} (f : α → β) (l : Filter α) (m : Filter β) :
+    Tendsto f l m = (map f l ≤ m) := by
+  -- 定義そのもの．
+  sorry
+
+example {X : Type*} [TopologicalSpace X] {s t : Set X} (hst : s ⊆ t) :
+    closure s ⊆ closure t := by
+  exact closure_mono hst
 
 example {X : Type*} [TopologicalSpace X] {f : X → ℝ} (hf : Continuous f) :
     IsClosed {x : X | f x = 0} := by
   -- `isClosed_eq hf continuous_const` を使う．
   sorry
-
-/-
-8. `{x | f x < g x}` が開集合であることを調べてください．
-
--/
 
 example {X : Type*} [TopologicalSpace X] {f g : X → ℝ}
     (hf : Continuous f) (hg : Continuous g) :
@@ -375,19 +436,10 @@ example {X : Type*} [TopologicalSpace X] {f g : X → ℝ}
   -- `isOpen_lt hf hg` を調べる．
   sorry
 
-/-
-9. `ContinuousAt` が `Tendsto` であることを確認してください．
-
--/
-
 #check ContinuousAt
-
-/-
-10. `interior s ⊆ s` と `s ⊆ closure s` をそれぞれ確認してください．
-
--/
 
 #check interior_subset
 #check subset_closure
+--#--
 
 end Chapter07 --#

@@ -856,18 +856,95 @@ Lean の基本は「すべての式には型がある」という考え方です
 
 1. `#check` で次の式の型を確認してください．
 
+    ```lean4
+    #check Nat
+    #check (3 : Nat)
+    #check fun n : Nat => n + 1
+    #check List Nat
+    #check Option String
+    ```
+
+2. 自然数を 2 倍する関数を `def` で定義し，簡単な計算例を証明してください．
+
+    ```lean4
+    def twiceExercise (n : Nat) : Nat :=
+      -- ここを埋める．
+      sorry
+
+    example : twiceExercise 4 = 8 := by
+      -- 定義通りなら `rfl` で閉じる．
+      sorry
+    ```
+
+3. 2 つの成分を持つ構造体を定義し，フィールドを取り出してください．
+
+    ```lean4
+    structure PointExercise where
+      x : Nat
+      y : Nat
+
+    def pExercise : PointExercise :=
+      { x := 2, y := 5 }
+
+    example : pExercise.x = 2 := by
+      sorry
+    ```
+
+4. `Option Nat` を場合分けする関数を書いてください．
+
+    ```lean4
+    def optionDefaultExercise : Option Nat → Nat
+      | none => 0
+      | some n => -- ここを埋める．
+          sorry
+    ```
+
+5. 3 つの積 `α × β × γ` から各成分を取り出す式を書いてください．
+
+    ```lean4
+    example (α β γ : Type) (x : α × β × γ) : α :=
+      -- 第 1 成分
+      sorry
+
+    example (α β γ : Type) (x : α × β × γ) : β :=
+      -- 第 2 成分
+      sorry
+
+    example (α β γ : Type) (x : α × β × γ) : γ :=
+      -- 第 3 成分
+      sorry
+    ```
+
+6. `namespace` を使って，同じ名前の定義が衝突しないことを確認してください．
+
+    ```lean4
+    namespace AExercise
+    def value : Nat := 10
+    end AExercise
+
+    namespace BExercise
+    def value : Nat := 20
+    end BExercise
+
+    #check AExercise.value
+    #check BExercise.value
+    ```
+
+7. 型クラスを要求する関数の例として，加法を使う関数を定義してください．
+
+    ```lean4
+    def addThreeExercise {α : Type} [Add α] (a b c : α) : α :=
+      -- `a + b + c`
+      sorry
+    ```
 -/
 
+--#--
 #check Nat
 #check (3 : Nat)
 #check fun n : Nat => n + 1
 #check List Nat
 #check Option String
-
-/-
-2. 自然数を 2 倍する関数を `def` で定義し，簡単な計算例を証明してください．
-
--/
 
 def twiceExercise (n : Nat) : Nat :=
   -- ここを埋める．
@@ -876,11 +953,6 @@ def twiceExercise (n : Nat) : Nat :=
 example : twiceExercise 4 = 8 := by
   -- 定義通りなら `rfl` で閉じる．
   sorry
-
-/-
-3. 2 つの成分を持つ構造体を定義し，フィールドを取り出してください．
-
--/
 
 structure PointExercise where
   x : Nat
@@ -892,20 +964,10 @@ def pExercise : PointExercise :=
 example : pExercise.x = 2 := by
   sorry
 
-/-
-4. `Option Nat` を場合分けする関数を書いてください．
-
--/
-
 def optionDefaultExercise : Option Nat → Nat
   | none => 0
   | some n => -- ここを埋める．
       sorry
-
-/-
-5. 3 つの積 `α × β × γ` から各成分を取り出す式を書いてください．
-
--/
 
 example (α β γ : Type) (x : α × β × γ) : α :=
   -- 第 1 成分
@@ -919,11 +981,6 @@ example (α β γ : Type) (x : α × β × γ) : γ :=
   -- 第 3 成分
   sorry
 
-/-
-6. `namespace` を使って，同じ名前の定義が衝突しないことを確認してください．
-
--/
-
 namespace AExercise
 def value : Nat := 10
 end AExercise
@@ -935,13 +992,9 @@ end BExercise
 #check AExercise.value
 #check BExercise.value
 
-/-
-7. 型クラスを要求する関数の例として，加法を使う関数を定義してください．
-
--/
-
 def addThreeExercise {α : Type} [Add α] (a b c : α) : α :=
   -- `a + b + c`
   sorry
+--#--
 
 end Chapter02 --#

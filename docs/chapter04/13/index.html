@@ -4330,37 +4330,37 @@
 <p>この章の演習では，Mathlib の名前を調べながら既存補題を使う演習をします．
 <code>#check</code>，<code>#synth</code>，<code>simp</code>，<code>rw</code>，<code>norm_num</code>，<code>ext</code> を積極的に使ってください．</p>
 <ol>
-<li><code>#synth</code> で，実数が体・線形順序・狭義順序環の構造を持つことを確認してください．</li>
-</ol>
+<li>
+<p><code>#synth</code> で，実数が体・線形順序・狭義順序環の構造を持つことを確認してください．</p>
 <div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="bp">#</span><span class="n">synth</span><span class="w"> </span><span class="n">Field</span><span class="w"> </span><span class="n">ℝ</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="bp">#</span><span class="n">synth</span><span class="w"> </span><span class="n">LinearOrder</span><span class="w"> </span><span class="n">ℝ</span>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="bp">#</span><span class="n">synth</span><span class="w"> </span><span class="n">IsStrictOrderedRing</span><span class="w"> </span><span class="n">ℝ</span>
 </code></pre></div>
-<ol>
-<li><code>Finset.range</code> の membership を <code>simp</code> で証明してください．</li>
-</ol>
+</li>
+<li>
+<p><code>Finset.range</code> の membership を <code>simp</code> で証明してください．</p>
 <div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">example</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="o">(</span><span class="mi">3</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="o">)</span><span class="w"> </span><span class="bp">∈</span><span class="w"> </span><span class="n">Finset</span><span class="bp">.</span><span class="n">range</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="gr">sorry</span>
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
 <a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="kn">example</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="o">(</span><span class="mi">5</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="o">)</span><span class="w"> </span><span class="bp">∉</span><span class="w"> </span><span class="n">Finset</span><span class="bp">.</span><span class="n">range</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
 <a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">  </span><span class="gr">sorry</span>
 </code></pre></div>
-<ol>
-<li><code>Set.ext</code> を使って集合の等式を証明してください．</li>
-</ol>
+</li>
+<li>
+<p><code>Set.ext</code> を使って集合の等式を証明してください．</p>
 <div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">example</span><span class="w"> </span><span class="o">{</span><span class="n">α</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Type</span><span class="o">}</span><span class="w"> </span><span class="o">(</span><span class="n">s</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Set</span><span class="w"> </span><span class="n">α</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="bp">∩</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="bp">∩</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="c1">-- `ext x`, `constructor`, `intro h` で進める．</span>
 <a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">  </span><span class="gr">sorry</span>
 </code></pre></div>
-<ol>
-<li><code>propext</code> を使って，同値な命題を等しい命題として扱ってください．</li>
-</ol>
+</li>
+<li>
+<p><code>propext</code> を使って，同値な命題を等しい命題として扱ってください．</p>
 <div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">P</span><span class="w"> </span><span class="n">Q</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Prop</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">h</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">P</span><span class="w"> </span><span class="bp">↔</span><span class="w"> </span><span class="n">Q</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">P</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">Q</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="n">exact</span><span class="w"> </span><span class="n">propext</span><span class="w"> </span><span class="n">h</span>
 </code></pre></div>
-<ol>
-<li><code>Classical.choose</code> と <code>Classical.choose_spec</code> を使って，存在命題から証拠を取り出してください．</li>
-</ol>
+</li>
+<li>
+<p><code>Classical.choose</code> と <code>Classical.choose_spec</code> を使って，存在命題から証拠を取り出してください．</p>
 <div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">noncomputable</span><span class="w"> </span><span class="kn">def</span><span class="w"> </span><span class="n">chosenNatExercise</span><span class="w"> </span><span class="o">(</span><span class="n">h</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="bp">∃</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="o">,</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="bp">&gt;</span><span class="w"> </span><span class="mi">10</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="w"> </span><span class="o">:=</span>
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span><span class="n">Classical</span><span class="bp">.</span><span class="n">choose</span><span class="w"> </span><span class="n">h</span>
 <a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
@@ -4368,29 +4368,31 @@
 <a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">  </span><span class="c1">-- `Classical.choose_spec h`</span>
 <a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">  </span><span class="gr">sorry</span>
 </code></pre></div>
-<ol>
-<li><code>Real</code> と <code>ENNReal</code> の型クラスインスタンスを調べてください．</li>
-</ol>
+</li>
+<li>
+<p><code>Real</code> と <code>ENNReal</code> の型クラスインスタンスを調べてください．</p>
 <div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">Real</span>
 <a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">ENNReal</span>
 <a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="bp">#</span><span class="n">synth</span><span class="w"> </span><span class="n">TopologicalSpace</span><span class="w"> </span><span class="n">ℝ</span>
 <a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="bp">#</span><span class="n">synth</span><span class="w"> </span><span class="n">CompleteLinearOrder</span><span class="w"> </span><span class="n">ENNReal</span>
 </code></pre></div>
-<ol>
-<li>命名規則を使って，次の補題名を予想し，<code>#check</code> で確認してください．</li>
-</ol>
+</li>
+<li>
+<p>命名規則を使って，次の補題名を予想し，<code>#check</code> で確認してください．</p>
 <div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">Set</span><span class="bp">.</span><span class="n">mem_inter_iff</span>
 <a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">Set</span><span class="bp">.</span><span class="n">mem_union</span>
 <a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">not_le_of_gt</span>
 <a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">lt_of_le_of_ne</span>
 </code></pre></div>
-<ol>
-<li><code>Finset</code> と <code>Set</code> の違いを説明したうえで，有限和を計算してください．</li>
-</ol>
+</li>
+<li>
+<p><code>Finset</code> と <code>Set</code> の違いを説明したうえで，有限和を計算してください．</p>
 <div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kn">example</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="o">(</span><span class="bp">∑</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="bp">∈</span><span class="w"> </span><span class="n">Finset</span><span class="bp">.</span><span class="n">range</span><span class="w"> </span><span class="mi">4</span><span class="o">,</span><span class="w"> </span><span class="n">i</span><span class="o">)</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="mi">6</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
 <a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">  </span><span class="c1">-- `native_decide` または `norm_num` 系を試す．</span>
 <a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">  </span><span class="gr">sorry</span>
 </code></pre></div>
+</li>
+</ol>
 
 
 

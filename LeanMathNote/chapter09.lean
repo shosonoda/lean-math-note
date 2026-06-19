@@ -259,62 +259,56 @@ Lean では，被積分関数が適切に積分可能であることが theorem 
 
 1. 定数関数の区間積分を計算してください．
 
--/
+    ```lean4
+    example : ∫ _ : ℝ in (1)..(4), (2 : ℝ) = 6 := by
+      -- `norm_num` を試す．
+      sorry
+    ```
 
-example : ∫ _ : ℝ in (1)..(4), (2 : ℝ) = 6 := by
-  -- `norm_num` を試す．
-  sorry
-
-/-
 2. 積分の和に関する線形性を `intervalIntegral.integral_add` で証明してください．
 
--/
+    ```lean4
+    example {f g : ℝ → ℝ} {a b : ℝ}
+        (hf : IntervalIntegrable f volume a b)
+        (hg : IntervalIntegrable g volume a b) :
+        ∫ x : ℝ in a..b, f x + g x =
+          (∫ x : ℝ in a..b, f x) + ∫ x : ℝ in a..b, g x := by
+      exact intervalIntegral.integral_add hf hg
+    ```
 
-example {f g : ℝ → ℝ} {a b : ℝ}
-    (hf : IntervalIntegrable f volume a b)
-    (hg : IntervalIntegrable g volume a b) :
-    ∫ x : ℝ in a..b, f x + g x =
-      (∫ x : ℝ in a..b, f x) + ∫ x : ℝ in a..b, g x := by
-  exact intervalIntegral.integral_add hf hg
-
-/-
 3. 可測集合の補集合が可測であることを示してください．
 
--/
+    ```lean4
+    example {α : Type*} [MeasurableSpace α] {s : Set α}
+        (hs : MeasurableSet s) : MeasurableSet sᶜ := by
+      exact hs.compl
+    ```
 
-example {α : Type*} [MeasurableSpace α] {s : Set α}
-    (hs : MeasurableSet s) : MeasurableSet sᶜ := by
-  exact hs.compl
-
-/-
 4. ほとんど至る所の記法 `∀ᵐ` が filter の `Eventually` であることを確認してください．
 
--/
+    ```lean4
+    example {α : Type*} [MeasurableSpace α] {μ : Measure α} {P : α → Prop} :
+        (∀ᵐ x ∂μ, P x) ↔ ∀ᶠ x in ae μ, P x := by
+      rfl
+    ```
 
-example {α : Type*} [MeasurableSpace α] {μ : Measure α} {P : α → Prop} :
-    (∀ᵐ x ∂μ, P x) ↔ ∀ᶠ x in ae μ, P x := by
-  rfl
-
-/-
 5. Bochner 積分の加法性を使ってください．
 
--/
+    ```lean4
+    example {α E : Type*} [MeasurableSpace α]
+        [NormedAddCommGroup E] [NormedSpace ℝ E] [CompleteSpace E]
+        {μ : Measure α} {f g : α → E}
+        (hf : Integrable f μ) (hg : Integrable g μ) :
+        ∫ x, f x + g x ∂μ = ∫ x, f x ∂μ + ∫ x, g x ∂μ := by
+      exact integral_add hf hg
+    ```
 
-example {α E : Type*} [MeasurableSpace α]
-    [NormedAddCommGroup E] [NormedSpace ℝ E] [CompleteSpace E]
-    {μ : Measure α} {f g : α → E}
-    (hf : Integrable f μ) (hg : Integrable g μ) :
-    ∫ x, f x + g x ∂μ = ∫ x, f x ∂μ + ∫ x, g x ∂μ := by
-  exact integral_add hf hg
-
-/-
 6. Fubini の定理の statement を `#check` で読み，どこに `SigmaFinite` 仮定が現れるか確認してください．
 
--/
+    ```lean4
+    #check integral_prod
+    ```
 
-#check integral_prod
-
-/-
 ### 形式化の作戦
 
 積分の形式化では，計算そのものよりも仮定の整理が難しいことが多いです．
@@ -328,35 +322,83 @@ example {α E : Type*} [MeasurableSpace α]
 
 ### 発展演習
 
-7. 区間の向きを反転したときの積分を調べてください．
+<ol start="7" markdown="1">
+<li markdown="1">
+区間の向きを反転したときの積分を調べてください．
 
+    ```lean4
+    #check intervalIntegral.integral_symm
+    ```
+</li>
+
+<li markdown="1">
+`∫ x in a..b, f x` と `∫ x in b..a, f x` の関係を使って，定数関数の例を逆向き区間で計算してください．
+
+    ```lean4
+    example : ∫ _ : ℝ in (2)..(0), (3 : ℝ) = -6 := by
+      -- `norm_num` を試す．
+      sorry
+    ```
+</li>
+
+<li markdown="1">
+`MeasurableSet.iUnion` の仮定を読み，可算性がどこで必要か確認してください．
+
+    ```lean4
+    #check MeasurableSet.iUnion
+    ```
+</li>
+
+<li markdown="1">
+優収束定理の statement を読み，どの仮定が「支配関数」に対応するか確認してください．
+
+    ```lean4
+    #check tendsto_integral_of_dominated_convergence
+    ```
+</li>
+</ol>
 -/
+
+--#--
+example : ∫ _ : ℝ in (1)..(4), (2 : ℝ) = 6 := by
+  -- `norm_num` を試す．
+  sorry
+
+example {f g : ℝ → ℝ} {a b : ℝ}
+    (hf : IntervalIntegrable f volume a b)
+    (hg : IntervalIntegrable g volume a b) :
+    ∫ x : ℝ in a..b, f x + g x =
+      (∫ x : ℝ in a..b, f x) + ∫ x : ℝ in a..b, g x := by
+  exact intervalIntegral.integral_add hf hg
+
+example {α : Type*} [MeasurableSpace α] {s : Set α}
+    (hs : MeasurableSet s) : MeasurableSet sᶜ := by
+  exact hs.compl
+
+example {α : Type*} [MeasurableSpace α] {μ : Measure α} {P : α → Prop} :
+    (∀ᵐ x ∂μ, P x) ↔ ∀ᶠ x in ae μ, P x := by
+  rfl
+
+example {α E : Type*} [MeasurableSpace α]
+    [NormedAddCommGroup E] [NormedSpace ℝ E] [CompleteSpace E]
+    {μ : Measure α} {f g : α → E}
+    (hf : Integrable f μ) (hg : Integrable g μ) :
+    ∫ x, f x + g x ∂μ = ∫ x, f x ∂μ + ∫ x, g x ∂μ := by
+  exact integral_add hf hg
+
+#check integral_prod
 
 #check intervalIntegral.integral_symm
-
-/-
-8. `∫ x in a..b, f x` と `∫ x in b..a, f x` の関係を使って，定数関数の例を逆向き区間で計算してください．
-
--/
 
 example : ∫ _ : ℝ in (2)..(0), (3 : ℝ) = -6 := by
   -- `norm_num` を試す．
   sorry
 
-/-
-9. `MeasurableSet.iUnion` の仮定を読み，可算性がどこで必要か確認してください．
-
--/
-
 #check MeasurableSet.iUnion
 
-/-
-10. 優収束定理の statement を読み，どの仮定が「支配関数」に対応するか確認してください．
-
--/
-
 #check tendsto_integral_of_dominated_convergence
+--#--
 
-end
+end --#
 
 end Chapter09 --#
