@@ -400,62 +400,68 @@ end ConjugateSubgroup
 
 1. モノイド準同型の合成が積を保つことを示してください．
 
-```lean
+-/
+
 example {M N P : Type*} [Monoid M] [Monoid N] [Monoid P]
     (f : M →* N) (g : N →* P) (x y : M) :
     (g.comp f) (x * y) = (g.comp f) x * (g.comp f) y := by
   -- `map_mul` または `simp` を使う．
   sorry
-```
 
+/-
 2. 部分群の `map` が包含を保つことを示してください．
 
-```lean
+-/
+
 example {G H : Type*} [Group G] [Group H]
     (φ : G →* H) (S T : Subgroup G) (hST : S ≤ T) :
     Subgroup.map φ S ≤ Subgroup.map φ T := by
   -- `Subgroup.mem_map` で元を存在記号に分解する．
   sorry
-```
 
+/-
 3. 部分群の `comap` が包含を保つことを示してください．
 
-```lean
+-/
+
 example {G H : Type*} [Group G] [Group H]
     (φ : G →* H) (S T : Subgroup H) (hST : S ≤ T) :
     Subgroup.comap φ S ≤ Subgroup.comap φ T := by
   -- `rfl` で membership を展開できる．
   sorry
-```
 
+/-
 4. `conjugateSubgroup` について，`g⁻¹` で再び共役すると元に戻ることを示してください．
 
-```lean
+-/
+
 example {G : Type*} [Group G] (g : G) (S : Subgroup G) :
     conjugateSubgroup g⁻¹ (conjugateSubgroup g S) = S := by
   -- `ext x` で部分群の等式を元ごとの同値にする．
   -- その後，存在記号を分解して `group` を使う．
   sorry
-```
 
+/-
 5. 可換環のイデアル `I J : Ideal R` について，`I ⊓ J` の元であることを集合の交わりとして読み替えてください．
 
-```lean
+-/
+
 example {R : Type*} [CommRing R] (I J : Ideal R) (x : R) :
     x ∈ I ⊓ J ↔ x ∈ I ∧ x ∈ J := by
   -- `rfl` または `simp` を試す．
   sorry
-```
 
+/-
 6. 多項式で，定数多項式の和が係数の和に対応することを示してください．
 
-```lean
+-/
+
 example {R : Type*} [Semiring R] (a b : R) :
     (Polynomial.C a + Polynomial.C b : Polynomial R) = Polynomial.C (a + b) := by
   -- `ext n` または `simp` を試す．
   sorry
-```
 
+/-
 ### 形式化の作戦
 
 代数の形式化では，次の順に考えると進めやすくなります．
@@ -470,39 +476,41 @@ example {R : Type*} [Semiring R] (a b : R) :
 
 7. `MonoidHom.ker f` の membership を読み替えてください．
 
-```lean
+-/
+
 example {G H : Type*} [Group G] [Group H] (f : G →* H) (x : G) :
     x ∈ MonoidHom.ker f ↔ f x = 1 := by
   -- `f.mem_ker` を調べる．
   sorry
-```
 
+/-
 8. `MonoidHom.range f` の membership を読み替えてください．
 
-```lean
+-/
+
 example {G H : Type*} [Group G] [Group H] (f : G →* H) (y : H) :
     y ∈ MonoidHom.range f ↔ ∃ x : G, f x = y := by
   -- `f.mem_range` を調べる．
   sorry
-```
 
+/-
 9. 部分群の積で閉じていることを，`S.mul_mem` ではなく `show` でゴールを明示して証明してください．
 
-```lean
+-/
+
 example {G : Type*} [Group G] (S : Subgroup G) {x y : G}
     (hx : x ∈ S) (hy : y ∈ S) : x * y ∈ S := by
   show x * y ∈ S
   exact S.mul_mem hx hy
-```
 
+/-
 10. 可換環で，イデアルの元に外から掛けてもイデアルに入ることを左右両方で確認してください．
 
-```lean
+-/
+
 example {R : Type*} [CommRing R] (I : Ideal R) {x : R} (hx : x ∈ I) (r : R) :
     x * r ∈ I := by
   -- 可換性で `r * x` に直すか，既存補題を探す．
   sorry
-```
--/
 
 end Chapter05 --#

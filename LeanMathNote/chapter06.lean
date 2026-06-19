@@ -384,7 +384,8 @@ end CoordinateLinearMaps
 
 1. 線形写像は `0` を `0` に送ることを示してください．
 
-```lean
+-/
+
 example {K V W : Type*} [Field K]
     [AddCommGroup V] [Module K V]
     [AddCommGroup W] [Module K W]
@@ -392,11 +393,12 @@ example {K V W : Type*} [Field K]
     f 0 = 0 := by
   -- `map_zero` または `simp`．
   sorry
-```
 
+/-
 2. kernel の元は，定義通り `f x = 0` を満たすことを示してください．
 
-```lean
+-/
+
 example {K V W : Type*} [Field K]
     [AddCommGroup V] [Module K V]
     [AddCommGroup W] [Module K W]
@@ -404,11 +406,12 @@ example {K V W : Type*} [Field K]
     x ∈ LinearMap.ker f ↔ f x = 0 := by
   -- `rfl` で閉じるか確認する．
   sorry
-```
 
+/-
 3. `Submodule.map` と `Submodule.comap` の membership を読み替えてください．
 
-```lean
+-/
+
 example {K V W : Type*} [Field K]
     [AddCommGroup V] [Module K V]
     [AddCommGroup W] [Module K W]
@@ -416,22 +419,24 @@ example {K V W : Type*} [Field K]
     y ∈ Submodule.map f S ↔ ∃ x ∈ S, f x = y := by
   -- `Submodule.mem_map` を調べる．
   sorry
-```
 
+/-
 4. `planeE1` と `planeE2` が一次独立であることを示してください．
 これは少し難しい問題です．まず `#check LinearIndependent` で statement の形を確認してください．
 
-```lean
+-/
+
 example {K : Type*} [Field K] :
     LinearIndependent K (fun i : Fin 2 =>
       if i = 0 then (planeE1 : K × K) else planeE2) := by
   -- 方針: `linearIndependent_iff` 系の補題を探す．
   sorry
-```
 
+/-
 5. `K × K` 上の線形写像 `(x, y) ↦ x - y` を `LinearMap` として作ってください．
 
-```lean
+-/
+
 def diffPairLinear {K : Type*} [Field K] : (K × K) →ₗ[K] K where
   toFun p := p.1 - p.2
   map_add' := by
@@ -440,14 +445,15 @@ def diffPairLinear {K : Type*} [Field K] : (K × K) →ₗ[K] K where
   map_smul' := by
     -- スカラー倍の分配法則．
     sorry
-```
 
+/-
 6. `Matrix (Fin 2) (Fin 2) K` の単位行列の行列式が 1 であることを，`simp` 以外の方法でも調べてください．
 
-```lean
-#check Matrix.det_one
-```
+-/
 
+#check Matrix.det_one
+
+/-
 ### 形式化の作戦
 
 線形代数の形式化では，紙の証明で省略している「どの空間の元か」を Lean に明示する必要があります．
@@ -462,37 +468,39 @@ def diffPairLinear {K : Type*} [Field K] : (K × K) →ₗ[K] K where
 
 7. `sumPairLinear` の kernel が `x + y = 0` であることを，`rfl` ではなく `simp` で証明してください．
 
-```lean
+-/
+
 example {K : Type*} [Field K] (x y : K) :
     (x, y) ∈ LinearMap.ker (sumPairLinear : (K × K) →ₗ[K] K) ↔ x + y = 0 := by
   -- `show` でゴールを見てから `simp [sumPairLinear]` を試す．
   sorry
-```
 
+/-
 8. 線形写像の range が部分空間であることを確認してください．
 
-```lean
+-/
+
 example {K V W : Type*} [Field K]
     [AddCommGroup V] [Module K V]
     [AddCommGroup W] [Module K W]
     (f : V →ₗ[K] W) :
     Submodule K W :=
   LinearMap.range f
-```
 
+/-
 9. `K × K` の任意の点を `planeE1` と `planeE2` の線形結合として書いてください．
 
-```lean
+-/
+
 example {K : Type*} [Field K] (p : K × K) :
     p = p.1 • planeE1 + p.2 • planeE2 := by
   ext <;> simp [planeE1, planeE2]
-```
 
+/-
 10. 行列と線形写像の橋渡しとして `Matrix.toLin` の型を読み，どこで基底が必要になるか説明してください．
 
-```lean
-#check Matrix.toLin
-```
 -/
+
+#check Matrix.toLin
 
 end Chapter06 --#

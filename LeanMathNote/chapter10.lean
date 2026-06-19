@@ -511,19 +511,21 @@ lake env lean --src-deps LeanMathNote/chapter10.lean
 
 6. `Syntax`，`Expr`，`Environment` の型を確認してください．
 
-```lean
+-/
+
 #check Lean.Syntax
 #check Lean.Expr
 #check Lean.Environment
-```
 
+/-
 7. pretty printer の出力を詳しくして，暗黙引数や型クラス引数が表示されることを確認してください．
 
-```lean
+-/
+
 set_option pp.all true in
 #check (fun n : Nat => n + 1)
-```
 
+/-
 8. `lake build` を実行した後，生成される `.olean` と `.ilean` を探してください．
 
 ```bash

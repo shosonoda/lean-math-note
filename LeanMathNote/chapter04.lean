@@ -542,73 +542,81 @@ Mathlib を使う証明では，具体的な対象だけでなく，それが持
 この章の演習では，Mathlib の名前を調べながら既存補題を使う演習をします．
 `#check`，`#synth`，`simp`，`rw`，`norm_num`，`ext` を積極的に使ってください．
 
-1. `#synth` で，実数が順序体であることを確認してください．
+1. `#synth` で，実数が体・線形順序・狭義順序環の構造を持つことを確認してください．
 
-```lean
-#synth LinearOrderedField ℝ
-```
+-/
 
+#synth Field ℝ
+#synth LinearOrder ℝ
+#synth IsStrictOrderedRing ℝ
+
+/-
 2. `Finset.range` の membership を `simp` で証明してください．
 
-```lean
+-/
+
 example : (3 : Nat) ∈ Finset.range 5 := by
   sorry
 
 example : (5 : Nat) ∉ Finset.range 5 := by
   sorry
-```
 
+/-
 3. `Set.ext` を使って集合の等式を証明してください．
 
-```lean
+-/
+
 example {α : Type} (s t : Set α) : s ∩ t = t ∩ s := by
   -- `ext x`, `constructor`, `intro h` で進める．
   sorry
-```
 
+/-
 4. `propext` を使って，同値な命題を等しい命題として扱ってください．
 
-```lean
+-/
+
 example (P Q : Prop) (h : P ↔ Q) : P = Q := by
   exact propext h
-```
 
+/-
 5. `Classical.choose` と `Classical.choose_spec` を使って，存在命題から証拠を取り出してください．
 
-```lean
+-/
+
 noncomputable def chosenNatExercise (h : ∃ n : Nat, n > 10) : Nat :=
   Classical.choose h
 
 example (h : ∃ n : Nat, n > 10) : chosenNatExercise h > 10 := by
   -- `Classical.choose_spec h`
   sorry
-```
 
+/-
 6. `Real` と `ENNReal` の型クラスインスタンスを調べてください．
 
-```lean
+-/
+
 #check Real
 #check ENNReal
 #synth TopologicalSpace ℝ
 #synth CompleteLinearOrder ENNReal
-```
 
+/-
 7. 命名規則を使って，次の補題名を予想し，`#check` で確認してください．
 
-```lean
+-/
+
 #check Set.mem_inter_iff
 #check Set.mem_union
 #check not_le_of_gt
 #check lt_of_le_of_ne
-```
 
+/-
 8. `Finset` と `Set` の違いを説明したうえで，有限和を計算してください．
 
-```lean
+-/
+
 example : (∑ i ∈ Finset.range 4, i) = 6 := by
   -- `native_decide` または `norm_num` 系を試す．
   sorry
-```
--/
 
 end Chapter04 --#

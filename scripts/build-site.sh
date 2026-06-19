@@ -9,6 +9,9 @@ PAGES_DIR="${PAGES_DIR:-site-pages}"
 SITE_DIR="${SITE_DIR:-docs}"
 MKDOCS_CONFIG="${MKDOCS_CONFIG:-mkdocs.yml}"
 MKDOCS_GENERATED_CONFIG="${MKDOCS_GENERATED_CONFIG:-.mkdocs.generated.yml}"
+KEEP_MKDOCS_GENERATED_CONFIG="${KEEP_MKDOCS_GENERATED_CONFIG:-0}"
+PRINT_PAGE_NAME="${PRINT_PAGE_NAME:-print_page.md}"
+BUILD_MKDOCS="${BUILD_MKDOCS:-1}"
 NAV_BEFORE="${NAV_BEFORE:-$CONTENT_DIR/nav-before.yml}"
 NAV_AFTER="${NAV_AFTER:-$CONTENT_DIR/nav-after.yml}"
 
@@ -21,7 +24,9 @@ cleanup_generated_config() {
   rm -f "$MKDOCS_GENERATED_CONFIG"
 }
 
-trap cleanup_generated_config EXIT HUP INT TERM
+if [ "$KEEP_MKDOCS_GENERATED_CONFIG" != "1" ]; then
+  trap cleanup_generated_config EXIT HUP INT TERM
+fi
 
 if [ ! -d "$CONTENT_DIR" ]; then
   echo "Content directory not found: $CONTENT_DIR" >&2
@@ -104,11 +109,22 @@ done
 echo "Running: python3 scripts/split_chapters.py $BUILD_SOURCE_DIR $PAGES_DIR"
 python3 scripts/split_chapters.py "$BUILD_SOURCE_DIR" "$PAGES_DIR"
 
-echo "Running: python3 scripts/generate_print_page.py $PAGES_DIR"
-python3 scripts/generate_print_page.py "$PAGES_DIR"
+echo "Running: python3 scripts/generate_print_page.py $PAGES_DIR $PRINT_PAGE_NAME"
+python3 scripts/generate_print_page.py "$PAGES_DIR" "$PRINT_PAGE_NAME"
+
+if [ ! -f "$PAGES_DIR/$PRINT_PAGE_NAME" ]; then
+  echo "Generated print page not found: $PAGES_DIR/$PRINT_PAGE_NAME" >&2
+  exit 1
+fi
 
 echo "Running: python3 scripts/generate_mkdocs_config.py $PAGES_DIR $MKDOCS_CONFIG $MKDOCS_GENERATED_CONFIG $NAV_BEFORE $NAV_AFTER"
 python3 scripts/generate_mkdocs_config.py "$PAGES_DIR" "$MKDOCS_CONFIG" "$MKDOCS_GENERATED_CONFIG" "$NAV_BEFORE" "$NAV_AFTER"
+
+if [ "$BUILD_MKDOCS" != "1" ]; then
+  echo "Generated MkDocs source: $PAGES_DIR"
+  echo "Generated MkDocs config: $MKDOCS_GENERATED_CONFIG"
+  exit 0
+fi
 
 echo "Running: mkdocs build --strict -f $MKDOCS_GENERATED_CONFIG"
 mkdocs build --strict -f "$MKDOCS_GENERATED_CONFIG"

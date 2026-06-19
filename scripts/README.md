@@ -21,4 +21,15 @@ Build locally:
 ./scripts/build-site.sh
 ```
 
+Serve locally:
+
+```bash
+./scripts/serve-site.sh
+```
+
+Do not run `mkdocs serve --livereload` directly from a clean tree: it does not
+run `mdgen`, split chapters, or generate `site-pages/print_page.md`.
+`scripts/serve-site.sh` defaults to `--no-livereload` because live reload can
+race with generated `print_page.md`. Use `SERVE_LIVERELOAD=1` to opt in.
+
 The root `./build-site.sh` is a compatibility wrapper for the same command.

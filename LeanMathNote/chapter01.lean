@@ -632,69 +632,75 @@ example (α β : Type) (f : α → β) (a b : α) (hEq : a = b) : f a = f b := b
 
 1. 連言の可換性を証明してください．
 
-```lean
+-/
+
 example (P Q : Prop) : P ∧ Q → Q ∧ P := by
   -- `intro h` のあと，`constructor` と `h.left`, `h.right` を使う．
   sorry
-```
 
+/-
 2. 選言の可換性を証明してください．
 
-```lean
+-/
+
 example (P Q : Prop) : P ∨ Q → Q ∨ P := by
   -- `cases` で場合分けする．
   sorry
-```
 
+/-
 3. modus ponens を Lean で書いてください．
 
-```lean
+-/
+
 example (P Q : Prop) (hPQ : P → Q) (hP : P) : Q := by
   -- 関数適用として読む．
   sorry
-```
 
+/-
 4. `False` から任意の命題が従うことを証明してください．
 
-```lean
+-/
+
 example (P : Prop) (h : False) : P := by
   -- `False.elim h`
   sorry
-```
 
+/-
 5. 全称命題を使って具体的な元に関する結論を得てください．
 
-```lean
+-/
+
 example (α : Type) (P Q : α → Prop)
     (h : ∀ x : α, P x → Q x) (a : α) (ha : P a) : Q a := by
   -- `h a ha`
   sorry
-```
 
+/-
 6. 存在命題から証拠を取り出し，同じ証拠で別の存在命題を作ってください．
 
-```lean
+-/
+
 example (α : Type) (P Q : α → Prop)
     (h : ∃ x : α, P x) (hpq : ∀ x, P x → Q x) :
     ∃ x : α, Q x := by
   -- `cases h with | intro x hx => ...`
   sorry
-```
 
+/-
 7. 等式を使って命題を書き換えてください．
 
-```lean
+-/
+
 example (α : Type) (P : α → Prop) (a b : α)
     (hab : a = b) (ha : P a) : P b := by
   -- `hab ▸ ha`
   sorry
-```
 
+/-
 8. 証明図を自分で書いてから，次の Lean 証明を完成させてください．
 
-```lean
+-/
+
 example (P Q R : Prop) (h₁ : P → Q) (h₂ : Q → R) : P → R := by
   -- `intro hP`
   sorry
-```
--/
