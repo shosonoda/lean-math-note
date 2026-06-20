@@ -35,6 +35,10 @@
 - Avigad *et al.*, [Theorem Proving in Lean 4](https://leanprover.github.io/theorem_proving_in_lean4/), 2026.
 - The Lean Developers, [The Lean Language Reference](https://lean-lang.org/doc/reference/latest/), v4.30.0., 2026.
 
+- Lean 公式: [https://lean-lang.org/](https://lean-lang.org/)
+- [数学系のためのLean勉強会](https://haruhisa-enomoto.github.io/lean-math-workshop/)
+    - [教材](https://github.com/yuma-mizuno/lean-math-workshop)
+- [Lean-by-Example](https://lean-ja.github.io/lean-by-example/)
 
 ## このサイトについて
 
