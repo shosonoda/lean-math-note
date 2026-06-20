@@ -8,3 +8,4 @@ import LeanMathNote.practice.chapter02
 import LeanMathNote.practice.chapter03
 import LeanMathNote.practice.chapter04
 import LeanMathNote.practice.chapter05
+import LeanMathNote.practice.chapter06

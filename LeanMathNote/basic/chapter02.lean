@@ -1,3 +1,10 @@
+--#--
+/-
+Copyright (c) 2026 Sho Sonoda. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Sho Sonoda
+-/
+--#--
 /-
 # Chapter 02: Lean の基本構文・型・データ構造
 
@@ -23,7 +30,6 @@ Lean では「プログラム」と「証明」は同じ構文で書かれます
 自然数を返す関数も，命題の証明も，どちらも型をもつ項です．
 したがって，Lean のファイルを読むときは，まず「いま見ているものは環境に名前を追加するコマンドなのか，それとも型をもつ式なのか」を区別すると見通しがよくなります．
 -/
--- import Mathlib
 set_option linter.missingDocs false --#
 
 namespace Chapter02

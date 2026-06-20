@@ -1,3 +1,10 @@
+--#--
+/-
+Copyright (c) 2026 Sho Sonoda. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Sho Sonoda
+-/
+--#--
 /-
 # Chapter 01: 命題論理と述語論理の形式証明
 
@@ -15,7 +22,7 @@ set_option linter.missingDocs false --#
 
 /-
 ---
-## 形式証明を読むための用語
+## 形式証明の用語
 
 形式証明では，「式がどの規則で導かれたか」と「式が何を意味するか」を分けて考えます．
 この区別は Lean を学ぶ上で重要です．
@@ -64,7 +71,7 @@ Mathlib の中で集合や位相空間や群を扱うことはできますが，
 したがって，紙の上の証明木，Lean の tactic proof，Lean が内部で作るラムダ項は，見た目は違っても同じ証明構造を別の表現で見ていると考えられます．
 
 ---
-## Lean の命題を読む最小限の約束
+## Lean の命題の読み方
 
 この章では，Lean の構文そのものには深入りしません．
 ただし，証明例を読むために `example` と `theorem` の基本形だけ確認しておきます．

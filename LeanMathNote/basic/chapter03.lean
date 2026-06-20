@@ -1,3 +1,10 @@
+--#--
+/-
+Copyright (c) 2026 Sho Sonoda. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Sho Sonoda
+-/
+--#--
 /-
 # Chapter 03: tactic，calc，induction による証明
 
@@ -28,7 +35,6 @@
 
 `ring`，`nlinarith`，`linarith` などの代数・不等式向け tactic は，次章の Mathlib を使う証明で扱います．
 -/
--- import Mathlib
 set_option linter.missingDocs false --#
 
 namespace Chapter03
