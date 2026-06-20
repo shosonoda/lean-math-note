@@ -11,6 +11,7 @@ theme:
     - navigation.sections
     - navigation.indexes
     - navigation.prune
+    - navigation.footer
     - navigation.top
     - search.highlight
     - search.share
