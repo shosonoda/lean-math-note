@@ -1,10 +1,3 @@
-import Mathlib --#
-set_option linter.missingDocs false --#
-
-namespace Chapter10 --#
-
-open Lean --#
-
 /-
 # Chapter 10: Lean の仕組み
 
@@ -33,6 +26,12 @@ open Lean --#
 細かいコマンド出力やビルド成果物の名前は Reference 最新版と少し異なることがあります．
 この章では，概念は Reference に沿って説明し，実行例はこのプロジェクトの Lean 4.30.0 で確認できる形にしています．
 -/
+import Mathlib
+set_option linter.missingDocs false --#
+
+namespace Chapter10
+
+open Lean
 
 /-
 ---

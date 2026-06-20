@@ -1,8 +1,3 @@
-import Mathlib --#
-set_option linter.missingDocs false --#
-
-namespace Chapter02 --#
-
 /-
 # Chapter 02: Lean の基本構文・型・データ構造
 
@@ -26,6 +21,10 @@ Lean では「プログラム」と「証明」は同じ構文で書かれます
 自然数を返す関数も，命題の証明も，どちらも型をもつ項です．
 したがって，Lean のファイルを読むときは，まず「いま見ているものは環境に名前を追加するコマンドなのか，それとも型をもつ式なのか」を区別すると見通しがよくなります．
 -/
+-- import Mathlib
+set_option linter.missingDocs false --#
+
+namespace Chapter02
 
 /-
 ---
@@ -330,7 +329,7 @@ def IsPositiveNat (n : Nat) : Prop :=
 
 example : IsPositiveNat 3 := by
   unfold IsPositiveNat
-  norm_num
+  decide
 
 /-
 `def` で定義した名前は，必要に応じて展開されます．
@@ -420,7 +419,7 @@ example : Prop :=
   2 + 2 = 4
 
 example : 2 + 2 = 4 := by
-  norm_num
+  rfl
 
 /-
 `theorem` は名前つきの定理を宣言します．
@@ -434,7 +433,7 @@ theorem add_zero_named (n : Nat) : n + 0 = n := by
   exact Nat.add_zero n
 
 theorem two_plus_two_is_four : 2 + 2 = 4 := by
-  norm_num
+  rfl
 
 example : 5 + 0 = 5 := by
   exact add_zero_named 5
@@ -443,19 +442,18 @@ example : 2 + 2 = 4 := by
   exact two_plus_two_is_four
 
 /-
-`lemma` も名前つきの定理を宣言するコマンドです．
-Lean では `theorem` とほぼ同じですが，数学文書では「補題」という意図を表すために使います．
-証明した命題が後の証明で補助的に使われるときに，`lemma` という名前づけを選ぶことがよくあります．
-なお，綴りは `lemma` です．`lamma` というコマンドはありません．
+実用上は，補助的な定理を「lemma」と呼ぶことがよくあります．
+Core Lean では，補助的な定理も `theorem` で宣言できます．
+Mathlib を import している環境では `lemma` というコマンドもよく使われますが，ここでは Core Lean に合わせて `theorem` で書きます．
 -/
 
-lemma zero_add_named (n : Nat) : 0 + n = n := by
+theorem zero_add_named (n : Nat) : 0 + n = n := by
   exact Nat.zero_add n
 
 example : 0 + 5 = 5 := by
   exact zero_add_named 5
 
-lemma even_four : IsEvenNat 4 := by
+theorem even_four : IsEvenNat 4 := by
   unfold IsEvenNat
   exact ⟨2, rfl⟩
 
@@ -474,7 +472,7 @@ Lean の内部では，定義も定理も「名前に型つきの項を結びつ
 -/
 
 def proofByDef : 1 + 1 = 2 := by
-  norm_num
+  rfl
 
 example : 1 + 1 = 2 := by
   exact proofByDef

@@ -1,8 +1,3 @@
-import Mathlib --#
-set_option linter.missingDocs false --#
-
-namespace Chapter04 --#
-
 /-
 # Chapter 04: Mathlib を用いた証明の書き方
 
@@ -16,7 +11,7 @@ Mathematics in Lean の後半では，構造体，型クラス階層，代数構
 * 型クラスと階層
 * `Finset`，`Real`，`ENNReal`
 * bundled structure，morphism，subobject，coercion
-* Mathlib で仮定される公理
+* Mathlib でよく使う tactic と検索支援
 * Mathlib の命名規則
 
 なお，`Finset`，`Real`，`ENNReal` は「クラス」ではなく型です．
@@ -27,9 +22,12 @@ Mathlib を読むときは，「対象そのものの型」と「その型に入
 
 * Mathematics in Lean: <https://leanprover-community.github.io/mathematics_in_lean/index.html>
 * Mathlib naming conventions: <https://leanprover-community.github.io/contribute/naming.html>
-* Theorem Proving in Lean 4, Axioms and Computation: <https://leanprover.github.io/theorem_proving_in_lean4/Axioms-and-Computation/#axioms-and-computation>
 * Sets in Mathlib: <https://leanprover-community.github.io/theories/sets.html>
 -/
+import Mathlib
+set_option linter.missingDocs false --#
+
+namespace Chapter04
 
 /-
 ---
@@ -373,6 +371,9 @@ example (A B : Set Nat) : A ∩ B = B ∩ A := by
 
 Mathlib を使う証明では，まず既存の補題を探し，`rw`，`simp`，`exact`，`apply`，`ext` などで組み合わせます．
 型クラスによって定理が一般化されているため，具体的な型ではなく一般的な構造に対する定理を使うことが多くあります．
+
+ここでは，Core Lean だけで進めた前章から一歩進んで，Mathlib を import した環境でよく使う補助 tactic も扱います．
+`by_contra`，`push Not`，`nth_rw`，`conv_lhs`，`aesop`，`norm_num`，`#loogle` などは，実用上よく使われますが，Core Lean だけの最小環境では使えないものがあります．
 -/
 
 example (A B : Set Nat) (x : Nat) : x ∈ A ∩ B ↔ x ∈ A ∧ x ∈ B := by
@@ -394,88 +395,100 @@ Mathlib の証明では，既存補題を `exact` でそのまま使うより，
 -/
 
 /-
----
-## Lean と公理
+### `norm_num`: 数値計算
 
-Mathlib は Lean のカーネル上に構築されたライブラリです．
-Mathlib 自体が勝手に新しい推論規則を追加するわけではなく，Lean の基礎にある仕組みと，明示的に import された定義・定理を使います．
-
-Theorem Proving in Lean 4 の "Axioms and Computation" で説明されているように，Lean の標準ライブラリには実用上重要な追加原理として，命題外延性，商，選択が加えられています．
-これは Mathlib 独自の公理というより，Lean で通常の数学を行うための標準的な基礎です．
-
-ここでは，それらの背景を次のように理解しておきます．
-
-* 命題外延性: 論理的に同値な命題を等しい命題として扱えるようにする．
-* 商: 同値関係で割った対象を作れるようにする．
-* 選択: 存在から証拠を選ぶ操作を可能にし，古典数学を扱いやすくする．
-
-これらは数学の形式化を大きく便利にします．
-一方で，選択に依存する定義は一般に計算内容を持たないため，`noncomputable` として扱われます．
-そのため，証明と計算を区別して読むことが重要です．
-
-等式そのものは Lean の基本的な同一性型であり，追加公理というより核となる型理論の一部です．
-したがって，等式，命題外延性，選択，商型を同じ意味で「追加公理」と呼ぶのは正確ではありません．
-等式は基本の型理論に含まれ，命題外延性・選択・商型は通常の数学を扱うために使われる追加的な原理や構成です．
+`norm_num` は，具体的な数値等式・不等式を証明する tactic です．
+自然数だけでなく，整数，有理数，実数の数値計算にも使えます．
 -/
 
-/-
-### 等式
+example : (3 : ℤ) + 4 = 7 := by
+  norm_num
 
-等式 `a = b` は Lean の基本的な同一性型です．
-`Eq.refl` は反射律，`Eq.rec` は等しいものの置き換えを表す原理です．
+example : (3 : ℚ) / 2 + 1 / 2 = 2 := by
+  norm_num
+
+example : (3 : ℝ) ^ 2 + 4 ^ 2 = 25 := by
+  norm_num
+
+/-
+### `by_contra` と `push Not`
+
+`by_contra h` は背理法の tactic です．
+ゴール `P` を証明するかわりに `h : ¬ P` を仮定し，ゴールを `False` に変えます．
+Core Lean では `Classical.byContradiction` を直接使えますが，Mathlib を使う実際の証明では `by_contra` がよく使われます．
 -/
 
-#check Eq.refl
-#check Eq.rec
-
-example (α : Type) (a b : α) (h : a = b) (P : α → Prop) (ha : P a) : P b := by
-  exact h ▸ ha
+example (P : Prop) (h : ¬¬ P) : P := by
+  by_contra hP
+  exact h hP
 
 /-
-### 命題外延性
-
-`propext` は，`P ↔ Q` から命題としての等式 `P = Q` を得る原理です．
-これは証明支援系で命題を扱いやすくするために重要です．
+`push Not` は，否定を量化子や論理結合子の内側へ押し込む tactic です．
+たとえば古典論理のもとで，`¬ ∀ x, P x` は `∃ x, ¬ P x` に変形されます．
 -/
 
-#check propext
-
-example (P Q : Prop) (h : P ↔ Q) : P = Q := by
-  exact propext h
+example (P : Nat → Prop) (h : ¬ ∀ n, P n) : ∃ n, ¬ P n := by
+  push Not at h
+  exact h
 
 /-
-### 選択公理と `Classical`
+### `nth_rw` と `conv_lhs`
 
-Mathlib では古典論理を使うことが多くあります．
-`Classical.choice` は非空な型から要素を選ぶ原理で，存在命題から具体的な証拠を取り出す `Classical.choose` の基礎になっています．
-このような定義は一般に計算できないので，`noncomputable` として宣言します．
-`Classical.choice` の入力は `Nonempty α` であり，`∃ x, P x` から証拠を取り出すときは `Classical.choose` と `Classical.choose_spec` を使う，という使い分けを押さえておくとよいです．
+`rw` は通常，該当する箇所をまとめて書き換えます．
+一部だけを書き換えたいときには，`nth_rw` や `conv` モードを使います．
+`nth_rw 1 [h]` は，1 番目に現れる該当箇所だけを書き換えます．
 -/
 
-#check Classical.choice
-#check Classical.em
-
-noncomputable def choosePositiveNat (h : ∃ n : Nat, 0 < n) : Nat :=
-  Classical.choose h
-
-example (h : ∃ n : Nat, 0 < n) : 0 < choosePositiveNat h := by
-  exact Classical.choose_spec h
+example (a b c : Nat) (h : a + b = c) : (a + b) + (a + b) = c + (a + b) := by
+  nth_rw 1 [h]
 
 /-
-### 商型
-
-商型は，同値関係で割った対象を作るための仕組みです．
-整数，有理数，多くの代数的構成で，商の存在は不可欠です．
-Lean では `Quot` とその基本原理が用意されています．
+`conv_lhs` は，等式の左辺に入って書き換えるための省略記法です．
+Core Lean の `conv => lhs` と同じ発想ですが，短く書けるため実用上よく使われます．
 -/
 
-#check Quot
-#check Quot.sound
-#check Quot.lift
+example (a b c : Nat) : (a + b) + c = (b + a) + c := by
+  conv_lhs =>
+    rw [Nat.add_comm a b]
 
 /-
-商型を使うと，「代表元を選ばずに」同値類上の対象を定義できます．
-ただし，代表元によらないことの証明が必要になるため，直接扱うよりも Mathlib で既に整備された構造を使うことが多いです．
+### `aesop`
+
+`aesop` は，論理規則や登録された補題を使って探索する自動証明 tactic です．
+命題論理，単純な述語論理，コンストラクタによる証明に強く，短い補助目標を閉じるときに便利です．
+-/
+
+example (P Q R : Prop) (hPQ : P → Q) (hQR : Q → R) (hP : P) : R := by
+  aesop
+
+example (P Q : Prop) (h : P ∧ Q) : Q ∧ P := by
+  aesop
+
+/-
+### 検索支援: `exact?`，`rw?`，`#loogle`
+
+`exact?`，`rw?`，`try?` は，現在のゴールを閉じる候補や書き換え候補を提案します．
+出力は Lean や Mathlib のバージョンによって変わることがあるため，ここでは実行例として示します．
+
+```lean
+example (n : Nat) : n + 0 = n := by
+  exact?
+
+example (a b : Nat) : a + b = b + a := by
+  rw?
+
+example (P Q : Prop) (h : P ∧ Q) : Q ∧ P := by
+  try?
+```
+
+`#loogle` は，式の形やキーワードから Mathlib の定理を探すためのコマンドです．
+環境によっては Loogle サーバへの接続が必要です．
+
+```lean
+#loogle "_ + 0 = _"
+#loogle Nat.succ
+#loogle "commutative"
+```
 -/
 
 /-
@@ -531,9 +544,6 @@ Mathlib を使う証明では，具体的な対象だけでなく，それが持
 
 また，Mathlib の証明は既存補題の組み合わせです．
 `#check`，`#synth`，命名規則，`simp`，`rw`，`ext`，`norm_num` を使いながら，ゴールに合う補題を探して適用します．
-
-基礎面では，等式，命題外延性，選択，商型といった仕組みが重要です．
-これらを意識すると，Mathlib の定義がなぜ `noncomputable` になるのか，なぜ quotient や coercion が頻繁に出るのかを理解しやすくなります．
 -/
 /-
 ---
@@ -568,25 +578,7 @@ Mathlib を使う証明では，具体的な対象だけでなく，それが持
       sorry
     ```
 
-4. `propext` を使って，同値な命題を等しい命題として扱ってください．
-
-    ```lean4
-    example (P Q : Prop) (h : P ↔ Q) : P = Q := by
-      exact propext h
-    ```
-
-5. `Classical.choose` と `Classical.choose_spec` を使って，存在命題から証拠を取り出してください．
-
-    ```lean4
-    noncomputable def chosenNatExercise (h : ∃ n : Nat, n > 10) : Nat :=
-      Classical.choose h
-
-    example (h : ∃ n : Nat, n > 10) : chosenNatExercise h > 10 := by
-      -- `Classical.choose_spec h`
-      sorry
-    ```
-
-6. `Real` と `ENNReal` の型クラスインスタンスを調べてください．
+4. `Real` と `ENNReal` の型クラスインスタンスを調べてください．
 
     ```lean4
     #check Real
@@ -595,7 +587,7 @@ Mathlib を使う証明では，具体的な対象だけでなく，それが持
     #synth CompleteLinearOrder ENNReal
     ```
 
-7. 命名規則を使って，次の補題名を予想し，`#check` で確認してください．
+5. 命名規則を使って，次の補題名を予想し，`#check` で確認してください．
 
     ```lean4
     #check Set.mem_inter_iff
@@ -604,7 +596,35 @@ Mathlib を使う証明では，具体的な対象だけでなく，それが持
     #check lt_of_le_of_ne
     ```
 
-8. `Finset` と `Set` の違いを説明したうえで，有限和を計算してください．
+6. `by_contra` と `push Not` を使って，古典論理の証明を書いてください．
+
+    ```lean4
+    example (P : Prop) (h : ¬¬ P) : P := by
+      sorry
+
+    example (P : Nat → Prop) (h : ¬ ∀ n, P n) : ∃ n, ¬ P n := by
+      sorry
+    ```
+
+7. `nth_rw` または `conv_lhs` を使って，ゴールの一部だけを書き換えてください．
+
+    ```lean4
+    example (a b c : Nat) (h : a + b = c) :
+        (a + b) + (a + b) = c + (a + b) := by
+      sorry
+
+    example (a b c : Nat) : (a + b) + c = (b + a) + c := by
+      sorry
+    ```
+
+8. `aesop` で閉じる論理問題を作り，手動証明と比較してください．
+
+    ```lean4
+    example (P Q R : Prop) (h₁ : P → Q) (h₂ : Q → R) (hP : P) : R := by
+      sorry
+    ```
+
+9. `Finset` と `Set` の違いを説明したうえで，有限和を計算してください．
 
     ```lean4
     example : (∑ i ∈ Finset.range 4, i) = 6 := by
@@ -628,14 +648,20 @@ example {α : Type} (s t : Set α) : s ∩ t = t ∩ s := by
   -- `ext x`, `constructor`, `intro h` で進める．
   sorry
 
-example (P Q : Prop) (h : P ↔ Q) : P = Q := by
-  exact propext h
+example (P : Prop) (h : ¬¬ P) : P := by
+  sorry
 
-noncomputable def chosenNatExercise (h : ∃ n : Nat, n > 10) : Nat :=
-  Classical.choose h
+example (P : Nat → Prop) (h : ¬ ∀ n, P n) : ∃ n, ¬ P n := by
+  sorry
 
-example (h : ∃ n : Nat, n > 10) : chosenNatExercise h > 10 := by
-  -- `Classical.choose_spec h`
+example (a b c : Nat) (h : a + b = c) :
+    (a + b) + (a + b) = c + (a + b) := by
+  sorry
+
+example (a b c : Nat) : (a + b) + c = (b + a) + c := by
+  sorry
+
+example (P Q R : Prop) (h₁ : P → Q) (h₂ : Q → R) (hP : P) : R := by
   sorry
 
 #check Real

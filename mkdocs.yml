@@ -22,7 +22,6 @@ plugins:
 
 not_in_nav: |
   /index.md
-  /print_page.md
 
 markdown_extensions:
   - admonition

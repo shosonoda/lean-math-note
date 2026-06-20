@@ -9,7 +9,6 @@ PAGES_DIR="${PAGES_DIR:-site-pages}"
 SITE_DIR="${SITE_DIR:-docs}"
 MKDOCS_CONFIG="${MKDOCS_CONFIG:-mkdocs.yml}"
 MKDOCS_GENERATED_CONFIG="${MKDOCS_GENERATED_CONFIG:-.mkdocs.generated.yml}"
-KEEP_MKDOCS_GENERATED_CONFIG="${KEEP_MKDOCS_GENERATED_CONFIG:-0}"
 PRINT_PAGE_NAME="${PRINT_PAGE_NAME:-print_page.md}"
 BUILD_MKDOCS="${BUILD_MKDOCS:-1}"
 NAV_BEFORE="${NAV_BEFORE:-$CONTENT_DIR/nav-before.yml}"
@@ -19,14 +18,6 @@ script_dir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
 repo_root=$(CDPATH= cd -- "$script_dir/.." && pwd)
 
 cd "$repo_root"
-
-cleanup_generated_config() {
-  rm -f "$MKDOCS_GENERATED_CONFIG"
-}
-
-if [ "$KEEP_MKDOCS_GENERATED_CONFIG" != "1" ]; then
-  trap cleanup_generated_config EXIT HUP INT TERM
-fi
 
 if [ ! -d "$CONTENT_DIR" ]; then
   echo "Content directory not found: $CONTENT_DIR" >&2
@@ -119,6 +110,8 @@ fi
 
 echo "Running: python3 scripts/generate_mkdocs_config.py $PAGES_DIR $MKDOCS_CONFIG $MKDOCS_GENERATED_CONFIG $NAV_BEFORE $NAV_AFTER"
 python3 scripts/generate_mkdocs_config.py "$PAGES_DIR" "$MKDOCS_CONFIG" "$MKDOCS_GENERATED_CONFIG" "$NAV_BEFORE" "$NAV_AFTER"
+
+python3 scripts/generate_print_page.py "$PAGES_DIR" "$PRINT_PAGE_NAME"
 
 if [ "$BUILD_MKDOCS" != "1" ]; then
   echo "Generated MkDocs source: $PAGES_DIR"
