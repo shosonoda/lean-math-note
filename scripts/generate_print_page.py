@@ -13,6 +13,25 @@ def read_page(path: Path) -> str:
     return path.read_text(encoding="utf-8").strip()
 
 
+def chapter_dirs(parent: Path) -> list[Path]:
+    return [
+        item
+        for item in sorted(parent.iterdir())
+        if item.is_dir() and CHAPTER_DIR_RE.fullmatch(item.name)
+    ]
+
+
+def append_chapter_pages(pages: list[Path], chapter_dir: Path) -> None:
+    chapter_index = chapter_dir / "index.md"
+    if chapter_index.exists():
+        pages.append(chapter_index)
+
+    for page in sorted(chapter_dir.glob("*.md")):
+        if page.name == "index.md":
+            continue
+        pages.append(page)
+
+
 def collect_pages(pages_dir: Path, output_path: Path) -> list[Path]:
     pages: list[Path] = []
     root_index = pages_dir / "index.md"
@@ -20,18 +39,18 @@ def collect_pages(pages_dir: Path, output_path: Path) -> list[Path]:
     if root_index.exists():
         pages.append(root_index)
 
-    for chapter_dir in sorted(pages_dir.iterdir()):
-        if not chapter_dir.is_dir() or not CHAPTER_DIR_RE.fullmatch(chapter_dir.name):
+    for chapter_dir in chapter_dirs(pages_dir):
+        append_chapter_pages(pages, chapter_dir)
+
+    for section_dir in sorted(pages_dir.iterdir()):
+        if not section_dir.is_dir():
+            continue
+        chapters = chapter_dirs(section_dir)
+        if not chapters:
             continue
 
-        chapter_index = chapter_dir / "index.md"
-        if chapter_index.exists():
-            pages.append(chapter_index)
-
-        for page in sorted(chapter_dir.glob("*.md")):
-            if page.name == "index.md":
-                continue
-            pages.append(page)
+        for chapter_dir in chapters:
+            append_chapter_pages(pages, chapter_dir)
 
     return [page for page in pages if page != output_path]
 

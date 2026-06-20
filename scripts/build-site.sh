@@ -34,8 +34,7 @@ rm -rf "$GENERATED_MD_DIR"
 mkdir -p "$GENERATED_MD_DIR"
 lake exe mdgen "$INPUT_DIR" "$GENERATED_MD_DIR"
 
-for file in "$GENERATED_MD_DIR"/chapter*.md; do
-  [ -e "$file" ] || continue
+find "$GENERATED_MD_DIR" -type f -name 'chapter*.md' | while IFS= read -r file; do
   tmp="${file}.tmp"
   sed 's/^```lean$/```lean4/' "$file" | awk '
     BEGIN {
@@ -87,15 +86,9 @@ rm -rf "$BUILD_SOURCE_DIR"
 mkdir -p "$BUILD_SOURCE_DIR"
 cp -R "$CONTENT_DIR"/. "$BUILD_SOURCE_DIR"/
 
-for file in "$BUILD_SOURCE_DIR"/chapter*.md; do
-  [ -e "$file" ] || continue
-  rm -f "$file"
-done
+find "$BUILD_SOURCE_DIR" -type f -name 'chapter*.md' -exec rm -f {} +
 
-for file in "$GENERATED_MD_DIR"/chapter*.md; do
-  [ -e "$file" ] || continue
-  cp "$file" "$BUILD_SOURCE_DIR"/
-done
+cp -R "$GENERATED_MD_DIR"/. "$BUILD_SOURCE_DIR"/
 
 echo "Running: python3 scripts/split_chapters.py $BUILD_SOURCE_DIR $PAGES_DIR"
 python3 scripts/split_chapters.py "$BUILD_SOURCE_DIR" "$PAGES_DIR"

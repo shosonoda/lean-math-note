@@ -12,6 +12,10 @@ CHAPTER_DIR_RE = re.compile(r"chapter\d+$")
 FENCE_RE = re.compile(r"^\s*```")
 HEADING_RE = re.compile(r"^(#{1,6})\s+(.*\S)\s*$")
 PRINT_PAGE_NAME = "print_page.md"
+SECTION_TITLES = {
+    "basic": "基礎編",
+    "practice": "実践編",
+}
 
 
 def yaml_string(value: str) -> str:
@@ -49,19 +53,20 @@ def append_page(lines: list[str], docs_dir: Path, page: Path, indent: str = "  "
     lines.append(f"{indent}- {yaml_string(title)}: {yaml_string(nav_path(docs_dir, page))}\n")
 
 
-def append_chapter(lines: list[str], docs_dir: Path, chapter_dir: Path) -> None:
+def append_chapter(lines: list[str], docs_dir: Path, chapter_dir: Path, indent: str = "  ") -> None:
     index_page = chapter_dir / "index.md"
     if not index_page.exists():
         return
 
     chapter_title = first_heading_title(index_page)
-    lines.append(f"  - {yaml_string(chapter_title)}:\n")
-    append_page(lines, docs_dir, index_page, indent="    ")
+    child_indent = indent + "  "
+    lines.append(f"{indent}- {yaml_string(chapter_title)}:\n")
+    append_page(lines, docs_dir, index_page, indent=child_indent)
 
     for page in sorted(chapter_dir.glob("*.md")):
         if page.name == "index.md":
             continue
-        append_page(lines, docs_dir, page, indent="    ")
+        append_page(lines, docs_dir, page, indent=child_indent)
 
 
 def append_nav_snippet(lines: list[str], path: Path, label: str) -> None:
@@ -80,11 +85,40 @@ def append_nav_snippet(lines: list[str], path: Path, label: str) -> None:
             lines.append("\n")
 
 
+def chapter_dirs(parent: Path) -> list[Path]:
+    return [
+        item
+        for item in sorted(parent.iterdir())
+        if item.is_dir() and CHAPTER_DIR_RE.fullmatch(item.name)
+    ]
+
+
+def section_title(path: Path) -> str:
+    if path.name in SECTION_TITLES:
+        return SECTION_TITLES[path.name]
+    return path.name.replace("-", " ").replace("_", " ").title()
+
+
 def append_generated_chapters(lines: list[str], docs_dir: Path) -> None:
-    lines.append("  # Generated from LeanMathNote/*.lean\n")
-    for chapter_dir in sorted(docs_dir.iterdir()):
-        if chapter_dir.is_dir() and CHAPTER_DIR_RE.fullmatch(chapter_dir.name):
-            append_chapter(lines, docs_dir, chapter_dir)
+    lines.append("  # Generated from LeanMathNote/**/*.lean\n")
+
+    for chapter_dir in chapter_dirs(docs_dir):
+        append_chapter(lines, docs_dir, chapter_dir)
+
+    for section_dir in sorted(docs_dir.iterdir()):
+        if not section_dir.is_dir():
+            continue
+        chapters = chapter_dirs(section_dir)
+        if not chapters:
+            continue
+
+        lines.append(f"  - {yaml_string(section_title(section_dir))}:\n")
+        section_index = section_dir / "index.md"
+        if section_index.exists():
+            append_page(lines, docs_dir, section_index, indent="    ")
+
+        for chapter_dir in chapters:
+            append_chapter(lines, docs_dir, chapter_dir, indent="    ")
 
 
 def write_config(

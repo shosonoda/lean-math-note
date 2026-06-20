@@ -8,9 +8,14 @@ from pathlib import Path
 
 
 CHAPTER_RE = re.compile(r"chapter\d+\.md$")
+CHAPTER_DIR_RE = re.compile(r"chapter\d+$")
 FENCE_RE = re.compile(r"^\s*```")
 HEADING_RE = re.compile(r"^(#{1,6})\s+(.*\S)\s*$")
 SPLIT_RE = re.compile(r"^\s*---\s*$")
+SECTION_TITLES = {
+    "basic": "基礎編",
+    "practice": "実践編",
+}
 
 
 def split_on_markers(lines: list[str]) -> list[list[str]]:
@@ -92,6 +97,17 @@ def write_page(path: Path, lines: list[str]) -> None:
     path.write_text(text, encoding="utf-8")
 
 
+def clean_heading(text: str) -> str:
+    return re.sub(r"\s+#+\s*$", "", text).strip()
+
+
+def first_heading_title(path: Path) -> str:
+    heading = first_heading(path.read_text(encoding="utf-8").splitlines(keepends=True))
+    if heading is None:
+        return path.stem
+    return clean_heading(heading[2])
+
+
 def copy_static_files(src_dir: Path, dest_dir: Path) -> None:
     for item in src_dir.iterdir():
         if item.name == "old":
@@ -103,8 +119,9 @@ def copy_static_files(src_dir: Path, dest_dir: Path) -> None:
 
         target = dest_dir / item.name
         if item.is_dir():
-            shutil.copytree(item, target)
+            copy_static_files(item, target)
         else:
+            target.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(item, target)
 
 
@@ -113,13 +130,17 @@ def rewrite_index_links(index_path: Path) -> None:
         return
 
     text = index_path.read_text(encoding="utf-8")
-    text = re.sub(r"\((chapter\d+)\.md\)", r"(\1/index.md)", text)
+    text = re.sub(r"\(([^)\s]*chapter\d+)\.md([#?][^)]*)?\)", replace_chapter_link, text)
     index_path.write_text(text, encoding="utf-8")
 
 
-def split_chapter(path: Path, dest_dir: Path) -> None:
-    chapter_name = path.stem
-    chapter_dir = dest_dir / chapter_name
+def replace_chapter_link(match: re.Match[str]) -> str:
+    suffix = match.group(2) or ""
+    return f"({match.group(1)}/index.md{suffix})"
+
+
+def split_chapter(path: Path, src_dir: Path, dest_dir: Path) -> None:
+    chapter_dir = dest_dir / path.with_suffix("").relative_to(src_dir)
     lines = path.read_text(encoding="utf-8").splitlines(keepends=True)
     pages = split_on_markers(lines)
 
@@ -130,6 +151,46 @@ def split_chapter(path: Path, dest_dir: Path) -> None:
 
     for index, page in enumerate(pages[1:], start=1):
         write_page(chapter_dir / f"{index:02d}.md", promote_headings(page))
+
+
+def chapter_dirs(parent: Path) -> list[Path]:
+    return [
+        item
+        for item in sorted(parent.iterdir())
+        if item.is_dir() and CHAPTER_DIR_RE.fullmatch(item.name)
+    ]
+
+
+def section_title(path: Path) -> str:
+    if path.name in SECTION_TITLES:
+        return SECTION_TITLES[path.name]
+    return path.name.replace("-", " ").replace("_", " ").title()
+
+
+def write_section_index(section_dir: Path) -> None:
+    index_page = section_dir / "index.md"
+    if index_page.exists():
+        return
+
+    chapters = chapter_dirs(section_dir)
+    if not chapters:
+        return
+
+    lines = [f"# {section_title(section_dir)}\n", "\n"]
+    for chapter_dir in chapters:
+        chapter_index = chapter_dir / "index.md"
+        if not chapter_index.exists():
+            continue
+        title = first_heading_title(chapter_index)
+        lines.append(f"- [{title}]({chapter_dir.name}/index.md)\n")
+
+    write_page(index_page, lines)
+
+
+def write_section_indexes(dest_dir: Path) -> None:
+    for section_dir in sorted(dest_dir.iterdir()):
+        if section_dir.is_dir():
+            write_section_index(section_dir)
 
 
 def main() -> int:
@@ -151,8 +212,10 @@ def main() -> int:
     copy_static_files(src_dir, dest_dir)
     rewrite_index_links(dest_dir / "index.md")
 
-    for chapter in sorted(src_dir.glob("chapter*.md")):
-        split_chapter(chapter, dest_dir)
+    for chapter in sorted(src_dir.rglob("chapter*.md")):
+        split_chapter(chapter, src_dir, dest_dir)
+
+    write_section_indexes(dest_dir)
 
     return 0
 

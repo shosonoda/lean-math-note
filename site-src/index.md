@@ -14,19 +14,21 @@
 
 <!-- ## 目次
 
-- [Chapter 01: 命題論理と述語論理の形式証明](chapter01/index.md)
-- [Chapter 02: Lean の基本構文・型・データ構造](chapter02/index.md)
-- [Chapter 03: tactic、calc、induction による証明](chapter03/index.md)
-- [Chapter 04: Mathlib を用いた証明の書き方](chapter04/index.md)
-- [Chapter 05: 代数](chapter05/index.md)
-- [Chapter 06: 線形代数](chapter06/index.md)
-- [Chapter 07: 位相](chapter07/index.md)
-- [Chapter 08: 微分](chapter08/index.md)
-- [Chapter 09: 積分](chapter09/index.md)
-- [Chapter 10: Lean の仕組み](chapter10/index.md) -->
+- 基礎編
+    - [Chapter 01: 命題論理と述語論理の形式証明](basic/chapter01/index.md)
+    - [Chapter 02: Lean の基本構文・型・データ構造](basic/chapter02/index.md)
+    - [Chapter 03: tactic、calc、induction による証明](basic/chapter03/index.md)
+    - [Chapter 04: Mathlib を用いた証明の書き方](basic/chapter04/index.md)
+    - [Chapter 05: Lean の仕組み](basic/chapter05/index.md)
+- 実践編
+    - [Chapter 01: 代数](practice/chapter01/index.md)
+    - [Chapter 02: 線形代数](practice/chapter02/index.md)
+    - [Chapter 03: 位相](practice/chapter03/index.md)
+    - [Chapter 04: 微分](practice/chapter04/index.md)
+    - [Chapter 05: 積分](practice/chapter05/index.md) -->
 
 ## このサイトについて
 
-- 本文は `LeanMathNote/*.lean` から `mdgen` と `MkDocs` で生成されています
+- 本文は `LeanMathNote/basic/*.lean` と `LeanMathNote/practice/*.lean` から `mdgen` と `MkDocs` で生成されています
 
 - [印刷用ページ](print_page.md)
