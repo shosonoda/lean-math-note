@@ -2,12 +2,14 @@
 set -eu
 
 usage() {
-  echo "Usage: $0 [--dry-run] [--skip-build] [--allow-dirty] [public_repo_url_or_path]" >&2
+  echo "Usage: $0 [--dry-run] [--skip-build] [--allow-dirty] [--codespaces] [public_repo_url_or_path]" >&2
   echo "" >&2
   echo "Builds docs/ in this development repository and publishes it to the public repository." >&2
+  echo "With --codespaces, publishes the Lean project files to the Codespaces template repository." >&2
   echo "" >&2
   echo "Environment variables:" >&2
   echo "  PUBLIC_REPO_URL     Default: https://github.com/shosonoda/lean-math-note.git" >&2
+  echo "  CODESPACES_REPO_URL Default: https://github.com/shosonoda/lean-math-note-template.git" >&2
   echo "  PUBLIC_BRANCH       Default: main" >&2
   echo "  SOURCE_BRANCH       Default: main" >&2
   echo "  BUILD_SCRIPT        Default: ./scripts/build-site.sh" >&2
@@ -19,6 +21,7 @@ usage() {
 dry_run=0
 skip_build=0
 allow_dirty=${PUBLIC_REPO_ALLOW_DIRTY:-0}
+publish_mode=site
 repo_arg=
 
 while [ "$#" -gt 0 ]; do
@@ -31,6 +34,9 @@ while [ "$#" -gt 0 ]; do
       ;;
     --allow-dirty)
       allow_dirty=1
+      ;;
+    --codespaces)
+      publish_mode=codespaces
       ;;
     -h|--help)
       usage
@@ -51,14 +57,31 @@ while [ "$#" -gt 0 ]; do
   shift
 done
 
-PUBLIC_REPO_URL=${repo_arg:-${PUBLIC_REPO_URL:-https://github.com/shosonoda/lean-math-note.git}}
 PUBLIC_BRANCH=${PUBLIC_BRANCH:-main}
 SOURCE_BRANCH=${SOURCE_BRANCH:-main}
 BUILD_SCRIPT=${BUILD_SCRIPT:-./scripts/build-site.sh}
 MD_SCRIPT=${MD_SCRIPT:-./scripts/lean2md.sh}
 SITE_DIR=${SITE_DIR:-docs}
-PUBLISH_PATHS="LeanMathNote.lean LeanMathNote lean-toolchain lakefile.toml site-src mkdocs.yml requirements-mkdocs.txt scripts out $SITE_DIR"
-OBSOLETE_PUBLIC_PATHS="build-site.sh lean2md.sh md2pdf.sh"
+
+case "$publish_mode" in
+  site)
+    PUBLIC_REPO_URL=${repo_arg:-${PUBLIC_REPO_URL:-https://github.com/shosonoda/lean-math-note.git}}
+    PUBLISH_PATHS="LeanMathNote.lean LeanMathNote lean-toolchain lakefile.toml site-src mkdocs.yml requirements-mkdocs.txt scripts out $SITE_DIR"
+    OBSOLETE_PUBLIC_PATHS="build-site.sh lean2md.sh md2pdf.sh"
+    require_site_dir=1
+    ;;
+  codespaces)
+    PUBLIC_REPO_URL=${repo_arg:-${CODESPACES_REPO_URL:-https://github.com/shosonoda/lean-math-note-template.git}}
+    PUBLISH_PATHS="LeanMathNote.lean LeanMathNote lean-toolchain lakefile.toml lake-manifest.json"
+    OBSOLETE_PUBLIC_PATHS=""
+    require_site_dir=0
+    skip_build=1
+    ;;
+  *)
+    echo "Unknown publish mode: $publish_mode" >&2
+    exit 2
+    ;;
+esac
 
 script_dir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
 repo_root=$(CDPATH= cd -- "$script_dir/.." && pwd)
@@ -72,7 +95,11 @@ if [ "$current_branch" != "$SOURCE_BRANCH" ]; then
 fi
 
 source_commit=$(git rev-parse --short HEAD)
-COMMIT_MESSAGE=${COMMIT_MESSAGE:-"Publish site from lean-note-dev ${source_commit}"}
+if [ "$publish_mode" = "codespaces" ]; then
+  COMMIT_MESSAGE=${COMMIT_MESSAGE:-"Publish Codespaces template from lean-note-dev ${source_commit}"}
+else
+  COMMIT_MESSAGE=${COMMIT_MESSAGE:-"Publish site from lean-note-dev ${source_commit}"}
+fi
 
 if [ "$allow_dirty" != "1" ]; then
   dirty_paths=$(git status --porcelain -- $PUBLISH_PATHS $OBSOLETE_PUBLIC_PATHS)
@@ -102,7 +129,7 @@ if [ "$skip_build" -ne 1 ]; then
   "$MD_SCRIPT"
 fi
 
-if [ ! -d "$SITE_DIR" ]; then
+if [ "$require_site_dir" -eq 1 ] && [ ! -d "$SITE_DIR" ]; then
   echo "Generated site directory not found: $SITE_DIR" >&2
   exit 1
 fi
