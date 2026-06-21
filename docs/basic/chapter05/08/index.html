@@ -25,7 +25,7 @@
     
     
       
-        <title>module と import - 数学系エンドユーザーのためのLean入門</title>
+        <title>project の中で Lean ファイルを確認する - 数学系エンドユーザーのためのLean入門</title>
       
     
     
@@ -68,7 +68,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#module-import" class="md-skip">
+        <a href="#project-lean" class="md-skip">
           コンテンツにスキップ
         </a>
       
@@ -104,7 +104,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              module と import
+              project の中で Lean ファイルを確認する
             
           </span>
         </div>
@@ -238,6 +238,8 @@
       
         
           
+        
+      
         
       
         
@@ -679,10 +681,6 @@
       
         
       
-        
-      
-        
-      
     
     
     
@@ -706,7 +704,7 @@
   <span class="md-ellipsis">
     
   
-    Chapter 05: Lean の仕組み
+    Chapter 05: Lean Project の作成と操作
   
 
     
@@ -728,7 +726,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    Chapter 05: Lean の仕組み
+    Chapter 05: Lean Project の作成と操作
   
 
           </label>
@@ -750,7 +748,7 @@
   <span class="md-ellipsis">
     
   
-    Lean の処理パイプライン
+    Elan, Lean, Lake
   
 
     
@@ -778,7 +776,7 @@
   <span class="md-ellipsis">
     
   
-    抽象構文木
+    Lean バージョンの指定法
   
 
     
@@ -806,7 +804,7 @@
   <span class="md-ellipsis">
     
   
-    マクロ展開とエラボレータ
+    Mathlib を含まない project を作る
   
 
     
@@ -834,7 +832,7 @@
   <span class="md-ellipsis">
     
   
-    カーネル
+    Mathlib を含む project を作る
   
 
     
@@ -862,7 +860,7 @@
   <span class="md-ellipsis">
     
   
-    `.olean` と `.ilean`
+    既存 project に Mathlib を追加する
   
 
     
@@ -890,7 +888,7 @@
   <span class="md-ellipsis">
     
   
-    VS Code を使わずに Lean と相互作用する
+    既存 project を開く
   
 
     
@@ -918,7 +916,7 @@
   <span class="md-ellipsis">
     
   
-    プロジェクトのファイル構造
+    Lake の基本操作
   
 
     
@@ -955,7 +953,7 @@
   <span class="md-ellipsis">
     
   
-    module と import
+    project の中で Lean ファイルを確認する
   
 
     
@@ -984,7 +982,7 @@
   <span class="md-ellipsis">
     
   
-    Elan
+    よくある失敗
   
 
     
@@ -1012,7 +1010,7 @@
   <span class="md-ellipsis">
     
   
-    Lake
+    まとめ
   
 
     
@@ -1040,62 +1038,6 @@
   <span class="md-ellipsis">
     
   
-    `leanchecker`
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../12/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    まとめ
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../13/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
     演習問題
   
 
@@ -1112,6 +1054,85 @@
             
           </ul>
         </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../chapter06/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 06: Lean の仕組み
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
       
     </li>
   
@@ -1754,38 +1775,18 @@
 
 
 
-<h1 id="module-import">module と import<a class="headerlink" href="#module-import" title="Permanent link">&para;</a></h1>
-<p>Lean のファイルは import 可能な単位として扱われます．
-import で使う module 名は，ソースルートからのパスに対応します．</p>
-<p>たとえば次のように対応します．</p>
-<div class="language-text highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>LeanMathNote.lean                      module LeanMathNote
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>LeanMathNote/basic/chapter01.lean      module LeanMathNote.basic.chapter01
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>LeanMathNote/basic/chapter05.lean      module LeanMathNote.basic.chapter05
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>LeanMathNote/practice/chapter01.lean   module LeanMathNote.practice.chapter01
+<h1 id="project-lean">project の中で Lean ファイルを確認する<a class="headerlink" href="#project-lean" title="Permanent link">&para;</a></h1>
+<p>project の依存関係を使って 1 ファイルを確認したいときは，<code>lake env lean</code> を使います．</p>
+<div class="language-bash highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>lake<span class="w"> </span>env<span class="w"> </span>lean<span class="w"> </span>MyProject/Basic.lean
 </code></pre></div>
-<p>別の module を使うには，ファイル冒頭で <code>import</code> します．</p>
-<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">import</span><span class="w"> </span><span class="n">Mathlib</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="kn">import</span><span class="w"> </span><span class="n">LeanMathNote</span><span class="bp">.</span><span class="n">basic</span><span class="bp">.</span><span class="n">chapter01</span>
+<p><code>import Mathlib</code> を含むファイルを素の <code>lean MyProject/Basic.lean</code> で実行すると，
+Mathlib が見つからないことがあります．
+<code>lake env</code> は，Lake workspace の依存関係を含む環境変数を設定したうえでコマンドを実行します．</p>
+<p>この project なら，たとえば次のように章単体を確認できます．</p>
+<div class="language-bash highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>lake<span class="w"> </span>env<span class="w"> </span>lean<span class="w"> </span>LeanMathNote/basic/chapter05.lean
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>lake<span class="w"> </span>build<span class="w"> </span>LeanMathNote.basic.chapter05
 </code></pre></div>
-<p><code>import Mathlib</code> は Mathlib 全体を読み込むので講義資料では便利です．
-実際の大きな開発では，ビルド時間を抑えるために必要な module だけを import します．</p>
-<p>Lean Reference 最新版では，<code>module</code> header を使った module system のもとで，
-<code>public</code>，<code>private</code>，<code>import all</code>，<code>@[expose]</code> などによって公開範囲や定義本体を展開できる範囲を制御する話も出てきます．
-これは，ほかの module から名前を参照できるか，定義本体を unfolding できるか，変更時にどこまで再ビルドが必要になるかに関係します．
-通常の Mathlib 利用やこの講義資料では，まず「ファイルパスと import 名の対応」と <code>namespace</code> の違いを理解すれば十分です．</p>
-<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">namespace</span><span class="w"> </span><span class="n">ModuleExample</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="kn">def</span><span class="w"> </span><span class="n">localDefinition</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="w"> </span><span class="o">:=</span>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">  </span><span class="mi">10</span>
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="kn">example</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">localDefinition</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">  </span><span class="n">rfl</span>
-<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>
-<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="kn">end</span><span class="w"> </span><span class="n">ModuleExample</span>
-</code></pre></div>
-<p><code>namespace</code> は module とは別の仕組みです．
-module はファイル単位の読み込み単位で，namespace は名前の階層を作る仕組みです．
-同じ module の中に複数の namespace を置くことも，複数の module に同じ namespace の定義を分散させることもできます．</p>
+<p>前者はファイルパスで Lean を直接実行し，後者は Lake target として module をビルドします．</p>
 
 
 
@@ -1821,7 +1822,7 @@ module はファイル単位の読み込み単位で，namespace は名前の階
       <nav class="md-footer__inner md-grid" aria-label="フッター" >
         
           
-          <a href="../07/" class="md-footer__link md-footer__link--prev" aria-label="前: プロジェクトのファイル構造">
+          <a href="../07/" class="md-footer__link md-footer__link--prev" aria-label="前: Lake の基本操作">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -1831,20 +1832,20 @@ module はファイル単位の読み込み単位で，namespace は名前の階
                 前
               </span>
               <div class="md-ellipsis">
-                プロジェクトのファイル構造
+                Lake の基本操作
               </div>
             </div>
           </a>
         
         
           
-          <a href="../09/" class="md-footer__link md-footer__link--next" aria-label="次: Elan">
+          <a href="../09/" class="md-footer__link md-footer__link--next" aria-label="次: よくある失敗">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 次
               </span>
               <div class="md-ellipsis">
-                Elan
+                よくある失敗
               </div>
             </div>
             <div class="md-footer__button md-icon">

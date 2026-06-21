@@ -25,7 +25,7 @@
     
     
       
-        <title>Chapter 05: Lean の仕組み - 数学系エンドユーザーのためのLean入門</title>
+        <title>Chapter 05: Lean Project の作成と操作 - 数学系エンドユーザーのためのLean入門</title>
       
     
     
@@ -68,7 +68,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#chapter-05-lean" class="md-skip">
+        <a href="#chapter-05-lean-project" class="md-skip">
           コンテンツにスキップ
         </a>
       
@@ -104,7 +104,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Chapter 05: Lean の仕組み
+              Chapter 05: Lean Project の作成と操作
             
           </span>
         </div>
@@ -238,6 +238,8 @@
       
         
           
+        
+      
         
       
         
@@ -679,10 +681,6 @@
       
         
       
-        
-      
-        
-      
     
     
     
@@ -706,7 +704,7 @@
   <span class="md-ellipsis">
     
   
-    Chapter 05: Lean の仕組み
+    Chapter 05: Lean Project の作成と操作
   
 
     
@@ -728,7 +726,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    Chapter 05: Lean の仕組み
+    Chapter 05: Lean Project の作成と操作
   
 
           </label>
@@ -750,7 +748,7 @@
   <span class="md-ellipsis">
     
   
-    Lean の処理パイプライン
+    Elan, Lean, Lake
   
 
     
@@ -778,7 +776,7 @@
   <span class="md-ellipsis">
     
   
-    抽象構文木
+    Lean バージョンの指定法
   
 
     
@@ -806,7 +804,7 @@
   <span class="md-ellipsis">
     
   
-    マクロ展開とエラボレータ
+    Mathlib を含まない project を作る
   
 
     
@@ -834,7 +832,7 @@
   <span class="md-ellipsis">
     
   
-    カーネル
+    Mathlib を含む project を作る
   
 
     
@@ -862,7 +860,7 @@
   <span class="md-ellipsis">
     
   
-    `.olean` と `.ilean`
+    既存 project に Mathlib を追加する
   
 
     
@@ -890,7 +888,7 @@
   <span class="md-ellipsis">
     
   
-    VS Code を使わずに Lean と相互作用する
+    既存 project を開く
   
 
     
@@ -918,7 +916,7 @@
   <span class="md-ellipsis">
     
   
-    プロジェクトのファイル構造
+    Lake の基本操作
   
 
     
@@ -946,7 +944,7 @@
   <span class="md-ellipsis">
     
   
-    module と import
+    project の中で Lean ファイルを確認する
   
 
     
@@ -974,7 +972,7 @@
   <span class="md-ellipsis">
     
   
-    Elan
+    よくある失敗
   
 
     
@@ -1002,7 +1000,7 @@
   <span class="md-ellipsis">
     
   
-    Lake
+    まとめ
   
 
     
@@ -1030,62 +1028,6 @@
   <span class="md-ellipsis">
     
   
-    `leanchecker`
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="12/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    まとめ
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="13/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
     演習問題
   
 
@@ -1102,6 +1044,85 @@
             
           </ul>
         </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../chapter06/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 06: Lean の仕組み
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
       
     </li>
   
@@ -1744,35 +1765,25 @@
 
 
 
-<h1 id="chapter-05-lean">Chapter 05: Lean の仕組み<a class="headerlink" href="#chapter-05-lean" title="Permanent link">&para;</a></h1>
-<p>この章では，Lean を「証明を書くための言語」としてだけでなく，
-「ソースコードを読み，エラボレートし，カーネルで検査し，ビルド成果物を作るシステム」として眺めます．</p>
-<p>扱う内容は次の通りです．</p>
-<ul>
-<li>Lean の処理パイプライン</li>
-<li>カーネル，エラボレータ，抽象構文木</li>
-<li><code>.olean</code> と <code>.ilean</code></li>
-<li>VS Code を使わずに Lean と相互作用する方法</li>
-<li>プロジェクトのファイル構造と module</li>
-<li>Elan と Lake</li>
-</ul>
+<h1 id="chapter-05-lean-project">Chapter 05: Lean Project の作成と操作<a class="headerlink" href="#chapter-05-lean-project" title="Permanent link">&para;</a></h1>
+<p>この章では，Lean project を新しく作る方法，既存 project を開く方法，Lean のバージョンを指定する方法，
+Mathlib を依存関係として追加する方法，Lake の基本操作を説明します．</p>
+<p>Lean のファイルは，単独の <code>.lean</code> ファイルとして扱うより，基本的には project の中で扱います．
+project は，<code>lean-toolchain</code>，<code>lakefile.toml</code> または <code>lakefile.lean</code>，<code>lake-manifest.json</code>，
+ソースディレクトリ，<code>.lake/</code> 以下の依存関係とビルド成果物をまとめて管理する単位です．</p>
 <p>参考:</p>
 <ul>
-<li>Lean Language Reference: <a href="https://lean-lang.org/doc/reference/latest/">https://lean-lang.org/doc/reference/latest/</a></li>
-<li>Elaboration and Compilation: <a href="https://lean-lang.org/doc/reference/latest/Elaboration-and-Compilation/">https://lean-lang.org/doc/reference/latest/Elaboration-and-Compilation/</a></li>
-<li>Interacting with Lean: <a href="https://lean-lang.org/doc/reference/latest/Interacting-with-Lean/">https://lean-lang.org/doc/reference/latest/Interacting-with-Lean/</a></li>
-<li>Source Files and Modules: <a href="https://lean-lang.org/doc/reference/latest/Source-Files-and-Modules/">https://lean-lang.org/doc/reference/latest/Source-Files-and-Modules/</a></li>
-<li>Build Tools and Distribution: <a href="https://lean-lang.org/doc/reference/latest/Build-Tools-and-Distribution/">https://lean-lang.org/doc/reference/latest/Build-Tools-and-Distribution/</a></li>
+<li>Lean Community, Lean projects: <a href="https://leanprover-community.github.io/install/project.html">https://leanprover-community.github.io/install/project.html</a></li>
+<li>Lean のインストール方法・elan と Lake の使い方，Lean プロジェクトの作り方: <a href="https://aconite-ac.github.io/how_to_install_lean/lake-package-manager/how-to-create-project.html">https://aconite-ac.github.io/how_to_install_lean/lake-package-manager/how-to-create-project.html</a></li>
 </ul>
-<p>注意として，Lean Language Reference の <code>latest</code> は常に最新系列の Lean を説明しています．
-この原稿を書いているプロジェクトの <code>lean-toolchain</code> は <code>leanprover/lean4:v4.30.0</code> なので，
-細かいコマンド出力やビルド成果物の名前は Reference 最新版と少し異なることがあります．
-この章では，概念は Reference に沿って説明し，実行例はこのプロジェクトの Lean 4.30.0 で確認できる形にしています．</p>
+<div class="admonition caution">
+<p class="admonition-title">Mathlib を含む Lean project は容量をかなり使います．</p>
+<p>Mathlib の依存パッケージ，ビルド済みキャッシュ，<code>.lake/</code> 以下の成果物を含めると，少なくとも 7.2 GB 程度の空き容量を見込んでください（2026年6月時点の実績）．
+空き容量が少ない状態で <code>lake update</code> や <code>lake exe cache get</code> を実行すると，途中で失敗したり，壊れたキャッシュが残ったりします．</p>
+</div>
 <div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="n">Mathlib</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">namespace</span><span class="w"> </span><span class="n">Chapter05</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="kn">open</span><span class="w"> </span><span class="n">Lean</span>
 </code></pre></div>
 
 
@@ -1826,13 +1837,13 @@
         
         
           
-          <a href="01/" class="md-footer__link md-footer__link--next" aria-label="次: Lean の処理パイプライン">
+          <a href="01/" class="md-footer__link md-footer__link--next" aria-label="次: Elan, Lean, Lake">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 次
               </span>
               <div class="md-ellipsis">
-                Lean の処理パイプライン
+                Elan, Lean, Lake
               </div>
             </div>
             <div class="md-footer__button md-icon">

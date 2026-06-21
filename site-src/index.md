@@ -20,7 +20,8 @@
     - [Chapter 02: Lean の基本構文・型・データ構造](basic/chapter02/index.md)
     - [Chapter 03: tactic、calc、induction による証明](basic/chapter03/index.md)
     - [Chapter 04: Mathlib を用いた証明の書き方](basic/chapter04/index.md)
-    - [Chapter 05: Lean の仕組み](basic/chapter05/index.md)
+    - [Chapter 05: Lean Project の作成と操作](basic/chapter05/index.md)
+    - [Chapter 06: Lean の仕組み](basic/chapter06/index.md)
 - 実践編
     - [Chapter 01: 代数](practice/chapter01/index.md)
     - [Chapter 02: 線形代数](practice/chapter02/index.md)

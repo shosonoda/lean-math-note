@@ -25,7 +25,7 @@
     
     
       
-        <title>VS Code を使わずに Lean と相互作用する - 数学系エンドユーザーのためのLean入門</title>
+        <title>既存 project を開く - 数学系エンドユーザーのためのLean入門</title>
       
     
     
@@ -68,7 +68,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#vs-code-lean" class="md-skip">
+        <a href="#project" class="md-skip">
           コンテンツにスキップ
         </a>
       
@@ -104,7 +104,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              VS Code を使わずに Lean と相互作用する
+              既存 project を開く
             
           </span>
         </div>
@@ -238,6 +238,8 @@
       
         
           
+        
+      
         
       
         
@@ -679,10 +681,6 @@
       
         
       
-        
-      
-        
-      
     
     
     
@@ -706,7 +704,7 @@
   <span class="md-ellipsis">
     
   
-    Chapter 05: Lean の仕組み
+    Chapter 05: Lean Project の作成と操作
   
 
     
@@ -728,7 +726,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    Chapter 05: Lean の仕組み
+    Chapter 05: Lean Project の作成と操作
   
 
           </label>
@@ -750,7 +748,7 @@
   <span class="md-ellipsis">
     
   
-    Lean の処理パイプライン
+    Elan, Lean, Lake
   
 
     
@@ -778,7 +776,7 @@
   <span class="md-ellipsis">
     
   
-    抽象構文木
+    Lean バージョンの指定法
   
 
     
@@ -806,7 +804,7 @@
   <span class="md-ellipsis">
     
   
-    マクロ展開とエラボレータ
+    Mathlib を含まない project を作る
   
 
     
@@ -834,7 +832,7 @@
   <span class="md-ellipsis">
     
   
-    カーネル
+    Mathlib を含む project を作る
   
 
     
@@ -862,7 +860,7 @@
   <span class="md-ellipsis">
     
   
-    `.olean` と `.ilean`
+    既存 project に Mathlib を追加する
   
 
     
@@ -899,7 +897,7 @@
   <span class="md-ellipsis">
     
   
-    VS Code を使わずに Lean と相互作用する
+    既存 project を開く
   
 
     
@@ -928,7 +926,7 @@
   <span class="md-ellipsis">
     
   
-    プロジェクトのファイル構造
+    Lake の基本操作
   
 
     
@@ -956,7 +954,7 @@
   <span class="md-ellipsis">
     
   
-    module と import
+    project の中で Lean ファイルを確認する
   
 
     
@@ -984,7 +982,7 @@
   <span class="md-ellipsis">
     
   
-    Elan
+    よくある失敗
   
 
     
@@ -1012,7 +1010,7 @@
   <span class="md-ellipsis">
     
   
-    Lake
+    まとめ
   
 
     
@@ -1040,62 +1038,6 @@
   <span class="md-ellipsis">
     
   
-    `leanchecker`
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../12/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    まとめ
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../13/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
     演習問題
   
 
@@ -1112,6 +1054,85 @@
             
           </ul>
         </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../chapter06/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 06: Lean の仕組み
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
       
     </li>
   
@@ -1754,38 +1775,20 @@
 
 
 
-<h1 id="vs-code-lean">VS Code を使わずに Lean と相互作用する<a class="headerlink" href="#vs-code-lean" title="Permanent link">&para;</a></h1>
-<p>VS Code 拡張は Lean language server の使いやすいフロントエンドです．
-しかし，Lean 自体はコマンドラインからも使えます．</p>
-<p>このプロジェクトでは，まず <code>lake env</code> を付けるのが安全です．
-これにより，Mathlib など，Lake workspace の依存関係を含んだ環境で <code>lean</code> が起動します．</p>
-<div class="language-bash highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>lake<span class="w"> </span>env<span class="w"> </span>lean<span class="w"> </span>LeanMathNote/basic/chapter05.lean
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>lake<span class="w"> </span>lean<span class="w"> </span>LeanMathNote/basic/chapter05.lean
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>lake<span class="w"> </span>build
+<h1 id="project">既存 project を開く<a class="headerlink" href="#project" title="Permanent link">&para;</a></h1>
+<p>GitHub などから既存 project を取得したら，まず project ルートに移動します．</p>
+<div class="language-bash highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/USER/PROJECT.git
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">cd</span><span class="w"> </span>PROJECT
 </code></pre></div>
-<p><code>lean</code> に直接入力を渡すこともできます．</p>
-<div class="language-bash highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nb">printf</span><span class="w"> </span><span class="s1">&#39;#check Nat\n#eval 2 + 3\n&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>lake<span class="w"> </span>env<span class="w"> </span>lean<span class="w"> </span>--stdin
+<p>Mathlib を使う project なら，通常は次を実行します．</p>
+<div class="language-bash highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>lake<span class="w"> </span>update
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>lake<span class="w"> </span>exe<span class="w"> </span>cache<span class="w"> </span>get
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>lake<span class="w"> </span>build
 </code></pre></div>
-<p>エラーや情報を機械可読にしたい場合は <code>--json</code> が使えます．</p>
-<div class="language-bash highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>lake<span class="w"> </span>env<span class="w"> </span>lean<span class="w"> </span>--json<span class="w"> </span>LeanMathNote/basic/chapter05.lean
-</code></pre></div>
-<p>language server をエディタなしで起動するには次を使います．</p>
-<div class="language-bash highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>lake<span class="w"> </span>serve
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>lake<span class="w"> </span>env<span class="w"> </span>lean<span class="w"> </span>--server
-</code></pre></div>
-<p><code>lean --server</code> は LSP クライアントと通信するためのモードです．
-人間が直接対話する REPL というより，エディタや外部ツールが Lean と通信するための入口です．</p>
-<p>便利な調査コマンドもあります．</p>
-<div class="language-bash highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>lake<span class="w"> </span>env<span class="w"> </span>lean<span class="w"> </span>--deps<span class="w"> </span>LeanMathNote/basic/chapter05.lean
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>lake<span class="w"> </span>env<span class="w"> </span>lean<span class="w"> </span>--src-deps<span class="w"> </span>LeanMathNote/basic/chapter05.lean
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>lake<span class="w"> </span>env<span class="w"> </span>lean<span class="w"> </span>--profile<span class="w"> </span>LeanMathNote/basic/chapter05.lean
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>lean<span class="w"> </span>--print-prefix
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>lean<span class="w"> </span>--print-libdir
-<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>lake<span class="w"> </span>query<span class="w"> </span>LeanMathNote
-</code></pre></div>
-<p><code>--deps</code> は import されるモジュールの依存関係を調べます．
-<code>--profile</code> は定義や定理ごとの処理時間を見ます．
-<code>--print-prefix</code> と <code>--print-libdir</code> は，現在の Lean toolchain がどこにあるかを確認します．</p>
+<p><code>lake update</code> は <code>lake-manifest.json</code> を更新することがあるため，
+単に既存 project を使うだけなら，まず <code>lake exe cache get</code> と <code>lake build</code> で足りることもあります．
+共同開発中の project で <code>lake-manifest.json</code> を勝手に更新したくない場合は，実行前に差分が出てもよいか確認してください．</p>
+<p>VS Code で開くときは，<code>LeanMathNote/</code> のようなソースディレクトリではなく，<code>lakefile.toml</code> と <code>lean-toolchain</code> がある project ルートを開きます．</p>
 
 
 
@@ -1821,7 +1824,7 @@
       <nav class="md-footer__inner md-grid" aria-label="フッター" >
         
           
-          <a href="../05/" class="md-footer__link md-footer__link--prev" aria-label="前: `.olean` と `.ilean`">
+          <a href="../05/" class="md-footer__link md-footer__link--prev" aria-label="前: 既存 project に Mathlib を追加する">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -1831,20 +1834,20 @@
                 前
               </span>
               <div class="md-ellipsis">
-                `.olean` と `.ilean`
+                既存 project に Mathlib を追加する
               </div>
             </div>
           </a>
         
         
           
-          <a href="../07/" class="md-footer__link md-footer__link--next" aria-label="次: プロジェクトのファイル構造">
+          <a href="../07/" class="md-footer__link md-footer__link--next" aria-label="次: Lake の基本操作">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 次
               </span>
               <div class="md-ellipsis">
-                プロジェクトのファイル構造
+                Lake の基本操作
               </div>
             </div>
             <div class="md-footer__button md-icon">

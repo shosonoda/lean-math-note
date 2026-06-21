@@ -25,7 +25,7 @@
     
     
       
-        <title>Elan - 数学系エンドユーザーのためのLean入門</title>
+        <title>よくある失敗 - 数学系エンドユーザーのためのLean入門</title>
       
     
     
@@ -68,7 +68,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#elan" class="md-skip">
+        <a href="#_1" class="md-skip">
           コンテンツにスキップ
         </a>
       
@@ -104,7 +104,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Elan
+              よくある失敗
             
           </span>
         </div>
@@ -238,6 +238,8 @@
       
         
           
+        
+      
         
       
         
@@ -679,10 +681,6 @@
       
         
       
-        
-      
-        
-      
     
     
     
@@ -706,7 +704,7 @@
   <span class="md-ellipsis">
     
   
-    Chapter 05: Lean の仕組み
+    Chapter 05: Lean Project の作成と操作
   
 
     
@@ -728,7 +726,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    Chapter 05: Lean の仕組み
+    Chapter 05: Lean Project の作成と操作
   
 
           </label>
@@ -750,7 +748,7 @@
   <span class="md-ellipsis">
     
   
-    Lean の処理パイプライン
+    Elan, Lean, Lake
   
 
     
@@ -778,7 +776,7 @@
   <span class="md-ellipsis">
     
   
-    抽象構文木
+    Lean バージョンの指定法
   
 
     
@@ -806,7 +804,7 @@
   <span class="md-ellipsis">
     
   
-    マクロ展開とエラボレータ
+    Mathlib を含まない project を作る
   
 
     
@@ -834,7 +832,7 @@
   <span class="md-ellipsis">
     
   
-    カーネル
+    Mathlib を含む project を作る
   
 
     
@@ -862,7 +860,7 @@
   <span class="md-ellipsis">
     
   
-    `.olean` と `.ilean`
+    既存 project に Mathlib を追加する
   
 
     
@@ -890,7 +888,7 @@
   <span class="md-ellipsis">
     
   
-    VS Code を使わずに Lean と相互作用する
+    既存 project を開く
   
 
     
@@ -918,7 +916,7 @@
   <span class="md-ellipsis">
     
   
-    プロジェクトのファイル構造
+    Lake の基本操作
   
 
     
@@ -946,7 +944,7 @@
   <span class="md-ellipsis">
     
   
-    module と import
+    project の中で Lean ファイルを確認する
   
 
     
@@ -983,7 +981,7 @@
   <span class="md-ellipsis">
     
   
-    Elan
+    よくある失敗
   
 
     
@@ -1012,7 +1010,7 @@
   <span class="md-ellipsis">
     
   
-    Lake
+    まとめ
   
 
     
@@ -1040,62 +1038,6 @@
   <span class="md-ellipsis">
     
   
-    `leanchecker`
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../12/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    まとめ
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../13/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
     演習問題
   
 
@@ -1112,6 +1054,85 @@
             
           </ul>
         </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../chapter06/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 06: Lean の仕組み
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
       
     </li>
   
@@ -1754,22 +1775,23 @@
 
 
 
-<h1 id="elan">Elan<a class="headerlink" href="#elan" title="Permanent link">&para;</a></h1>
-<p>Elan は Lean toolchain manager です．
-<code>lean</code>，<code>lake</code>，<code>leanchecker</code> などのコマンドは，Elan の proxy 経由で現在のプロジェクトに合った toolchain を呼び出します．</p>
-<p>現在のプロジェクトでは，<code>lean-toolchain</code> に次のような指定があります．</p>
-<div class="language-text highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>leanprover/lean4:v4.30.0
-</code></pre></div>
-<p>このファイルにより，プロジェクトに入って <code>lean</code> や <code>lake</code> を実行したときに，対応する Lean 4.30.0 の toolchain が使われます．
-複数人で開発するとき，全員が同じ Lean version と Mathlib revision を使うために重要です．</p>
-<p>よく使う Elan コマンドは次の通りです．</p>
-<div class="language-bash highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>elan<span class="w"> </span>show
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>elan<span class="w"> </span>toolchain<span class="w"> </span>list
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>elan<span class="w"> </span>toolchain<span class="w"> </span>install<span class="w"> </span>leanprover/lean4:v4.30.0
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>elan<span class="w"> </span>default<span class="w"> </span>leanprover/lean4:stable
-</code></pre></div>
-<p>特定のコマンドだけ別 toolchain で実行するには，<code>+</code> を使います．</p>
-<div class="language-bash highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>lake<span class="w"> </span>+leanprover/lean4:v4.30.0<span class="w"> </span>build
+<h1 id="_1">よくある失敗<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<p>Lean project の操作でよくある失敗をまとめます．</p>
+<ul>
+<li><code>lakefile.toml</code> がある directory ではなく，その下のソース directory を VS Code で開いている．</li>
+<li><code>lean-toolchain</code> と Mathlib の revision が対応していない．</li>
+<li><code>lake update</code> 後に <code>lake exe cache get</code> を実行しておらず，Mathlib を手元で長時間ビルドしている．</li>
+<li>空き容量が足りない．Mathlib project では 7.2 GB 程度の余裕を見込む．</li>
+<li><code>lake update</code> によって <code>lake-manifest.json</code> が変わったことに気づかず commit してしまう．</li>
+<li><code>lake clean</code> を cache 削除コマンドだと思っている．これは主に build outputs を消すためのコマンドである．</li>
+</ul>
+<p>困ったときは，まず次を確認します．</p>
+<div class="language-bash highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nb">pwd</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>ls
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>cat<span class="w"> </span>lean-toolchain
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>lake<span class="w"> </span>--version
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>lake<span class="w"> </span>build
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>git<span class="w"> </span>status<span class="w"> </span>--short
 </code></pre></div>
 
 
@@ -1806,7 +1828,7 @@
       <nav class="md-footer__inner md-grid" aria-label="フッター" >
         
           
-          <a href="../08/" class="md-footer__link md-footer__link--prev" aria-label="前: module と import">
+          <a href="../08/" class="md-footer__link md-footer__link--prev" aria-label="前: project の中で Lean ファイルを確認する">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -1816,20 +1838,20 @@
                 前
               </span>
               <div class="md-ellipsis">
-                module と import
+                project の中で Lean ファイルを確認する
               </div>
             </div>
           </a>
         
         
           
-          <a href="../10/" class="md-footer__link md-footer__link--next" aria-label="次: Lake">
+          <a href="../10/" class="md-footer__link md-footer__link--next" aria-label="次: まとめ">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 次
               </span>
               <div class="md-ellipsis">
-                Lake
+                まとめ
               </div>
             </div>
             <div class="md-footer__button md-icon">

@@ -25,7 +25,7 @@
     
     
       
-        <title>抽象構文木 - 数学系エンドユーザーのためのLean入門</title>
+        <title>Lean バージョンの指定法 - 数学系エンドユーザーのためのLean入門</title>
       
     
     
@@ -68,7 +68,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#_1" class="md-skip">
+        <a href="#lean" class="md-skip">
           コンテンツにスキップ
         </a>
       
@@ -104,7 +104,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              抽象構文木
+              Lean バージョンの指定法
             
           </span>
         </div>
@@ -238,6 +238,8 @@
       
         
           
+        
+      
         
       
         
@@ -679,10 +681,6 @@
       
         
       
-        
-      
-        
-      
     
     
     
@@ -706,7 +704,7 @@
   <span class="md-ellipsis">
     
   
-    Chapter 05: Lean の仕組み
+    Chapter 05: Lean Project の作成と操作
   
 
     
@@ -728,7 +726,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    Chapter 05: Lean の仕組み
+    Chapter 05: Lean Project の作成と操作
   
 
           </label>
@@ -750,7 +748,7 @@
   <span class="md-ellipsis">
     
   
-    Lean の処理パイプライン
+    Elan, Lean, Lake
   
 
     
@@ -787,7 +785,7 @@
   <span class="md-ellipsis">
     
   
-    抽象構文木
+    Lean バージョンの指定法
   
 
     
@@ -816,7 +814,7 @@
   <span class="md-ellipsis">
     
   
-    マクロ展開とエラボレータ
+    Mathlib を含まない project を作る
   
 
     
@@ -844,7 +842,7 @@
   <span class="md-ellipsis">
     
   
-    カーネル
+    Mathlib を含む project を作る
   
 
     
@@ -872,7 +870,7 @@
   <span class="md-ellipsis">
     
   
-    `.olean` と `.ilean`
+    既存 project に Mathlib を追加する
   
 
     
@@ -900,7 +898,7 @@
   <span class="md-ellipsis">
     
   
-    VS Code を使わずに Lean と相互作用する
+    既存 project を開く
   
 
     
@@ -928,7 +926,7 @@
   <span class="md-ellipsis">
     
   
-    プロジェクトのファイル構造
+    Lake の基本操作
   
 
     
@@ -956,7 +954,7 @@
   <span class="md-ellipsis">
     
   
-    module と import
+    project の中で Lean ファイルを確認する
   
 
     
@@ -984,7 +982,7 @@
   <span class="md-ellipsis">
     
   
-    Elan
+    よくある失敗
   
 
     
@@ -1012,7 +1010,7 @@
   <span class="md-ellipsis">
     
   
-    Lake
+    まとめ
   
 
     
@@ -1040,62 +1038,6 @@
   <span class="md-ellipsis">
     
   
-    `leanchecker`
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../12/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    まとめ
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../13/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
     演習問題
   
 
@@ -1112,6 +1054,85 @@
             
           </ul>
         </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../chapter06/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 06: Lean の仕組み
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
       
     </li>
   
@@ -1754,32 +1775,25 @@
 
 
 
-<h1 id="_1">抽象構文木<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
-<p>Lean の parser は，文字列を <code>Syntax</code> 型の木に変換します．
-これはまだ「意味づけ」されていません．
-たとえば <code>x + y</code> という構文だけを見ても，自然数の足し算か，群の演算か，行列の足し算かは分かりません．
-この段階では，記号の並びとその木構造が分かっているだけです．</p>
-<p>Lean では parser や syntax がユーザー拡張可能です．
-<code>notation</code>，<code>syntax</code>，<code>macro</code> によって新しい表面構文を追加できます．</p>
-<p>各 syntax node には kind があり，エラボレータやマクロ展開器はこの kind を手がかりに処理を選びます．
-また，parser から直接作られた syntax には元のソース位置や空白に関する情報も残るため，
-エラー表示，hover，ジャンプ，pretty printing などの基礎にもなります．</p>
-<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">Lean</span><span class="bp">.</span><span class="n">Syntax</span><span class="bp">.</span><span class="n">getKind</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">Lean</span><span class="bp">.</span><span class="n">Parser</span><span class="bp">.</span><span class="n">runParserCategory</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="bp">#</span><span class="n">eval</span><span class="w"> </span><span class="k">show</span><span class="w"> </span><span class="n">CoreM</span><span class="w"> </span><span class="n">Unit</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="k">do</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">  </span><span class="k">let</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">Lean</span><span class="bp">.</span><span class="n">Parser</span><span class="bp">.</span><span class="n">runParserCategory</span><span class="w"> </span><span class="o">(</span><span class="bp">←</span><span class="w"> </span><span class="n">getEnv</span><span class="o">)</span><span class="w"> </span><span class="ss">`term</span><span class="w"> </span><span class="s2">&quot;x + y&quot;</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">  </span><span class="k">match</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="k">with</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">  </span><span class="bp">|</span><span class="w"> </span><span class="bp">.</span><span class="n">ok</span><span class="w"> </span><span class="n">stx</span><span class="w"> </span><span class="bp">=&gt;</span>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">      </span><span class="n">IO</span><span class="bp">.</span><span class="n">println</span><span class="w"> </span><span class="n">s!</span><span class="s2">&quot;kind = {Syntax.getKind stx}&quot;</span>
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">  </span><span class="bp">|</span><span class="w"> </span><span class="bp">.</span><span class="n">error</span><span class="w"> </span><span class="n">e</span><span class="w"> </span><span class="bp">=&gt;</span>
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">      </span><span class="n">IO</span><span class="bp">.</span><span class="n">println</span><span class="w"> </span><span class="n">e</span>
+<h1 id="lean">Lean バージョンの指定法<a class="headerlink" href="#lean" title="Permanent link">&para;</a></h1>
+<p>Lean のバージョン指定は，project ルートの <code>lean-toolchain</code> に書くのが基本です．</p>
+<div class="language-text highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>leanprover/lean4:v4.30.0
 </code></pre></div>
-<p><code>Syntax.getKind</code> は syntax node の種類を取り出す関数です．
-<code>Parser.runParserCategory</code> は，指定した parser category で文字列を解析するための関数です．
-通常の証明では直接使いませんが，Lean のフロントエンドが「文字列から syntax tree を作る」ことを確認できます．
-上の例では，<code>term</code> category として <code>"x + y"</code> を解析し，得られた syntax node の kind を表示しています．
-木全体を見たい場合は，<code>IO.println (repr stx)</code> のように <code>repr</code> を出力すると，<code>Syntax.node</code>，<code>Syntax.ident</code>，<code>Syntax.atom</code> などの構造が見えます．</p>
+<p>このファイルを commit しておくと，別の計算機で project を開いたときにも同じ Lean バージョンが使われます．
+講義資料，論文付録，研究プロジェクトでは，Lean と Mathlib のバージョンを固定することが再現性のために重要です．</p>
+<p>一時的に特定バージョンのコマンドを使いたい場合は，Elan の <code>+toolchain</code> 記法を使えます．</p>
+<div class="language-bash highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>lake<span class="w"> </span>+v4.30.0<span class="w"> </span>--version
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>lean<span class="w"> </span>+v4.30.0<span class="w"> </span>--version
+</code></pre></div>
+<p>ただし，project の通常運用では <code>lean-toolchain</code> を編集して管理する方が分かりやすいです．
+<code>lake +v4.30.0 new my_project math</code> のように書いた場合，そのコマンドを実行する <code>lake</code> のバージョンを指定しているのであって，
+作られる project の Lean バージョンを恒久的に指定する主な方法は，作成後の <code>lean-toolchain</code> です．</p>
+<p>現在使われている toolchain を確認するには次を使います．</p>
+<div class="language-bash highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>elan<span class="w"> </span>show
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>lean<span class="w"> </span>--version
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>lake<span class="w"> </span>--version
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>cat<span class="w"> </span>lean-toolchain
+</code></pre></div>
 
 
 
@@ -1815,7 +1829,7 @@
       <nav class="md-footer__inner md-grid" aria-label="フッター" >
         
           
-          <a href="../01/" class="md-footer__link md-footer__link--prev" aria-label="前: Lean の処理パイプライン">
+          <a href="../01/" class="md-footer__link md-footer__link--prev" aria-label="前: Elan, Lean, Lake">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -1825,20 +1839,20 @@
                 前
               </span>
               <div class="md-ellipsis">
-                Lean の処理パイプライン
+                Elan, Lean, Lake
               </div>
             </div>
           </a>
         
         
           
-          <a href="../03/" class="md-footer__link md-footer__link--next" aria-label="次: マクロ展開とエラボレータ">
+          <a href="../03/" class="md-footer__link md-footer__link--next" aria-label="次: Mathlib を含まない project を作る">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 次
               </span>
               <div class="md-ellipsis">
-                マクロ展開とエラボレータ
+                Mathlib を含まない project を作る
               </div>
             </div>
             <div class="md-footer__button md-icon">

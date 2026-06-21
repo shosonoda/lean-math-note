@@ -3,6 +3,7 @@ import LeanMathNote.basic.chapter02
 import LeanMathNote.basic.chapter03
 import LeanMathNote.basic.chapter04
 import LeanMathNote.basic.chapter05
+import LeanMathNote.basic.chapter06
 import LeanMathNote.practice.chapter01
 import LeanMathNote.practice.chapter02
 import LeanMathNote.practice.chapter03

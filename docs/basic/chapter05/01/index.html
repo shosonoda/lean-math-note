@@ -25,7 +25,7 @@
     
     
       
-        <title>Lean の処理パイプライン - 数学系エンドユーザーのためのLean入門</title>
+        <title>Elan, Lean, Lake - 数学系エンドユーザーのためのLean入門</title>
       
     
     
@@ -68,7 +68,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#lean" class="md-skip">
+        <a href="#elan-lean-lake" class="md-skip">
           コンテンツにスキップ
         </a>
       
@@ -104,7 +104,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Lean の処理パイプライン
+              Elan, Lean, Lake
             
           </span>
         </div>
@@ -238,6 +238,8 @@
       
         
           
+        
+      
         
       
         
@@ -679,10 +681,6 @@
       
         
       
-        
-      
-        
-      
     
     
     
@@ -706,7 +704,7 @@
   <span class="md-ellipsis">
     
   
-    Chapter 05: Lean の仕組み
+    Chapter 05: Lean Project の作成と操作
   
 
     
@@ -728,7 +726,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    Chapter 05: Lean の仕組み
+    Chapter 05: Lean Project の作成と操作
   
 
           </label>
@@ -759,7 +757,7 @@
   <span class="md-ellipsis">
     
   
-    Lean の処理パイプライン
+    Elan, Lean, Lake
   
 
     
@@ -788,7 +786,7 @@
   <span class="md-ellipsis">
     
   
-    抽象構文木
+    Lean バージョンの指定法
   
 
     
@@ -816,7 +814,7 @@
   <span class="md-ellipsis">
     
   
-    マクロ展開とエラボレータ
+    Mathlib を含まない project を作る
   
 
     
@@ -844,7 +842,7 @@
   <span class="md-ellipsis">
     
   
-    カーネル
+    Mathlib を含む project を作る
   
 
     
@@ -872,7 +870,7 @@
   <span class="md-ellipsis">
     
   
-    `.olean` と `.ilean`
+    既存 project に Mathlib を追加する
   
 
     
@@ -900,7 +898,7 @@
   <span class="md-ellipsis">
     
   
-    VS Code を使わずに Lean と相互作用する
+    既存 project を開く
   
 
     
@@ -928,7 +926,7 @@
   <span class="md-ellipsis">
     
   
-    プロジェクトのファイル構造
+    Lake の基本操作
   
 
     
@@ -956,7 +954,7 @@
   <span class="md-ellipsis">
     
   
-    module と import
+    project の中で Lean ファイルを確認する
   
 
     
@@ -984,7 +982,7 @@
   <span class="md-ellipsis">
     
   
-    Elan
+    よくある失敗
   
 
     
@@ -1012,7 +1010,7 @@
   <span class="md-ellipsis">
     
   
-    Lake
+    まとめ
   
 
     
@@ -1040,62 +1038,6 @@
   <span class="md-ellipsis">
     
   
-    `leanchecker`
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../12/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    まとめ
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../13/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
     演習問題
   
 
@@ -1112,6 +1054,85 @@
             
           </ul>
         </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../chapter06/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 06: Lean の仕組み
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
       
     </li>
   
@@ -1754,117 +1775,36 @@
 
 
 
-<h1 id="lean">Lean の処理パイプライン<a class="headerlink" href="#lean" title="Permanent link">&para;</a></h1>
-<p>Lean が <code>.lean</code> ファイルを読むときの流れは，大まかには次のようになります．
-これは概念図であり，実装が常にこの順にファイル全体を一括処理するという意味ではありません．</p>
-<div class="language-text highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>文字列としてのソースコード
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>  ↓ parsing
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>抽象構文木 Syntax
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>  ↓ macro expansion
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>展開後の Syntax
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>  ↓ elaboration
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>コア言語の式 Expr
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>  ↓ kernel checking
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>カーネルに受理された定義・定理
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>  ↓ serialization / compilation
-<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>.olean, .ilean, C code, native object など
-</code></pre></div>
-<p>実際には，ファイル全体を一度に処理するというより，トップレベルの command ごとに
-「構文解析，マクロ展開，エラボレーション，カーネル検査」が進みます．
-ある command によって新しい記法や定義が追加されると，次の command はその更新後の環境で解釈されます．</p>
-<p>また，マクロ展開はエラボレーションから完全に独立した前処理ではありません．
-Reference の言い方では，macro expansion は elaboration の一部であり，
-外側の構文を展開してからその層をエラボレートし，内側に残ったマクロはエラボレータがそこに到達したときに展開されます．
-したがって，上の図の「macro expansion -&gt; elaboration」は，学習用に分けて見せた模式的な区分です．</p>
-<p>この図の各段階で現れるものは，おおよそ次のように考えるとよいです．</p>
+<h1 id="elan-lean-lake">Elan, Lean, Lake<a class="headerlink" href="#elan-lean-lake" title="Permanent link">&para;</a></h1>
+<p>Lean project を扱うときに出てくる主な道具は次の 3 つです．</p>
 <table>
 <thead>
 <tr>
-<th>段階</th>
-<th>実体</th>
-<th>見方</th>
+<th>名前</th>
+<th>役割</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>文字列としてのソースコード</td>
-<td><code>.lean</code> ファイルや標準入力から渡される Unicode 文字列です．まだ Lean の構文木ではありません．</td>
-<td>エディタで開く，<code>cat LeanMathNote/basic/chapter05.lean</code> で見る，<code>lake env lean --stdin</code> に文字列を渡す．</td>
+<td><code>elan</code></td>
+<td>Lean toolchain manager．どの Lean バージョンを使うかを選ぶ．</td>
 </tr>
 <tr>
-<td>抽象構文木 <code>Syntax</code></td>
-<td>parser が作る <code>Lean.Syntax</code> 型の値です．記号列の木構造とソース位置は持ちますが，型や意味はまだ決まっていません．</td>
-<td><code>Lean.Parser.runParserCategory</code> を使うと，小さな文字列を <code>Syntax</code> にできます．</td>
+<td><code>lean</code></td>
+<td>Lean 本体．<code>.lean</code> ファイルを読み，型検査や elaboration を行う．</td>
 </tr>
 <tr>
-<td>展開後の <code>Syntax</code></td>
-<td>macro expansion によって，表面構文をより基本的な構文へ置き換えた後の <code>Syntax</code> です．型づけ済みの式ではなく，まだ構文です．</td>
-<td><code>syntax</code>，<code>macro</code>，<code>macro_rules</code> で自分でマクロを定義できます．全ファイルの展開後構文を普段の開発で直接見ることはあまりありません．</td>
-</tr>
-<tr>
-<td>コア言語の式 <code>Expr</code></td>
-<td>term elaborator が作る <code>Lean.Expr</code> 型の値です．暗黙引数，型クラス，overload，tactic などが解決された，カーネルが検査する対象に近い式です．</td>
-<td><code>#check</code>，<code>#reduce</code>，<code>#print</code>，<code>set_option pp.all true</code> で pretty printer 越しに見ることができます．メタプログラムでは <code>Lean.Elab.Term.elabTerm</code> が <code>Expr</code> を返します．</td>
-</tr>
-<tr>
-<td>カーネルに受理された定義・定理</td>
-<td><code>Environment</code> に登録された定数情報です．名前，型，定義本体や定理の証明項などが <code>ConstantInfo</code> として保存されます．</td>
-<td><code>#check name</code>，<code>#print name</code>，<code>#print axioms name</code>，メタプログラムでは <code>Environment.find?</code> で調べます．</td>
+<td><code>lake</code></td>
+<td>Lean の package manager / build tool．project 作成，依存関係，ビルドを管理する．</td>
 </tr>
 </tbody>
 </table>
-<p>処理を行う実体も分けておくと，どこをユーザーが拡張できるかが見えやすくなります．</p>
-<table>
-<thead>
-<tr>
-<th>処理</th>
-<th>行う実体</th>
-<th>ユーザーが触れるもの</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>parsing</td>
-<td>Lean の parser です．parser table は import 済みの構文拡張や開いている namespace の影響を受けます．</td>
-<td><code>syntax</code>，<code>notation</code> で新しい構文を追加できます．小さな例なら <code>Parser.runParserCategory</code> で parser を直接呼べます．</td>
-</tr>
-<tr>
-<td>macro expansion</td>
-<td>elaborator から呼ばれる macro expander です．syntax kind から macro 実装を探し，<code>Syntax</code> を別の <code>Syntax</code> に変換します．</td>
-<td><code>macro</code>，<code>macro_rules</code>，<code>notation</code> で拡張できます．macro の実装は概念的には <code>Syntax -&gt; MacroM Syntax</code> です．</td>
-</tr>
-<tr>
-<td>elaboration</td>
-<td>command elaborator，term elaborator，tactic elaborator です．構文を解釈し，環境を更新し，<code>Expr</code> や証明項を作ります．</td>
-<td>普通の <code>def</code>，<code>theorem</code>，tactic はここを使います．高度な用途では <code>elab</code>，<code>elab_rules</code>，自作 tactic で拡張できます．</td>
-</tr>
-<tr>
-<td>kernel checking</td>
-<td>Lean の信頼されるカーネルです．エラボレータが作った定義や証明項がコア型理論の規則に従うか検査します．</td>
-<td>ユーザーがカーネル自体を Lean コードから拡張することは通常ありません．<code>def</code>，<code>theorem</code>，<code>inductive</code> を書くと，追加前に検査されます．</td>
-</tr>
-<tr>
-<td>serialization</td>
-<td>検査済みの環境や対話用情報をファイルへ保存する処理です．module を再利用するための <code>.olean</code> などが作られます．</td>
-<td><code>lake build</code> や <code>lean</code> の実行で発生します．ユーザーは通常，生成物を直接編集せず，import や <code>leanchecker</code> を通して利用します．</td>
-</tr>
-</tbody>
-</table>
-<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">Lean</span><span class="bp">.</span><span class="n">Syntax</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">Lean</span><span class="bp">.</span><span class="n">Expr</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">Lean</span><span class="bp">.</span><span class="n">Environment</span>
+<p>通常，ユーザーが直接呼び出す <code>lean</code> や <code>lake</code> は Elan の proxy です．
+カレントディレクトリか親ディレクトリに <code>lean-toolchain</code> があれば，Elan はそこに書かれた toolchain を使います．</p>
+<p>たとえばこの project の <code>lean-toolchain</code> は次のような 1 行のファイルです．</p>
+<div class="language-text highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>leanprover/lean4:v4.30.0
 </code></pre></div>
-<p><code>Syntax</code> は parser が作る構文木です．
-<code>Expr</code> はエラボレータが作る，Lean のコア型理論に近い式です．
-<code>Environment</code> は，これまでに宣言された定義，定理，記法，型クラスインスタンス，属性などを保持する環境です．
-実際の対話環境では，これに加えて proof state，識別子の位置，補完候補などの情報も記録され，
-VS Code などのフロントエンドがそれを利用します．</p>
-<p>ここでいう「コア」は，Lean Language Reference の <code>core type theory</code> や <code>core language</code> に対応する語です．
-ユーザーが書く Lean コードそのものを指すのではなく，エラボレータが作り，カーネルが検査するための小さな型理論を指します．
-したがって，<code>def</code>，<code>theorem</code>，<code>match</code>，tactic script，型クラス探索，暗黙引数の補完，記法やマクロなどは，そのままコア型理論の構成要素ではありません．
-これらはユーザー向けの表面構文やエラボレーションの仕組みであり，最終的には <code>Expr</code> として表されるコア言語の項へ変換されます．
-また，実行ファイルを作るための compiler intermediate representation や C code，native object も，コア型理論そのものではなく，コンパイルのための別の表現です．
-この区別により，Lean は便利な表面構文を持ちながら，信頼するカーネルを小さく保てます．</p>
+<p>この指定により，この project では Lean 4.30.0 系の <code>lean</code> と <code>lake</code> が使われます．</p>
 
 
 
@@ -1900,7 +1840,7 @@ VS Code などのフロントエンドがそれを利用します．</p>
       <nav class="md-footer__inner md-grid" aria-label="フッター" >
         
           
-          <a href="../" class="md-footer__link md-footer__link--prev" aria-label="前: Chapter 05: Lean の仕組み">
+          <a href="../" class="md-footer__link md-footer__link--prev" aria-label="前: Chapter 05: Lean Project の作成と操作">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -1910,20 +1850,20 @@ VS Code などのフロントエンドがそれを利用します．</p>
                 前
               </span>
               <div class="md-ellipsis">
-                Chapter 05: Lean の仕組み
+                Chapter 05: Lean Project の作成と操作
               </div>
             </div>
           </a>
         
         
           
-          <a href="../02/" class="md-footer__link md-footer__link--next" aria-label="次: 抽象構文木">
+          <a href="../02/" class="md-footer__link md-footer__link--next" aria-label="次: Lean バージョンの指定法">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 次
               </span>
               <div class="md-ellipsis">
-                抽象構文木
+                Lean バージョンの指定法
               </div>
             </div>
             <div class="md-footer__button md-icon">
