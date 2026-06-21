@@ -1973,7 +1973,7 @@
 
 <h1 id="fun"><code>fun</code><a class="headerlink" href="#fun" title="Permanent link">&para;</a></h1>
 <p><code>fun x =&gt; t</code> は無名関数を作る式です．
-数学の記法では <code>$x \mapsto t$</code> に対応します．
+数学の記法では（関数名を明記しない） <span class="arithmatex">\(x \mapsto t\)</span> に対応します．
 Lean の多引数関数は基本的にカリー化されています．
 たとえば <code>Nat → Nat → Nat</code> は，自然数を 1 つ受け取って，さらに <code>Nat → Nat</code> 型の関数を返す型として読めます．</p>
 <div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">def</span><span class="w"> </span><span class="n">addConst</span><span class="w"> </span><span class="o">(</span><span class="n">k</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">Nat</span><span class="w"> </span><span class="o">:=</span>
