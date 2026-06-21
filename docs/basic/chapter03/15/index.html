@@ -982,6 +982,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    検索系: `#check`，`exact?`，`rw?`
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -998,6 +1016,47 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#check" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        #check
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exactrwtry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        exact?，rw?，try?
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1928,6 +1987,36 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#check" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        #check
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exactrwtry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        exact?，rw?，try?
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1945,12 +2034,14 @@
 
 <h1 id="checkexactrw">検索系: <code>#check</code>，<code>exact?</code>，<code>rw?</code><a class="headerlink" href="#checkexactrw" title="Permanent link">&para;</a></h1>
 <p>使える補題を探すことは，Lean で数学を形式化するときの大きな作業です．</p>
-<p><code>#check</code> は，名前が分かっている定理の型を確認します．
+<h2 id="check"><code>#check</code><a class="headerlink" href="#check" title="Permanent link">&para;</a></h2>
+<p>名前が分かっている定理の型を確認します．
 定理名が分かっている場合は <code>#check</code>，現在のゴールから候補を探したい場合は <code>exact?</code>，<code>rw?</code> のような検索支援を使い分けます．</p>
 <div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">Nat</span><span class="bp">.</span><span class="n">add_comm</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">Nat</span><span class="bp">.</span><span class="n">add_assoc</span>
 </code></pre></div>
-<p><code>exact?</code>，<code>rw?</code>，<code>try?</code> は，現在のゴールを閉じる候補や書き換え候補を提案する tactic です．
+<h2 id="exactrwtry"><code>exact?</code>，<code>rw?</code>，<code>try?</code><a class="headerlink" href="#exactrwtry" title="Permanent link">&para;</a></h2>
+<p>現在のゴールを閉じる候補や書き換え候補を提案する tactic です．
 出力は Lean のバージョンや読み込んだライブラリによって変わることがあるため，この資料では実行例としてだけ示します．</p>
 <div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">n</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="n">exact?</span>

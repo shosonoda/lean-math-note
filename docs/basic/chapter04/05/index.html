@@ -2003,7 +2003,7 @@ Lean の <code>ℝ</code> は有限精度の浮動小数点数ではなく，証
 <p><code>NNReal</code> は nonnegative real，つまり <code>$[0, \infty)$</code> に対応する型です．
 記法は <code>ℝ≥0</code> です．
 実装は <code>ℝ</code> の subtype で，</p>
-<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">def</span><span class="w"> </span><span class="n">NNReal</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="w"> </span><span class="bp">//</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="bp">≤</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">}</span>
+<div class="language-lean highlight"><span class="filename">Mathlib.Data.NNReal.Defs</span><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kd">def</span><span class="w"> </span><span class="n">NNReal</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="w"> </span><span class="bp">//</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="bp">≤</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">}</span>
 </code></pre></div>
 <p>です．
 要素は実数 <code>r</code> と証明 <code>0 ≤ r</code> の組ですが，通常は coercion により実数としても使えます．

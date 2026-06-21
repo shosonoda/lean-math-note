@@ -1808,50 +1808,47 @@
 たとえば自然数全体は <code>Nat</code>，実数全体は <code>ℝ</code> という型です．
 一方，Mathlib の <code>Set α</code> は「型 <code>α</code> の部分集合」を表します．
 定義は非常に単純で，<code>Set α</code> は <code>α → Prop</code> として実装されています．</p>
-<p>```lean4:Mathlib.Data.Set.Defs
-def Set (α : Type u) := α → Prop
-<div class="language-text highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>つまり，`s : Set α` とは，各 `x : α` に対して「`x` が `s` に属する」という命題を返す述語です．
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>所属 `x ∈ s` は，内部的には `s x` と同じ意味です．
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>この意味で，Lean の `Set α` は数学の「集合」そのものというより，固定された型 `α` 上の部分集合全体，つまり冪集合 `$\mathcal P(α)$` に対応します．
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>ただし実際の証明では，`Set` が関数として実装されていることを直接展開するより，`{x | p x}` や `x ∈ s` や `s ⊆ t` のような集合のインターフェースを使うのが普通です．
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>対応を大まかに書くと，次のようになります．
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>* 数学の全体集合・台集合: Lean では多くの場合 `α : Type*`
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>* 数学の部分集合 `s \subseteq α`: Lean では `s : Set α`
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>* 数学の冪集合 `$\mathcal P(α)$`: Lean では `Set α` という型
-<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>* 条件 `x \in s`: Lean では命題 `x ∈ s`
-<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>
-<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>このため，`Set Nat` は「自然数という集合」ではなく，「自然数の部分集合を要素にもつ型」と読む方が正確です．
-<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>Mathlib のドキュメントでは `Set X` と呼ばれますが，直感的には `Subset X` と呼んだ方が意味が分かりやすい場面もあります．
-<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>
-<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>```lean4
-<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>#check Set
-<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>#check Set.powerset
-<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>#check Set.ext
-<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>#check Set.mem_setOf
-<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>#check Set.setOf_bijective
-<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>
-<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>def smallSet : Set Nat :=
-<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>  {n | n &lt; 3}
-<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>
-<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a>example (n : Nat) : n ∈ smallSet ↔ n &lt; 3 := by
-<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a>  rfl
-<a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a>
-<a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a>example : 2 ∈ smallSet := by
-<a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a>  norm_num [smallSet]
-<a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a>
-<a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a>example : 4 ∉ smallSet := by
-<a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a>  norm_num [smallSet]
-<a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a>
-<a id="__codelineno-0-35" name="__codelineno-0-35" href="#__codelineno-0-35"></a>example (s t : Set Nat) : t ∈ Set.powerset s ↔ t ⊆ s := by
-<a id="__codelineno-0-36" name="__codelineno-0-36" href="#__codelineno-0-36"></a>  exact Set.mem_powerset_iff t s
-</code></pre></div></p>
+<div class="language-lean highlight"><span class="filename">Mathlib.Data.Set.Defs</span><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kd">def</span><span class="w"> </span><span class="n">Set</span><span class="w"> </span><span class="o">(</span><span class="n">α</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Type</span><span class="w"> </span><span class="n">u</span><span class="o">)</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">α</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="kt">Prop</span>
+</code></pre></div>
+<p>つまり，<code>s : Set α</code> とは，各 <code>x : α</code> に対して「<code>x</code> が <code>s</code> に属する」という命題を返す述語です．
+所属 <code>x ∈ s</code> は，内部的には <code>s x</code> と同じ意味です．
+この意味で，Lean の <code>Set α</code> は数学の「集合」そのものというより，固定された型 <code>α</code> 上の部分集合全体，つまり冪集合 <code>$\mathcal P(α)$</code> に対応します．
+ただし実際の証明では，<code>Set</code> が関数として実装されていることを直接展開するより，<code>{x | p x}</code> や <code>x ∈ s</code> や <code>s ⊆ t</code> のような集合のインターフェースを使うのが普通です．</p>
+<p>対応を大まかに書くと，次のようになります．</p>
+<ul>
+<li>数学の全体集合・台集合: Lean では多くの場合 <code>α : Type*</code></li>
+<li>数学の部分集合 <code>s \subseteq α</code>: Lean では <code>s : Set α</code></li>
+<li>数学の冪集合 <code>$\mathcal P(α)$</code>: Lean では <code>Set α</code> という型</li>
+<li>条件 <code>x \in s</code>: Lean では命題 <code>x ∈ s</code></li>
+</ul>
+<p>このため，<code>Set Nat</code> は「自然数という集合」ではなく，「自然数の部分集合を要素にもつ型」と読む方が正確です．
+Mathlib のドキュメントでは <code>Set X</code> と呼ばれますが，直感的には <code>Subset X</code> と呼んだ方が意味が分かりやすい場面もあります．</p>
+<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">Set</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">Set</span><span class="bp">.</span><span class="n">powerset</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">Set</span><span class="bp">.</span><span class="n">ext</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">Set</span><span class="bp">.</span><span class="n">mem_setOf</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">Set</span><span class="bp">.</span><span class="n">setOf_bijective</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="kn">def</span><span class="w"> </span><span class="n">smallSet</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Set</span><span class="w"> </span><span class="n">Nat</span><span class="w"> </span><span class="o">:=</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">  </span><span class="o">{</span><span class="n">n</span><span class="w"> </span><span class="bp">|</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="bp">&lt;</span><span class="w"> </span><span class="mi">3</span><span class="o">}</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">n</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="bp">∈</span><span class="w"> </span><span class="n">smallSet</span><span class="w"> </span><span class="bp">↔</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="bp">&lt;</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">  </span><span class="n">rfl</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="kn">example</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="bp">∈</span><span class="w"> </span><span class="n">smallSet</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="w">  </span><span class="n">norm_num</span><span class="w"> </span><span class="o">[</span><span class="n">smallSet</span><span class="o">]</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="kn">example</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="bp">∉</span><span class="w"> </span><span class="n">smallSet</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="w">  </span><span class="n">norm_num</span><span class="w"> </span><span class="o">[</span><span class="n">smallSet</span><span class="o">]</span>
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">s</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Set</span><span class="w"> </span><span class="n">Nat</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="bp">∈</span><span class="w"> </span><span class="n">Set</span><span class="bp">.</span><span class="n">powerset</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="bp">↔</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="bp">⊆</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a><span class="w">  </span><span class="n">exact</span><span class="w"> </span><span class="n">Set</span><span class="bp">.</span><span class="n">mem_powerset_iff</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="n">s</span>
+</code></pre></div>
 <p>集合の等式は，通常，外延性で証明します．
 数学で「任意の <code>x</code> について <code>x ∈ A</code> と <code>x ∈ B</code> が同値だから <code>A = B</code>」と言う議論に対応するのが <code>Set.ext</code> や tactic の <code>ext</code> です．</p>
-<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">A</span><span class="w"> </span><span class="n">B</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Set</span><span class="w"> </span><span class="n">Nat</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="bp">∩</span><span class="w"> </span><span class="n">B</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">B</span><span class="w"> </span><span class="bp">∩</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="n">ext</span><span class="w"> </span><span class="n">x</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">  </span><span class="n">simp</span><span class="w"> </span><span class="o">[</span><span class="n">and_comm</span><span class="o">]</span>
+<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">A</span><span class="w"> </span><span class="n">B</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Set</span><span class="w"> </span><span class="n">Nat</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="bp">∩</span><span class="w"> </span><span class="n">B</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">B</span><span class="w"> </span><span class="bp">∩</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="n">ext</span><span class="w"> </span><span class="n">x</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">  </span><span class="n">simp</span><span class="w"> </span><span class="o">[</span><span class="n">and_comm</span><span class="o">]</span>
 </code></pre></div>
 <p><code>Set α</code> と似て見えるものに <code>Subtype</code> があります．
 <code>s : Set α</code> は <code>α</code> 上の述語であり，それ自体は <code>Set α</code> 型の項です．
@@ -1859,31 +1856,31 @@ def Set (α : Type u) := α → Prop
 要素は値 <code>x : α</code> と証明 <code>x ∈ s</code> の組です．</p>
 <p>Mathlib では <code>s : Set α</code> を型として使うと，この subtype へ coercion されます．
 たとえば <code>x : smallSubtype</code> は「<code>smallSet</code> の元」としてのデータであり，<code>(x : Nat)</code> に戻すと元の自然数が得られます．</p>
-<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">abbrev</span><span class="w"> </span><span class="n">smallSubtype</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Type</span><span class="w"> </span><span class="o">:=</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="o">{</span><span class="n">n</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="w"> </span><span class="bp">//</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="bp">∈</span><span class="w"> </span><span class="n">smallSet</span><span class="o">}</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">Subtype</span>
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">Set</span><span class="bp">.</span><span class="n">coe_eq_subtype</span>
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">Subtype</span><span class="bp">.</span><span class="n">mem</span>
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>
-<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="kn">example</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="o">(</span><span class="bp">⟨</span><span class="mi">2</span><span class="o">,</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">norm_num</span><span class="w"> </span><span class="o">[</span><span class="n">smallSet</span><span class="o">]</span><span class="bp">⟩</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">smallSubtype</span><span class="o">)</span><span class="bp">.</span><span class="m">1</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">  </span><span class="n">rfl</span>
-<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>
-<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">smallSubtype</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="o">(</span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="o">)</span><span class="w"> </span><span class="bp">∈</span><span class="w"> </span><span class="n">smallSet</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="w">  </span><span class="n">exact</span><span class="w"> </span><span class="n">x</span><span class="bp">.</span><span class="n">property</span>
+<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">abbrev</span><span class="w"> </span><span class="n">smallSubtype</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Type</span><span class="w"> </span><span class="o">:=</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="o">{</span><span class="n">n</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="w"> </span><span class="bp">//</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="bp">∈</span><span class="w"> </span><span class="n">smallSet</span><span class="o">}</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">Subtype</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">Set</span><span class="bp">.</span><span class="n">coe_eq_subtype</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">Subtype</span><span class="bp">.</span><span class="n">mem</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="kn">example</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="o">(</span><span class="bp">⟨</span><span class="mi">2</span><span class="o">,</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">norm_num</span><span class="w"> </span><span class="o">[</span><span class="n">smallSet</span><span class="o">]</span><span class="bp">⟩</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">smallSubtype</span><span class="o">)</span><span class="bp">.</span><span class="m">1</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">  </span><span class="n">rfl</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">smallSubtype</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="o">(</span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="o">)</span><span class="w"> </span><span class="bp">∈</span><span class="w"> </span><span class="n">smallSet</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="w">  </span><span class="n">exact</span><span class="w"> </span><span class="n">x</span><span class="bp">.</span><span class="n">property</span>
 </code></pre></div>
 <p>数学では <code>Nat</code> や <code>ℝ</code> を「集合」と呼ぶことが多いですが，Lean の基礎ではそれらは型です．
 これは単なる用語の違いではありません．
 型理論では，型を ZFC の集合として素朴に解釈すると扱いにくい型も自然に現れます．
 たとえば関数型や高階の型を含む定義では，ある型 <code>P</code> と，<code>P</code> から作った型 <code>T P</code> が同型になるような自己参照的な状況を考えられます．
 擬似コードで書くと，次のような例です．</p>
-<div class="language-text highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>data Fix f = Fix (f (Fix f))
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>data T a = T ((a -&gt; Bool) -&gt; Bool)
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>type P = Fix T
+<div class="language-text highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>data Fix f = Fix (f (Fix f))
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>data T a = T ((a -&gt; Bool) -&gt; Bool)
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>type P = Fix T
 </code></pre></div>
 <p>これは Lean の帰納型としてそのまま導入する例ではありませんが，型を集合として読むことの限界を示す標準的な警告として有用です．
 もしそれらを素朴な集合と同一視し，濃度だけで</p>
-<div class="language-text highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>|P| = |T P| = 2^(2^|P|)
+<div class="language-text highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>|P| = |T P| = 2^(2^|P|)
 </code></pre></div>
 <p>のように読んでしまうと，Cantor 型の議論と衝突します．
 Lean で日常的に数学を形式化するときにこの病理を直接扱うことは多くありませんが，

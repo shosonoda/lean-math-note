@@ -25,7 +25,7 @@
     
     
       
-        <title>記法 `notation` - 数学系エンドユーザーのためのLean入門</title>
+        <title>`notation` （記法定義，糖衣構文） - 数学系エンドユーザーのためのLean入門</title>
       
     
     
@@ -104,7 +104,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              記法 `notation`
+              `notation` （記法定義，糖衣構文）
             
           </span>
         </div>
@@ -534,7 +534,7 @@
   <span class="md-ellipsis">
     
   
-    記法 `notation`
+    `notation` （記法定義，糖衣構文）
   
 
     
@@ -1971,8 +1971,8 @@
 
 
 
-<h1 id="notation">記法 <code>notation</code><a class="headerlink" href="#notation" title="Permanent link">&para;</a></h1>
-<p>Lean では，定義につけた普通の名前だけでなく，数学に近い記号や専用の構文を使えます．
+<h1 id="notation"><code>notation</code> （記法定義，糖衣構文）<a class="headerlink" href="#notation" title="Permanent link">&para;</a></h1>
+<p>Lean では，標準的な定義だけでなく，数学に近い記号や専用の構文を定義できます．
 たとえば <code>α → β</code> は関数型の記法，<code>P ∧ Q</code> は <code>And P Q</code> の記法，<code>x ∈ s</code> は membership の記法です．
 このような記法は，内部的には既存の定義や関数を使う式へ展開されます．</p>
 <p>小さな記法なら，<code>notation</code> や <code>infix</code> で定義できます．</p>
@@ -1990,8 +1990,8 @@
 <code>infixl:65 " +++ " =&gt; Nat.add</code> は，中置記法 <code>x +++ y</code> を <code>Nat.add x y</code> と読むようにする指定です．
 <code>65</code> は優先順位，<code>infixl</code> の <code>l</code> は左結合を表します．</p>
 <p>実際の Mathlib では，<code>ℝ</code>，<code>∑</code>，<code>∈</code>，<code>⊔</code>，<code>→+*</code> など，多くの記法が定義されています．
-記法は読みやすさのための表面構文なので，分からない記法に出会ったら，まず <code>#check</code> で型を確認し，「これはどの定義の別表記か」を調べるのが有効です．
-講義資料では記法を使いますが，必要に応じて元の定義名も併記します．</p>
+記法は読みやすさのための糖衣構文なので，分からない記法に出会ったら，まず <code>#check</code> で型を確認し，「これはどの定義の別表記か」を調べるのが有効です．
+講義資料では別記法を使いますが，必要に応じて元の定義名も併記します．</p>
 
 
 

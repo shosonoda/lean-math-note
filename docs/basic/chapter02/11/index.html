@@ -525,7 +525,7 @@
   <span class="md-ellipsis">
     
   
-    記法 `notation`
+    `notation` （記法定義，糖衣構文）
   
 
     
@@ -1973,7 +1973,7 @@
 
 <h1 id="exampletheoremlemma"><code>example</code>，<code>theorem</code>，<code>lemma</code><a class="headerlink" href="#exampletheoremlemma" title="Permanent link">&para;</a></h1>
 <p><code>example</code> は名前を残さない匿名の宣言です．
-講義資料では，構文やタクティックの小さな実験に向いています．
+構文やタクティックの小さな実験に向いています．
 証明の文脈では <code>example : P := ...</code> は「命題 <code>P</code> の証明をその場で与える」という意味です．
 ただし Lean のコマンドとしての <code>example</code> は，命題に限らず任意の型の項を匿名で確認する用途にも使えます．</p>
 <div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">n</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>

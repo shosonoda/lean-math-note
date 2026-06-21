@@ -266,7 +266,7 @@ end ConcreteLimits
 一点 `x` での連続性は `ContinuousAt f x`，集合 `s` 上の連続性は `ContinuousOn f s` です．
 Mathlib では，一点での連続性がフィルターで定義されています:
 
-```lean4
+```lean title="Mathlib.Topology.Defs"
 def ContinuousAt (f : X → Y) (x : X) :=
   Tendsto f (𝓝 x) (𝓝 (f x))
 def ContinuousOn (f : X → Y) (s : Set X) : Prop :=

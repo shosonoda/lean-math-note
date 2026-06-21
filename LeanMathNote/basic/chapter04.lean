@@ -45,8 +45,7 @@ namespace Chapter04
 ---
 ## `import Mathlib` と `open scoped`
 
-このプロジェクトでは各章の冒頭で `import Mathlib` を使っています．
-これは Mathlib 全体を読み込むため，講義資料では便利です．
+このプロジェクトでは各章の冒頭で `import Mathlib` を使っています．これは Mathlib 全体を読み込みます．
 実際の開発では，ビルド時間を抑えるために必要なファイルだけを import することもあります．
 たとえば `import Mathlib.Data.Real.Basic` や `import Mathlib.Topology.Basic` のように，必要な分野のファイルだけを import する書き方です．
 `import Mathlib` は「Mathlib に含まれる主要な定義・定理・tactic をまとめて使えるようにする」指定であり，Lean の言語機能そのものとは区別します．
@@ -147,7 +146,7 @@ Lean は型理論を基礎にしているため，数学でいう「対象の集
 一方，Mathlib の `Set α` は「型 `α` の部分集合」を表します．
 定義は非常に単純で，`Set α` は `α → Prop` として実装されています．
 
-```lean4:Mathlib.Data.Set.Defs
+```lean title="Mathlib.Data.Set.Defs"
 def Set (α : Type u) := α → Prop
 ```
 
@@ -403,7 +402,7 @@ example (x : ℝ) : Real.sqrt (x ^ 2) = |x| := by
 記法は `ℝ≥0` です．
 実装は `ℝ` の subtype で，
 
-```lean
+```lean title="Mathlib.Data.NNReal.Defs"
 def NNReal := { r : ℝ // 0 ≤ r }
 ```
 
