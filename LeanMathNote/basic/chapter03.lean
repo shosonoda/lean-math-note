@@ -6,7 +6,7 @@ Authors: Sho Sonoda
 -/
 --#--
 /-
-# Chapter 03: tactic，calc，induction による証明
+# Chapter 03: tactic を用いた証明
 
 この章では，Lean で証明を書くための基本的な道具を整理します．
 前章までに，命題，型，定義，構造体，帰納型などを見ました．
@@ -874,7 +874,7 @@ example (x : Nat) : cast rfl x = x := by
 ---
 ## 証明項，古典論理，Lean の追加原理
 
-Lean では，命題は型であり，証明はその型の項です．
+Lean では，命題は型であり，証明はその型の項（ラムダ項，証明項）です．
 たとえば `P → Q` の証明は，`P` の証明を受け取って `Q` の証明を返す関数です．
 この見方では，「証明する」とは証明項を構成することです．
 
@@ -886,8 +886,10 @@ Lean の標準的な基礎には，命題外延性，商，選択などの原理
 これは Mathlib 独自の仮定ではなく，Lean の上で通常の数学を展開するための基礎です．
 Mathlib はその上に多くの定義と定理を積み上げています．
 
-参考: Theorem Proving in Lean 4, Axioms and Computation: <https://leanprover.github.io/theorem_proving_in_lean4/Axioms-and-Computation/#axioms-and-computation>
-参考: nLab, choice operator: <https://ncatlab.org/nlab/show/choice+operator>
+参考:
+
+- Theorem Proving in Lean 4, Axioms and Computation: <https://leanprover.github.io/theorem_proving_in_lean4/Axioms-and-Computation/#axioms-and-computation>
+- nLab, choice operator: <https://ncatlab.org/nlab/show/choice+operator>
 -/
 
 #check Classical.em

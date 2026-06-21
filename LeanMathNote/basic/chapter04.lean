@@ -147,7 +147,7 @@ Lean は型理論を基礎にしているため，数学でいう「対象の集
 一方，Mathlib の `Set α` は「型 `α` の部分集合」を表します．
 定義は非常に単純で，`Set α` は `α → Prop` として実装されています．
 
-```lean
+```lean4:Mathlib.Data.Set.Defs
 def Set (α : Type u) := α → Prop
 ```
 
@@ -912,6 +912,7 @@ Mathlib を使う証明では，具体的な対象だけでなく，それが持
 Mathlib の証明は既存補題の組み合わせです．
 `#check`，`#synth`，命名規則，`simp`，`rw`，`ext`，`norm_num`，`linarith`，`nlinarith` を使いながら，ゴールに合う補題を探して適用します．
 -/
+
 /-
 ---
 ## 演習問題

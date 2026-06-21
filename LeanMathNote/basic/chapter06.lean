@@ -22,10 +22,10 @@ Authors: Sho Sonoda
 参考:
 
 * Lean Language Reference: <https://lean-lang.org/doc/reference/latest/>
-* Elaboration and Compilation: <https://lean-lang.org/doc/reference/latest/Elaboration-and-Compilation/>
-* Interacting with Lean: <https://lean-lang.org/doc/reference/latest/Interacting-with-Lean/>
-* Source Files and Modules: <https://lean-lang.org/doc/reference/latest/Source-Files-and-Modules/>
-* Build Tools and Distribution: <https://lean-lang.org/doc/reference/latest/Build-Tools-and-Distribution/>
+    * Elaboration and Compilation: <https://lean-lang.org/doc/reference/latest/Elaboration-and-Compilation/>
+    * Interacting with Lean: <https://lean-lang.org/doc/reference/latest/Interacting-with-Lean/>
+    * Source Files and Modules: <https://lean-lang.org/doc/reference/latest/Source-Files-and-Modules/>
+    * Build Tools and Distribution: <https://lean-lang.org/doc/reference/latest/Build-Tools-and-Distribution/>
 
 注意として，Lean Language Reference の `latest` は常に最新系列の Lean を説明しています．
 この原稿では，Lean project の作成や Lean version の指定方法は Chapter 05 にまとめ，

@@ -10,7 +10,7 @@
 - （GitHub） [https://github.com/shosonoda/lean-math-note/](https://github.com/shosonoda/lean-math-note/)
 - （環境構築） [https://shosonoda.github.io/lean-install/](https://shosonoda.github.io/lean-install/)
 
-!!! note "Lean version"
+!!! note "このプロジェクトで指定する Lean version"
     leanprover/lean4:v4.30.0
 
 ## 目次
@@ -18,7 +18,7 @@
 - 基礎編
     - [Chapter 01: 命題論理と述語論理の形式証明](basic/chapter01/index.md)
     - [Chapter 02: Lean の基本構文・型・データ構造](basic/chapter02/index.md)
-    - [Chapter 03: tactic、calc、induction による証明](basic/chapter03/index.md)
+    - [Chapter 03: tacticを用いた証明](basic/chapter03/index.md)
     - [Chapter 04: Mathlib を用いた証明の書き方](basic/chapter04/index.md)
     - [Chapter 05: Lean Project の作成と操作](basic/chapter05/index.md)
     - [Chapter 06: Lean の仕組み](basic/chapter06/index.md)
@@ -30,19 +30,22 @@
     - [Chapter 05: 積分](practice/chapter05/index.md)
     - [Chapter 06: 確率](practice/chapter06/index.md)
 
-## 参考書
-- 井上, [ゼロから始めるLean言語入門](https://www.lambdanote.com/collections/lean/products/leanbook), ラムダノート, 2025
+## 参考文献
+- Lean 公式 <https://lean-lang.org/>
 - Avigad and Massot, [Mathematics in Lean](https://leanprover-community.github.io/mathematics_in_lean/), Jun 11, 2026.
 - Avigad *et al.*, [Theorem Proving in Lean 4](https://leanprover.github.io/theorem_proving_in_lean4/), 2026.
 - The Lean Developers, [The Lean Language Reference](https://lean-lang.org/doc/reference/latest/), v4.30.0., 2026.
 
-- Lean 公式: [https://lean-lang.org/](https://lean-lang.org/)
-- [数学系のためのLean勉強会](https://haruhisa-enomoto.github.io/lean-math-workshop/)
-    - [教材](https://github.com/yuma-mizuno/lean-math-workshop)
-- [Lean-by-Example](https://lean-ja.github.io/lean-by-example/)
+- 井上, [ゼロから始めるLean言語入門](https://www.lambdanote.com/collections/lean/products/leanbook), ラムダノート, 2025
+- Lean-by-Example <https://lean-ja.github.io/lean-by-example/>
+- 数学系のためのLean勉強会 <https://haruhisa-enomoto.github.io/lean-math-workshop/>
+    - 教材 <https://github.com/yuma-mizuno/lean-math-workshop>
 
 ## このサイトについて
 
-- 本文は `LeanMathNote/*/*.lean` から `mdgen` と `MkDocs` で生成されています
+- 本文は `LeanMathNote/*/*.lean` から [mdgen](https://github.com/Seasawher/mdgen) と [MkDocs](https://www.mkdocs.org/) で生成されています
 
-- [印刷用ページ](print_page.md)
+- [印刷用ページ](print_page.md) （1枚につなげた資料）
+
+- **謝辞**:
+  本資料の改善点を指摘してくださった皆様に感謝します．とりわけ水野勇磨さん，井上亜星さん，中川康二さんに感謝します．

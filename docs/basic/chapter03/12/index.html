@@ -544,7 +544,7 @@
   <span class="md-ellipsis">
     
   
-    Chapter 03: tactic，calc，induction による証明
+    Chapter 03: tactic を用いた証明
   
 
     
@@ -566,7 +566,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    Chapter 03: tactic，calc，induction による証明
+    Chapter 03: tactic を用いた証明
   
 
           </label>
@@ -1944,7 +1944,7 @@
 
 
 <h1 id="lean">証明項，古典論理，Lean の追加原理<a class="headerlink" href="#lean" title="Permanent link">&para;</a></h1>
-<p>Lean では，命題は型であり，証明はその型の項です．
+<p>Lean では，命題は型であり，証明はその型の項（ラムダ項，証明項）です．
 たとえば <code>P → Q</code> の証明は，<code>P</code> の証明を受け取って <code>Q</code> の証明を返す関数です．
 この見方では，「証明する」とは証明項を構成することです．</p>
 <p>この型理論の素朴な部分は構成的です．
@@ -1953,8 +1953,11 @@
 <p>Lean の標準的な基礎には，命題外延性，商，選択などの原理が用意されています．
 これは Mathlib 独自の仮定ではなく，Lean の上で通常の数学を展開するための基礎です．
 Mathlib はその上に多くの定義と定理を積み上げています．</p>
-<p>参考: Theorem Proving in Lean 4, Axioms and Computation: <a href="https://leanprover.github.io/theorem_proving_in_lean4/Axioms-and-Computation/#axioms-and-computation">https://leanprover.github.io/theorem_proving_in_lean4/Axioms-and-Computation/#axioms-and-computation</a>
-参考: nLab, choice operator: <a href="https://ncatlab.org/nlab/show/choice+operator">https://ncatlab.org/nlab/show/choice+operator</a></p>
+<p>参考:</p>
+<ul>
+<li>Theorem Proving in Lean 4, Axioms and Computation: <a href="https://leanprover.github.io/theorem_proving_in_lean4/Axioms-and-Computation/#axioms-and-computation">https://leanprover.github.io/theorem_proving_in_lean4/Axioms-and-Computation/#axioms-and-computation</a></li>
+<li>nLab, choice operator: <a href="https://ncatlab.org/nlab/show/choice+operator">https://ncatlab.org/nlab/show/choice+operator</a></li>
+</ul>
 <div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">Classical</span><span class="bp">.</span><span class="n">em</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">Classical</span><span class="bp">.</span><span class="n">choice</span>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">Quot</span>
