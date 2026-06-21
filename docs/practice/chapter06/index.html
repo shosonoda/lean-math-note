@@ -994,6 +994,8 @@
       
         
       
+        
+      
     
     
     
@@ -1603,15 +1605,15 @@
 
 
 <h1 id="chapter-06">Chapter 06: 確率論<a class="headerlink" href="#chapter-06" title="Permanent link">&para;</a></h1>
-<p>この章では，Mathlib における確率論の基本的な表現を概観します．
-前章の測度論・積分の上に，確率測度，事象，確率変数，期待値，独立性，条件付き確率，Markov kernel が定義されています．</p>
-<p>確率論の形式化では，紙の数学で「確率空間」と一言で済ませる部分を，Lean ではいくつかの型と型クラスに分けて書きます．
-典型的には，標本空間は型 <code>Ω</code>，可測構造は <code>[MeasurableSpace Ω]</code>，確率測度は <code>P : Measure Ω</code> と <code>[IsProbabilityMeasure P]</code> です．</p>
+<p>Mathlib における基本的な確率論を概観します．</p>
 <p>参考:</p>
 <ul>
 <li>Basic probability in Mathlib: <a href="https://leanprover-community.github.io/blog/posts/basic-probability-in-mathlib/">https://leanprover-community.github.io/blog/posts/basic-probability-in-mathlib/</a></li>
 <li>Rémy Degenne, Markov kernels in Mathlib's probability library: <a href="https://arxiv.org/abs/2510.04070">https://arxiv.org/abs/2510.04070</a></li>
 </ul>
+<p>前章の測度論・積分の上に，確率測度，事象，確率変数，期待値，独立性，条件付き確率，Markov kernel が定義されています．</p>
+<p>確率論の形式化では，紙の数学で「確率空間」と一言で済ませる部分を，Lean ではいくつかの型と型クラスに分けて書きます．
+典型的には，標本空間は型 <code>Ω</code>，可測構造は <code>[MeasurableSpace Ω]</code>，確率測度は <code>P : Measure Ω</code> と <code>[IsProbabilityMeasure P]</code> です．</p>
 <div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="n">Mathlib</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">namespace</span><span class="w"> </span><span class="n">PracticeChapter06</span>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>

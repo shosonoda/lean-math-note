@@ -1,7 +1,10 @@
 # Chapter 05: 積分
 
-この章では，Mathlib における測度と積分の基本的な表現を扱います．
-Mathematics in Lean Chapter 13 では，区間積分，測度論，Bochner 積分，優収束定理，Fubini の定理などが概観されています．
+Mathlib における基本的な測度と積分を扱います．
+
+* Mathematics in Lean, 13. Integration and Measure Theory: <https://leanprover-community.github.io/mathematics_in_lean/C13_Integration_and_Measure_Theory.html>
+
+区間積分，測度論，Bochner 積分，優収束定理，Fubini の定理などが概観されています．
 
 Mathlib の積分はかなり一般的です．
 実数値関数だけでなく，Banach 空間値の Bochner 積分を基本としており，測度は `Measure α`，値は拡張非負実数 `ℝ≥0∞` を使います．
@@ -268,7 +271,8 @@ Lean では，被積分関数が適切に積分可能であることが theorem 
         (hg : IntervalIntegrable g volume a b) :
         ∫ x : ℝ in a..b, f x + g x =
           (∫ x : ℝ in a..b, f x) + ∫ x : ℝ in a..b, g x := by
-      exact intervalIntegral.integral_add hf hg
+      -- ヒント: `exact intervalIntegral.integral_add hf hg`
+      sorry
     ```
 
 3. 可測集合の補集合が可測であることを示してください．
@@ -276,7 +280,8 @@ Lean では，被積分関数が適切に積分可能であることが theorem 
     ```lean4
     example {α : Type*} [MeasurableSpace α] {s : Set α}
         (hs : MeasurableSet s) : MeasurableSet sᶜ := by
-      exact hs.compl
+      -- ヒント: `exact hs.compl`
+      sorry
     ```
 
 4. ほとんど至る所の記法 `∀ᵐ` が filter の `Eventually` であることを確認してください．
@@ -284,7 +289,8 @@ Lean では，被積分関数が適切に積分可能であることが theorem 
     ```lean4
     example {α : Type*} [MeasurableSpace α] {μ : Measure α} {P : α → Prop} :
         (∀ᵐ x ∂μ, P x) ↔ ∀ᶠ x in ae μ, P x := by
-      rfl
+      -- ヒント: `rfl`
+      sorry
     ```
 
 5. Bochner 積分の加法性を使ってください．
@@ -295,7 +301,8 @@ Lean では，被積分関数が適切に積分可能であることが theorem 
         {μ : Measure α} {f g : α → E}
         (hf : Integrable f μ) (hg : Integrable g μ) :
         ∫ x, f x + g x ∂μ = ∫ x, f x ∂μ + ∫ x, g x ∂μ := by
-      exact integral_add hf hg
+      -- ヒント: `exact integral_add hf hg`
+      sorry
     ```
 
 6. Fubini の定理の statement を `#check` で読み，どこに `SigmaFinite` 仮定が現れるか確認してください．

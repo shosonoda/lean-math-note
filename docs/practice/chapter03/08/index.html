@@ -25,7 +25,7 @@
     
     
       
-        <title>まとめ - 数学系エンドユーザーのためのLean入門</title>
+        <title>長めの例: compact set の連続像 - 数学系エンドユーザーのためのLean入門</title>
       
     
     
@@ -68,7 +68,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#_1" class="md-skip">
+        <a href="#compact-set" class="md-skip">
           コンテンツにスキップ
         </a>
       
@@ -104,7 +104,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              まとめ
+              長めの例: compact set の連続像
             
           </span>
         </div>
@@ -996,6 +996,8 @@
       
         
       
+        
+      
     
     
     
@@ -1063,7 +1065,7 @@
   <span class="md-ellipsis">
     
   
-    フィルター
+    位相空間
   
 
     
@@ -1091,7 +1093,7 @@
   <span class="md-ellipsis">
     
   
-    位相空間
+    距離空間
   
 
     
@@ -1119,7 +1121,7 @@
   <span class="md-ellipsis">
     
   
-    距離空間
+    コンパクト性
   
 
     
@@ -1147,7 +1149,7 @@
   <span class="md-ellipsis">
     
   
-    連続性
+    フィルター
   
 
     
@@ -1175,7 +1177,7 @@
   <span class="md-ellipsis">
     
   
-    コンパクト性
+    具体的な極限計算
   
 
     
@@ -1203,7 +1205,7 @@
   <span class="md-ellipsis">
     
   
-    長めの例: 連続関数の零点集合は閉集合
+    連続性
   
 
     
@@ -1231,7 +1233,7 @@
   <span class="md-ellipsis">
     
   
-    長めの例: compact set の連続像
+    長めの例: 連続関数の零点集合は閉集合
   
 
     
@@ -1261,14 +1263,14 @@
         
       
       
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
   
   
   <span class="md-ellipsis">
     
   
-    まとめ
+    長めの例: compact set の連続像
   
 
     
@@ -1276,10 +1278,21 @@
   
   
 
-          <span class="md-nav__icon md-icon"></span>
-        </label>
+      </a>
       
-      <a href="./" class="md-nav__link md-nav__link--active">
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09/" class="md-nav__link">
         
   
   
@@ -1295,37 +1308,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="目次">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      目次
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#tips" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        形式化の tips
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1338,7 +1320,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../09/" class="md-nav__link">
+      <a href="../10/" class="md-nav__link">
         
   
   
@@ -1673,25 +1655,6 @@
     
   
   
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      目次
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#tips" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        形式化の tips
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
 </nav>
                   </div>
                 </div>
@@ -1707,22 +1670,23 @@
 
 
 
-<h1 id="_1">まとめ<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
-<p>Mathlib の位相では，極限を直接 <code>ε</code>-<code>δ</code> で定義するのではなく，フィルター <code>Tendsto</code> を基礎にします．
-開集合・閉集合・閉包・内部は <code>Set</code> 上の述語や操作として扱われます．
-距離空間では <code>Metric.ball</code> や <code>dist</code> を使い，連続性は <code>Continuous</code>，<code>ContinuousAt</code>，<code>ContinuousOn</code> で表します．
-特に <code>ContinuousAt f x</code> は <code>Tendsto f (𝓝 x) (𝓝 (f x))</code> なので，点での連続性もフィルターの極限として読めます．</p>
-<p>微分と積分の章では，これらの位相的な語彙がそのまま使われます．</p>
-<h2 id="tips">形式化の tips<a class="headerlink" href="#tips" title="Permanent link">&para;</a></h2>
-<p>位相の形式化では，同じ定理が「集合の言葉」「フィルターの言葉」「距離の言葉」で出てきます．
-どのレベルで証明するかを選ぶのが重要です．</p>
-<ol>
-<li>開集合・閉集合の問題なら <code>IsOpen</code>，<code>IsClosed</code> を探す．</li>
-<li>極限の問題なら <code>Tendsto</code> と <code>𝓝</code> を読む．</li>
-<li>距離空間の問題なら <code>Metric.ball</code>，<code>dist</code>，<code>Metric.mem_ball</code> を使う．</li>
-<li>連続性の合成なら <code>Continuous.comp</code> または <code>hg.comp hf</code> を使う．</li>
-<li>compactness では，Hausdorff 条件 <code>[T2Space X]</code> が必要かを確認する．</li>
-</ol>
+<h1 id="compact-set">長めの例: compact set の連続像<a class="headerlink" href="#compact-set" title="Permanent link">&para;</a></h1>
+<p>コンパクト集合の連続像はコンパクトです．
+さらに，値域が Hausdorff 空間ならコンパクト集合は閉集合です．
+したがって，Hausdorff 空間への連続写像では，コンパクト集合の像は閉集合になります．</p>
+<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">section</span><span class="w"> </span><span class="n">CompactImage</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">variable</span><span class="w"> </span><span class="o">{</span><span class="n">X</span><span class="w"> </span><span class="n">Y</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Type</span><span class="bp">*</span><span class="o">}</span><span class="w"> </span><span class="o">[</span><span class="n">TopologicalSpace</span><span class="w"> </span><span class="n">X</span><span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="n">TopologicalSpace</span><span class="w"> </span><span class="n">Y</span><span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="n">T2Space</span><span class="w"> </span><span class="n">Y</span><span class="o">]</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="kn">variable</span><span class="w"> </span><span class="o">{</span><span class="n">s</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Set</span><span class="w"> </span><span class="n">X</span><span class="o">}</span><span class="w"> </span><span class="o">{</span><span class="n">f</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">X</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">Y</span><span class="o">}</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">hs</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">IsCompact</span><span class="w"> </span><span class="n">s</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">hf</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Continuous</span><span class="w"> </span><span class="n">f</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">IsClosed</span><span class="w"> </span><span class="o">(</span><span class="n">f</span><span class="w"> </span><span class="bp">&#39;&#39;</span><span class="w"> </span><span class="n">s</span><span class="o">)</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">  </span><span class="n">exact</span><span class="w"> </span><span class="o">(</span><span class="n">hs</span><span class="bp">.</span><span class="n">image</span><span class="w"> </span><span class="n">hf</span><span class="o">)</span><span class="bp">.</span><span class="n">isClosed</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="kn">end</span><span class="w"> </span><span class="n">CompactImage</span>
+</code></pre></div>
+<p>ここで <code>[T2Space Y]</code> は，<code>Y</code> が Hausdorff 空間であるという型クラス仮定です．
+定理 <code>IsCompact.isClosed</code> は一般の位相空間では成り立たず，Hausdorff 条件を要求します．
+型クラス仮定として必要な位相的条件が明示されるのは，Mathlib の位相の読み方で重要です．</p>
 
 
 
@@ -1758,7 +1722,7 @@
       <nav class="md-footer__inner md-grid" aria-label="フッター" >
         
           
-          <a href="../07/" class="md-footer__link md-footer__link--prev" aria-label="前: 長めの例: compact set の連続像">
+          <a href="../07/" class="md-footer__link md-footer__link--prev" aria-label="前: 長めの例: 連続関数の零点集合は閉集合">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -1768,20 +1732,20 @@
                 前
               </span>
               <div class="md-ellipsis">
-                長めの例: compact set の連続像
+                長めの例: 連続関数の零点集合は閉集合
               </div>
             </div>
           </a>
         
         
           
-          <a href="../09/" class="md-footer__link md-footer__link--next" aria-label="次: 演習問題">
+          <a href="../09/" class="md-footer__link md-footer__link--next" aria-label="次: まとめ">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 次
               </span>
               <div class="md-ellipsis">
-                演習問題
+                まとめ
               </div>
             </div>
             <div class="md-footer__button md-icon">

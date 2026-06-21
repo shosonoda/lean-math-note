@@ -8,16 +8,17 @@ Authors: Sho Sonoda
 /-
 # Chapter 06: 確率論
 
-この章では，Mathlib における確率論の基本的な表現を概観します．
-前章の測度論・積分の上に，確率測度，事象，確率変数，期待値，独立性，条件付き確率，Markov kernel が定義されています．
-
-確率論の形式化では，紙の数学で「確率空間」と一言で済ませる部分を，Lean ではいくつかの型と型クラスに分けて書きます．
-典型的には，標本空間は型 `Ω`，可測構造は `[MeasurableSpace Ω]`，確率測度は `P : Measure Ω` と `[IsProbabilityMeasure P]` です．
+Mathlib における基本的な確率論を概観します．
 
 参考:
 
 * Basic probability in Mathlib: <https://leanprover-community.github.io/blog/posts/basic-probability-in-mathlib/>
 * Rémy Degenne, Markov kernels in Mathlib's probability library: <https://arxiv.org/abs/2510.04070>
+
+前章の測度論・積分の上に，確率測度，事象，確率変数，期待値，独立性，条件付き確率，Markov kernel が定義されています．
+
+確率論の形式化では，紙の数学で「確率空間」と一言で済ませる部分を，Lean ではいくつかの型と型クラスに分けて書きます．
+典型的には，標本空間は型 `Ω`，可測構造は `[MeasurableSpace Ω]`，確率測度は `P : Measure Ω` と `[IsProbabilityMeasure P]` です．
 -/
 import Mathlib
 set_option linter.missingDocs false --#

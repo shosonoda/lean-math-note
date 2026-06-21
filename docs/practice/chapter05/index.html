@@ -994,6 +994,8 @@
       
         
       
+        
+      
     
     
     
@@ -1631,8 +1633,11 @@
 
 
 <h1 id="chapter-05">Chapter 05: 積分<a class="headerlink" href="#chapter-05" title="Permanent link">&para;</a></h1>
-<p>この章では，Mathlib における測度と積分の基本的な表現を扱います．
-Mathematics in Lean Chapter 13 では，区間積分，測度論，Bochner 積分，優収束定理，Fubini の定理などが概観されています．</p>
+<p>Mathlib における基本的な測度と積分を扱います．</p>
+<ul>
+<li>Mathematics in Lean, 13. Integration and Measure Theory: <a href="https://leanprover-community.github.io/mathematics_in_lean/C13_Integration_and_Measure_Theory.html">https://leanprover-community.github.io/mathematics_in_lean/C13_Integration_and_Measure_Theory.html</a></li>
+</ul>
+<p>区間積分，測度論，Bochner 積分，優収束定理，Fubini の定理などが概観されています．</p>
 <p>Mathlib の積分はかなり一般的です．
 実数値関数だけでなく，Banach 空間値の Bochner 積分を基本としており，測度は <code>Measure α</code>，値は拡張非負実数 <code>ℝ≥0∞</code> を使います．</p>
 <div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="n">Mathlib</span>

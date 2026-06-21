@@ -1275,6 +1275,8 @@
       
         
       
+        
+      
     
     
     
@@ -1726,7 +1728,8 @@
 <p><code>K × K</code> の任意の点を <code>planeE1</code> と <code>planeE2</code> の線形結合として書いてください．</p>
 <div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kn">example</span><span class="w"> </span><span class="o">{</span><span class="n">K</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Type</span><span class="bp">*</span><span class="o">}</span><span class="w"> </span><span class="o">[</span><span class="n">Field</span><span class="w"> </span><span class="n">K</span><span class="o">]</span><span class="w"> </span><span class="o">(</span><span class="n">p</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">K</span><span class="w"> </span><span class="bp">×</span><span class="w"> </span><span class="n">K</span><span class="o">)</span><span class="w"> </span><span class="o">:</span>
 <a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">    </span><span class="n">p</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">p</span><span class="bp">.</span><span class="m">1</span><span class="w"> </span><span class="bp">•</span><span class="w"> </span><span class="n">planeE1</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">p</span><span class="bp">.</span><span class="m">2</span><span class="w"> </span><span class="bp">•</span><span class="w"> </span><span class="n">planeE2</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">  </span><span class="n">ext</span><span class="w"> </span><span class="bp">&lt;;&gt;</span><span class="w"> </span><span class="n">simp</span><span class="w"> </span><span class="o">[</span><span class="n">planeE1</span><span class="o">,</span><span class="w"> </span><span class="n">planeE2</span><span class="o">]</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">  </span><span class="c1">-- ヒント: `ext &lt;;&gt; simp [planeE1, planeE2]`</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">  </span><span class="gr">sorry</span>
 </code></pre></div>
 </li>
 <li>

@@ -475,8 +475,10 @@ end ConjugateSubgroup
     ```lean4
     example {G : Type*} [Group G] (S : Subgroup G) {x y : G}
         (hx : x ∈ S) (hy : y ∈ S) : x * y ∈ S := by
-      show x * y ∈ S
-      exact S.mul_mem hx hy
+      -- ヒント:
+      --   show x * y ∈ S
+      --   exact S.mul_mem hx hy
+      sorry
     ```
 
 10. 可換環で，イデアルの元に外から掛けてもイデアルに入ることを左右両方で確認してください．
