@@ -1,11 +1,3 @@
---#--
-/-
-Copyright (c) 2026 Sho Sonoda. All rights reserved.
-Released under Apache 2.0 license as described in the file LICENSE.
-Authors: Sho Sonoda
--/
---#--
-/-
 # Chapter 01: 代数
 
 Mathlib における代数構造の扱いを概観します．
@@ -19,20 +11,20 @@ Mathlib における代数構造の扱いを概観します．
 * 代数構造は型クラスで表す．
 * 準同型や部分構造は bundled structure として表す．
 * 具体的な計算には `simp`，`group`，`abel`，`ring` などの tactic を使う．
--/
+
+```lean
 import Mathlib
-set_option linter.missingDocs false --#
 
 namespace PracticeChapter01
+```
 
-/-
 ---
 ## 代数構造は型クラスで表す
 
 `Monoid M`，`Group G`，`Ring R`，`Field K` などは型 `M`，`G`，`R`，`K` に入っている構造を表す型クラスです．
 数学では「群 G」と言うことが多いですが，Lean では「型 `G` と，その上の群構造 `[Group G]`」を分けて書きます．
--/
 
+```lean
 #check Monoid
 #check CommMonoid
 #check Group
@@ -58,14 +50,14 @@ example (x y : A) : x + y = y + x := by
   exact add_comm x y
 
 end BasicStructures
+```
 
-/-
 `Monoid` は乗法的な記法を使います．
 加法的に書きたい場合は `AddMonoid` や `AddCommGroup` を使います．
 
 同じ数学的事実でも，乗法的な構造では `mul_assoc`，加法的な構造では `add_assoc` のように名前が分かれます．
--/
 
+```lean
 section Groups
 
 variable {G H : Type*} [Group G] [Group H]
@@ -89,14 +81,12 @@ example (x y z : A) : z + x + (y - z - x) = y := by
   abel
 
 end AdditiveGroups
+```
 
-/-
 `group` は群の公理から従う等式を解く tactic です．
 加法可換群では `abel` が使えます．
 どちらも「代数構造の公理に従う正規化」を行うものだと考えるとよいです．
--/
 
-/-
 ---
 ## 準同型
 
@@ -104,8 +94,8 @@ end AdditiveGroups
 このような表現を bundled map と呼びます．
 
 モノイド準同型は `M →* N`，加法モノイド準同型は `M →+ N`，環準同型は `R →+* S` と書きます．
--/
 
+```lean
 #check MonoidHom
 #check AddMonoidHom
 #check RingHom
@@ -135,22 +125,20 @@ example (f : R →+* S) : f 0 = 0 := by
   exact map_zero f
 
 end Homomorphisms
+```
 
-/-
 準同型 `f : R →+* S` は関数として使えます．
 一方で，普通の関数合成 `g ∘ f` ではなく，構造を保った合成には `comp` を使います．
 これは，合成後の写像が演算を保存することも一緒に記録する必要があるためです．
--/
 
-/-
 ---
 ## 部分群
 
 `Subgroup G` は `G` の部分群の型です．
 これは `Set G` に「閉性の証明」を追加した bundled structure です．
 そのため，`x ∈ H` のように集合として使えますが，同時に部分群としての構造も持っています．
--/
 
+```lean
 #check Subgroup
 #check AddSubgroup
 
@@ -190,23 +178,21 @@ example (x : G) : x ∈ Subgroup.comap f U ↔ f x ∈ U := by
 #check MonoidHom.range
 
 end Subgroups
+```
 
-/-
 部分群全体は包含関係で順序づけられ，束構造を持ちます．
 `S ⊓ T` は交わりに対応します．
 一方，`S ⊔ T` は単純な和集合ではなく，和集合で生成される部分群です．
 これは「和集合は一般には部分群でない」ことを反映しています．
--/
 
-/-
 ---
 ## 環とイデアル
 
 環論でも同じ設計が現れます．
 `Subring R` は部分環，`Ideal R` はイデアルを表す bundled structure です．
 可換環のイデアルでは，加法で閉じていて，外からの積で閉じていることを使います．
--/
 
+```lean
 #check Subring
 #check Ideal
 #check RingEquiv
@@ -234,21 +220,19 @@ example (x : R) : x ∈ (⊥ : Ideal R) ↔ x = 0 := by
 #check Ideal.comap
 
 end Ideals
+```
 
-/-
 `Ideal.Quotient I` は商環です．
 商を扱うときは，代表元に依存しない定義であることを証明する必要があります．
 このため，最初は `#check` で定義や補題の型を確認しながら進めるのが安全です．
--/
 
-/-
 ---
 ## 多項式と代数
 
 Mathlib の多項式は `Polynomial R` です．
 係数を埋め込む写像は `Polynomial.C`，不定元は `Polynomial.X` です．
--/
 
+```lean
 #check Polynomial
 #check Polynomial.C
 #check Polynomial.X
@@ -266,12 +250,12 @@ example (a : R) : (C a : Polynomial R) + 0 = C a := by
   simp
 
 end Polynomials
+```
 
-/-
 `Algebra R A` は，`A` が `R` 上の代数であることを表す型クラスです．
 スカラー倍 `r • a` は，構造写像 `algebraMap R A r` による積として振る舞います．
--/
 
+```lean
 #check Algebra
 #check algebraMap
 
@@ -286,8 +270,8 @@ example (r s : R) : algebraMap R A (r + s) = algebraMap R A r + algebraMap R A s
   exact map_add (algebraMap R A) r s
 
 end Algebras
+```
 
-/-
 ---
 ## 長めの例: `ℤ` を `ℚ` の加法部分群として作る
 
@@ -302,8 +286,8 @@ Lean では，これを `AddSubgroup ℚ` の項として作ります．
 * 負元で閉じていることを示す．
 
 この例は，部分構造が「集合 + 閉性の証明」であることを具体的に示しています．
--/
 
+```lean
 def integersInRationals : AddSubgroup ℚ where
   carrier := Set.range ((↑) : ℤ → ℚ)
   zero_mem' := by
@@ -329,23 +313,21 @@ example : (1 / 2 : ℚ) ∉ integersInRationals := by
   have hInt : (2 * z : ℤ) = 1 := by
     exact_mod_cast htwo
   omega
+```
 
-/-
 最後の例は少し人工的ですが，「`Set.range` の元である」という仮定を
 `∃ z : ℤ, ...` として取り出し，整数性の情報を使って矛盾を出しています．
 
 代数の形式化では，このように「集合としての記述」と「構造としての記述」を行き来することがよくあります．
--/
 
-/-
 ---
 ## 長めの例: 共役部分群
 
 群 `G` の部分群 `S` と元 `g : G` に対して，
 `g S g⁻¹ = {x | ∃ s ∈ S, x = g * s * g⁻¹}` はまた部分群です．
 これは抽象代数学の基本例で，閉性の証明に `group` がよく効きます．
--/
 
+```lean
 section ConjugateSubgroup
 
 variable {G : Type*} [Group G]
@@ -377,8 +359,8 @@ example (S : Subgroup G) {x : G} : x ∈ conjugateSubgroup (1 : G) S ↔ x ∈ S
     group
 
 end ConjugateSubgroup
+```
 
-/-
 この例で使った証明パターンは，部分構造の自作で頻繁に現れます．
 
 * `rintro ... ⟨s, hs, rfl⟩` で存在記号と等式を分解する．
@@ -386,9 +368,7 @@ end ConjugateSubgroup
 * 群の計算は `group` に任せる．
 
 学部レベルの代数を形式化するときは，まずこのような「集合を carrier として持つ構造体」を自作できることが重要です．
--/
 
-/-
 ---
 ## まとめ
 
@@ -407,9 +387,7 @@ end ConjugateSubgroup
 3. 部分構造の等式は `ext x` で元ごとの同値にする．
 4. membership は `simp`，`rfl`，`Subgroup.mem_map` などで開く．
 5. 群や環の計算は `group`，`abel`，`ring` に任せる．
--/
 
-/-
 ---
 ## 演習問題
 
@@ -509,62 +487,3 @@ end ConjugateSubgroup
       -- 可換性で `r * x` に直すか，既存補題を探す．
       sorry
     ```
--/
-
---#--
-example {M N P : Type*} [Monoid M] [Monoid N] [Monoid P]
-    (f : M →* N) (g : N →* P) (x y : M) :
-    (g.comp f) (x * y) = (g.comp f) x * (g.comp f) y := by
-  -- `map_mul` または `simp` を使う．
-  sorry
-
-example {G H : Type*} [Group G] [Group H]
-    (φ : G →* H) (S T : Subgroup G) (hST : S ≤ T) :
-    Subgroup.map φ S ≤ Subgroup.map φ T := by
-  -- `Subgroup.mem_map` で元を存在記号に分解する．
-  sorry
-
-example {G H : Type*} [Group G] [Group H]
-    (φ : G →* H) (S T : Subgroup H) (hST : S ≤ T) :
-    Subgroup.comap φ S ≤ Subgroup.comap φ T := by
-  -- `rfl` で membership を展開できる．
-  sorry
-
-example {G : Type*} [Group G] (g : G) (S : Subgroup G) :
-    conjugateSubgroup g⁻¹ (conjugateSubgroup g S) = S := by
-  -- `ext x` で部分群の等式を元ごとの同値にする．
-  -- その後，存在記号を分解して `group` を使う．
-  sorry
-
-example {R : Type*} [CommRing R] (I J : Ideal R) (x : R) :
-    x ∈ I ⊓ J ↔ x ∈ I ∧ x ∈ J := by
-  -- `rfl` または `simp` を試す．
-  sorry
-
-example {R : Type*} [Semiring R] (a b : R) :
-    (Polynomial.C a + Polynomial.C b : Polynomial R) = Polynomial.C (a + b) := by
-  -- `ext n` または `simp` を試す．
-  sorry
-
-example {G H : Type*} [Group G] [Group H] (f : G →* H) (x : G) :
-    x ∈ MonoidHom.ker f ↔ f x = 1 := by
-  -- `f.mem_ker` を調べる．
-  sorry
-
-example {G H : Type*} [Group G] [Group H] (f : G →* H) (y : H) :
-    y ∈ MonoidHom.range f ↔ ∃ x : G, f x = y := by
-  -- `f.mem_range` を調べる．
-  sorry
-
-example {G : Type*} [Group G] (S : Subgroup G) {x y : G}
-    (hx : x ∈ S) (hy : y ∈ S) : x * y ∈ S := by
-  show x * y ∈ S
-  exact S.mul_mem hx hy
-
-example {R : Type*} [CommRing R] (I : Ideal R) {x : R} (hx : x ∈ I) (r : R) :
-    x * r ∈ I := by
-  -- 可換性で `r * x` に直すか，既存補題を探す．
-  sorry
---#--
-
-end PracticeChapter01 --#

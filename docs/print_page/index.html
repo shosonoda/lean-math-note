@@ -3879,8 +3879,7 @@ Core Lean では <code>Classical.byContradiction</code> がこの役割を持ち
 </ol>
 <h1 id="chapter-04-mathlib">Chapter 04: Mathlib を用いた証明の書き方<a class="headerlink" href="#chapter-04-mathlib" title="Permanent link">&para;</a></h1>
 <p>この章では，Mathlib を使って証明を書くときの基本的な読み方・書き方を整理します．
-Mathematics in Lean の後半では，構造体，型クラス階層，代数構造，線形代数，位相，微積分，測度論などが現れます．
-線形代数や微積分の各論は次章以降で扱い，ここではそれらに共通する Mathlib の作法を見ます．</p>
+線形代数や微積分の各論は実践編で扱い，ここではそれらに共通する Mathlib の基本的な使い方を見ます．</p>
 <p>Mathlib は，Lean の上で通常の数学を形式化するための大規模なライブラリです．
 群・環・体・位相空間・測度・多様体などの定義，それらに関する定理，記法，型クラスインスタンス，証明を補助する tactic が含まれています．
 Lean 本体の小さなカーネルが証明の正しさを検査し，Mathlib はその上に数学の語彙と既存定理を積み上げている，と考えるとよいです．
@@ -3901,9 +3900,8 @@ Mathlib を読むときは，「対象そのものの型」と「その型に入
 <p>参考:</p>
 <ul>
 <li>Mathematics in Lean: <a href="https://leanprover-community.github.io/mathematics_in_lean/index.html">https://leanprover-community.github.io/mathematics_in_lean/index.html</a></li>
-<li>Mathematics in Lean, Sets and Functions: <a href="https://leanprover-community.github.io/mathematics_in_lean/C04_Sets_and_Functions.html">https://leanprover-community.github.io/mathematics_in_lean/C04_Sets_and_Functions.html</a></li>
+<li>Mathlib overview: <a href="https://leanprover-community.github.io/mathlib-overview.html">https://leanprover-community.github.io/mathlib-overview.html</a></li>
 <li>Mathlib naming conventions: <a href="https://leanprover-community.github.io/contribute/naming.html">https://leanprover-community.github.io/contribute/naming.html</a></li>
-<li>Sets in Mathlib: <a href="https://leanprover-community.github.io/theories/sets.html">https://leanprover-community.github.io/theories/sets.html</a></li>
 </ul>
 <div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-178-1" name="__codelineno-178-1" href="#__codelineno-178-1"></a><span class="kn">import</span><span class="w"> </span><span class="n">Mathlib</span>
 <a id="__codelineno-178-2" name="__codelineno-178-2" href="#__codelineno-178-2"></a>
@@ -5218,9 +5216,11 @@ module はファイル単位の読み込み単位で，namespace は名前の階
 </li>
 </ol>
 <h1 id="chapter-01_1">Chapter 01: 代数<a class="headerlink" href="#chapter-01_1" title="Permanent link">&para;</a></h1>
-<p>この章では，Mathlib における代数構造の扱いを概観します．
-Mathematics in Lean Chapter 9 では，群，環，準同型，部分構造，商，作用，イデアル，代数，Polynomial などが扱われます．
-ここでは，実際にファイルを読むときに必要になる基本語彙に絞って整理します．</p>
+<p>Mathlib における代数構造の扱いを概観します．</p>
+<p>参考:</p>
+<ul>
+<li>Mathematics in Lean, 9. Groups and Rings: <a href="https://leanprover-community.github.io/mathematics_in_lean/C09_Groups_and_Rings.html">https://leanprover-community.github.io/mathematics_in_lean/C09_Groups_and_Rings.html</a></li>
+</ul>
 <p>中心になる考え方は次の 3 つです．</p>
 <ul>
 <li>代数構造は型クラスで表す．</li>

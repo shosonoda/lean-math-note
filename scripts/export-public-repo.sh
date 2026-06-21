@@ -11,6 +11,7 @@ usage() {
   echo "  PUBLIC_BRANCH       Default: main" >&2
   echo "  SOURCE_BRANCH       Default: main" >&2
   echo "  BUILD_SCRIPT        Default: ./scripts/build-site.sh" >&2
+  echo "  MD_SCRIPT           Default: ./scripts/lean2md.sh" >&2
   echo "  COMMIT_MESSAGE      Commit message for the public repository." >&2
   echo "  PUBLIC_REPO_ALLOW_DIRTY=1 permits publishing from a dirty worktree." >&2
 }
@@ -54,8 +55,10 @@ PUBLIC_REPO_URL=${repo_arg:-${PUBLIC_REPO_URL:-https://github.com/shosonoda/lean
 PUBLIC_BRANCH=${PUBLIC_BRANCH:-main}
 SOURCE_BRANCH=${SOURCE_BRANCH:-main}
 BUILD_SCRIPT=${BUILD_SCRIPT:-./scripts/build-site.sh}
+MD_SCRIPT=${MD_SCRIPT:-./scripts/lean2md.sh}
 SITE_DIR=${SITE_DIR:-docs}
-PUBLISH_PATHS="LeanMathNote.lean LeanMathNote lean-toolchain lakefile.toml site-src mkdocs.yml requirements-mkdocs.txt scripts build-site.sh $SITE_DIR"
+PUBLISH_PATHS="LeanMathNote.lean LeanMathNote lean-toolchain lakefile.toml site-src mkdocs.yml requirements-mkdocs.txt scripts out $SITE_DIR"
+OBSOLETE_PUBLIC_PATHS="build-site.sh lean2md.sh md2pdf.sh"
 
 script_dir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
 repo_root=$(CDPATH= cd -- "$script_dir/.." && pwd)
@@ -72,7 +75,7 @@ source_commit=$(git rev-parse --short HEAD)
 COMMIT_MESSAGE=${COMMIT_MESSAGE:-"Publish site from lean-note-dev ${source_commit}"}
 
 if [ "$allow_dirty" != "1" ]; then
-  dirty_paths=$(git status --porcelain -- $PUBLISH_PATHS)
+  dirty_paths=$(git status --porcelain -- $PUBLISH_PATHS $OBSOLETE_PUBLIC_PATHS)
   if [ -n "$dirty_paths" ]; then
     echo "The source worktree has uncommitted publish-related changes." >&2
     echo "Commit them first, or rerun with --allow-dirty." >&2
@@ -89,6 +92,14 @@ if [ "$skip_build" -ne 1 ]; then
 
   echo "Running: $BUILD_SCRIPT"
   "$BUILD_SCRIPT"
+
+  if [ ! -x "$MD_SCRIPT" ]; then
+    echo "Markdown generation script is not executable: $MD_SCRIPT" >&2
+    exit 1
+  fi
+
+  echo "Running: $MD_SCRIPT"
+  "$MD_SCRIPT"
 fi
 
 if [ ! -d "$SITE_DIR" ]; then
@@ -129,6 +140,11 @@ for path in $PUBLISH_PATHS; do
   cp -R "$repo_root/$path" "$path"
 done
 
+for path in $OBSOLETE_PUBLIC_PATHS; do
+  rm -rf "$path"
+  git rm -r --ignore-unmatch -- "$path" >/dev/null
+done
+
 git add -A -- $PUBLISH_PATHS
 
 if git diff --cached --quiet; then
@@ -137,7 +153,7 @@ if git diff --cached --quiet; then
 fi
 
 echo "Changes to publish:"
-git status --short -- $PUBLISH_PATHS
+git status --short
 
 if [ "$dry_run" -eq 1 ]; then
   echo "Dry run: leaving the public repository unchanged."
