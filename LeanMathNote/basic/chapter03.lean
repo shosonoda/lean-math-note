@@ -113,7 +113,7 @@ example : (fun n : Nat => n + 1) 2 = 3 := by
 Lean の等式 `a = b` は `Eq a b` という型です．
 `rfl` は `Eq.refl`，つまり反射律を使う tactic です．
 反射律は本来 `a = a` を証明するものですが，Lean は両辺を計算・定義展開して同じ式になる場合にも `rfl` を受け入れます．
-このように，計算や定義展開だけで同じと判定されることを「定義的に等しい」，英語で definitionally equal と言います．
+このように，計算や定義展開だけで同じと判定されることを「定義的に等しい（definitionally equal）」と言います．
 -/
 
 #check Eq
@@ -708,10 +708,10 @@ Lean の等号 `a = b` は `Eq a b` という型です．
 
 | レベル | 数学での状況 | Lean での姿 | 典型的な証明方法 |
 |---|---|---|---|
-| 定義的等しさ | 定義から同じ | definitional equality | `rfl`，`change`，`dsimp` |
-| 命題的等しさ | 補題や仮定で等しい | propositional equality, `Eq` | `rw`，`calc`，`exact h` |
+| 定義的な等しさ | 定義から同じ | definitional equality | `rfl`，`change`，`dsimp` |
+| 命題的な等しさ | 補題や仮定で等しい | propositional equality, `Eq` | `rw`，`calc`，`exact h` |
 | 自動化された等式証明 | 正規化すれば同じ | `Eq` の証明を tactic が作る | `simp`，`decide`，`grind` |
-| 外延的等しさ | 点ごと・元ごと・成分ごとに同じ | extensional equality | `funext`，`ext` |
+| 外延的な等しさ | 点ごと・元ごと・成分ごとに同じ | extensional equality | `funext`，`ext` |
 | 命題外延性 | 論理的に同値な命題を等しい命題として扱う | propositional extensionality | `propext` |
 | 商での等しさ | 同値な代表元を商では同じと見る | quotient equality | `Quot.sound` |
 
@@ -833,7 +833,7 @@ example (f g : Nat → Nat) (h : ∀ x : Nat, f x = g x) :
 
 /-
 関数等号でも，両辺が定義的に同じなら `rfl` で閉じます．
-たとえば次の等式は関数の eta 展開が定義的等しさとして扱われる例です．
+たとえば次の等式は関数の eta 展開がな等しさとして扱われる例です．
 一方，`fun n => 0 + n` と `fun n => n` は各点で `0 + n = n` を証明する必要があるため，普通は `funext` と `simp` で示します．
 -/
 
@@ -878,7 +878,7 @@ example : Quot.mk SameModTwo 0 = Quot.mk SameModTwo 2 := by
 少し先の話ですが，型の等号と同型・同値も区別します．
 数学では「同型な対象を同じと思う」と言うことがありますが，Lean では `α = β` と `α ≃ β` は別の主張です．
 等号 `h : α = β` があれば `cast h` により項を移送できますが，これは同値や同型を与えることとは違います．
-定義的等しさ由来の `cast` は計算で消えやすく，`propext`，`funext`，商型などから来る非自明な等号は，証明上は便利でも計算上は扱いが重くなることがあります．
+定義的な等しさ由来の `cast` は計算で消えやすく，`propext`，`funext`，商型などから来る非自明な等号は，証明上は便利でも計算上は扱いが重くなることがあります．
 -/
 
 example (x : Nat) : cast rfl x = x := by
@@ -892,7 +892,7 @@ example (x : Nat) : cast rfl x = x := by
 `propext` は同値な命題を等しい命題として扱うための原理です．
 `Quot.sound` は，同値関係で同値な代表元を商型の中で等しいものとして扱います．
 
-証明が通らないときは，まず「これは定義的等しさで閉じたいのか，補題による等式なのか，外延性で成分ごとに示すべき等式なのか，商の中の等式なのか」を切り分けると，次に使う tactic が選びやすくなります．
+証明が通らないときは，まず「これは定義的な等しさで閉じたいのか，補題による等式なのか，外延性で成分ごとに示すべき等式なのか，商の中の等式なのか」を切り分けると，次に使う tactic が選びやすくなります．
 -/
 
 /-

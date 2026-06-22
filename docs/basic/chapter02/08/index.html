@@ -1989,7 +1989,7 @@
 </code></pre></div>
 <p><code>def</code> で定義した名前は，必要に応じて展開されます．
 <code>rfl</code> で証明できる等式は，定義を展開して両辺が同じ形になる等式です．
-この「定義を展開して同じになる」という同一性を，定義的等しさと呼びます．
+この「定義を展開して同じになる」という同一性を，定義的な等しさと呼びます．
 <code>def</code> で関数を定義すると，その計算規則を <code>rfl</code> や <code>simp</code> が利用できることがあります．</p>
 <div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">example</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">addTwo</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="n">rfl</span>

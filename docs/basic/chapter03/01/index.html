@@ -1992,7 +1992,7 @@ subtype の要素を作るには「値」と「その値が条件を満たす証
 <p>Lean の等式 <code>a = b</code> は <code>Eq a b</code> という型です．
 <code>rfl</code> は <code>Eq.refl</code>，つまり反射律を使う tactic です．
 反射律は本来 <code>a = a</code> を証明するものですが，Lean は両辺を計算・定義展開して同じ式になる場合にも <code>rfl</code> を受け入れます．
-このように，計算や定義展開だけで同じと判定されることを「定義的に等しい」，英語で definitionally equal と言います．</p>
+このように，計算や定義展開だけで同じと判定されることを「定義的に等しい（definitionally equal）」と言います．</p>
 <div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">Eq</span>
 <a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">Eq</span><span class="bp">.</span><span class="n">refl</span>
 <a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>

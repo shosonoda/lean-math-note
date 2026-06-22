@@ -1958,13 +1958,13 @@
 </thead>
 <tbody>
 <tr>
-<td>定義的等しさ</td>
+<td>定義的な等しさ</td>
 <td>定義から同じ</td>
 <td>definitional equality</td>
 <td><code>rfl</code>，<code>change</code>，<code>dsimp</code></td>
 </tr>
 <tr>
-<td>命題的等しさ</td>
+<td>命題的な等しさ</td>
 <td>補題や仮定で等しい</td>
 <td>propositional equality, <code>Eq</code></td>
 <td><code>rw</code>，<code>calc</code>，<code>exact h</code></td>
@@ -1976,7 +1976,7 @@
 <td><code>simp</code>，<code>decide</code>，<code>grind</code></td>
 </tr>
 <tr>
-<td>外延的等しさ</td>
+<td>外延的な等しさ</td>
 <td>点ごと・元ごと・成分ごとに同じ</td>
 <td>extensional equality</td>
 <td><code>funext</code>，<code>ext</code></td>
@@ -2086,7 +2086,7 @@
 <a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="w">  </span><span class="n">rw</span><span class="w"> </span><span class="o">[</span><span class="n">h</span><span class="w"> </span><span class="n">x</span><span class="o">]</span>
 </code></pre></div>
 <p>関数等号でも，両辺が定義的に同じなら <code>rfl</code> で閉じます．
-たとえば次の等式は関数の eta 展開が定義的等しさとして扱われる例です．
+たとえば次の等式は関数の eta 展開がな等しさとして扱われる例です．
 一方，<code>fun n =&gt; 0 + n</code> と <code>fun n =&gt; n</code> は各点で <code>0 + n = n</code> を証明する必要があるため，普通は <code>funext</code> と <code>simp</code> で示します．</p>
 <div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kn">example</span><span class="w"> </span><span class="o">{</span><span class="n">α</span><span class="w"> </span><span class="n">β</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Type</span><span class="o">}</span><span class="w"> </span><span class="o">(</span><span class="n">f</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">α</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">β</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="bp">=&gt;</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">x</span><span class="o">)</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
 <a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">  </span><span class="n">rfl</span>
@@ -2122,7 +2122,7 @@ Mathlib では，集合 <code>Set</code> にも外延性補題 <code>Set.ext</co
 <p>少し先の話ですが，型の等号と同型・同値も区別します．
 数学では「同型な対象を同じと思う」と言うことがありますが，Lean では <code>α = β</code> と <code>α ≃ β</code> は別の主張です．
 等号 <code>h : α = β</code> があれば <code>cast h</code> により項を移送できますが，これは同値や同型を与えることとは違います．
-定義的等しさ由来の <code>cast</code> は計算で消えやすく，<code>propext</code>，<code>funext</code>，商型などから来る非自明な等号は，証明上は便利でも計算上は扱いが重くなることがあります．</p>
+定義的な等しさ由来の <code>cast</code> は計算で消えやすく，<code>propext</code>，<code>funext</code>，商型などから来る非自明な等号は，証明上は便利でも計算上は扱いが重くなることがあります．</p>
 <div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">cast</span><span class="w"> </span><span class="n">rfl</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
 <a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="w">  </span><span class="n">rfl</span>
 </code></pre></div>
@@ -2132,7 +2132,7 @@ Mathlib では，集合 <code>Set</code> にも外延性補題 <code>Set.ext</co
 <code>funext</code> や <code>ext</code> は，点ごと・元ごと・成分ごとの一致から全体の等式を作ります．
 <code>propext</code> は同値な命題を等しい命題として扱うための原理です．
 <code>Quot.sound</code> は，同値関係で同値な代表元を商型の中で等しいものとして扱います．</p>
-<p>証明が通らないときは，まず「これは定義的等しさで閉じたいのか，補題による等式なのか，外延性で成分ごとに示すべき等式なのか，商の中の等式なのか」を切り分けると，次に使う tactic が選びやすくなります．</p>
+<p>証明が通らないときは，まず「これは定義的な等しさで閉じたいのか，補題による等式なのか，外延性で成分ごとに示すべき等式なのか，商の中の等式なのか」を切り分けると，次に使う tactic が選びやすくなります．</p>
 
 
 
