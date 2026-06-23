@@ -426,10 +426,6 @@
       
         
       
-        
-      
-        
-      
     
     
     
@@ -525,7 +521,7 @@
   <span class="md-ellipsis">
     
   
-    `notation` （記法定義，糖衣構文）
+    `def`
   
 
     
@@ -553,7 +549,7 @@
   <span class="md-ellipsis">
     
   
-    `Prop`，`Type`，`Sort`
+    `fun`
   
 
     
@@ -581,7 +577,7 @@
   <span class="md-ellipsis">
     
   
-    単純型と依存型
+    `example`，`theorem`，`lemma`
   
 
     
@@ -609,7 +605,7 @@
   <span class="md-ellipsis">
     
   
-    universe
+    `variable` と `section`
   
 
     
@@ -637,7 +633,7 @@
   <span class="md-ellipsis">
     
   
-    `variable` とローカルコンテキスト
+    `notation`
   
 
     
@@ -665,7 +661,7 @@
   <span class="md-ellipsis">
     
   
-    `namespace` と `open`
+    `Type`，`Prop`，`Sort`
   
 
     
@@ -693,7 +689,7 @@
   <span class="md-ellipsis">
     
   
-    `def`
+    関数型と依存関数型
   
 
     
@@ -721,7 +717,7 @@
   <span class="md-ellipsis">
     
   
-    `abbrev`
+    `structure`
   
 
     
@@ -749,7 +745,7 @@
   <span class="md-ellipsis">
     
   
-    `fun`
+    `inductive` 型
   
 
     
@@ -777,7 +773,7 @@
   <span class="md-ellipsis">
     
   
-    `example`，`theorem`，`lemma`
+    型クラス `class` と `instance`
   
 
     
@@ -805,7 +801,7 @@
   <span class="md-ellipsis">
     
   
-    代表的なデータ構造
+    論理記号の対応まとめ
   
 
     
@@ -833,7 +829,7 @@
   <span class="md-ellipsis">
     
   
-    `inductive`
+    `namespace` と `open`
   
 
     
@@ -861,7 +857,7 @@
   <span class="md-ellipsis">
     
   
-    `structure`
+    `abbrev`
   
 
     
@@ -889,7 +885,7 @@
   <span class="md-ellipsis">
     
   
-    型クラス `class` と `instance`
+    制御構文
   
 
     
@@ -917,63 +913,7 @@
   <span class="md-ellipsis">
     
   
-    制御構文
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="17/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
     まとめ
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="18/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    演習問題
   
 
     
@@ -1006,6 +946,10 @@
       
         
           
+        
+      
+        
+      
         
       
         
@@ -1097,8 +1041,6 @@
       
         
           
-        
-      
         
       
         
@@ -1968,20 +1910,29 @@
 <p>扱う内容は次の通りです．</p>
 <ul>
 <li>コマンドと式</li>
-<li>記法 <code>notation</code></li>
+<li><code>def</code>，<code>fun</code>，<code>example</code>，<code>theorem</code>，<code>lemma</code></li>
+<li><code>variable</code>，<code>section</code>，引数に現れる <code>( )</code>，<code>{ }</code>，<code>[ ]</code></li>
+<li><code>notation</code></li>
 <li><code>Prop</code>，<code>Type</code>，<code>Sort</code> と universe</li>
-<li><code>namespace</code>，<code>open</code>，<code>variable</code></li>
-<li>引数に現れる <code>( )</code>，<code>{ }</code>，<code>[ ]</code></li>
-<li><code>def</code>，<code>abbrev</code>，<code>example</code>，<code>theorem</code>，<code>lemma</code></li>
-<li>関数 <code>fun</code></li>
-<li>帰納型 <code>inductive</code>，構造体 <code>structure</code></li>
-<li>型クラス <code>class</code>，インスタンス <code>instance</code></li>
+<li>関数型・依存関数型</li>
+<li><code>inductive</code> 型，<code>structure</code>，<code>class</code></li>
+<li>Chapter 01 で使った論理記号の実体</li>
+<li><code>namespace</code>，<code>open</code></li>
+<li><code>abbrev</code></li>
 <li>積，直和型（非交和），<code>Option</code>，<code>List</code> などのデータ構造</li>
 <li><code>if</code>，<code>match</code>，<code>let</code>，<code>do</code> などの制御構文</li>
 </ul>
 <p>Lean では「プログラム」と「証明」は同じ構文で書かれます．
 自然数を返す関数も，命題の証明も，どちらも型をもつ項です．
 したがって，Lean のファイルを読むときは，まず「いま見ているものは環境に名前を追加するコマンドなのか，それとも型をもつ式なのか」を区別すると見通しがよくなります．</p>
+<p>もう 1 つ重要なのは，「型」と呼ばれているものをいくつかの観点に分けて見ることです．
+<code>Prop</code> や <code>Type</code> は型が住む階層です．
+<code>α → β</code> や <code>∀ x : α, P x</code> は関数型・依存関数型です．
+<code>Nat</code>，<code>List α</code>，<code>Option α</code>，<code>P ∨ Q</code>，<code>∃ x, P x</code> は <code>inductive</code> 型です．
+<code>α × β</code>，<code>P ∧ Q</code>，<code>Subtype</code> は <code>structure</code> として実装された積型です．
+<code>LE α</code> や <code>Add α</code> は型クラスで，<code>≤</code> や <code>+</code> の意味を型ごとに与えます．</p>
+<p>この章では，Chapter 01 で使った <code>And</code>，<code>Or</code>，<code>Eq</code>，<code>LE</code>，<code>LT</code>，<code>True</code>，<code>False</code>，<code>Not</code>，<code>Exists</code>，<code>∀</code> なども，
+単なる論理記号ではなく，Lean の具体的な定義・構文・型クラスとして見直します．</p>
 <div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">namespace</span><span class="w"> </span><span class="n">Chapter02</span>
 </code></pre></div>
 

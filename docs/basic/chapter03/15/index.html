@@ -25,7 +25,7 @@
     
     
       
-        <title>検索系: `#check`，`exact?`，`rw?` - 数学系エンドユーザーのためのLean入門</title>
+        <title>古典論理，選択，商，Lean の追加原理 - 数学系エンドユーザーのためのLean入門</title>
       
     
     
@@ -68,7 +68,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#checkexactrw" class="md-skip">
+        <a href="#lean" class="md-skip">
           コンテンツにスキップ
         </a>
       
@@ -104,7 +104,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              検索系: `#check`，`exact?`，`rw?`
+              古典論理，選択，商，Lean の追加原理
             
           </span>
         </div>
@@ -424,10 +424,6 @@
       
         
       
-        
-      
-        
-      
     
     
     
@@ -485,6 +481,10 @@
       
         
           
+        
+      
+        
+      
         
       
         
@@ -588,7 +588,7 @@
   <span class="md-ellipsis">
     
   
-    tactic モードの基本
+    証明項としての証明
   
 
     
@@ -616,7 +616,7 @@
   <span class="md-ellipsis">
     
   
-    tactic モードでない証明
+    `by` と tactic モードの基本
   
 
     
@@ -644,7 +644,7 @@
   <span class="md-ellipsis">
     
   
-    `intro` と `apply`
+    `by` を項の一部として使う
   
 
     
@@ -672,7 +672,7 @@
   <span class="md-ellipsis">
     
   
-    `rw`: 等式による書き換え
+    tactic と証明項の対応
   
 
     
@@ -700,7 +700,7 @@
   <span class="md-ellipsis">
     
   
-    `conv` モード
+    `intro` と `apply`
   
 
     
@@ -728,7 +728,7 @@
   <span class="md-ellipsis">
     
   
-    `simp` と `simpa`
+    `rw`: 等式による書き換え
   
 
     
@@ -756,7 +756,7 @@
   <span class="md-ellipsis">
     
   
-    `have` と `suffices`
+    `conv` モード
   
 
     
@@ -784,7 +784,7 @@
   <span class="md-ellipsis">
     
   
-    論理の tactic
+    `simp` と `simpa`
   
 
     
@@ -812,7 +812,7 @@
   <span class="md-ellipsis">
     
   
-    `calc` モード
+    `have` と `suffices`
   
 
     
@@ -840,7 +840,7 @@
   <span class="md-ellipsis">
     
   
-    関数と構造体: `funext` と `ext`
+    `structure` と `inductive` 型に対応する tactic
   
 
     
@@ -868,7 +868,7 @@
   <span class="md-ellipsis">
     
   
-    Lean における等号の証明パターン
+    古典論理と矛盾
   
 
     
@@ -896,7 +896,7 @@
   <span class="md-ellipsis">
     
   
-    証明項，古典論理，Lean の追加原理
+    `calc` モード
   
 
     
@@ -924,7 +924,7 @@
   <span class="md-ellipsis">
     
   
-    `induction`: 帰納法
+    関数と `structure`: `funext` と `ext`
   
 
     
@@ -952,7 +952,7 @@
   <span class="md-ellipsis">
     
   
-    汎用的な tactic
+    Lean における等号の証明パターン
   
 
     
@@ -989,7 +989,7 @@
   <span class="md-ellipsis">
     
   
-    検索系: `#check`，`exact?`，`rw?`
+    古典論理，選択，商，Lean の追加原理
   
 
     
@@ -1007,7 +1007,7 @@
   <span class="md-ellipsis">
     
   
-    検索系: `#check`，`exact?`，`rw?`
+    古典論理，選択，商，Lean の追加原理
   
 
     
@@ -1033,21 +1033,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#check" class="md-nav__link">
+  <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        #check
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#exactrwtry" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        exact?，rw?，try?
+        演習
       
     </span>
   </a>
@@ -1077,7 +1066,7 @@
   <span class="md-ellipsis">
     
   
-    まとめ
+    `induction`: 帰納法
   
 
     
@@ -1105,7 +1094,63 @@
   <span class="md-ellipsis">
     
   
-    演習問題
+    汎用的な tactic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    検索系: `#check`，`exact?`，`rw?`
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    まとめ
   
 
     
@@ -1138,8 +1183,6 @@
       
         
           
-        
-      
         
       
         
@@ -1994,21 +2037,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#check" class="md-nav__link">
+  <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        #check
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#exactrwtry" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        exact?，rw?，try?
+        演習
       
     </span>
   </a>
@@ -2032,28 +2064,88 @@
 
 
 
-<h1 id="checkexactrw">検索系: <code>#check</code>，<code>exact?</code>，<code>rw?</code><a class="headerlink" href="#checkexactrw" title="Permanent link">&para;</a></h1>
-<p>使える補題を探すことは，Lean で数学を形式化するときの大きな作業です．</p>
-<h2 id="check"><code>#check</code><a class="headerlink" href="#check" title="Permanent link">&para;</a></h2>
-<p>名前が分かっている定理の型を確認します．
-定理名が分かっている場合は <code>#check</code>，現在のゴールから候補を探したい場合は <code>exact?</code>，<code>rw?</code> のような検索支援を使い分けます．</p>
-<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">Nat</span><span class="bp">.</span><span class="n">add_comm</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">Nat</span><span class="bp">.</span><span class="n">add_assoc</span>
+<h1 id="lean">古典論理，選択，商，Lean の追加原理<a class="headerlink" href="#lean" title="Permanent link">&para;</a></h1>
+<p>ここまで見た基本的な証明項の構成は，かなり構成的な性質を持っています．
+つまり，一般の命題 <code>P : Prop</code> について <code>P ∨ ¬ P</code> を証明するには，<code>P</code> の証明か <code>¬ P</code> の証明のどちらかを実際に与える必要があります．
+排中律や背理法，存在からの非構成的な選択を自由に使う標準的な数学を扱うには，追加の原理が必要になります．</p>
+<p>Lean の標準的な基礎には，命題外延性，商，選択などの原理が用意されています．
+これは Mathlib 独自の仮定ではなく，Lean の上で通常の数学を展開するための基礎です．
+Mathlib はその上に多くの定義と定理を積み上げています．
+これらを使う場合も，Lean は最終的にその原理を含む証明項を構成し，カーネルが型を確認します．</p>
+<p>参考:</p>
+<ul>
+<li>Theorem Proving in Lean 4, Axioms and Computation: <a href="https://leanprover.github.io/theorem_proving_in_lean4/Axioms-and-Computation/#axioms-and-computation">https://leanprover.github.io/theorem_proving_in_lean4/Axioms-and-Computation/#axioms-and-computation</a></li>
+<li>nLab, choice operator: <a href="https://ncatlab.org/nlab/show/choice+operator">https://ncatlab.org/nlab/show/choice+operator</a></li>
+</ul>
+<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">Classical</span><span class="bp">.</span><span class="n">em</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">Classical</span><span class="bp">.</span><span class="n">choice</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">Quot</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">Quot</span><span class="bp">.</span><span class="n">sound</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">Quot</span><span class="bp">.</span><span class="n">lift</span>
 </code></pre></div>
-<h2 id="exactrwtry"><code>exact?</code>，<code>rw?</code>，<code>try?</code><a class="headerlink" href="#exactrwtry" title="Permanent link">&para;</a></h2>
-<p>現在のゴールを閉じる候補や書き換え候補を提案する tactic です．
-出力は Lean のバージョンや読み込んだライブラリによって変わることがあるため，この資料では実行例としてだけ示します．</p>
-<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">n</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="n">exact?</span>
+<p>排中律は <code>Classical.em P</code> として使えます．
+実際の証明では，<code>by_cases h : P</code> がよく使われます．
+数学で「<code>P</code> の場合と <code>P</code> でない場合に分ける」と書く部分です．</p>
+<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">P</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Prop</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">P</span><span class="w"> </span><span class="bp">∨</span><span class="w"> </span><span class="bp">¬</span><span class="w"> </span><span class="n">P</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="n">exact</span><span class="w"> </span><span class="n">Classical</span><span class="bp">.</span><span class="n">em</span><span class="w"> </span><span class="n">P</span>
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">a</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">  </span><span class="n">rw?</span>
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">P</span><span class="w"> </span><span class="n">Q</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Prop</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">h</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">P</span><span class="w"> </span><span class="bp">∧</span><span class="w"> </span><span class="n">Q</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Q</span><span class="w"> </span><span class="bp">∧</span><span class="w"> </span><span class="n">P</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">  </span><span class="n">try?</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">P</span><span class="w"> </span><span class="n">Q</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Prop</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">hP</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">P</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">Q</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">hNotP</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="bp">¬</span><span class="w"> </span><span class="n">P</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">Q</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Q</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">  </span><span class="n">by_cases</span><span class="w"> </span><span class="n">h</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">P</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">  </span><span class="bp">·</span><span class="w"> </span><span class="n">exact</span><span class="w"> </span><span class="n">hP</span><span class="w"> </span><span class="n">h</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">  </span><span class="bp">·</span><span class="w"> </span><span class="n">exact</span><span class="w"> </span><span class="n">hNotP</span><span class="w"> </span><span class="n">h</span>
 </code></pre></div>
-<p>Mathlib には <code>#loogle</code> などのより強力な検索支援もあります．
-それらは次章以降，Mathlib を使う場面で扱います．</p>
+<p>背理法も標準的な数学では頻繁に使います．
+Core Lean では <code>Classical.byContradiction</code> がこの役割を持ちます．
+次の例は「二重否定から命題を取り出す」古典論理の典型例です．</p>
+<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">P</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Prop</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">h</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="bp">¬¬</span><span class="w"> </span><span class="n">P</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">P</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="n">exact</span><span class="w"> </span><span class="n">Classical</span><span class="bp">.</span><span class="n">byContradiction</span><span class="w"> </span><span class="n">h</span>
+</code></pre></div>
+<p>選択は，存在命題から証拠を選ぶときに現れます．
+数学では「条件を満たすものを 1 つ取る」と自然に書きますが，Lean でその選んだ値を定義として保存するには <code>Classical.choose</code> を使います．
+このような定義は一般に計算可能な内容を持たないため，<code>noncomputable</code> として宣言します．</p>
+<p>ここでいう「選択」は，集合論の選択公理をそのまま Lean に書き写したものではありません．
+集合論の選択公理は，非空集合の族から選択関数が存在する，という集合論内部の命題です．
+一方，Lean の型理論で使う <code>Classical.choice</code> は，型 <code>α</code> が空でないという命題 <code>Nonempty α</code> の証明から，実際に <code>α</code> の項を 1 つ返す選択演算子です．
+つまり <code>Classical.choice : Nonempty α → α</code> は，証明情報からデータを取り出す追加原理です．
+各添字 <code>i</code> ごとにこれを使えば，集合論の選択公理に似た選択関数を作れます．
+ただし，この関数は計算規則を持たないため，値を定義として保存する場合は <code>noncomputable</code> になります．</p>
+<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">noncomputable</span><span class="w"> </span><span class="kn">def</span><span class="w"> </span><span class="n">choiceFunctionFromNonempty</span><span class="w"> </span><span class="o">{</span><span class="n">ι</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Type</span><span class="o">}</span><span class="w"> </span><span class="o">{</span><span class="n">α</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ι</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="kt">Type</span><span class="o">}</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="o">(</span><span class="n">h</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="bp">∀</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ι</span><span class="o">,</span><span class="w"> </span><span class="n">Nonempty</span><span class="w"> </span><span class="o">(</span><span class="n">α</span><span class="w"> </span><span class="n">i</span><span class="o">))</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="o">(</span><span class="n">i</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ι</span><span class="o">)</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">α</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">:=</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">  </span><span class="k">fun</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="bp">=&gt;</span><span class="w"> </span><span class="n">Classical</span><span class="bp">.</span><span class="n">choice</span><span class="w"> </span><span class="o">(</span><span class="n">h</span><span class="w"> </span><span class="n">i</span><span class="o">)</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="kn">example</span><span class="w"> </span><span class="o">{</span><span class="n">ι</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Type</span><span class="o">}</span><span class="w"> </span><span class="o">{</span><span class="n">α</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ι</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="kt">Type</span><span class="o">}</span><span class="w"> </span><span class="o">(</span><span class="n">h</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="bp">∀</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ι</span><span class="o">,</span><span class="w"> </span><span class="n">Nonempty</span><span class="w"> </span><span class="o">(</span><span class="n">α</span><span class="w"> </span><span class="n">i</span><span class="o">))</span><span class="w"> </span><span class="o">:</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">    </span><span class="n">Nonempty</span><span class="w"> </span><span class="o">((</span><span class="n">i</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ι</span><span class="o">)</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">α</span><span class="w"> </span><span class="n">i</span><span class="o">)</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">  </span><span class="n">exact</span><span class="w"> </span><span class="bp">⟨</span><span class="n">choiceFunctionFromNonempty</span><span class="w"> </span><span class="n">h</span><span class="bp">⟩</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="kn">noncomputable</span><span class="w"> </span><span class="kn">def</span><span class="w"> </span><span class="n">chosenNatFromExistence</span><span class="w"> </span><span class="o">(</span><span class="n">h</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="bp">∃</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="o">,</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="bp">&lt;</span><span class="w"> </span><span class="n">n</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="w"> </span><span class="o">:=</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="w">  </span><span class="n">Classical</span><span class="bp">.</span><span class="n">choose</span><span class="w"> </span><span class="n">h</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">h</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="bp">∃</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="o">,</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="bp">&lt;</span><span class="w"> </span><span class="n">n</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="bp">&lt;</span><span class="w"> </span><span class="n">chosenNatFromExistence</span><span class="w"> </span><span class="n">h</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="w">  </span><span class="n">exact</span><span class="w"> </span><span class="n">Classical</span><span class="bp">.</span><span class="n">choose_spec</span><span class="w"> </span><span class="n">h</span>
+</code></pre></div>
+<p>命題外延性 <code>propext</code> は，論理的に同値な命題を等しい命題として扱うために使います．
+商型は，同値関係で割った対象を作るために使います．
+たとえば整数，有理数，剰余類，商群など，標準的な数学では「同値なものを同一視する」構成が頻繁に現れます．</p>
+<p>この章で押さえておきたいのは，これらが tactic の小技ではなく，Lean で標準的な数学を表現するための基礎的な仕組みだという点です．
+一方で，証明項を構成しているという基本的な見方は変わりません．
+古典論理や選択を使う場合も，Lean はその原理を使った証明項を構成し，カーネルが型を確認しています．</p>
+<h2 id="_1">演習<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p><code>Classical.choose</code> と <code>Classical.choose_spec</code> を使って，存在命題から証拠を取り出してください．</p>
+<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">noncomputable</span><span class="w"> </span><span class="kn">def</span><span class="w"> </span><span class="n">chosenNatExercise03</span><span class="w"> </span><span class="o">(</span><span class="n">h</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="bp">∃</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="o">,</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="bp">&gt;</span><span class="w"> </span><span class="mi">10</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="w"> </span><span class="o">:=</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span><span class="n">Classical</span><span class="bp">.</span><span class="n">choose</span><span class="w"> </span><span class="n">h</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">h</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="bp">∃</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="o">,</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="bp">&gt;</span><span class="w"> </span><span class="mi">10</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">chosenNatExercise03</span><span class="w"> </span><span class="n">h</span><span class="w"> </span><span class="bp">&gt;</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">  </span><span class="c1">-- `Classical.choose_spec h`</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">  </span><span class="gr">sorry</span>
+</code></pre></div>
+<p><code>Quot.sound</code> を使って，商型の中で代表元が等しいことを証明してください．</p>
+<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kn">def</span><span class="w"> </span><span class="n">sameModTwoExercise03</span><span class="w"> </span><span class="o">(</span><span class="n">a</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Prop</span><span class="w"> </span><span class="o">:=</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">  </span><span class="n">a</span><span class="w"> </span><span class="bp">%</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="bp">%</span><span class="w"> </span><span class="mi">2</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="kn">example</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Quot</span><span class="bp">.</span><span class="n">mk</span><span class="w"> </span><span class="n">sameModTwoExercise03</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">Quot</span><span class="bp">.</span><span class="n">mk</span><span class="w"> </span><span class="n">sameModTwoExercise03</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">  </span><span class="c1">-- `Quot.sound` と `decide`</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">  </span><span class="gr">sorry</span>
+</code></pre></div>
 
 
 
@@ -2089,7 +2181,7 @@
       <nav class="md-footer__inner md-grid" aria-label="フッター" >
         
           
-          <a href="../14/" class="md-footer__link md-footer__link--prev" aria-label="前: 汎用的な tactic">
+          <a href="../14/" class="md-footer__link md-footer__link--prev" aria-label="前: Lean における等号の証明パターン">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -2099,20 +2191,20 @@
                 前
               </span>
               <div class="md-ellipsis">
-                汎用的な tactic
+                Lean における等号の証明パターン
               </div>
             </div>
           </a>
         
         
           
-          <a href="../16/" class="md-footer__link md-footer__link--next" aria-label="次: まとめ">
+          <a href="../16/" class="md-footer__link md-footer__link--next" aria-label="次: `induction`: 帰納法">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 次
               </span>
               <div class="md-ellipsis">
-                まとめ
+                `induction`: 帰納法
               </div>
             </div>
             <div class="md-footer__button md-icon">

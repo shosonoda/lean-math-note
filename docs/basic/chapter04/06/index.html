@@ -424,10 +424,6 @@
       
         
       
-        
-      
-        
-      
     
     
     
@@ -483,6 +479,10 @@
       
         
           
+        
+      
+        
+      
         
       
         
@@ -576,8 +576,6 @@
       
         
           
-        
-      
         
       
         
@@ -960,34 +958,6 @@
     
   
     まとめ
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../12/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    演習問題
   
 
     
@@ -1804,8 +1774,8 @@
 
 
 <h1 id="bundled-structuremorphismsubobject">bundled structure，morphism，subobject<a class="headerlink" href="#bundled-structuremorphismsubobject" title="Permanent link">&para;</a></h1>
-<p>Mathlib では，数学的対象を構造体として束ねることがよくあります．
-たとえば準同型は，単なる関数ではなく「関数本体」と「演算を保つ証明」を持つ構造体です．
+<p>Mathlib では，数学的対象を <code>structure</code> として束ねることがよくあります．
+たとえば準同型は，単なる関数ではなく「関数本体」と「演算を保つ証明」を持つ <code>structure</code> です．
 これを bundled structure と呼ぶことがあります．
 bundled にすると，写像そのものと構造保存の証明を 1 つの対象として渡せるため，定理の仮定や合成の記述が整理されます．</p>
 <div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">MonoidHom</span>

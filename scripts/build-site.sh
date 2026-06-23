@@ -36,7 +36,10 @@ lake exe mdgen "$INPUT_DIR" "$GENERATED_MD_DIR"
 
 find "$GENERATED_MD_DIR" -type f -name 'chapter*.md' | while IFS= read -r file; do
   tmp="${file}.tmp"
-  sed 's/^```lean$/```lean4/' "$file" | awk '
+  sed -E \
+    -e 's/^```lean([[:space:]].*)?$/```lean4\1/' \
+    -e 's/^(```lean4[[:space:]]+title)[[:space:]]*=[[:space:]]*/\1=/' \
+    "$file" | awk '
     BEGIN {
       prev_blank = 1
     }

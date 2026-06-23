@@ -25,7 +25,7 @@
     
     
       
-        <title>`Prop`，`Type`，`Sort` - 数学系エンドユーザーのためのLean入門</title>
+        <title>`fun` - 数学系エンドユーザーのためのLean入門</title>
       
     
     
@@ -68,7 +68,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#proptypesort" class="md-skip">
+        <a href="#fun" class="md-skip">
           コンテンツにスキップ
         </a>
       
@@ -104,7 +104,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              `Prop`，`Type`，`Sort`
+              `fun`
             
           </span>
         </div>
@@ -426,10 +426,6 @@
       
         
       
-        
-      
-        
-      
     
     
     
@@ -525,7 +521,7 @@
   <span class="md-ellipsis">
     
   
-    `notation` （記法定義，糖衣構文）
+    `def`
   
 
     
@@ -555,14 +551,14 @@
         
       
       
-      <a href="./" class="md-nav__link md-nav__link--active">
-        
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
   
   
   <span class="md-ellipsis">
     
   
-    `Prop`，`Type`，`Sort`
+    `fun`
   
 
     
@@ -570,189 +566,10 @@
   
   
 
-      </a>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
       
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../04/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    単純型と依存型
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../05/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    universe
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../06/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    `variable` とローカルコンテキスト
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../07/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    `namespace` と `open`
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../08/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    `def`
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../09/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    `abbrev`
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../10/" class="md-nav__link">
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -768,6 +585,37 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        演習
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -780,7 +628,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../11/" class="md-nav__link">
+      <a href="../04/" class="md-nav__link">
         
   
   
@@ -808,14 +656,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../12/" class="md-nav__link">
+      <a href="../05/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    代表的なデータ構造
+    `variable` と `section`
   
 
     
@@ -836,14 +684,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../13/" class="md-nav__link">
+      <a href="../06/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    `inductive`
+    `notation`
   
 
     
@@ -864,7 +712,63 @@
   
   
     <li class="md-nav__item">
-      <a href="../14/" class="md-nav__link">
+      <a href="../07/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    `Type`，`Prop`，`Sort`
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    関数型と依存関数型
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09/" class="md-nav__link">
         
   
   
@@ -892,7 +796,35 @@
   
   
     <li class="md-nav__item">
-      <a href="../15/" class="md-nav__link">
+      <a href="../10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    `inductive` 型
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11/" class="md-nav__link">
         
   
   
@@ -920,7 +852,91 @@
   
   
     <li class="md-nav__item">
-      <a href="../16/" class="md-nav__link">
+      <a href="../12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    論理記号の対応まとめ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    `namespace` と `open`
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    `abbrev`
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15/" class="md-nav__link">
         
   
   
@@ -948,7 +964,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../17/" class="md-nav__link">
+      <a href="../16/" class="md-nav__link">
         
   
   
@@ -956,34 +972,6 @@
     
   
     まとめ
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../18/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    演習問題
   
 
     
@@ -1016,6 +1004,10 @@
       
         
           
+        
+      
+        
+      
         
       
         
@@ -1107,8 +1099,6 @@
       
         
           
-        
-      
         
       
         
@@ -1956,6 +1946,25 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        演習
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1971,55 +1980,69 @@
 
 
 
-<h1 id="proptypesort"><code>Prop</code>，<code>Type</code>，<code>Sort</code><a class="headerlink" href="#proptypesort" title="Permanent link">&para;</a></h1>
-<p>Lean では，命題もデータ型も「型」として扱われます．
-ただし，目的に応じて主に次の 3 つの階層を意識します．</p>
-<ul>
-<li><code>Prop</code>: 命題の型です．<code>P : Prop</code> の項は，命題 <code>P</code> の証明です．</li>
-<li><code>Type</code>: 通常のデータ型の型です．<code>Nat : Type</code>，<code>String : Type</code>，<code>List Nat : Type</code> などです．</li>
-<li><code>Sort</code>: <code>Prop</code> と <code>Type</code> をまとめて扱う，より一般的な階層です．</li>
-</ul>
-<p>関係を大まかに書くと，<code>Sort 0</code> は <code>Prop</code>，<code>Sort (u + 1)</code> は <code>Type u</code> です．
-<code>Type</code> とだけ書くと，通常は <code>Type 0</code> の意味です．
-<code>#check Type</code> の結果が <code>Type : Type 1</code> となるように，型そのものにも 1 つ上の階層の型があります．</p>
-<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="kt">Prop</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="kt">Type</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="kt">Type</span><span class="w"> </span><span class="mi">1</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="kt">Sort</span><span class="w"> </span><span class="mi">0</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="kt">Sort</span><span class="w"> </span><span class="mi">1</span>
+<h1 id="fun"><code>fun</code><a class="headerlink" href="#fun" title="Permanent link">&para;</a></h1>
+<p><code>fun x =&gt; t</code> は無名関数を作る式です．
+数学の notation では（関数名を明記しない） <span class="arithmatex">\(x \mapsto t\)</span> に対応します．
+<code>def</code> が名前つきの関数を環境に追加するコマンドであるのに対して，<code>fun</code> はその場で関数という項を作る式です．</p>
+<p>Lean の多引数関数は基本的にカリー化されています．
+たとえば <code>Nat → Nat → Nat</code> は，自然数を 1 つ受け取って，さらに <code>Nat → Nat</code> 型の関数を返す型として読めます．
+<code>fun x y =&gt; t</code> は，おおよそ <code>fun x =&gt; fun y =&gt; t</code> の短い書き方です．</p>
+<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="w"> </span><span class="bp">=&gt;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="mi">1</span><span class="o">)</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="w"> </span><span class="bp">=&gt;</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">n</span><span class="o">)</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="o">(</span><span class="n">P</span><span class="w"> </span><span class="n">Q</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Prop</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">hP</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">P</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="bp">_</span><span class="n">hQ</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Q</span><span class="o">)</span><span class="w"> </span><span class="bp">=&gt;</span><span class="w"> </span><span class="n">hP</span><span class="o">)</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="kn">def</span><span class="w"> </span><span class="n">addByFun</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">Nat</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">Nat</span><span class="w"> </span><span class="o">:=</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">  </span><span class="k">fun</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="bp">=&gt;</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">n</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="kn">example</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">addByFun</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="mi">7</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">  </span><span class="n">rfl</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="kn">def</span><span class="w"> </span><span class="n">addConst</span><span class="w"> </span><span class="o">(</span><span class="n">k</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">Nat</span><span class="w"> </span><span class="o">:=</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">  </span><span class="k">fun</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="bp">=&gt;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">k</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="kn">example</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">addConst</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="mi">7</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="w">  </span><span class="n">rfl</span>
 </code></pre></div>
-<p><code>Prop</code> は命題を書くために使います．
-次の <code>IsEvenNat n</code> は，「自然数 <code>n</code> が偶数である」という命題です．
-これは真偽値 <code>Bool</code> を返す判定関数ではなく，証明すべき命題を返す述語です．</p>
-<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">def</span><span class="w"> </span><span class="n">IsEvenNat</span><span class="w"> </span><span class="o">(</span><span class="n">n</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Prop</span><span class="w"> </span><span class="o">:=</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="bp">∃</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="o">,</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="bp">*</span><span class="w"> </span><span class="n">k</span>
+<p>関数を引数に取る関数へ，その場で関数を渡すときにも <code>fun</code> がよく使われます．
+これは後で tactic を読むときにも重要です．
+たとえば含意 <code>P → Q</code> の証明は，<code>P</code> の証明を受け取って <code>Q</code> の証明を返す関数です．</p>
+<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">def</span><span class="w"> </span><span class="n">applyTwice</span><span class="w"> </span><span class="o">(</span><span class="n">f</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">Nat</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">n</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="w"> </span><span class="o">:=</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="n">f</span><span class="w"> </span><span class="o">(</span><span class="n">f</span><span class="w"> </span><span class="n">n</span><span class="o">)</span>
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="kn">example</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">IsEvenNat</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">  </span><span class="n">unfold</span><span class="w"> </span><span class="n">IsEvenNat</span>
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">  </span><span class="n">exact</span><span class="w"> </span><span class="bp">⟨</span><span class="mi">2</span><span class="o">,</span><span class="w"> </span><span class="n">rfl</span><span class="bp">⟩</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="kn">example</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">applyTwice</span><span class="w"> </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="bp">=&gt;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="mi">1</span><span class="o">)</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="mi">12</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">  </span><span class="n">rfl</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="kn">def</span><span class="w"> </span><span class="n">composeNat</span><span class="w"> </span><span class="o">(</span><span class="n">f</span><span class="w"> </span><span class="n">g</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">Nat</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">Nat</span><span class="w"> </span><span class="o">:=</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">  </span><span class="k">fun</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="bp">=&gt;</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="o">(</span><span class="n">g</span><span class="w"> </span><span class="n">n</span><span class="o">)</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="kn">example</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">composeNat</span><span class="w"> </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="bp">=&gt;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="mi">1</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="bp">=&gt;</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="bp">*</span><span class="w"> </span><span class="n">n</span><span class="o">)</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="mi">11</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">  </span><span class="n">rfl</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">P</span><span class="w"> </span><span class="n">Q</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Prop</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">P</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">Q</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">P</span><span class="w"> </span><span class="o">:=</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="w">  </span><span class="k">fun</span><span class="w"> </span><span class="n">hP</span><span class="w"> </span><span class="bp">_</span><span class="n">hQ</span><span class="w"> </span><span class="bp">=&gt;</span><span class="w"> </span><span class="n">hP</span>
 </code></pre></div>
-<p><code>Type</code> はデータを分類する型です．
-たとえば <code>Nat</code> は自然数の型，<code>List Nat</code> は自然数のリストの型です．</p>
-<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">def</span><span class="w"> </span><span class="n">sampleNumber</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">42</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="kn">def</span><span class="w"> </span><span class="n">sampleList</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">List</span><span class="w"> </span><span class="n">Nat</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">[</span><span class="mi">1</span><span class="o">,</span><span class="w"> </span><span class="mi">2</span><span class="o">,</span><span class="w"> </span><span class="mi">3</span><span class="o">]</span>
+<p><code>fun</code> は tactic ではなく式です．
+したがって，<code>exact fun hP =&gt; ...</code> のように書けば，「関数を証明項として直接与える」ことにもなります．
+この見方は Chapter 03 で tactic と証明項の対応を見るときに使います．</p>
+<h2 id="_1">演習<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p><code>fun</code> を使って，次の関数と証明項を書いてください．</p>
+<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">def</span><span class="w"> </span><span class="n">squareByFunExercise</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">Nat</span><span class="w"> </span><span class="o">:=</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="c1">-- `n ↦ n * n`</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">  </span><span class="gr">sorry</span>
 <a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="kn">example</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">sampleList</span><span class="bp">.</span><span class="n">length</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">  </span><span class="n">rfl</span>
-</code></pre></div>
-<p><code>Sort</code> を使うと，命題 <code>Prop</code> とデータ型 <code>Type</code> の両方に対して同じ関数を書けます．
-ただし，最初は <code>Prop</code> と <code>Type</code> を使い分けられれば十分です．
-Mathlib の一般的な定義では <code>Sort u</code> が現れることがありますが，通常の数学的対象を定義するときは <code>Type u</code>，命題を書くときは <code>Prop</code> を使う，と覚えておけば十分です．</p>
-<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">universe</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="n">v</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="kn">def</span><span class="w"> </span><span class="n">idSort</span><span class="w"> </span><span class="o">(</span><span class="n">α</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Sort</span><span class="w"> </span><span class="n">u</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">α</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">α</span><span class="w"> </span><span class="o">:=</span>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">  </span><span class="n">x</span>
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="kn">example</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">idSort</span><span class="w"> </span><span class="n">Nat</span><span class="w"> </span><span class="mi">7</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="mi">7</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">  </span><span class="n">rfl</span>
-<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>
-<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">P</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Prop</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">h</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">P</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">idSort</span><span class="w"> </span><span class="n">P</span><span class="w"> </span><span class="n">h</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">h</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="w">  </span><span class="n">rfl</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="kn">example</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">squareByFunExercise</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="mi">25</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">  </span><span class="gr">sorry</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="kn">def</span><span class="w"> </span><span class="n">applyToThreeExercise</span><span class="w"> </span><span class="o">(</span><span class="n">f</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">Nat</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="w"> </span><span class="o">:=</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">  </span><span class="c1">-- `f` を `3` に適用する．</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">  </span><span class="gr">sorry</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="kn">example</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">applyToThreeExercise</span><span class="w"> </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="bp">=&gt;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="mi">4</span><span class="o">)</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="mi">7</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="w">  </span><span class="gr">sorry</span>
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">P</span><span class="w"> </span><span class="n">Q</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Prop</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">P</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">Q</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">Q</span><span class="w"> </span><span class="o">:=</span>
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="w">  </span><span class="c1">-- `fun` で証明項を書く．</span>
+<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="w">  </span><span class="gr">sorry</span>
 </code></pre></div>
 
 
@@ -2056,7 +2079,7 @@ Mathlib の一般的な定義では <code>Sort u</code> が現れることがあ
       <nav class="md-footer__inner md-grid" aria-label="フッター" >
         
           
-          <a href="../02/" class="md-footer__link md-footer__link--prev" aria-label="前: `notation` （記法定義，糖衣構文）">
+          <a href="../02/" class="md-footer__link md-footer__link--prev" aria-label="前: `def`">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -2066,20 +2089,20 @@ Mathlib の一般的な定義では <code>Sort u</code> が現れることがあ
                 前
               </span>
               <div class="md-ellipsis">
-                `notation` （記法定義，糖衣構文）
+                `def`
               </div>
             </div>
           </a>
         
         
           
-          <a href="../04/" class="md-footer__link md-footer__link--next" aria-label="次: 単純型と依存型">
+          <a href="../04/" class="md-footer__link md-footer__link--next" aria-label="次: `example`，`theorem`，`lemma`">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 次
               </span>
               <div class="md-ellipsis">
-                単純型と依存型
+                `example`，`theorem`，`lemma`
               </div>
             </div>
             <div class="md-footer__button md-icon">

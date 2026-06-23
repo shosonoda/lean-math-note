@@ -424,10 +424,6 @@
       
         
       
-        
-      
-        
-      
     
     
     
@@ -483,6 +479,10 @@
       
         
           
+        
+      
+        
+      
         
       
         
@@ -576,8 +576,6 @@
       
         
           
-        
-      
         
       
         
@@ -727,6 +725,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    `Set`: 型の上の集合
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -743,6 +759,36 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        演習
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -960,34 +1006,6 @@
     
   
     まとめ
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../12/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    演習問題
   
 
     
@@ -1788,6 +1806,25 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        演習
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1808,7 +1845,7 @@
 たとえば自然数全体は <code>Nat</code>，実数全体は <code>ℝ</code> という型です．
 <code>Set α</code> は「型 <code>α</code> の部分集合」の型を表します．
 定義は単純で，<code>Set α</code> は <code>α → Prop</code> として実装されています．</p>
-<div class="language-lean highlight"><span class="filename">Mathlib.Data.Set.Defs</span><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kd">def</span><span class="w"> </span><span class="n">Set</span><span class="w"> </span><span class="o">(</span><span class="n">α</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Type</span><span class="w"> </span><span class="n">u</span><span class="o">)</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">α</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="kt">Prop</span>
+<div class="language-lean4 highlight"><span class="filename">Mathlib.Data.Set.Defs</span><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">def</span><span class="w"> </span><span class="n">Set</span><span class="w"> </span><span class="o">(</span><span class="n">α</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Type</span><span class="w"> </span><span class="n">u</span><span class="o">)</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">α</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="kt">Prop</span>
 </code></pre></div>
 <p>つまり，<code>s : Set α</code> とは，各 <code>x : α</code> に対して「<code>x</code> が <code>s</code> に属する」という命題を返す述語です．
 所属 <code>x ∈ s</code> は，内部的には <code>s x</code> と同じ意味です．
@@ -1827,17 +1864,17 @@
 <a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">Set</span><span class="bp">.</span><span class="n">mem_setOf</span>
 <a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">Set</span><span class="bp">.</span><span class="n">setOf_bijective</span>
 <a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="kn">def</span><span class="w"> </span><span class="n">smallSet</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Set</span><span class="w"> </span><span class="n">Nat</span><span class="w"> </span><span class="o">:=</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="kn">def</span><span class="w"> </span><span class="n">ltThreeSet</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Set</span><span class="w"> </span><span class="n">Nat</span><span class="w"> </span><span class="o">:=</span>
 <a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">  </span><span class="o">{</span><span class="n">n</span><span class="w"> </span><span class="bp">|</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="bp">&lt;</span><span class="w"> </span><span class="mi">3</span><span class="o">}</span>
 <a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>
-<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">n</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="bp">∈</span><span class="w"> </span><span class="n">smallSet</span><span class="w"> </span><span class="bp">↔</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="bp">&lt;</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">n</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="bp">∈</span><span class="w"> </span><span class="n">ltThreeSet</span><span class="w"> </span><span class="bp">↔</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="bp">&lt;</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
 <a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">  </span><span class="n">rfl</span>
 <a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>
-<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="kn">example</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="bp">∈</span><span class="w"> </span><span class="n">smallSet</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="w">  </span><span class="n">norm_num</span><span class="w"> </span><span class="o">[</span><span class="n">smallSet</span><span class="o">]</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="kn">example</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="bp">∈</span><span class="w"> </span><span class="n">ltThreeSet</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="w">  </span><span class="n">norm_num</span><span class="w"> </span><span class="o">[</span><span class="n">ltThreeSet</span><span class="o">]</span>
 <a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>
-<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="kn">example</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="bp">∉</span><span class="w"> </span><span class="n">smallSet</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="w">  </span><span class="n">norm_num</span><span class="w"> </span><span class="o">[</span><span class="n">smallSet</span><span class="o">]</span>
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="kn">example</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="bp">∉</span><span class="w"> </span><span class="n">ltThreeSet</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="w">  </span><span class="n">norm_num</span><span class="w"> </span><span class="o">[</span><span class="n">ltThreeSet</span><span class="o">]</span>
 <a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>
 <a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">s</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Set</span><span class="w"> </span><span class="n">Nat</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="bp">∈</span><span class="w"> </span><span class="n">Set</span><span class="bp">.</span><span class="n">powerset</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="bp">↔</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="bp">⊆</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
 <a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a><span class="w">  </span><span class="n">exact</span><span class="w"> </span><span class="n">Set</span><span class="bp">.</span><span class="n">mem_powerset_iff</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="n">s</span>
@@ -1853,19 +1890,32 @@
 一方，<code>{x : α // x ∈ s}</code> は，<code>s</code> に属する元だけを集めた新しい型です．
 要素は値 <code>x : α</code> と証明 <code>x ∈ s</code> の組です．</p>
 <p>Mathlib では <code>s : Set α</code> を型として使うと，この subtype へ coercion されます．
-たとえば <code>x : smallSubtype</code> は「<code>smallSet</code> の元」としてのデータであり，<code>(x : Nat)</code> に戻すと元の自然数が得られます．</p>
-<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">abbrev</span><span class="w"> </span><span class="n">smallSubtype</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Type</span><span class="w"> </span><span class="o">:=</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="o">{</span><span class="n">n</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="w"> </span><span class="bp">//</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="bp">∈</span><span class="w"> </span><span class="n">smallSet</span><span class="o">}</span>
+たとえば <code>x : ltThreeSubtype</code> は「<code>ltThreeSet</code> の元」としてのデータであり，<code>(x : Nat)</code> に戻すと元の自然数が得られます．</p>
+<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">abbrev</span><span class="w"> </span><span class="n">ltThreeSubtype</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Type</span><span class="w"> </span><span class="o">:=</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="o">{</span><span class="n">n</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="w"> </span><span class="bp">//</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="bp">∈</span><span class="w"> </span><span class="n">ltThreeSet</span><span class="o">}</span>
 <a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
 <a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">Subtype</span>
 <a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">Set</span><span class="bp">.</span><span class="n">coe_eq_subtype</span>
 <a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">Subtype</span><span class="bp">.</span><span class="n">mem</span>
 <a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>
-<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="kn">example</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="o">(</span><span class="bp">⟨</span><span class="mi">2</span><span class="o">,</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">norm_num</span><span class="w"> </span><span class="o">[</span><span class="n">smallSet</span><span class="o">]</span><span class="bp">⟩</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">smallSubtype</span><span class="o">)</span><span class="bp">.</span><span class="m">1</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="kn">example</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="o">(</span><span class="bp">⟨</span><span class="mi">2</span><span class="o">,</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">norm_num</span><span class="w"> </span><span class="o">[</span><span class="n">ltThreeSet</span><span class="o">]</span><span class="bp">⟩</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ltThreeSubtype</span><span class="o">)</span><span class="bp">.</span><span class="m">1</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
 <a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">  </span><span class="n">rfl</span>
 <a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>
-<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">smallSubtype</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="o">(</span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="o">)</span><span class="w"> </span><span class="bp">∈</span><span class="w"> </span><span class="n">smallSet</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ltThreeSubtype</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="o">(</span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="o">)</span><span class="w"> </span><span class="bp">∈</span><span class="w"> </span><span class="n">ltThreeSet</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
 <a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="w">  </span><span class="n">exact</span><span class="w"> </span><span class="n">x</span><span class="bp">.</span><span class="n">property</span>
+</code></pre></div>
+<h2 id="_1">演習<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p><code>Set</code> が部分集合として振る舞うことを，membership と外延性で確認してください．</p>
+<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">n</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="bp">∈</span><span class="w"> </span><span class="n">ltThreeSet</span><span class="w"> </span><span class="bp">↔</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="bp">&lt;</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span><span class="gr">sorry</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">s</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Set</span><span class="w"> </span><span class="n">Nat</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="bp">∈</span><span class="w"> </span><span class="n">Set</span><span class="bp">.</span><span class="n">powerset</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="bp">↔</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="bp">⊆</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">  </span><span class="gr">sorry</span>
+</code></pre></div>
+<p><code>Set.ext</code> を使って集合の等式を証明してください．</p>
+<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kn">example</span><span class="w"> </span><span class="o">{</span><span class="n">α</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Type</span><span class="o">}</span><span class="w"> </span><span class="o">(</span><span class="n">s</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Set</span><span class="w"> </span><span class="n">α</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="bp">∩</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="bp">∩</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">  </span><span class="c1">-- `ext x`, `constructor`, `intro h` で進める．</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">  </span><span class="gr">sorry</span>
 </code></pre></div>
 
 

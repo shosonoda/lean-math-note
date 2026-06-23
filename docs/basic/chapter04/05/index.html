@@ -424,10 +424,6 @@
       
         
       
-        
-      
-        
-      
     
     
     
@@ -483,6 +479,10 @@
       
         
           
+        
+      
+        
+      
         
       
         
@@ -576,8 +576,6 @@
       
         
           
-        
-      
         
       
         
@@ -866,6 +864,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        演習
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1030,34 +1039,6 @@
     
   
     まとめ
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../12/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    演習問題
   
 
     
@@ -1897,6 +1878,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        演習
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1927,7 +1919,7 @@ Lean の <code>ℝ</code> は有限精度の浮動小数点数ではなく，証
 <thead>
 <tr>
 <th>型</th>
-<th>記法</th>
+<th>notation</th>
 <th>構成</th>
 <th>主な用途</th>
 </tr>
@@ -2001,9 +1993,9 @@ Lean の <code>ℝ</code> は有限精度の浮動小数点数ではなく，証
 <code>Real.sqrt</code> のような標準関数も <code>Real</code> 名前空間に置かれ，補題名も <code>Real.sqrt_sq_eq_abs</code> のように整理されています．</p>
 <h2 id="nnreal"><code>NNReal</code>: 非負実数<a class="headerlink" href="#nnreal" title="Permanent link">&para;</a></h2>
 <p><code>NNReal</code> は nonnegative real，つまり <span class="arithmatex">\([0, \infty)\)</span> に対応する型です．
-記法は <code>ℝ≥0</code> です．
+notation は <code>ℝ≥0</code> です．
 実装は <code>ℝ</code> の subtype で，</p>
-<div class="language-lean highlight"><span class="filename">Mathlib.Data.NNReal.Defs</span><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kd">def</span><span class="w"> </span><span class="n">NNReal</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="w"> </span><span class="bp">//</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="bp">≤</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">}</span>
+<div class="language-lean4 highlight"><span class="filename">Mathlib.Data.NNReal.Defs</span><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">def</span><span class="w"> </span><span class="n">NNReal</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="w"> </span><span class="bp">//</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="bp">≤</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">}</span>
 </code></pre></div>
 <p>です．
 要素は実数 <code>r</code> と証明 <code>0 ≤ r</code> の組ですが，通常は coercion により実数としても使えます．
@@ -2031,7 +2023,7 @@ Lean の <code>ℝ</code> は有限精度の浮動小数点数ではなく，証
 負数を持たないので，通常の <code>ℝ</code> と同じ引き算・反数の感覚で使うと詰まります．</p>
 <h2 id="ennreal"><code>ENNReal</code>: 拡張非負実数<a class="headerlink" href="#ennreal" title="Permanent link">&para;</a></h2>
 <p><code>ENNReal</code> は extended nonnegative real，つまり <span class="arithmatex">\([0, \infty]\)</span> に対応する型です．
-記法は <code>ℝ≥0∞</code> で，実装は <code>WithTop ℝ≥0</code> です．
+notation は <code>ℝ≥0∞</code> で，実装は <code>WithTop ℝ≥0</code> です．
 これは <code>ℝ≥0</code> に新しい最大元 <code>∞</code> を付け加えた型です．</p>
 <p>測度論では，測度や非負関数の積分値が <code>∞</code> になりうるため，<code>ENNReal</code> がよく現れます．
 また，拡張距離 <code>edist</code> の値域としても使われます．
@@ -2090,6 +2082,24 @@ Lean の <code>ℝ</code> は有限精度の浮動小数点数ではなく，証
 <p>まとめると，通常の実解析ではまず <code>ℝ</code> を使います．
 値が非負であることを型に持たせたいなら <code>ℝ≥0</code>，非負で <code>∞</code> も許したいなら <code>ℝ≥0∞</code>，正負両方の無限大を許したいなら <code>EReal</code> を使います．
 変換関数の名前を見たら，それが埋め込みなのか，負の値や無限大を <code>0</code> に潰す写像なのかを確認するのが重要です．</p>
+<h2 id="_1">演習<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p><code>Real</code>，<code>NNReal</code>，<code>ENNReal</code>，<code>EReal</code> の型と変換を確認してください．</p>
+<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">Real</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">NNReal</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">ENNReal</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">EReal</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="bp">#</span><span class="n">synth</span><span class="w"> </span><span class="n">TopologicalSpace</span><span class="w"> </span><span class="n">ℝ</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="bp">#</span><span class="n">synth</span><span class="w"> </span><span class="n">ConditionallyCompleteLinearOrder</span><span class="w"> </span><span class="n">ℝ</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="bp">#</span><span class="n">synth</span><span class="w"> </span><span class="n">CompleteLinearOrder</span><span class="w"> </span><span class="n">ℝ</span><span class="bp">≥</span><span class="mi">0</span><span class="bp">∞</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="bp">#</span><span class="n">synth</span><span class="w"> </span><span class="n">CompleteLinearOrder</span><span class="w"> </span><span class="n">EReal</span>
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">hx</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="bp">≤</span><span class="w"> </span><span class="n">x</span><span class="o">)</span><span class="w"> </span><span class="o">:</span>
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="w">    </span><span class="o">((</span><span class="n">Real</span><span class="bp">.</span><span class="n">toNNReal</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="bp">≥</span><span class="mi">0</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="o">)</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="w">  </span><span class="gr">sorry</span>
+<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>
+<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="kn">example</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ENNReal</span><span class="bp">.</span><span class="n">ofReal</span><span class="w"> </span><span class="o">(</span><span class="bp">-</span><span class="mi">3</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="o">)</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="w">  </span><span class="gr">sorry</span>
+</code></pre></div>
 
 
 

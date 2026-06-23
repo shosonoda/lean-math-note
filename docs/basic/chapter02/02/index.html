@@ -25,7 +25,7 @@
     
     
       
-        <title>`notation` （記法定義，糖衣構文） - 数学系エンドユーザーのためのLean入門</title>
+        <title>`def` - 数学系エンドユーザーのためのLean入門</title>
       
     
     
@@ -68,7 +68,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#notation" class="md-skip">
+        <a href="#def" class="md-skip">
           コンテンツにスキップ
         </a>
       
@@ -104,7 +104,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              `notation` （記法定義，糖衣構文）
+              `def`
             
           </span>
         </div>
@@ -426,10 +426,6 @@
       
         
       
-        
-      
-        
-      
     
     
     
@@ -534,7 +530,7 @@
   <span class="md-ellipsis">
     
   
-    `notation` （記法定義，糖衣構文）
+    `def`
   
 
     
@@ -563,7 +559,7 @@
   <span class="md-ellipsis">
     
   
-    `Prop`，`Type`，`Sort`
+    `fun`
   
 
     
@@ -591,7 +587,7 @@
   <span class="md-ellipsis">
     
   
-    単純型と依存型
+    `example`，`theorem`，`lemma`
   
 
     
@@ -619,7 +615,7 @@
   <span class="md-ellipsis">
     
   
-    universe
+    `variable` と `section`
   
 
     
@@ -647,7 +643,7 @@
   <span class="md-ellipsis">
     
   
-    `variable` とローカルコンテキスト
+    `notation`
   
 
     
@@ -675,7 +671,7 @@
   <span class="md-ellipsis">
     
   
-    `namespace` と `open`
+    `Type`，`Prop`，`Sort`
   
 
     
@@ -703,7 +699,7 @@
   <span class="md-ellipsis">
     
   
-    `def`
+    関数型と依存関数型
   
 
     
@@ -731,7 +727,7 @@
   <span class="md-ellipsis">
     
   
-    `abbrev`
+    `structure`
   
 
     
@@ -759,7 +755,7 @@
   <span class="md-ellipsis">
     
   
-    `fun`
+    `inductive` 型
   
 
     
@@ -787,7 +783,7 @@
   <span class="md-ellipsis">
     
   
-    `example`，`theorem`，`lemma`
+    型クラス `class` と `instance`
   
 
     
@@ -815,7 +811,7 @@
   <span class="md-ellipsis">
     
   
-    代表的なデータ構造
+    論理記号の対応まとめ
   
 
     
@@ -843,7 +839,7 @@
   <span class="md-ellipsis">
     
   
-    `inductive`
+    `namespace` と `open`
   
 
     
@@ -871,7 +867,7 @@
   <span class="md-ellipsis">
     
   
-    `structure`
+    `abbrev`
   
 
     
@@ -899,7 +895,7 @@
   <span class="md-ellipsis">
     
   
-    型クラス `class` と `instance`
+    制御構文
   
 
     
@@ -927,63 +923,7 @@
   <span class="md-ellipsis">
     
   
-    制御構文
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../17/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
     まとめ
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../18/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    演習問題
   
 
     
@@ -1016,6 +956,10 @@
       
         
           
+        
+      
+        
+      
         
       
         
@@ -1107,8 +1051,6 @@
       
         
           
-        
-      
         
       
         
@@ -1971,27 +1913,30 @@
 
 
 
-<h1 id="notation"><code>notation</code> （記法定義，糖衣構文）<a class="headerlink" href="#notation" title="Permanent link">&para;</a></h1>
-<p>Lean では，標準的な定義だけでなく，数学に近い記号や専用の構文を定義できます．
-たとえば <code>α → β</code> は関数型の記法，<code>P ∧ Q</code> は <code>And P Q</code> の記法，<code>x ∈ s</code> は membership の記法です．
-このような記法は，内部的には既存の定義や関数を使う式へ展開されます．</p>
-<p>小さな記法なら，<code>notation</code> や <code>infix</code> で定義できます．</p>
-<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">notation</span><span class="w"> </span><span class="s2">&quot;twice(&quot;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="s2">&quot;)&quot;</span><span class="w"> </span><span class="bp">=&gt;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">n</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">example</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">twice</span><span class="o">(</span><span class="mi">3</span><span class="o">)</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="mi">6</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span><span class="n">rfl</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="kn">infixl</span><span class="o">:</span><span class="mi">65</span><span class="w"> </span><span class="s2">&quot; +++ &quot;</span><span class="w"> </span><span class="bp">=&gt;</span><span class="w"> </span><span class="n">Nat</span><span class="bp">.</span><span class="n">add</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="kn">example</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="bp">+++</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">  </span><span class="n">rfl</span>
+<h1 id="def"><code>def</code><a class="headerlink" href="#def" title="Permanent link">&para;</a></h1>
+<p><code>def</code> は計算内容をもつ定義を作るコマンドです．
+関数，値，命題の略記などを定義できます．
+<code>def name : T := t</code> は，「<code>name</code> という名前に，型 <code>T</code> の項 <code>t</code> を結びつける」と読みます．</p>
+<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">def</span><span class="w"> </span><span class="n">addTwo</span><span class="w"> </span><span class="o">(</span><span class="n">n</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="w"> </span><span class="o">:=</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="n">n</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="mi">2</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="kn">example</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">addTwo</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">  </span><span class="n">rfl</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="kn">def</span><span class="w"> </span><span class="n">IsPositiveNat</span><span class="w"> </span><span class="o">(</span><span class="n">n</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Prop</span><span class="w"> </span><span class="o">:=</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">  </span><span class="mi">0</span><span class="w"> </span><span class="bp">&lt;</span><span class="w"> </span><span class="n">n</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="kn">example</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">IsPositiveNat</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">  </span><span class="n">unfold</span><span class="w"> </span><span class="n">IsPositiveNat</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">  </span><span class="n">decide</span>
 </code></pre></div>
-<p><code>notation "twice(" n ")" =&gt; n + n</code> は，<code>twice(3)</code> という表記を <code>3 + 3</code> と読むようにする指定です．
-<code>infixl:65 " +++ " =&gt; Nat.add</code> は，中置記法 <code>x +++ y</code> を <code>Nat.add x y</code> と読むようにする指定です．
-<code>65</code> は優先順位，<code>infixl</code> の <code>l</code> は左結合を表します．</p>
-<p>実際の Mathlib では，<code>ℝ</code>，<code>∑</code>，<code>∈</code>，<code>⊔</code>，<code>→+*</code> など，多くの記法が定義されています．
-記法は読みやすさのための糖衣構文なので，分からない記法に出会ったら，まず <code>#check</code> で型を確認し，「これはどの定義の別表記か」を調べるのが有効です．
-講義資料では別記法を使いますが，必要に応じて元の定義名も併記します．</p>
+<p><code>def</code> で定義した名前は，必要に応じて展開されます．
+<code>rfl</code> で証明できる等式は，定義を展開して両辺が同じ形になる等式です．
+この「定義を展開して同じになる」という同一性を，定義的な等しさと呼びます．
+<code>def</code> で関数を定義すると，その計算規則を <code>rfl</code> や <code>simp</code> が利用できることがあります．</p>
+<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">example</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">addTwo</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="n">rfl</span>
+</code></pre></div>
 
 
 
@@ -2044,13 +1989,13 @@
         
         
           
-          <a href="../03/" class="md-footer__link md-footer__link--next" aria-label="次: `Prop`，`Type`，`Sort`">
+          <a href="../03/" class="md-footer__link md-footer__link--next" aria-label="次: `fun`">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 次
               </span>
               <div class="md-ellipsis">
-                `Prop`，`Type`，`Sort`
+                `fun`
               </div>
             </div>
             <div class="md-footer__button md-icon">

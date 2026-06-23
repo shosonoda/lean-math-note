@@ -11,7 +11,7 @@
       
       
       
-        <link rel="prev" href="../chapter02/18/">
+        <link rel="prev" href="../chapter02/16/">
       
       
         <link rel="next" href="01/">
@@ -424,10 +424,6 @@
       
         
       
-        
-      
-        
-      
     
     
     
@@ -485,6 +481,10 @@
       
         
           
+        
+      
+        
+      
         
       
         
@@ -588,7 +588,7 @@
   <span class="md-ellipsis">
     
   
-    tactic モードの基本
+    証明項としての証明
   
 
     
@@ -616,7 +616,7 @@
   <span class="md-ellipsis">
     
   
-    tactic モードでない証明
+    `by` と tactic モードの基本
   
 
     
@@ -644,7 +644,7 @@
   <span class="md-ellipsis">
     
   
-    `intro` と `apply`
+    `by` を項の一部として使う
   
 
     
@@ -672,7 +672,7 @@
   <span class="md-ellipsis">
     
   
-    `rw`: 等式による書き換え
+    tactic と証明項の対応
   
 
     
@@ -700,7 +700,7 @@
   <span class="md-ellipsis">
     
   
-    `conv` モード
+    `intro` と `apply`
   
 
     
@@ -728,7 +728,7 @@
   <span class="md-ellipsis">
     
   
-    `simp` と `simpa`
+    `rw`: 等式による書き換え
   
 
     
@@ -756,7 +756,7 @@
   <span class="md-ellipsis">
     
   
-    `have` と `suffices`
+    `conv` モード
   
 
     
@@ -784,7 +784,7 @@
   <span class="md-ellipsis">
     
   
-    論理の tactic
+    `simp` と `simpa`
   
 
     
@@ -812,7 +812,7 @@
   <span class="md-ellipsis">
     
   
-    `calc` モード
+    `have` と `suffices`
   
 
     
@@ -840,7 +840,7 @@
   <span class="md-ellipsis">
     
   
-    関数と構造体: `funext` と `ext`
+    `structure` と `inductive` 型に対応する tactic
   
 
     
@@ -868,7 +868,7 @@
   <span class="md-ellipsis">
     
   
-    Lean における等号の証明パターン
+    古典論理と矛盾
   
 
     
@@ -896,7 +896,7 @@
   <span class="md-ellipsis">
     
   
-    証明項，古典論理，Lean の追加原理
+    `calc` モード
   
 
     
@@ -924,7 +924,7 @@
   <span class="md-ellipsis">
     
   
-    `induction`: 帰納法
+    関数と `structure`: `funext` と `ext`
   
 
     
@@ -952,7 +952,7 @@
   <span class="md-ellipsis">
     
   
-    汎用的な tactic
+    Lean における等号の証明パターン
   
 
     
@@ -980,7 +980,7 @@
   <span class="md-ellipsis">
     
   
-    検索系: `#check`，`exact?`，`rw?`
+    古典論理，選択，商，Lean の追加原理
   
 
     
@@ -1008,7 +1008,7 @@
   <span class="md-ellipsis">
     
   
-    まとめ
+    `induction`: 帰納法
   
 
     
@@ -1036,7 +1036,63 @@
   <span class="md-ellipsis">
     
   
-    演習問題
+    汎用的な tactic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    検索系: `#check`，`exact?`，`rw?`
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    まとめ
   
 
     
@@ -1069,8 +1125,6 @@
       
         
           
-        
-      
         
       
         
@@ -1935,20 +1989,24 @@
 
 <h1 id="chapter-03-tactic">Chapter 03: tactic を用いた証明<a class="headerlink" href="#chapter-03-tactic" title="Permanent link">&para;</a></h1>
 <p>この章では，Lean で証明を書くための基本的な道具を整理します．
-前章までに，命題，型，定義，構造体，帰納型などを見ました．
-ここでは，それらを使って実際に証明を進める方法に焦点を当てます．</p>
+前章までに，命題，型，定義，関数型・依存関数型，<code>structure</code>，<code>inductive</code> 型，<code>class</code> などを見ました．
+ここでは，それらの型の項として証明を構成する方法に焦点を当てます．</p>
+<p>Lean では命題は型であり，証明はその型の項です．
+したがって，「証明する」とは，まずは <code>fun</code>，constructor，関数適用，<code>Eq.refl</code> などを使って証明項を構成することです．
+<code>by ...</code> による tactic モードは，その証明項をゴールの変化を見ながら組み立てるための書き方です．</p>
 <p>特に次の内容を扱います．</p>
 <ul>
-<li>tactic モードの読み方</li>
-<li><code>sorry</code> と未完成の証明</li>
-<li>tactic モードでない証明</li>
+<li>証明項としての証明</li>
+<li><code>fun</code>，constructor，関数適用，<code>Eq.refl</code></li>
+<li><code>sorry</code> と未完成の証明項</li>
+<li><code>by</code> と tactic モードの読み方</li>
+<li>tactic と証明項の対応</li>
 <li><code>exact</code>，<code>assumption</code>，<code>rfl</code>，<code>show</code>，<code>change</code>，<code>dsimp</code></li>
-<li><code>rw</code>，<code>simp</code>，<code>simpa</code></li>
-<li>tactic 連結子 <code>&lt;;&gt;</code></li>
-<li><code>conv</code> モード</li>
 <li><code>apply</code>，<code>intro</code>，<code>specialize</code></li>
 <li><code>have</code>，<code>suffices</code></li>
 <li><code>constructor</code>，<code>obtain</code>，<code>rintro</code>，<code>rcases</code>，<code>cases</code>，<code>left</code>，<code>right</code></li>
+<li><code>rw</code>，<code>simp</code>，<code>simpa</code></li>
+<li>tactic 連結子 <code>&lt;;&gt;</code>，<code>conv</code> モード</li>
 <li><code>by_cases</code>，<code>Classical.byContradiction</code>，<code>exfalso</code>，<code>contradiction</code></li>
 <li><code>calc</code> モード</li>
 <li><code>congr</code>，<code>ext</code>，<code>funext</code></li>
@@ -1996,7 +2054,7 @@
       <nav class="md-footer__inner md-grid" aria-label="フッター" >
         
           
-          <a href="../chapter02/18/" class="md-footer__link md-footer__link--prev" aria-label="前: 演習問題">
+          <a href="../chapter02/16/" class="md-footer__link md-footer__link--prev" aria-label="前: まとめ">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -2006,20 +2064,20 @@
                 前
               </span>
               <div class="md-ellipsis">
-                演習問題
+                まとめ
               </div>
             </div>
           </a>
         
         
           
-          <a href="01/" class="md-footer__link md-footer__link--next" aria-label="次: tactic モードの基本">
+          <a href="01/" class="md-footer__link md-footer__link--next" aria-label="次: 証明項としての証明">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 次
               </span>
               <div class="md-ellipsis">
-                tactic モードの基本
+                証明項としての証明
               </div>
             </div>
             <div class="md-footer__button md-icon">

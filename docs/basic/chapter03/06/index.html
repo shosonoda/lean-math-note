@@ -25,7 +25,7 @@
     
     
       
-        <title>`simp` と `simpa` - 数学系エンドユーザーのためのLean入門</title>
+        <title>`rw`: 等式による書き換え - 数学系エンドユーザーのためのLean入門</title>
       
     
     
@@ -68,7 +68,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#simp-simpa" class="md-skip">
+        <a href="#rw" class="md-skip">
           コンテンツにスキップ
         </a>
       
@@ -104,7 +104,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              `simp` と `simpa`
+              `rw`: 等式による書き換え
             
           </span>
         </div>
@@ -424,10 +424,6 @@
       
         
       
-        
-      
-        
-      
     
     
     
@@ -485,6 +481,10 @@
       
         
           
+        
+      
+        
+      
         
       
         
@@ -588,7 +588,7 @@
   <span class="md-ellipsis">
     
   
-    tactic モードの基本
+    証明項としての証明
   
 
     
@@ -616,7 +616,7 @@
   <span class="md-ellipsis">
     
   
-    tactic モードでない証明
+    `by` と tactic モードの基本
   
 
     
@@ -644,7 +644,7 @@
   <span class="md-ellipsis">
     
   
-    `intro` と `apply`
+    `by` を項の一部として使う
   
 
     
@@ -672,7 +672,7 @@
   <span class="md-ellipsis">
     
   
-    `rw`: 等式による書き換え
+    tactic と証明項の対応
   
 
     
@@ -700,7 +700,7 @@
   <span class="md-ellipsis">
     
   
-    `conv` モード
+    `intro` と `apply`
   
 
     
@@ -730,6 +730,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    `rw`: 等式による書き換え
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -737,7 +755,7 @@
   <span class="md-ellipsis">
     
   
-    `simp` と `simpa`
+    `rw`: 等式による書き換え
   
 
     
@@ -746,6 +764,36 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        演習
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -766,7 +814,7 @@
   <span class="md-ellipsis">
     
   
-    `have` と `suffices`
+    `conv` モード
   
 
     
@@ -794,7 +842,7 @@
   <span class="md-ellipsis">
     
   
-    論理の tactic
+    `simp` と `simpa`
   
 
     
@@ -822,7 +870,7 @@
   <span class="md-ellipsis">
     
   
-    `calc` モード
+    `have` と `suffices`
   
 
     
@@ -850,7 +898,7 @@
   <span class="md-ellipsis">
     
   
-    関数と構造体: `funext` と `ext`
+    `structure` と `inductive` 型に対応する tactic
   
 
     
@@ -878,7 +926,7 @@
   <span class="md-ellipsis">
     
   
-    Lean における等号の証明パターン
+    古典論理と矛盾
   
 
     
@@ -906,7 +954,7 @@
   <span class="md-ellipsis">
     
   
-    証明項，古典論理，Lean の追加原理
+    `calc` モード
   
 
     
@@ -934,7 +982,7 @@
   <span class="md-ellipsis">
     
   
-    `induction`: 帰納法
+    関数と `structure`: `funext` と `ext`
   
 
     
@@ -962,7 +1010,7 @@
   <span class="md-ellipsis">
     
   
-    汎用的な tactic
+    Lean における等号の証明パターン
   
 
     
@@ -990,7 +1038,7 @@
   <span class="md-ellipsis">
     
   
-    検索系: `#check`，`exact?`，`rw?`
+    古典論理，選択，商，Lean の追加原理
   
 
     
@@ -1018,7 +1066,7 @@
   <span class="md-ellipsis">
     
   
-    まとめ
+    `induction`: 帰納法
   
 
     
@@ -1046,7 +1094,63 @@
   <span class="md-ellipsis">
     
   
-    演習問題
+    汎用的な tactic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    検索系: `#check`，`exact?`，`rw?`
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    まとめ
   
 
     
@@ -1079,8 +1183,6 @@
       
         
           
-        
-      
         
       
         
@@ -1928,6 +2030,25 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        演習
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1943,58 +2064,36 @@
 
 
 
-<h1 id="simp-simpa"><code>simp</code> と <code>simpa</code><a class="headerlink" href="#simp-simpa" title="Permanent link">&para;</a></h1>
-<p><code>simp</code> は，定義展開，既知の単純化補題，仮定を使った書き換えを組み合わせて，ゴールを単純化します．
-日常的に最もよく使う tactic の 1 つです．
-<code>simp</code> は登録された <code>[simp]</code> 補題を，原則として式が単純になる向きに使います．
-任意の定理を総当たりで使う tactic ではないので，使ってほしい定義や補題は <code>simp [name]</code> の形で明示します．</p>
-<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">n</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="n">simp</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">xs</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">List</span><span class="w"> </span><span class="n">Nat</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">xs</span><span class="w"> </span><span class="bp">++</span><span class="w"> </span><span class="o">[]</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">xs</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">  </span><span class="n">simp</span>
+<h1 id="rw"><code>rw</code>: 等式による書き換え<a class="headerlink" href="#rw" title="Permanent link">&para;</a></h1>
+<p><code>rw [h]</code> は，等式 <code>h : a = b</code> を使って，ゴール中の <code>a</code> を <code>b</code> に書き換えます．
+命題の中では，同値 <code>P ↔ Q</code> も書き換えに使えます．
+<code>rw</code> は指定された補題を左から右へ使い，<code>rw [← h]</code> と書くと逆向きに使います．</p>
+<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">a</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">h</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">b</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="n">rw</span><span class="w"> </span><span class="o">[</span><span class="n">h</span><span class="o">]</span>
 </code></pre></div>
-<p>追加で使いたい定義や補題を <code>simp [name]</code> の形で渡せます．</p>
-<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">def</span><span class="w"> </span><span class="n">addZeroTwice</span><span class="w"> </span><span class="o">(</span><span class="n">n</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="w"> </span><span class="o">:=</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="n">n</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="mi">0</span>
+<p>書き換えの向きを逆にしたいときは <code>←</code> を使います．</p>
+<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">a</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="n">rw</span><span class="w"> </span><span class="o">[</span><span class="n">Nat</span><span class="bp">.</span><span class="n">add_comm</span><span class="o">]</span>
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">n</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">addZeroTwice</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">  </span><span class="n">simp</span><span class="w"> </span><span class="o">[</span><span class="n">addZeroTwice</span><span class="o">]</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">a</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">  </span><span class="n">rw</span><span class="w"> </span><span class="o">[</span><span class="bp">←</span><span class="w"> </span><span class="n">Nat</span><span class="bp">.</span><span class="n">add_comm</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">b</span><span class="o">]</span>
 </code></pre></div>
-<p>仮定の中を単純化するときは <code>simp at h</code> と書けます．
-<code>simp at *</code> と書くと，ローカルコンテキストとゴール全体を対象にできますが，証明が読みにくくなる場合もあります．</p>
-<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">n</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">h</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">m</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="n">simp</span><span class="w"> </span><span class="k">at</span><span class="w"> </span><span class="n">h</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">  </span><span class="n">exact</span><span class="w"> </span><span class="n">h</span>
+<p>仮定の中を書き換えるときは <code>rw [h] at h2</code> のように <code>at</code> を使います．</p>
+<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">a</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">h</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">b</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">h2</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="mi">10</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="n">rw</span><span class="w"> </span><span class="o">[</span><span class="n">h</span><span class="o">]</span><span class="w"> </span><span class="k">at</span><span class="w"> </span><span class="n">h2</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">  </span><span class="n">exact</span><span class="w"> </span><span class="n">h2</span>
 </code></pre></div>
-<p><code>simpa using h</code> は，<code>h</code> の型と現在のゴールを単純化して一致させます．
-最後の一手として非常に便利です．
-内部的には「<code>h</code> を使う前後で <code>simp</code> する」と考えると読みやすいです．</p>
-<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">n</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">h</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">m</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="n">simpa</span><span class="w"> </span><span class="kn">using</span><span class="w"> </span><span class="n">h</span>
+<p><code>congr</code> は，両辺に同じ関数が適用されている等式を，引数の等式に帰着します．
+たとえば <code>f a = f b</code> を示す問題を <code>a = b</code> に変えることができます．
+次の例では，残った <code>a = b</code> のゴールをローカルコンテキストの <code>h : a = b</code> が閉じています．</p>
+<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">f</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">Nat</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">a</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">h</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">b</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="n">congr</span>
 </code></pre></div>
-<p><code>simp_all</code> は，ゴールとローカルコンテキストの仮定をまとめて単純化します．
-仮定が多いときに有効です．</p>
-<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">n</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">h</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">m</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span><span class="n">simp_all</span>
+<h2 id="_1">演習<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p><code>rw</code> を使って等式を書き換えてください．</p>
+<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">a</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">h</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">b</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span><span class="gr">sorry</span>
 </code></pre></div>
-<p><code>&lt;;&gt;</code> は tactic を連結する記法です．
-<code>tac1 &lt;;&gt; tac2</code> と書くと，まず <code>tac1</code> を実行し，その結果生じたすべてのゴールに <code>tac2</code> を実行します．
-同じ後処理を複数のゴールにまとめて適用したいときに使います．</p>
-<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">P</span><span class="w"> </span><span class="n">Q</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Prop</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">hP</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">P</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">hQ</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Q</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">P</span><span class="w"> </span><span class="bp">∧</span><span class="w"> </span><span class="n">Q</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">  </span><span class="n">constructor</span><span class="w"> </span><span class="bp">&lt;;&gt;</span><span class="w"> </span><span class="n">assumption</span>
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
-<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">a</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="bp">∧</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">  </span><span class="n">constructor</span><span class="w"> </span><span class="bp">&lt;;&gt;</span><span class="w"> </span><span class="n">simp</span><span class="w"> </span><span class="o">[</span><span class="n">Nat</span><span class="bp">.</span><span class="n">add_comm</span><span class="o">]</span>
-</code></pre></div>
-<p>上の 1 つ目は，次の証明を短く書いたものです．</p>
-<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">P</span><span class="w"> </span><span class="n">Q</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Prop</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">hP</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">P</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">hQ</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Q</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">P</span><span class="w"> </span><span class="bp">∧</span><span class="w"> </span><span class="n">Q</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">  </span><span class="n">constructor</span>
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">  </span><span class="bp">·</span><span class="w"> </span><span class="n">assumption</span>
-<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">  </span><span class="bp">·</span><span class="w"> </span><span class="n">assumption</span>
-</code></pre></div>
-<p>便利ですが，複雑な証明で乱用すると各ゴールに何が起きたか読みにくくなります．
-最初は明示的に箇条書きで証明し，繰り返しが明らかなときだけ <code>&lt;;&gt;</code> でまとめるのが無難です．</p>
 
 
 
@@ -2030,7 +2129,7 @@
       <nav class="md-footer__inner md-grid" aria-label="フッター" >
         
           
-          <a href="../05/" class="md-footer__link md-footer__link--prev" aria-label="前: `conv` モード">
+          <a href="../05/" class="md-footer__link md-footer__link--prev" aria-label="前: `intro` と `apply`">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -2040,20 +2139,20 @@
                 前
               </span>
               <div class="md-ellipsis">
-                `conv` モード
+                `intro` と `apply`
               </div>
             </div>
           </a>
         
         
           
-          <a href="../07/" class="md-footer__link md-footer__link--next" aria-label="次: `have` と `suffices`">
+          <a href="../07/" class="md-footer__link md-footer__link--next" aria-label="次: `conv` モード">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 次
               </span>
               <div class="md-ellipsis">
-                `have` と `suffices`
+                `conv` モード
               </div>
             </div>
             <div class="md-footer__button md-icon">

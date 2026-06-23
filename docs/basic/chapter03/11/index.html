@@ -25,7 +25,7 @@
     
     
       
-        <title>Lean における等号の証明パターン - 数学系エンドユーザーのためのLean入門</title>
+        <title>古典論理と矛盾 - 数学系エンドユーザーのためのLean入門</title>
       
     
     
@@ -68,7 +68,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#lean" class="md-skip">
+        <a href="#_1" class="md-skip">
           コンテンツにスキップ
         </a>
       
@@ -104,7 +104,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Lean における等号の証明パターン
+              古典論理と矛盾
             
           </span>
         </div>
@@ -424,10 +424,6 @@
       
         
       
-        
-      
-        
-      
     
     
     
@@ -485,6 +481,10 @@
       
         
           
+        
+      
+        
+      
         
       
         
@@ -588,7 +588,7 @@
   <span class="md-ellipsis">
     
   
-    tactic モードの基本
+    証明項としての証明
   
 
     
@@ -616,7 +616,7 @@
   <span class="md-ellipsis">
     
   
-    tactic モードでない証明
+    `by` と tactic モードの基本
   
 
     
@@ -644,7 +644,7 @@
   <span class="md-ellipsis">
     
   
-    `intro` と `apply`
+    `by` を項の一部として使う
   
 
     
@@ -672,7 +672,7 @@
   <span class="md-ellipsis">
     
   
-    `rw`: 等式による書き換え
+    tactic と証明項の対応
   
 
     
@@ -700,7 +700,7 @@
   <span class="md-ellipsis">
     
   
-    `conv` モード
+    `intro` と `apply`
   
 
     
@@ -728,7 +728,7 @@
   <span class="md-ellipsis">
     
   
-    `simp` と `simpa`
+    `rw`: 等式による書き換え
   
 
     
@@ -756,7 +756,7 @@
   <span class="md-ellipsis">
     
   
-    `have` と `suffices`
+    `conv` モード
   
 
     
@@ -784,7 +784,7 @@
   <span class="md-ellipsis">
     
   
-    論理の tactic
+    `simp` と `simpa`
   
 
     
@@ -812,7 +812,7 @@
   <span class="md-ellipsis">
     
   
-    `calc` モード
+    `have` と `suffices`
   
 
     
@@ -840,7 +840,7 @@
   <span class="md-ellipsis">
     
   
-    関数と構造体: `funext` と `ext`
+    `structure` と `inductive` 型に対応する tactic
   
 
     
@@ -870,6 +870,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    古典論理と矛盾
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -877,7 +895,7 @@
   <span class="md-ellipsis">
     
   
-    Lean における等号の証明パターン
+    古典論理と矛盾
   
 
     
@@ -886,6 +904,36 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        演習
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -906,7 +954,7 @@
   <span class="md-ellipsis">
     
   
-    証明項，古典論理，Lean の追加原理
+    `calc` モード
   
 
     
@@ -934,7 +982,7 @@
   <span class="md-ellipsis">
     
   
-    `induction`: 帰納法
+    関数と `structure`: `funext` と `ext`
   
 
     
@@ -962,7 +1010,7 @@
   <span class="md-ellipsis">
     
   
-    汎用的な tactic
+    Lean における等号の証明パターン
   
 
     
@@ -990,7 +1038,7 @@
   <span class="md-ellipsis">
     
   
-    検索系: `#check`，`exact?`，`rw?`
+    古典論理，選択，商，Lean の追加原理
   
 
     
@@ -1018,7 +1066,7 @@
   <span class="md-ellipsis">
     
   
-    まとめ
+    `induction`: 帰納法
   
 
     
@@ -1046,7 +1094,63 @@
   <span class="md-ellipsis">
     
   
-    演習問題
+    汎用的な tactic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    検索系: `#check`，`exact?`，`rw?`
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    まとめ
   
 
     
@@ -1079,8 +1183,6 @@
       
         
           
-        
-      
         
       
         
@@ -1928,6 +2030,25 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        演習
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1943,196 +2064,50 @@
 
 
 
-<h1 id="lean">Lean における等号の証明パターン<a class="headerlink" href="#lean" title="Permanent link">&para;</a></h1>
-<p>Lean の等号 <code>a = b</code> は <code>Eq a b</code> という型です．
-つまり「<code>a = b</code> を証明する」とは，型 <code>Eq a b</code> の証明項を構成することです．
-ただし，数学で一言で「等しい」と言うものが，Lean ではいくつかの層に分かれます．</p>
-<table>
-<thead>
-<tr>
-<th>レベル</th>
-<th>数学での状況</th>
-<th>Lean での姿</th>
-<th>典型的な証明方法</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>定義的な等しさ</td>
-<td>定義から同じ</td>
-<td>definitional equality</td>
-<td><code>rfl</code>，<code>change</code>，<code>dsimp</code></td>
-</tr>
-<tr>
-<td>命題的な等しさ</td>
-<td>補題や仮定で等しい</td>
-<td>propositional equality, <code>Eq</code></td>
-<td><code>rw</code>，<code>calc</code>，<code>exact h</code></td>
-</tr>
-<tr>
-<td>自動化された等式証明</td>
-<td>正規化すれば同じ</td>
-<td><code>Eq</code> の証明を tactic が作る</td>
-<td><code>simp</code>，<code>decide</code>，<code>grind</code></td>
-</tr>
-<tr>
-<td>外延的な等しさ</td>
-<td>点ごと・元ごと・成分ごとに同じ</td>
-<td>extensional equality</td>
-<td><code>funext</code>，<code>ext</code></td>
-</tr>
-<tr>
-<td>命題外延性</td>
-<td>論理的に同値な命題を等しい命題として扱う</td>
-<td>propositional extensionality</td>
-<td><code>propext</code></td>
-</tr>
-<tr>
-<td>商での等しさ</td>
-<td>同値な代表元を商では同じと見る</td>
-<td>quotient equality</td>
-<td><code>Quot.sound</code></td>
-</tr>
-</tbody>
-</table>
-<p>この表のうち，最初の definitional equality だけは Lean の項として直接書く命題ではありません．
-これは Lean のカーネルが内部で判断する「計算と定義展開により同じ式である」という関係です．
-両辺が定義的に等しければ，<code>rfl</code> によって命題的等号 <code>a = b</code> の証明を作れます．
-逆に，<code>h : a = b</code> があるからといって，<code>a</code> と <code>b</code> が定義的に等しいとは限りません．</p>
-<div class="language-text highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>definitional equality
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>  ↓  rfl で Eq の証明を作れる
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>propositional equality
+<h1 id="_1">古典論理と矛盾<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<p><code>by_cases h : P</code> は，命題 <code>P</code> が成り立つ場合と成り立たない場合に分けます．
+一般の命題 <code>P : Prop</code> に対する場合分けは，古典論理の排中律に依存します．
+<code>P</code> が計算で判定可能な命題なら，その判定手続きに基づく場合分けとしても読めます．</p>
+<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">P</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Prop</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">P</span><span class="w"> </span><span class="bp">∨</span><span class="w"> </span><span class="bp">¬</span><span class="w"> </span><span class="n">P</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="n">by_cases</span><span class="w"> </span><span class="n">h</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">P</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span><span class="bp">·</span><span class="w"> </span><span class="n">left</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="n">exact</span><span class="w"> </span><span class="n">h</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">  </span><span class="bp">·</span><span class="w"> </span><span class="n">right</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="n">exact</span><span class="w"> </span><span class="n">h</span>
 </code></pre></div>
-<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">example</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="w"> </span><span class="bp">=&gt;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="mi">1</span><span class="o">)</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="n">rfl</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">n</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">  </span><span class="n">rfl</span>
+<p><code>Classical.byContradiction</code> は背理法です．
+<code>¬ P → False</code> から <code>P</code> を結論します．
+これは一般には古典論理の原理です．
+構成的に証明したい場面では，<code>¬ P</code> を仮定して <code>False</code> を示す「否定の証明」と区別して使います．</p>
+<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">P</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Prop</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">h</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="bp">¬¬</span><span class="w"> </span><span class="n">P</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">P</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="n">exact</span><span class="w"> </span><span class="n">Classical</span><span class="bp">.</span><span class="n">byContradiction</span><span class="w"> </span><span class="n">h</span>
 </code></pre></div>
-<p>この環境の自然数の加法では，<code>n + 0</code> は定義を展開すると <code>n</code> になり，<code>rfl</code> で閉じます．</p>
-<p>一方，<code>0 + n = n</code> は数学的には同じくらい基本的な等式ですが，変数 <code>n</code> が具体的に <code>0</code> か <code>Nat.succ k</code> か分からない状態では計算が進みません．
-したがって，これは一般には definitional equality ではなく，定理として証明する propositional equality です．</p>
-<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">n</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="n">exact</span><span class="w"> </span><span class="n">Nat</span><span class="bp">.</span><span class="n">zero_add</span><span class="w"> </span><span class="n">n</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">n</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">  </span><span class="n">simp</span>
+<p>否定が量化子の外側にある命題を扱うときも，Core Lean だけで証明できます．
+たとえば <code>¬ ∀ n, P n</code> から <code>∃ n, ¬ P n</code> を得るには，古典論理の背理法を使います．
+Mathlib では <code>push Not</code> がこの種の変形を自動化してくれますが，ここでは明示的に証明します．</p>
+<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">P</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="kt">Prop</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">h</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="bp">¬</span><span class="w"> </span><span class="bp">∀</span><span class="w"> </span><span class="n">n</span><span class="o">,</span><span class="w"> </span><span class="n">P</span><span class="w"> </span><span class="n">n</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="bp">∃</span><span class="w"> </span><span class="n">n</span><span class="o">,</span><span class="w"> </span><span class="bp">¬</span><span class="w"> </span><span class="n">P</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="n">exact</span><span class="w"> </span><span class="n">Classical</span><span class="bp">.</span><span class="n">byContradiction</span><span class="w"> </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="n">hNoExists</span><span class="w"> </span><span class="bp">=&gt;</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="n">h</span><span class="w"> </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="bp">=&gt;</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">      </span><span class="n">Classical</span><span class="bp">.</span><span class="n">byContradiction</span><span class="w"> </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="n">hn</span><span class="w"> </span><span class="bp">=&gt;</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">        </span><span class="n">hNoExists</span><span class="w"> </span><span class="bp">⟨</span><span class="n">n</span><span class="o">,</span><span class="w"> </span><span class="n">hn</span><span class="bp">⟩</span><span class="o">)))</span>
 </code></pre></div>
-<p><code>simp</code> で閉じるからといって，その等式が definitional equality であるとは限りません．
-<code>simp</code> は定義展開だけでなく，<code>Nat.zero_add</code> のような単純化補題を使って <code>Eq</code> の証明を作ります．
-<code>decide</code> や <code>grind</code> も同様に，判定手続きや推論によって証明を生成する tactic であり，単に <code>rfl</code> で閉じているわけではない場合があります．</p>
-<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">example</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="bp">&lt;</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="n">decide</span>
+<p><code>exfalso</code> は，現在のゴールを <code>False</code> に変えます．
+矛盾を導けば任意のゴールが閉じる，という規則を使うための tactic です．
+<code>False.elim</code> を tactic モードで使いやすくしたものと考えるとよいです．</p>
+<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">P</span><span class="w"> </span><span class="n">Q</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Prop</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">hP</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">P</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">hNotP</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="bp">¬</span><span class="w"> </span><span class="n">P</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Q</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="n">exfalso</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">  </span><span class="n">exact</span><span class="w"> </span><span class="n">hNotP</span><span class="w"> </span><span class="n">hP</span>
 </code></pre></div>
-<p>交換法則のような等式も，数学的には明らかでも定義を展開するだけでは同じ式になりません．
-この場合は，<code>Nat.add_comm</code> のような定理を使って <code>Eq</code> 型の証明項を構成します．</p>
-<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">a</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span><span class="n">exact</span><span class="w"> </span><span class="n">Nat</span><span class="bp">.</span><span class="n">add_comm</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">b</span>
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">a</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="o">(</span><span class="n">b</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">c</span><span class="o">)</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="o">(</span><span class="n">a</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">c</span><span class="o">)</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">  </span><span class="k">calc</span>
-<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">    </span><span class="n">a</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="o">(</span><span class="n">b</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">c</span><span class="o">)</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="o">(</span><span class="n">a</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">b</span><span class="o">)</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">      </span><span class="n">rw</span><span class="w"> </span><span class="o">[</span><span class="n">Nat</span><span class="bp">.</span><span class="n">add_assoc</span><span class="o">]</span>
-<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">    </span><span class="bp">_</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="o">(</span><span class="n">b</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">a</span><span class="o">)</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">      </span><span class="n">rw</span><span class="w"> </span><span class="o">[</span><span class="n">Nat</span><span class="bp">.</span><span class="n">add_comm</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">b</span><span class="o">]</span>
-<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="w">    </span><span class="bp">_</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="o">(</span><span class="n">a</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">c</span><span class="o">)</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="w">      </span><span class="n">rw</span><span class="w"> </span><span class="o">[</span><span class="n">Nat</span><span class="bp">.</span><span class="n">add_assoc</span><span class="o">]</span>
+<p><code>contradiction</code> は，コンテキストにある矛盾を探してゴールを閉じます．</p>
+<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">P</span><span class="w"> </span><span class="n">Q</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Prop</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">hP</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">P</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">hNotP</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="bp">¬</span><span class="w"> </span><span class="n">P</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Q</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span><span class="n">contradiction</span>
 </code></pre></div>
-<p>等式は書き換えにも使います．
-<code>rw [h]</code> は，証明項 <code>h : a = b</code> を使って，ゴール中の <code>a</code> を <code>b</code> に置き換えます．</p>
-<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">a</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">h</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">b</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">a</span><span class="bp">.</span><span class="n">succ</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">b</span><span class="bp">.</span><span class="n">succ</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">  </span><span class="n">rw</span><span class="w"> </span><span class="o">[</span><span class="n">h</span><span class="o">]</span>
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
-<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">a</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">h</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">b</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">  </span><span class="n">rw</span><span class="w"> </span><span class="o">[</span><span class="n">h</span><span class="o">]</span>
-<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>
-<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">a</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">h</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">b</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="w">  </span><span class="n">rw</span><span class="w"> </span><span class="o">[</span><span class="bp">←</span><span class="w"> </span><span class="n">h</span><span class="o">]</span>
+<h2 id="_2">演習<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p><code>constructor</code> と <code>cases</code> を使って，連言の順序を入れ替えてください．
+<code>constructor</code> は <code>And.intro</code> に対応し，<code>cases</code> は <code>And</code> の証明から左右の成分を取り出す操作に対応します．</p>
+<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">P</span><span class="w"> </span><span class="n">Q</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Prop</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">P</span><span class="w"> </span><span class="bp">∧</span><span class="w"> </span><span class="n">Q</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">Q</span><span class="w"> </span><span class="bp">∧</span><span class="w"> </span><span class="n">P</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">  </span><span class="gr">sorry</span>
 </code></pre></div>
-<p>同じことを，合同性の補題 <code>congrArg</code> を使って証明することもできます．
-これは「等しい入力に同じ関数を適用すれば，結果も等しい」という原理です．</p>
-<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">a</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">h</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">b</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">a</span><span class="bp">.</span><span class="n">succ</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">b</span><span class="bp">.</span><span class="n">succ</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">  </span><span class="n">exact</span><span class="w"> </span><span class="n">congrArg</span><span class="w"> </span><span class="n">Nat</span><span class="bp">.</span><span class="n">succ</span><span class="w"> </span><span class="n">h</span>
-</code></pre></div>
-<p>命題については，<code>P ↔ Q</code> と <code>P = Q</code> は区別されます．
-数学では同値な命題を同一視してよい場面が多いですが，Lean で命題そのものの等式 <code>P = Q</code> が必要なときは <code>propext</code> を使います．
-<code>P ↔ Q</code> は「互いに導ける」という命題であり，<code>P = Q</code> は <code>Prop</code> の元としての命題そのものの等号です．</p>
-<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">propext</span>
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
-<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">P</span><span class="w"> </span><span class="n">Q</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Prop</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">h</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">P</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">Q</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">P</span><span class="w"> </span><span class="bp">↔</span><span class="w"> </span><span class="n">Q</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">  </span><span class="n">rw</span><span class="w"> </span><span class="o">[</span><span class="n">h</span><span class="o">]</span>
-<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>
-<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">P</span><span class="w"> </span><span class="n">Q</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Prop</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">h</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">P</span><span class="w"> </span><span class="bp">↔</span><span class="w"> </span><span class="n">Q</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">P</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">Q</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="w">  </span><span class="n">exact</span><span class="w"> </span><span class="n">propext</span><span class="w"> </span><span class="n">h</span>
-<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>
-<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">P</span><span class="w"> </span><span class="n">Q</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Prop</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="o">(</span><span class="n">P</span><span class="w"> </span><span class="bp">∧</span><span class="w"> </span><span class="n">Q</span><span class="o">)</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="o">(</span><span class="n">Q</span><span class="w"> </span><span class="bp">∧</span><span class="w"> </span><span class="n">P</span><span class="o">)</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="w">  </span><span class="n">apply</span><span class="w"> </span><span class="n">propext</span>
-<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="w">  </span><span class="n">constructor</span>
-<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a><span class="w">  </span><span class="bp">·</span><span class="w"> </span><span class="n">intro</span><span class="w"> </span><span class="n">h</span>
-<a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a><span class="w">    </span><span class="n">exact</span><span class="w"> </span><span class="bp">⟨</span><span class="n">h</span><span class="bp">.</span><span class="m">2</span><span class="o">,</span><span class="w"> </span><span class="n">h</span><span class="bp">.</span><span class="m">1</span><span class="bp">⟩</span>
-<a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a><span class="w">  </span><span class="bp">·</span><span class="w"> </span><span class="n">intro</span><span class="w"> </span><span class="n">h</span>
-<a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a><span class="w">    </span><span class="n">exact</span><span class="w"> </span><span class="bp">⟨</span><span class="n">h</span><span class="bp">.</span><span class="m">2</span><span class="o">,</span><span class="w"> </span><span class="n">h</span><span class="bp">.</span><span class="m">1</span><span class="bp">⟩</span>
-</code></pre></div>
-<p>関数の等式では，点ごとの等式から関数そのものの等式を作ります．
-数学で「任意の <code>x</code> で <code>f x = g x</code> だから <code>f = g</code>」と言う部分が，Lean では <code>funext</code> に対応します．
-これは最終的には <code>f = g</code> という命題的等号を作っていますが，証明の方法は「点ごとに比べる」という外延的なものです．</p>
-<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">f</span><span class="w"> </span><span class="n">g</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">Nat</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">h</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="bp">∀</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="o">,</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">g</span><span class="w"> </span><span class="n">x</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">g</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">  </span><span class="n">funext</span><span class="w"> </span><span class="n">x</span>
-<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">  </span><span class="n">exact</span><span class="w"> </span><span class="n">h</span><span class="w"> </span><span class="n">x</span>
-<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>
-<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">f</span><span class="w"> </span><span class="n">g</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">Nat</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">h</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="bp">∀</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="o">,</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">g</span><span class="w"> </span><span class="n">x</span><span class="o">)</span><span class="w"> </span><span class="o">:</span>
-<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="w">    </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="bp">=&gt;</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="mi">1</span><span class="o">)</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="bp">=&gt;</span><span class="w"> </span><span class="n">g</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="mi">1</span><span class="o">)</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="w">  </span><span class="n">funext</span><span class="w"> </span><span class="n">x</span>
-<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="w">  </span><span class="n">rw</span><span class="w"> </span><span class="o">[</span><span class="n">h</span><span class="w"> </span><span class="n">x</span><span class="o">]</span>
-</code></pre></div>
-<p>関数等号でも，両辺が定義的に同じなら <code>rfl</code> で閉じます．
-たとえば次の等式は関数の eta 展開がな等しさとして扱われる例です．
-一方，<code>fun n =&gt; 0 + n</code> と <code>fun n =&gt; n</code> は各点で <code>0 + n = n</code> を証明する必要があるため，普通は <code>funext</code> と <code>simp</code> で示します．</p>
-<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kn">example</span><span class="w"> </span><span class="o">{</span><span class="n">α</span><span class="w"> </span><span class="n">β</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Type</span><span class="o">}</span><span class="w"> </span><span class="o">(</span><span class="n">f</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">α</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">β</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="bp">=&gt;</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">x</span><span class="o">)</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">  </span><span class="n">rfl</span>
-<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>
-<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="kn">example</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="w"> </span><span class="bp">=&gt;</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">n</span><span class="o">)</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="w"> </span><span class="bp">=&gt;</span><span class="w"> </span><span class="n">n</span><span class="o">)</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="w">  </span><span class="n">funext</span><span class="w"> </span><span class="n">n</span>
-<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="w">  </span><span class="n">simp</span>
-</code></pre></div>
-<p>構造体でも，同じ構造体の値をフィールドごとに比べて等式を示すことがあります．
-これは数学で「成分が等しいので，組や構造体として等しい」と言う部分に対応します．
-<code>@[ext]</code> を付けておくと，<code>ext</code> tactic が使う外延性補題が生成されます．
-Mathlib では，集合 <code>Set</code> にも外延性補題 <code>Set.ext</code> が用意されており，集合の等式を元ごとの同値に変換できます．
-集合の具体例は次章の Mathlib の作法で扱います．</p>
-<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kd">@[</span><span class="n">ext</span><span class="kd">]</span>
-<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="kn">structure</span><span class="w"> </span><span class="n">PointForEquality</span><span class="w"> </span><span class="kn">where</span>
-<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">  </span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span>
-<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="w">  </span><span class="n">y</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span>
-<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>
-<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">p</span><span class="w"> </span><span class="n">q</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">PointForEquality</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">hx</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">p</span><span class="bp">.</span><span class="n">x</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">q</span><span class="bp">.</span><span class="n">x</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">hy</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">p</span><span class="bp">.</span><span class="n">y</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">q</span><span class="bp">.</span><span class="n">y</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">q</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="w">  </span><span class="n">ext</span>
-<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="w">  </span><span class="bp">·</span><span class="w"> </span><span class="n">exact</span><span class="w"> </span><span class="n">hx</span>
-<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="w">  </span><span class="bp">·</span><span class="w"> </span><span class="n">exact</span><span class="w"> </span><span class="n">hy</span>
-</code></pre></div>
-<p>商型では，同値関係で同値な代表元を，同じ商の元として扱います．
-次の例では，自然数を「2 で割った余りが等しい」という関係で割った商を考えています．
-<code>0</code> と <code>2</code> は代表元としては異なりますが，この商の中では等しく，その等式は <code>Quot.sound</code> で作られます．</p>
-<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kn">def</span><span class="w"> </span><span class="n">SameModTwo</span><span class="w"> </span><span class="o">(</span><span class="n">a</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Prop</span><span class="w"> </span><span class="o">:=</span>
-<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">  </span><span class="n">a</span><span class="w"> </span><span class="bp">%</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="bp">%</span><span class="w"> </span><span class="mi">2</span>
-<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>
-<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="kn">example</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Quot</span><span class="bp">.</span><span class="n">mk</span><span class="w"> </span><span class="n">SameModTwo</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">Quot</span><span class="bp">.</span><span class="n">mk</span><span class="w"> </span><span class="n">SameModTwo</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="w">  </span><span class="n">exact</span><span class="w"> </span><span class="n">Quot</span><span class="bp">.</span><span class="n">sound</span><span class="w"> </span><span class="o">(</span><span class="k">by</span><span class="w"> </span><span class="n">rfl</span><span class="o">)</span>
-</code></pre></div>
-<p>少し先の話ですが，型の等号と同型・同値も区別します．
-数学では「同型な対象を同じと思う」と言うことがありますが，Lean では <code>α = β</code> と <code>α ≃ β</code> は別の主張です．
-等号 <code>h : α = β</code> があれば <code>cast h</code> により項を移送できますが，これは同値や同型を与えることとは違います．
-定義的な等しさ由来の <code>cast</code> は計算で消えやすく，<code>propext</code>，<code>funext</code>，商型などから来る非自明な等号は，証明上は便利でも計算上は扱いが重くなることがあります．</p>
-<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">cast</span><span class="w"> </span><span class="n">rfl</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="w">  </span><span class="n">rfl</span>
-</code></pre></div>
-<p>ここで重要なのは，すべての「等しい」が同じ理由で証明されるわけではない，という点です．
-<code>rfl</code> は Lean が計算で同じだと分かる等号です．
-<code>rw</code>，<code>simp</code>，<code>calc</code> は，補題や仮定から <code>Eq</code> の証明を作って使います．
-<code>funext</code> や <code>ext</code> は，点ごと・元ごと・成分ごとの一致から全体の等式を作ります．
-<code>propext</code> は同値な命題を等しい命題として扱うための原理です．
-<code>Quot.sound</code> は，同値関係で同値な代表元を商型の中で等しいものとして扱います．</p>
-<p>証明が通らないときは，まず「これは定義的な等しさで閉じたいのか，補題による等式なのか，外延性で成分ごとに示すべき等式なのか，商の中の等式なのか」を切り分けると，次に使う tactic が選びやすくなります．</p>
 
 
 
@@ -2168,7 +2143,7 @@ Mathlib では，集合 <code>Set</code> にも外延性補題 <code>Set.ext</co
       <nav class="md-footer__inner md-grid" aria-label="フッター" >
         
           
-          <a href="../10/" class="md-footer__link md-footer__link--prev" aria-label="前: 関数と構造体: `funext` と `ext`">
+          <a href="../10/" class="md-footer__link md-footer__link--prev" aria-label="前: `structure` と `inductive` 型に対応する tactic">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -2178,20 +2153,20 @@ Mathlib では，集合 <code>Set</code> にも外延性補題 <code>Set.ext</co
                 前
               </span>
               <div class="md-ellipsis">
-                関数と構造体: `funext` と `ext`
+                `structure` と `inductive` 型に対応する tactic
               </div>
             </div>
           </a>
         
         
           
-          <a href="../12/" class="md-footer__link md-footer__link--next" aria-label="次: 証明項，古典論理，Lean の追加原理">
+          <a href="../12/" class="md-footer__link md-footer__link--next" aria-label="次: `calc` モード">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 次
               </span>
               <div class="md-ellipsis">
-                証明項，古典論理，Lean の追加原理
+                `calc` モード
               </div>
             </div>
             <div class="md-footer__button md-icon">

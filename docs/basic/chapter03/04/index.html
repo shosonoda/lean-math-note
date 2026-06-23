@@ -25,7 +25,7 @@
     
     
       
-        <title>`rw`: 等式による書き換え - 数学系エンドユーザーのためのLean入門</title>
+        <title>tactic と証明項の対応 - 数学系エンドユーザーのためのLean入門</title>
       
     
     
@@ -68,7 +68,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#rw" class="md-skip">
+        <a href="#tactic" class="md-skip">
           コンテンツにスキップ
         </a>
       
@@ -104,7 +104,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              `rw`: 等式による書き換え
+              tactic と証明項の対応
             
           </span>
         </div>
@@ -424,10 +424,6 @@
       
         
       
-        
-      
-        
-      
     
     
     
@@ -485,6 +481,10 @@
       
         
           
+        
+      
+        
+      
         
       
         
@@ -588,7 +588,7 @@
   <span class="md-ellipsis">
     
   
-    tactic モードの基本
+    証明項としての証明
   
 
     
@@ -616,7 +616,7 @@
   <span class="md-ellipsis">
     
   
-    tactic モードでない証明
+    `by` と tactic モードの基本
   
 
     
@@ -644,7 +644,7 @@
   <span class="md-ellipsis">
     
   
-    `intro` と `apply`
+    `by` を項の一部として使う
   
 
     
@@ -681,7 +681,7 @@
   <span class="md-ellipsis">
     
   
-    `rw`: 等式による書き換え
+    tactic と証明項の対応
   
 
     
@@ -710,7 +710,7 @@
   <span class="md-ellipsis">
     
   
-    `conv` モード
+    `intro` と `apply`
   
 
     
@@ -738,7 +738,7 @@
   <span class="md-ellipsis">
     
   
-    `simp` と `simpa`
+    `rw`: 等式による書き換え
   
 
     
@@ -766,7 +766,7 @@
   <span class="md-ellipsis">
     
   
-    `have` と `suffices`
+    `conv` モード
   
 
     
@@ -794,7 +794,7 @@
   <span class="md-ellipsis">
     
   
-    論理の tactic
+    `simp` と `simpa`
   
 
     
@@ -822,7 +822,7 @@
   <span class="md-ellipsis">
     
   
-    `calc` モード
+    `have` と `suffices`
   
 
     
@@ -850,7 +850,7 @@
   <span class="md-ellipsis">
     
   
-    関数と構造体: `funext` と `ext`
+    `structure` と `inductive` 型に対応する tactic
   
 
     
@@ -878,7 +878,7 @@
   <span class="md-ellipsis">
     
   
-    Lean における等号の証明パターン
+    古典論理と矛盾
   
 
     
@@ -906,7 +906,7 @@
   <span class="md-ellipsis">
     
   
-    証明項，古典論理，Lean の追加原理
+    `calc` モード
   
 
     
@@ -934,7 +934,7 @@
   <span class="md-ellipsis">
     
   
-    `induction`: 帰納法
+    関数と `structure`: `funext` と `ext`
   
 
     
@@ -962,7 +962,7 @@
   <span class="md-ellipsis">
     
   
-    汎用的な tactic
+    Lean における等号の証明パターン
   
 
     
@@ -990,7 +990,7 @@
   <span class="md-ellipsis">
     
   
-    検索系: `#check`，`exact?`，`rw?`
+    古典論理，選択，商，Lean の追加原理
   
 
     
@@ -1018,7 +1018,7 @@
   <span class="md-ellipsis">
     
   
-    まとめ
+    `induction`: 帰納法
   
 
     
@@ -1046,7 +1046,63 @@
   <span class="md-ellipsis">
     
   
-    演習問題
+    汎用的な tactic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    検索系: `#check`，`exact?`，`rw?`
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    まとめ
   
 
     
@@ -1079,8 +1135,6 @@
       
         
           
-        
-      
         
       
         
@@ -1943,31 +1997,94 @@
 
 
 
-<h1 id="rw"><code>rw</code>: 等式による書き換え<a class="headerlink" href="#rw" title="Permanent link">&para;</a></h1>
-<p><code>rw [h]</code> は，等式 <code>h : a = b</code> を使って，ゴール中の <code>a</code> を <code>b</code> に書き換えます．
-命題の中では，同値 <code>P ↔ Q</code> も書き換えに使えます．
-<code>rw</code> は指定された補題を左から右へ使い，<code>rw [← h]</code> と書くと逆向きに使います．</p>
-<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">a</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">h</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">b</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="n">rw</span><span class="w"> </span><span class="o">[</span><span class="n">h</span><span class="o">]</span>
-</code></pre></div>
-<p>書き換えの向きを逆にしたいときは <code>←</code> を使います．</p>
-<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">a</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="n">rw</span><span class="w"> </span><span class="o">[</span><span class="n">Nat</span><span class="bp">.</span><span class="n">add_comm</span><span class="o">]</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">a</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">  </span><span class="n">rw</span><span class="w"> </span><span class="o">[</span><span class="bp">←</span><span class="w"> </span><span class="n">Nat</span><span class="bp">.</span><span class="n">add_comm</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">b</span><span class="o">]</span>
-</code></pre></div>
-<p>仮定の中を書き換えるときは <code>rw [h] at h2</code> のように <code>at</code> を使います．</p>
-<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">a</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">h</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">b</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">h2</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="mi">10</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="n">rw</span><span class="w"> </span><span class="o">[</span><span class="n">h</span><span class="o">]</span><span class="w"> </span><span class="k">at</span><span class="w"> </span><span class="n">h2</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">  </span><span class="n">exact</span><span class="w"> </span><span class="n">h2</span>
-</code></pre></div>
-<p><code>congr</code> は，両辺に同じ関数が適用されている等式を，引数の等式に帰着します．
-たとえば <code>f a = f b</code> を示す問題を <code>a = b</code> に変えることができます．
-次の例では，残った <code>a = b</code> のゴールをローカルコンテキストの <code>h : a = b</code> が閉じています．</p>
-<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">f</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">Nat</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">a</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">h</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">b</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="n">congr</span>
-</code></pre></div>
+<h1 id="tactic">tactic と証明項の対応<a class="headerlink" href="#tactic" title="Permanent link">&para;</a></h1>
+<p>tactic は証明を魔法のように作っているわけではありません．
+各 tactic は，現在のゴールに対して，最終的には Lean のカーネルが検査できる証明項を構成します．
+Infoview ではゴールが変形されて見えますが，背後では「どのコンストラクタ，どの関数，どの定理を使って項を作るか」を指定していると考えるとよいです．</p>
+<p>Chapter 02 で見た型の構成と対応させると，基本 tactic は次のように整理できます．</p>
+<table>
+<thead>
+<tr>
+<th>ゴールまたは仮定の形</th>
+<th>主な tactic</th>
+<th>対応する項・定義</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>P → Q</code>，<code>∀ x, P x</code> を示す</td>
+<td><code>intro</code></td>
+<td>関数 <code>fun h =&gt; ...</code>，依存関数</td>
+</tr>
+<tr>
+<td><code>P → Q</code>，<code>∀ x, P x</code> を使う</td>
+<td><code>apply</code>，関数適用</td>
+<td>証明を関数として適用する</td>
+</tr>
+<tr>
+<td><code>P ∧ Q</code> を示す</td>
+<td><code>constructor</code>，<code>exact ⟨_, _⟩</code></td>
+<td><code>And.intro</code></td>
+</tr>
+<tr>
+<td><code>P ∧ Q</code> を使う</td>
+<td><code>cases</code>，<code>rcases</code>，<code>obtain</code></td>
+<td><code>And.left</code>，<code>And.right</code>，パターン分解</td>
+</tr>
+<tr>
+<td><code>P ↔ Q</code> を示す</td>
+<td><code>constructor</code></td>
+<td><code>Iff.intro</code></td>
+</tr>
+<tr>
+<td><code>P ↔ Q</code> を使う</td>
+<td><code>rw</code>，<code>.mp</code>，<code>.mpr</code></td>
+<td>両方向の含意を field として使う</td>
+</tr>
+<tr>
+<td><code>P ∨ Q</code> を示す</td>
+<td><code>left</code>，<code>right</code></td>
+<td><code>Or.inl</code>，<code>Or.inr</code></td>
+</tr>
+<tr>
+<td><code>P ∨ Q</code> を使う</td>
+<td><code>cases</code>，<code>rcases</code></td>
+<td><code>Or</code> のコンストラクタによる場合分け</td>
+</tr>
+<tr>
+<td><code>∃ x, P x</code> を示す</td>
+<td><code>use</code>，<code>exact ⟨x, hx⟩</code></td>
+<td><code>Exists.intro</code></td>
+</tr>
+<tr>
+<td><code>False</code> から任意の命題を示す</td>
+<td><code>exfalso</code>，<code>contradiction</code></td>
+<td><code>False.elim</code></td>
+</tr>
+<tr>
+<td><code>a = b</code> を示す</td>
+<td><code>rfl</code>，既存補題</td>
+<td><code>Eq.refl</code> や <code>Eq</code> 型の証明</td>
+</tr>
+<tr>
+<td><code>a = b</code> を使う</td>
+<td><code>rw</code>，<code>subst</code></td>
+<td>等式による置換</td>
+</tr>
+<tr>
+<td><code>inductive</code> 型を使う</td>
+<td><code>cases</code>，<code>induction</code></td>
+<td>コンストラクタによる場合分け・帰納法</td>
+</tr>
+<tr>
+<td><code>structure</code> の等式を示す</td>
+<td><code>ext</code></td>
+<td>field ごとの等式</td>
+</tr>
+</tbody>
+</table>
+<p>この対応を意識すると，tactic が失敗したときにも「いま必要なのは関数を作ることか，コンストラクタを使うことか，既存の等式で書き換えることか」を切り分けやすくなります．
+以降の節では，この表の各行を具体例として見ていきます．</p>
 
 
 
@@ -2003,7 +2120,7 @@
       <nav class="md-footer__inner md-grid" aria-label="フッター" >
         
           
-          <a href="../03/" class="md-footer__link md-footer__link--prev" aria-label="前: `intro` と `apply`">
+          <a href="../03/" class="md-footer__link md-footer__link--prev" aria-label="前: `by` を項の一部として使う">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -2013,20 +2130,20 @@
                 前
               </span>
               <div class="md-ellipsis">
-                `intro` と `apply`
+                `by` を項の一部として使う
               </div>
             </div>
           </a>
         
         
           
-          <a href="../05/" class="md-footer__link md-footer__link--next" aria-label="次: `conv` モード">
+          <a href="../05/" class="md-footer__link md-footer__link--next" aria-label="次: `intro` と `apply`">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 次
               </span>
               <div class="md-ellipsis">
-                `conv` モード
+                `intro` と `apply`
               </div>
             </div>
             <div class="md-footer__button md-icon">

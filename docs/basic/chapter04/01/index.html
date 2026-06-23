@@ -424,10 +424,6 @@
       
         
       
-        
-      
-        
-      
     
     
     
@@ -483,6 +479,10 @@
       
         
           
+        
+      
+        
+      
         
       
         
@@ -600,8 +600,6 @@
       
         
       
-        
-      
     
     
     
@@ -671,6 +669,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    `import Mathlib` と `open scoped`
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -687,6 +703,36 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        演習
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -960,34 +1006,6 @@
     
   
     まとめ
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../12/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    演習問題
   
 
     
@@ -1788,6 +1806,25 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        演習
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1808,13 +1845,13 @@
 実際の開発では，ビルド時間を抑えるために必要なファイルだけを import することもあります．
 たとえば <code>import Mathlib.Data.Real.Basic</code> や <code>import Mathlib.Topology.Basic</code> のように，必要な分野のファイルだけを import する書き方です．
 <code>import Mathlib</code> は「Mathlib に含まれる主要な定義・定理・tactic をまとめて使えるようにする」指定であり，Lean の言語機能そのものとは区別します．</p>
-<p>一部の記法は，スコープを開かないと使えません．
+<p>一部の notation は，スコープを開かないと使えません．
 有限和 <code>∑</code> には <code>BigOperators</code>，拡張非負実数の <code>∞</code> には <code>ENNReal</code> のスコープを使います．
-<code>open scoped</code> は名前空間の中の定義名を短くするというより，特定の記法やスコープ付き記法を有効にするために使います．</p>
-<p>Mathlib では，定義そのものと記法が分かれていることがよくあります．
-たとえば <code>Real</code> という型には <code>ℝ</code> という記法があり，<code>NNReal</code> には <code>ℝ≥0</code>，<code>ENNReal</code> には <code>ℝ≥0∞</code> という記法があります．
-また <code>∑ i ∈ s, f i</code> は有限和を表す記法で，背後には <code>Finset.sum</code> があります．
-証明中で記法の意味が分からなくなったら，<code>#check</code> で型を確認し，必要なら対応する定義名を探します．</p>
+<code>open scoped</code> は名前空間の中の定義名を短くするというより，特定の notation やスコープ付き notation を有効にするために使います．</p>
+<p>Mathlib では，定義そのものと notation が分かれていることがよくあります．
+たとえば <code>Real</code> という型には <code>ℝ</code> という notation があり，<code>NNReal</code> には <code>ℝ≥0</code>，<code>ENNReal</code> には <code>ℝ≥0∞</code> という notation があります．
+また <code>∑ i ∈ s, f i</code> は有限和を表す notation で，背後には <code>Finset.sum</code> があります．
+証明中で notation の意味が分からなくなったら，<code>#check</code> で型を確認し，必要なら対応する定義名を探します．</p>
 <div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">open</span><span class="w"> </span><span class="kn">scoped</span><span class="w"> </span><span class="n">BigOperators</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">open</span><span class="w"> </span><span class="kn">scoped</span><span class="w"> </span><span class="n">ENNReal</span>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">open</span><span class="w"> </span><span class="kn">scoped</span><span class="w"> </span><span class="n">NNReal</span>
@@ -1837,6 +1874,12 @@
 <a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="bp">#</span><span class="n">synth</span><span class="w"> </span><span class="n">TopologicalSpace</span><span class="w"> </span><span class="n">ℝ</span>
 <a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="bp">#</span><span class="n">synth</span><span class="w"> </span><span class="n">Add</span><span class="w"> </span><span class="n">ENNReal</span>
 <a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="bp">#</span><span class="n">synth</span><span class="w"> </span><span class="n">CompleteLinearOrder</span><span class="w"> </span><span class="n">ENNReal</span>
+</code></pre></div>
+<h2 id="_1">演習<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p><code>#synth</code> で，実数が体・線形順序・狭義順序環の構造を持つことを確認してください．</p>
+<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="bp">#</span><span class="n">synth</span><span class="w"> </span><span class="n">Field</span><span class="w"> </span><span class="n">ℝ</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="bp">#</span><span class="n">synth</span><span class="w"> </span><span class="n">LinearOrder</span><span class="w"> </span><span class="n">ℝ</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="bp">#</span><span class="n">synth</span><span class="w"> </span><span class="n">IsStrictOrderedRing</span><span class="w"> </span><span class="n">ℝ</span>
 </code></pre></div>
 
 
