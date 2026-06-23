@@ -700,7 +700,7 @@
   <span class="md-ellipsis">
     
   
-    `intro` と `apply`
+    関数・含意・全称命題: `intro`，`apply`，`specialize`
   
 
     
@@ -728,7 +728,7 @@
   <span class="md-ellipsis">
     
   
-    `rw`: 等式による書き換え
+    途中結果: `have` と `suffices`
   
 
     
@@ -756,7 +756,7 @@
   <span class="md-ellipsis">
     
   
-    `conv` モード
+    `rw`: 等式による書き換え
   
 
     
@@ -784,7 +784,7 @@
   <span class="md-ellipsis">
     
   
-    `simp` と `simpa`
+    単純化: `simp`，`simpa`，`<;>`
   
 
     
@@ -812,7 +812,7 @@
   <span class="md-ellipsis">
     
   
-    `have` と `suffices`
+    `calc` モード
   
 
     
@@ -840,7 +840,7 @@
   <span class="md-ellipsis">
     
   
-    `structure` と `inductive` 型に対応する tactic
+    論理結合子とデータ構造: `constructor`，`match`，`cases`
   
 
     
@@ -868,7 +868,7 @@
   <span class="md-ellipsis">
     
   
-    古典論理と矛盾
+    帰納型と帰納法: `induction`
   
 
     
@@ -896,7 +896,7 @@
   <span class="md-ellipsis">
     
   
-    `calc` モード
+    関数と `structure`: `funext` と `ext`
   
 
     
@@ -924,7 +924,7 @@
   <span class="md-ellipsis">
     
   
-    関数と `structure`: `funext` と `ext`
+    矛盾と背理法
   
 
     
@@ -952,7 +952,7 @@
   <span class="md-ellipsis">
     
   
-    Lean における等号の証明パターン
+    汎用的な tactic
   
 
     
@@ -980,7 +980,7 @@
   <span class="md-ellipsis">
     
   
-    古典論理，選択，商，Lean の追加原理
+    検索系: `#check`，`exact?`，`rw?`
   
 
     
@@ -1008,7 +1008,7 @@
   <span class="md-ellipsis">
     
   
-    `induction`: 帰納法
+    `conv` モード
   
 
     
@@ -1036,7 +1036,7 @@
   <span class="md-ellipsis">
     
   
-    汎用的な tactic
+    Lean における等号の証明パターン
   
 
     
@@ -1064,7 +1064,7 @@
   <span class="md-ellipsis">
     
   
-    検索系: `#check`，`exact?`，`rw?`
+    古典論理，選択，商，Lean の追加原理
   
 
     
@@ -1942,14 +1942,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../app/" class="md-nav__link">
+      <a href="../../../report2026kyoto/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    追加ページ
+    レポート課題
   
 
     
@@ -1999,9 +1999,9 @@
 
 <h1 id="_1">まとめ<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
 <p>tactic モードでは，現在のゴールとローカルコンテキストを見ながら，証明を小さなステップに分解します．
-<code>rw</code> と <code>simp</code> は書き換え，<code>intro</code> と <code>apply</code> は含意や全称命題，<code>constructor</code> と <code>cases</code> は論理結合子や <code>inductive</code> 型，<code>induction</code> は帰納法に対応します．</p>
-<p><code>calc</code> は，数学の計算に近い形で等式や不等式の連鎖を書くための構文です．
-<code>grind</code> は強力な自動化ですが，まずは基本 tactic で証明の構造を理解することが重要です．</p>
+<code>intro</code> と <code>apply</code> は含意や全称命題，<code>rw</code>，<code>simp</code>，<code>calc</code> は等式や計算，<code>constructor</code>，<code>match</code>，<code>cases</code>，<code>induction</code> は <code>structure</code> や <code>inductive</code> 型に対応します．</p>
+<p>外延性を使う <code>funext</code> や <code>ext</code>，矛盾を扱う <code>exfalso</code>，<code>contradiction</code>，背理法は数学でよく使うため，基本 tactic の次に押さえておくと便利です．
+<code>conv</code>，等号パターンの総整理，古典論理・選択・商などの追加原理は，証明が複雑になったときに参照する後半の話題として位置づけています．</p>
 
 
 
@@ -2037,7 +2037,7 @@
       <nav class="md-footer__inner md-grid" aria-label="フッター" >
         
           
-          <a href="../18/" class="md-footer__link md-footer__link--prev" aria-label="前: 検索系: `#check`，`exact?`，`rw?`">
+          <a href="../18/" class="md-footer__link md-footer__link--prev" aria-label="前: 古典論理，選択，商，Lean の追加原理">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -2047,7 +2047,7 @@
                 前
               </span>
               <div class="md-ellipsis">
-                検索系: `#check`，`exact?`，`rw?`
+                古典論理，選択，商，Lean の追加原理
               </div>
             </div>
           </a>

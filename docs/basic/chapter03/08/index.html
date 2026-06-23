@@ -25,7 +25,7 @@
     
     
       
-        <title>`simp` と `simpa` - 数学系エンドユーザーのためのLean入門</title>
+        <title>単純化: `simp`，`simpa`，`` - 数学系エンドユーザーのためのLean入門</title>
       
     
     
@@ -68,7 +68,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#simp-simpa" class="md-skip">
+        <a href="#simpsimpa" class="md-skip">
           コンテンツにスキップ
         </a>
       
@@ -104,7 +104,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              `simp` と `simpa`
+              単純化: `simp`，`simpa`，`<;>`
             
           </span>
         </div>
@@ -700,7 +700,7 @@
   <span class="md-ellipsis">
     
   
-    `intro` と `apply`
+    関数・含意・全称命題: `intro`，`apply`，`specialize`
   
 
     
@@ -728,7 +728,7 @@
   <span class="md-ellipsis">
     
   
-    `rw`: 等式による書き換え
+    途中結果: `have` と `suffices`
   
 
     
@@ -756,7 +756,7 @@
   <span class="md-ellipsis">
     
   
-    `conv` モード
+    `rw`: 等式による書き換え
   
 
     
@@ -793,7 +793,7 @@
   <span class="md-ellipsis">
     
   
-    `simp` と `simpa`
+    単純化: `simp`，`simpa`，`<;>`
   
 
     
@@ -811,7 +811,7 @@
   <span class="md-ellipsis">
     
   
-    `simp` と `simpa`
+    単純化: `simp`，`simpa`，`<;>`
   
 
     
@@ -870,7 +870,7 @@
   <span class="md-ellipsis">
     
   
-    `have` と `suffices`
+    `calc` モード
   
 
     
@@ -898,7 +898,7 @@
   <span class="md-ellipsis">
     
   
-    `structure` と `inductive` 型に対応する tactic
+    論理結合子とデータ構造: `constructor`，`match`，`cases`
   
 
     
@@ -926,7 +926,7 @@
   <span class="md-ellipsis">
     
   
-    古典論理と矛盾
+    帰納型と帰納法: `induction`
   
 
     
@@ -954,7 +954,7 @@
   <span class="md-ellipsis">
     
   
-    `calc` モード
+    関数と `structure`: `funext` と `ext`
   
 
     
@@ -982,7 +982,7 @@
   <span class="md-ellipsis">
     
   
-    関数と `structure`: `funext` と `ext`
+    矛盾と背理法
   
 
     
@@ -1010,7 +1010,7 @@
   <span class="md-ellipsis">
     
   
-    Lean における等号の証明パターン
+    汎用的な tactic
   
 
     
@@ -1038,7 +1038,7 @@
   <span class="md-ellipsis">
     
   
-    古典論理，選択，商，Lean の追加原理
+    検索系: `#check`，`exact?`，`rw?`
   
 
     
@@ -1066,7 +1066,7 @@
   <span class="md-ellipsis">
     
   
-    `induction`: 帰納法
+    `conv` モード
   
 
     
@@ -1094,7 +1094,7 @@
   <span class="md-ellipsis">
     
   
-    汎用的な tactic
+    Lean における等号の証明パターン
   
 
     
@@ -1122,7 +1122,7 @@
   <span class="md-ellipsis">
     
   
-    検索系: `#check`，`exact?`，`rw?`
+    古典論理，選択，商，Lean の追加原理
   
 
     
@@ -1990,14 +1990,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../app/" class="md-nav__link">
+      <a href="../../../report2026kyoto/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    追加ページ
+    レポート課題
   
 
     
@@ -2064,7 +2064,7 @@
 
 
 
-<h1 id="simp-simpa"><code>simp</code> と <code>simpa</code><a class="headerlink" href="#simp-simpa" title="Permanent link">&para;</a></h1>
+<h1 id="simpsimpa">単純化: <code>simp</code>，<code>simpa</code>，<code>&lt;;&gt;</code><a class="headerlink" href="#simpsimpa" title="Permanent link">&para;</a></h1>
 <p><code>simp</code> は，定義展開，既知の単純化補題，仮定を使った書き換えを組み合わせて，ゴールを単純化します．
 日常的に最もよく使う tactic の 1 つです．
 <code>simp</code> は登録された <code>[simp]</code> 補題を，原則として式が単純になる向きに使います．
@@ -2157,7 +2157,7 @@
       <nav class="md-footer__inner md-grid" aria-label="フッター" >
         
           
-          <a href="../07/" class="md-footer__link md-footer__link--prev" aria-label="前: `conv` モード">
+          <a href="../07/" class="md-footer__link md-footer__link--prev" aria-label="前: `rw`: 等式による書き換え">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -2167,20 +2167,20 @@
                 前
               </span>
               <div class="md-ellipsis">
-                `conv` モード
+                `rw`: 等式による書き換え
               </div>
             </div>
           </a>
         
         
           
-          <a href="../09/" class="md-footer__link md-footer__link--next" aria-label="次: `have` と `suffices`">
+          <a href="../09/" class="md-footer__link md-footer__link--next" aria-label="次: `calc` モード">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 次
               </span>
               <div class="md-ellipsis">
-                `have` と `suffices`
+                `calc` モード
               </div>
             </div>
             <div class="md-footer__button md-icon">

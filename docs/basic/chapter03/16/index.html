@@ -25,7 +25,7 @@
     
     
       
-        <title>`induction`: 帰納法 - 数学系エンドユーザーのためのLean入門</title>
+        <title>`conv` モード - 数学系エンドユーザーのためのLean入門</title>
       
     
     
@@ -68,7 +68,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#induction" class="md-skip">
+        <a href="#conv" class="md-skip">
           コンテンツにスキップ
         </a>
       
@@ -104,7 +104,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              `induction`: 帰納法
+              `conv` モード
             
           </span>
         </div>
@@ -700,7 +700,7 @@
   <span class="md-ellipsis">
     
   
-    `intro` と `apply`
+    関数・含意・全称命題: `intro`，`apply`，`specialize`
   
 
     
@@ -728,7 +728,7 @@
   <span class="md-ellipsis">
     
   
-    `rw`: 等式による書き換え
+    途中結果: `have` と `suffices`
   
 
     
@@ -756,7 +756,7 @@
   <span class="md-ellipsis">
     
   
-    `conv` モード
+    `rw`: 等式による書き換え
   
 
     
@@ -784,7 +784,7 @@
   <span class="md-ellipsis">
     
   
-    `simp` と `simpa`
+    単純化: `simp`，`simpa`，`<;>`
   
 
     
@@ -812,7 +812,7 @@
   <span class="md-ellipsis">
     
   
-    `have` と `suffices`
+    `calc` モード
   
 
     
@@ -840,7 +840,7 @@
   <span class="md-ellipsis">
     
   
-    `structure` と `inductive` 型に対応する tactic
+    論理結合子とデータ構造: `constructor`，`match`，`cases`
   
 
     
@@ -868,7 +868,7 @@
   <span class="md-ellipsis">
     
   
-    古典論理と矛盾
+    帰納型と帰納法: `induction`
   
 
     
@@ -896,7 +896,7 @@
   <span class="md-ellipsis">
     
   
-    `calc` モード
+    関数と `structure`: `funext` と `ext`
   
 
     
@@ -924,7 +924,7 @@
   <span class="md-ellipsis">
     
   
-    関数と `structure`: `funext` と `ext`
+    矛盾と背理法
   
 
     
@@ -952,7 +952,7 @@
   <span class="md-ellipsis">
     
   
-    Lean における等号の証明パターン
+    汎用的な tactic
   
 
     
@@ -980,7 +980,7 @@
   <span class="md-ellipsis">
     
   
-    古典論理，選択，商，Lean の追加原理
+    検索系: `#check`，`exact?`，`rw?`
   
 
     
@@ -1017,7 +1017,7 @@
   <span class="md-ellipsis">
     
   
-    `induction`: 帰納法
+    `conv` モード
   
 
     
@@ -1035,7 +1035,7 @@
   <span class="md-ellipsis">
     
   
-    `induction`: 帰納法
+    `conv` モード
   
 
     
@@ -1094,7 +1094,7 @@
   <span class="md-ellipsis">
     
   
-    汎用的な tactic
+    Lean における等号の証明パターン
   
 
     
@@ -1122,7 +1122,7 @@
   <span class="md-ellipsis">
     
   
-    検索系: `#check`，`exact?`，`rw?`
+    古典論理，選択，商，Lean の追加原理
   
 
     
@@ -1990,14 +1990,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../app/" class="md-nav__link">
+      <a href="../../../report2026kyoto/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    追加ページ
+    レポート課題
   
 
     
@@ -2064,63 +2064,47 @@
 
 
 
-<h1 id="induction"><code>induction</code>: 帰納法<a class="headerlink" href="#induction" title="Permanent link">&para;</a></h1>
-<p>自然数やリストのような <code>inductive</code> 型について証明するときは，<code>induction</code> を使います．
-自然数 <code>n : Nat</code> に対する帰納法では，<code>zero</code> の場合と <code>succ n</code> の場合を証明します．
-<code>cases</code> が単なる場合分けであるのに対して，<code>induction</code> は再帰的なコンストラクタの枝で帰納法の仮定を生成します．</p>
-<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">theorem</span><span class="w"> </span><span class="n">nat_add_assoc_by_induction</span><span class="w"> </span><span class="o">(</span><span class="n">a</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="o">(</span><span class="n">a</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">b</span><span class="o">)</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="o">(</span><span class="n">b</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">c</span><span class="o">)</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="n">induction</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="k">with</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span><span class="bp">|</span><span class="w"> </span><span class="n">zero</span><span class="w"> </span><span class="bp">=&gt;</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">      </span><span class="n">simp</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">  </span><span class="bp">|</span><span class="w"> </span><span class="n">succ</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">ih</span><span class="w"> </span><span class="bp">=&gt;</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">      </span><span class="n">simp</span><span class="w"> </span><span class="o">[</span><span class="n">Nat</span><span class="bp">.</span><span class="n">succ_add</span><span class="o">,</span><span class="w"> </span><span class="n">ih</span><span class="o">]</span>
+<h1 id="conv"><code>conv</code> モード<a class="headerlink" href="#conv" title="Permanent link">&para;</a></h1>
+<p><code>conv</code> モードは，ゴール全体ではなく，式の特定の部分に入り込んで書き換えるためのモードです．
+通常の <code>rw</code> はゴール全体から書き換え場所を探します．
+一方，<code>conv</code> では「左辺に入る」「第 1 引数に入る」のように場所を指定してから書き換えます．</p>
+<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">a</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="o">(</span><span class="n">a</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">b</span><span class="o">)</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="o">(</span><span class="n">b</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">a</span><span class="o">)</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="n">conv</span><span class="w"> </span><span class="bp">=&gt;</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="n">lhs</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="n">rw</span><span class="w"> </span><span class="o">[</span><span class="n">Nat</span><span class="bp">.</span><span class="n">add_comm</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">b</span><span class="o">]</span>
 </code></pre></div>
-<p>帰納法の帰納ステップでは，<code>ih</code> が帰納法の仮定です．
-上の例では，<code>ih : (a + b) + c = a + (b + c)</code> を使って，<code>Nat.succ a</code> の場合を示しています．</p>
-<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">theorem</span><span class="w"> </span><span class="n">list_length_map_by_induction</span><span class="w"> </span><span class="o">{</span><span class="n">α</span><span class="w"> </span><span class="n">β</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Type</span><span class="o">}</span><span class="w"> </span><span class="o">(</span><span class="n">f</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">α</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">β</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">xs</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">List</span><span class="w"> </span><span class="n">α</span><span class="o">)</span><span class="w"> </span><span class="o">:</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="o">(</span><span class="n">xs</span><span class="bp">.</span><span class="n">map</span><span class="w"> </span><span class="n">f</span><span class="o">)</span><span class="bp">.</span><span class="n">length</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">xs</span><span class="bp">.</span><span class="n">length</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">  </span><span class="n">induction</span><span class="w"> </span><span class="n">xs</span><span class="w"> </span><span class="k">with</span>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">  </span><span class="bp">|</span><span class="w"> </span><span class="n">nil</span><span class="w"> </span><span class="bp">=&gt;</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">      </span><span class="n">rfl</span>
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">  </span><span class="bp">|</span><span class="w"> </span><span class="n">cons</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="n">xs</span><span class="w"> </span><span class="n">ih</span><span class="w"> </span><span class="bp">=&gt;</span>
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">      </span><span class="n">simp</span><span class="w"> </span><span class="o">[</span><span class="n">ih</span><span class="o">]</span>
+<p><code>conv =&gt;</code> の中では <code>lhs</code> や <code>rhs</code> を使って，左辺・右辺を選べます．</p>
+<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">a</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="o">(</span><span class="n">a</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">b</span><span class="o">)</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="o">(</span><span class="n">b</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">a</span><span class="o">)</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="n">conv</span><span class="w"> </span><span class="bp">=&gt;</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="n">lhs</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="n">arg</span><span class="w"> </span><span class="mi">1</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="n">rw</span><span class="w"> </span><span class="o">[</span><span class="n">Nat</span><span class="bp">.</span><span class="n">add_comm</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">b</span><span class="o">]</span>
 </code></pre></div>
-<p>自分で定義した <code>inductive</code> 型に対しても <code>cases</code> や <code>induction</code> を使えます．
-次の <code>Even</code> は「偶数である」という命題を帰納的に定義したものです．
-<code>Even n</code> は <code>n</code> が偶数であることを表す命題であり，その証明は <code>zero</code> と <code>add_two</code> から作られます．</p>
-<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">inductive</span><span class="w"> </span><span class="n">Even</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="kt">Prop</span><span class="w"> </span><span class="kn">where</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="bp">|</span><span class="w"> </span><span class="n">zero</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Even</span><span class="w"> </span><span class="mi">0</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">  </span><span class="bp">|</span><span class="w"> </span><span class="n">add_two</span><span class="w"> </span><span class="o">{</span><span class="n">n</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="o">}</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Even</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">Even</span><span class="w"> </span><span class="o">(</span><span class="n">n</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="mi">2</span><span class="o">)</span>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="kn">example</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Even</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">  </span><span class="n">apply</span><span class="w"> </span><span class="n">Even</span><span class="bp">.</span><span class="n">add_two</span>
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">  </span><span class="n">apply</span><span class="w"> </span><span class="n">Even</span><span class="bp">.</span><span class="n">add_two</span>
-<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">  </span><span class="n">exact</span><span class="w"> </span><span class="n">Even</span><span class="bp">.</span><span class="n">zero</span>
-<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>
-<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">h</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Even</span><span class="w"> </span><span class="mi">1</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">False</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">  </span><span class="n">cases</span><span class="w"> </span><span class="n">h</span>
+<p>上の例では，左辺 <code>(a + b) + c</code> に入り，さらに第 1 引数 <code>a + b</code> に入ってから，そこだけを交換しています．
+<code>arg 1</code> は関数適用や演算の第 1 引数へ移動する指示です．</p>
+<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">a</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="o">(</span><span class="n">a</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">b</span><span class="o">)</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="o">(</span><span class="n">c</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="mi">0</span><span class="o">)</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="o">(</span><span class="n">a</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">b</span><span class="o">)</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="n">conv</span><span class="w"> </span><span class="bp">=&gt;</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="n">lhs</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="n">arg</span><span class="w"> </span><span class="mi">2</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="n">rw</span><span class="w"> </span><span class="o">[</span><span class="n">Nat</span><span class="bp">.</span><span class="n">add_zero</span><span class="o">]</span>
 </code></pre></div>
-<p>帰納的に定義された命題の証明 <code>h : Even n</code> に対しても <code>induction h</code> が使えます．
-これは「その証明がどのコンストラクタで作られたか」に関する帰納法です．
-<code>cases h</code> は不可能なコンストラクタの枝を自動的に消すため，<code>Even 1</code> からは矛盾が得られます．</p>
-<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">theorem</span><span class="w"> </span><span class="n">even_plus_two_of_even</span><span class="w"> </span><span class="o">{</span><span class="n">n</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="o">}</span><span class="w"> </span><span class="o">(</span><span class="n">h</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Even</span><span class="w"> </span><span class="n">n</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Even</span><span class="w"> </span><span class="o">(</span><span class="n">n</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="mi">2</span><span class="o">)</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="n">exact</span><span class="w"> </span><span class="n">Even</span><span class="bp">.</span><span class="n">add_two</span><span class="w"> </span><span class="n">h</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">n</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">h</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Even</span><span class="w"> </span><span class="n">n</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Even</span><span class="w"> </span><span class="o">(</span><span class="n">n</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="mi">2</span><span class="o">)</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">  </span><span class="n">induction</span><span class="w"> </span><span class="n">h</span><span class="w"> </span><span class="k">with</span>
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">  </span><span class="bp">|</span><span class="w"> </span><span class="n">zero</span><span class="w"> </span><span class="bp">=&gt;</span>
-<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">      </span><span class="n">exact</span><span class="w"> </span><span class="n">Even</span><span class="bp">.</span><span class="n">add_two</span><span class="w"> </span><span class="n">Even</span><span class="bp">.</span><span class="n">zero</span>
-<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">  </span><span class="bp">|</span><span class="w"> </span><span class="n">add_two</span><span class="w"> </span><span class="n">h</span><span class="w"> </span><span class="n">ih</span><span class="w"> </span><span class="bp">=&gt;</span>
-<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">      </span><span class="n">exact</span><span class="w"> </span><span class="n">Even</span><span class="bp">.</span><span class="n">add_two</span><span class="w"> </span><span class="n">ih</span>
+<p><code>conv</code> の中でも <code>simp</code> を使えます．
+式の一部だけを簡約したいときに便利です．</p>
+<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">a</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="w"> </span><span class="bp">=&gt;</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">b</span><span class="o">)</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="n">conv</span><span class="w"> </span><span class="bp">=&gt;</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="n">lhs</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="n">simp</span>
 </code></pre></div>
+<p><code>conv</code> は強力ですが，構文が細かく，証明が読みにくくなることもあります．
+まずは通常の <code>rw</code> や <code>simp</code> を試し，書き換える場所を厳密に指定したいときに <code>conv</code> を使うのがよいです．</p>
 <h2 id="_1">演習<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<p><code>induction</code> で自然数の加法単位元を証明してください．</p>
-<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">n</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span><span class="n">induction</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="k">with</span>
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">  </span><span class="bp">|</span><span class="w"> </span><span class="n">zero</span><span class="w"> </span><span class="bp">=&gt;</span>
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">      </span><span class="gr">sorry</span>
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">  </span><span class="bp">|</span><span class="w"> </span><span class="n">succ</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="n">ih</span><span class="w"> </span><span class="bp">=&gt;</span>
-<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">      </span><span class="gr">sorry</span>
+<p><code>conv</code> を使って，ゴールの一部だけを書き換えてください．</p>
+<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">a</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="o">(</span><span class="n">a</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">b</span><span class="o">)</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="o">(</span><span class="n">b</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">a</span><span class="o">)</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span><span class="c1">-- ヒント:</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">  </span><span class="c1">--   conv =&gt;</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">  </span><span class="c1">--     lhs</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">  </span><span class="c1">--     rw [Nat.add_comm a b]</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">  </span><span class="gr">sorry</span>
 </code></pre></div>
 
 
@@ -2157,7 +2141,7 @@
       <nav class="md-footer__inner md-grid" aria-label="フッター" >
         
           
-          <a href="../15/" class="md-footer__link md-footer__link--prev" aria-label="前: 古典論理，選択，商，Lean の追加原理">
+          <a href="../15/" class="md-footer__link md-footer__link--prev" aria-label="前: 検索系: `#check`，`exact?`，`rw?`">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -2167,20 +2151,20 @@
                 前
               </span>
               <div class="md-ellipsis">
-                古典論理，選択，商，Lean の追加原理
+                検索系: `#check`，`exact?`，`rw?`
               </div>
             </div>
           </a>
         
         
           
-          <a href="../17/" class="md-footer__link md-footer__link--next" aria-label="次: 汎用的な tactic">
+          <a href="../17/" class="md-footer__link md-footer__link--next" aria-label="次: Lean における等号の証明パターン">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 次
               </span>
               <div class="md-ellipsis">
-                汎用的な tactic
+                Lean における等号の証明パターン
               </div>
             </div>
             <div class="md-footer__button md-icon">
