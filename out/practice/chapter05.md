@@ -62,6 +62,23 @@ end MeasurableSets
 可算和や可算共通部分には，添字型が可算であることが必要です．
 上の例では `[Encodable ι]` によって，`ι` が可算に符号化できることを仮定しています．
 
+### 演習問題
+
+1. 可測集合の補集合が可測であることを示してください．
+
+    ```lean4
+    example {α : Type*} [MeasurableSpace α] {s : Set α}
+        (hs : MeasurableSet s) : MeasurableSet sᶜ := by
+      -- ヒント: `exact hs.compl`
+      sorry
+    ```
+
+2. `MeasurableSet.iUnion` の仮定を読み，可算性がどこで必要か確認してください．
+
+    ```lean4
+    #check MeasurableSet.iUnion
+    ```
+
 ---
 ## 測度
 
@@ -95,6 +112,17 @@ end Measures
 `∀ᵐ x ∂μ, P x` は「`μ` に関してほとんど至る所 `P x` が成り立つ」という意味です．
 これはフィルター `ae μ` による `Eventually` の記法です．
 
+### 演習問題
+
+ほとんど至る所の記法 `∀ᵐ` が filter の `Eventually` であることを確認してください．
+
+```lean4
+example {α : Type*} [MeasurableSpace α] {μ : Measure α} {P : α → Prop} :
+    (∀ᵐ x ∂μ, P x) ↔ ∀ᶠ x in ae μ, P x := by
+  -- ヒント: `rfl`
+  sorry
+```
+
 ---
 ## Bochner 積分
 
@@ -125,6 +153,20 @@ end BochnerIntegral
 
 定数関数の積分では，測度値 `μ s : ℝ≥0∞` を実数に戻すために `(μ s).toReal` が現れます．
 `μ s = ∞` の場合には，非零定数関数は可積分でなく，積分は定義上 0 になるという規約とも整合しています．
+
+### 演習問題
+
+Bochner 積分の加法性を使ってください．
+
+```lean4
+example {α E : Type*} [MeasurableSpace α]
+    [NormedAddCommGroup E] [NormedSpace ℝ E] [CompleteSpace E]
+    {μ : Measure α} {f g : α → E}
+    (hf : Integrable f μ) (hg : Integrable g μ) :
+    ∫ x, f x + g x ∂μ = ∫ x, f x ∂μ + ∫ x, g x ∂μ := by
+  -- ヒント: `exact integral_add hf hg`
+  sorry
+```
 
 ---
 ## 区間積分
@@ -180,6 +222,20 @@ example (f : α × β → E) (hf : Integrable f (μ.prod ν)) :
 end Fubini
 ```
 
+### 演習問題
+
+1. Fubini の定理の statement を `#check` で読み，どこに `SigmaFinite` 仮定が現れるか確認してください．
+
+    ```lean4
+    #check integral_prod
+    ```
+
+2. 優収束定理の statement を読み，どの仮定が「支配関数」に対応するか確認してください．
+
+    ```lean4
+    #check tendsto_integral_of_dominated_convergence
+    ```
+
 ---
 ## 長めの例: 区間積分の具体計算
 
@@ -204,6 +260,30 @@ end ConcreteIntervalIntegrals
 これらの例は，内部では区間積分に関する既存定理と実数計算を使っています．
 複雑な被積分関数では `norm_num` だけで閉じないことも多く，
 その場合は微分積分学の基本定理や積分の線形性を明示的に使います．
+
+### 演習問題
+
+1. 定数関数の区間積分を計算してください．
+
+    ```lean4
+    example : ∫ _ : ℝ in (1)..(4), (2 : ℝ) = 6 := by
+      -- `norm_num` を試す．
+      sorry
+    ```
+
+2. 区間の向きを反転したときの積分を調べてください．
+
+    ```lean4
+    #check intervalIntegral.integral_symm
+    ```
+
+3. `∫ x in a..b, f x` と `∫ x in b..a, f x` の関係を使って，定数関数の例を逆向き区間で計算してください．
+
+    ```lean4
+    example : ∫ _ : ℝ in (2)..(0), (3 : ℝ) = -6 := by
+      -- `norm_num` を試す．
+      sorry
+    ```
 
 ---
 ## 長めの例: 区間積分の線形性
@@ -233,6 +313,20 @@ Lean では，被積分関数が適切に積分可能であることが theorem 
 定数倍については theorem が仮定なしの形で使えることもありますが，これは積分が定義上全関数に拡張されているためです．
 本格的な解析では，可積分性の仮定を明示して使うのが安全です．
 
+### 演習問題
+
+積分の和に関する線形性を `intervalIntegral.integral_add` で証明してください．
+
+```lean4
+example {f g : ℝ → ℝ} {a b : ℝ}
+    (hf : IntervalIntegrable f volume a b)
+    (hg : IntervalIntegrable g volume a b) :
+    ∫ x : ℝ in a..b, f x + g x =
+      (∫ x : ℝ in a..b, f x) + ∫ x : ℝ in a..b, g x := by
+  -- ヒント: `exact intervalIntegral.integral_add hf hg`
+  sorry
+```
+
 ---
 ## まとめ
 
@@ -251,88 +345,3 @@ Lean では，被積分関数が適切に積分可能であることが theorem 
 4. ほとんど至る所は `∀ᵐ x ∂μ, ...`．
 5. 区間積分では `IntervalIntegrable f volume a b`．
 6. 直積測度や Fubini では `SigmaFinite` または `SFinite` 仮定を確認する．
-
----
-## 演習問題
-
-1. 定数関数の区間積分を計算してください．
-
-    ```lean4
-    example : ∫ _ : ℝ in (1)..(4), (2 : ℝ) = 6 := by
-      -- `norm_num` を試す．
-      sorry
-    ```
-
-2. 積分の和に関する線形性を `intervalIntegral.integral_add` で証明してください．
-
-    ```lean4
-    example {f g : ℝ → ℝ} {a b : ℝ}
-        (hf : IntervalIntegrable f volume a b)
-        (hg : IntervalIntegrable g volume a b) :
-        ∫ x : ℝ in a..b, f x + g x =
-          (∫ x : ℝ in a..b, f x) + ∫ x : ℝ in a..b, g x := by
-      -- ヒント: `exact intervalIntegral.integral_add hf hg`
-      sorry
-    ```
-
-3. 可測集合の補集合が可測であることを示してください．
-
-    ```lean4
-    example {α : Type*} [MeasurableSpace α] {s : Set α}
-        (hs : MeasurableSet s) : MeasurableSet sᶜ := by
-      -- ヒント: `exact hs.compl`
-      sorry
-    ```
-
-4. ほとんど至る所の記法 `∀ᵐ` が filter の `Eventually` であることを確認してください．
-
-    ```lean4
-    example {α : Type*} [MeasurableSpace α] {μ : Measure α} {P : α → Prop} :
-        (∀ᵐ x ∂μ, P x) ↔ ∀ᶠ x in ae μ, P x := by
-      -- ヒント: `rfl`
-      sorry
-    ```
-
-5. Bochner 積分の加法性を使ってください．
-
-    ```lean4
-    example {α E : Type*} [MeasurableSpace α]
-        [NormedAddCommGroup E] [NormedSpace ℝ E] [CompleteSpace E]
-        {μ : Measure α} {f g : α → E}
-        (hf : Integrable f μ) (hg : Integrable g μ) :
-        ∫ x, f x + g x ∂μ = ∫ x, f x ∂μ + ∫ x, g x ∂μ := by
-      -- ヒント: `exact integral_add hf hg`
-      sorry
-    ```
-
-6. Fubini の定理の statement を `#check` で読み，どこに `SigmaFinite` 仮定が現れるか確認してください．
-
-    ```lean4
-    #check integral_prod
-    ```
-
-7. 区間の向きを反転したときの積分を調べてください．
-
-    ```lean4
-    #check intervalIntegral.integral_symm
-    ```
-
-8. `∫ x in a..b, f x` と `∫ x in b..a, f x` の関係を使って，定数関数の例を逆向き区間で計算してください．
-
-    ```lean4
-    example : ∫ _ : ℝ in (2)..(0), (3 : ℝ) = -6 := by
-      -- `norm_num` を試す．
-      sorry
-    ```
-
-9. `MeasurableSet.iUnion` の仮定を読み，可算性がどこで必要か確認してください．
-
-    ```lean4
-    #check MeasurableSet.iUnion
-    ```
-
-10. 優収束定理の statement を読み，どの仮定が「支配関数」に対応するか確認してください．
-
-    ```lean4
-    #check tendsto_integral_of_dominated_convergence
-    ```

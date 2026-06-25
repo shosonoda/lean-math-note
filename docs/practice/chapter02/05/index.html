@@ -917,8 +917,6 @@
       
         
       
-        
-      
     
     
     
@@ -976,8 +974,6 @@
       
         
           
-        
-      
         
       
         
@@ -1177,6 +1173,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    行列
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -1193,6 +1207,36 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        演習問題
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1270,34 +1314,6 @@
     
   
     まとめ
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../09/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    演習問題
   
 
     
@@ -1427,8 +1443,6 @@
       
         
       
-        
-      
     
     
     
@@ -1502,8 +1516,6 @@
       
         
       
-        
-      
     
     
     
@@ -1559,8 +1571,6 @@
       
         
           
-        
-      
         
       
         
@@ -1702,6 +1712,25 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        演習問題
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1750,6 +1779,19 @@
 <p>行列は成分を計算したいときに便利です．
 一方，抽象的な線形代数の証明では <code>LinearMap</code> を使う方が自然です．
 基底を固定すると，線形写像と行列を対応させることができます．</p>
+<h2 id="_2">演習問題<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<ol>
+<li>
+<p><code>Matrix (Fin 2) (Fin 2) K</code> の単位行列の行列式が 1 であることを，<code>simp</code> 以外の方法でも調べてください．</p>
+<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">Matrix</span><span class="bp">.</span><span class="n">det_one</span>
+</code></pre></div>
+</li>
+<li>
+<p>行列と線形写像の橋渡しとして <code>Matrix.toLin</code> の型を読み，どこで基底が必要になるか説明してください．</p>
+<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">Matrix</span><span class="bp">.</span><span class="n">toLin</span>
+</code></pre></div>
+</li>
+</ol>
 
 
 

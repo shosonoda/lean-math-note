@@ -83,6 +83,16 @@ example (s : Set Ω) : (ℙ : Measure Ω) s ≤ 1 := by
 end CanonicalMeasure
 ```
 
+### 演習問題
+
+確率測度では全体の測度が 1 であることを確認してください．
+
+```lean4
+example {Ω : Type*} [MeasurableSpace Ω] {P : Measure Ω} [IsProbabilityMeasure P] :
+    P univ = 1 := by
+  sorry
+```
+
 ---
 ## 事象と条件付き確率
 
@@ -115,6 +125,17 @@ example (ht : MeasurableSet t) : P[s | t] = (P t)⁻¹ * P (t ∩ s) := by
   rw [cond_apply ht]
 
 end Events
+```
+
+### 演習問題
+
+条件付き確率の定義を展開してください．
+
+```lean4
+example {Ω : Type*} [MeasurableSpace Ω] {P : Measure Ω}
+    {s t : Set Ω} (ht : MeasurableSet t) :
+    P[s | t] = (P t)⁻¹ * P (t ∩ s) := by
+  sorry
 ```
 
 ---
@@ -158,6 +179,16 @@ end RandomVariables
 `ℝ≥0∞` 値の非負関数を積分するときは，前章で見た Lebesgue 積分 `∫⁻` を使います．
 この点は紙の確率論では同じ「期待値」と呼ばれがちですが，Mathlib では型によって使う積分が分かれます．
 
+### 演習問題
+
+定数確率変数の期待値を計算してください．
+
+```lean4
+example {Ω : Type*} [MeasurableSpace Ω] {P : Measure Ω} [IsProbabilityMeasure P]
+    (c : ℝ) : ∫ _ : Ω, c ∂P = c := by
+  sorry
+```
+
 ---
 ## 離散確率と `PMF`
 
@@ -199,6 +230,24 @@ example (p : PMF Ω) : p.toMeasure univ = 1 := by
 end DiscreteProbability
 ```
 
+### 演習問題
+
+1. 離散可測空間では任意の集合が可測であることを確認してください．
+
+    ```lean4
+    example {Ω : Type*} [MeasurableSpace Ω] [DiscreteMeasurableSpace Ω]
+        (s : Set Ω) : MeasurableSet s := by
+      sorry
+    ```
+
+2. `PMF` から作った測度が確率測度であることを確認してください．
+
+    ```lean4
+    example {Ω : Type*} [MeasurableSpace Ω] (p : PMF Ω) :
+        IsProbabilityMeasure p.toMeasure := by
+      sorry
+    ```
+
 ---
 ## 独立性と同分布
 
@@ -227,6 +276,17 @@ example (h : IndepFun X Y P) : IndepFun Y X P := by
   exact h.symm
 
 end Independence
+```
+
+### 演習問題
+
+独立性の対称性を使ってください．
+
+```lean4
+example {Ω E F : Type*} [MeasurableSpace Ω] [MeasurableSpace E] [MeasurableSpace F]
+    {P : Measure Ω} {X : Ω → E} {Y : Ω → F}
+    (h : IndepFun X Y P) : IndepFun Y X P := by
+  sorry
 ```
 
 ---
@@ -274,6 +334,17 @@ example (a : α) : Kernel.deterministic f hf a = Measure.dirac (f a) := by
 end MarkovKernels
 ```
 
+### 演習問題
+
+deterministic kernel が Dirac 測度を返すことを確認してください．
+
+```lean4
+example {α β : Type*} [MeasurableSpace α] [MeasurableSpace β]
+    {f : α → β} (hf : Measurable f) (a : α) :
+    Kernel.deterministic f hf a = Measure.dirac (f a) := by
+  sorry
+```
+
 ---
 ## まとめ
 
@@ -284,65 +355,3 @@ Mathlib の確率論は，測度論の上に構築されています．
 離散確率では `PMF` が便利ですが，定理としては `Measure` と `DiscreteMeasurableSpace` の形で書く方が既存ライブラリと接続しやすいことがあります．
 条件付き確率や条件付き分布に進むと，Markov kernel が自然に現れます．
 確率論の Mathlib コードを読むときは，確率論固有の用語と測度論の語彙がどの型で対応しているかを確認してください．
-
----
-## 演習問題
-
-1. 確率測度では全体の測度が 1 であることを確認してください．
-
-    ```lean4
-    example {Ω : Type*} [MeasurableSpace Ω] {P : Measure Ω} [IsProbabilityMeasure P] :
-        P univ = 1 := by
-      sorry
-    ```
-
-2. 条件付き確率の定義を展開してください．
-
-    ```lean4
-    example {Ω : Type*} [MeasurableSpace Ω] {P : Measure Ω}
-        {s t : Set Ω} (ht : MeasurableSet t) :
-        P[s | t] = (P t)⁻¹ * P (t ∩ s) := by
-      sorry
-    ```
-
-3. 定数確率変数の期待値を計算してください．
-
-    ```lean4
-    example {Ω : Type*} [MeasurableSpace Ω] {P : Measure Ω} [IsProbabilityMeasure P]
-        (c : ℝ) : ∫ _ : Ω, c ∂P = c := by
-      sorry
-    ```
-
-4. 離散可測空間では任意の集合が可測であることを確認してください．
-
-    ```lean4
-    example {Ω : Type*} [MeasurableSpace Ω] [DiscreteMeasurableSpace Ω]
-        (s : Set Ω) : MeasurableSet s := by
-      sorry
-    ```
-
-5. `PMF` から作った測度が確率測度であることを確認してください．
-
-    ```lean4
-    example {Ω : Type*} [MeasurableSpace Ω] (p : PMF Ω) :
-        IsProbabilityMeasure p.toMeasure := by
-      sorry
-    ```
-
-6. 独立性の対称性を使ってください．
-
-    ```lean4
-    example {Ω E F : Type*} [MeasurableSpace Ω] [MeasurableSpace E] [MeasurableSpace F]
-        {P : Measure Ω} {X : Ω → E} {Y : Ω → F}
-        (h : IndepFun X Y P) : IndepFun Y X P := by
-      sorry
-    ```
-
-7. deterministic kernel が Dirac 測度を返すことを確認してください．
-
-    ```lean4
-    example {α β : Type*} [MeasurableSpace α] [MeasurableSpace β]
-        {f : α → β} (hf : Measurable f) (a : α) :
-        Kernel.deterministic f hf a = Measure.dirac (f a) := by
-      sorry
-    ```

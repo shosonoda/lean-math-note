@@ -723,7 +723,7 @@
   <span class="md-ellipsis">
     
   
-    `Set`: 型の上の集合
+    bundled structure，morphism，subobject
   
 
     
@@ -751,7 +751,7 @@
   <span class="md-ellipsis">
     
   
-    `Finset`: 有限集合
+    coercion と subtype
   
 
     
@@ -779,7 +779,7 @@
   <span class="md-ellipsis">
     
   
-    `Real`, `NNReal`, `EReal`, `ENNReal`: 実数系の型
+    `Set`: 型の上の集合
   
 
     
@@ -807,7 +807,7 @@
   <span class="md-ellipsis">
     
   
-    bundled structure，morphism，subobject
+    `Finset`: 有限集合
   
 
     
@@ -835,7 +835,7 @@
   <span class="md-ellipsis">
     
   
-    coercion と subtype
+    `Real`, `NNReal`, `EReal`, `ENNReal`: 実数系の型
   
 
     
@@ -1254,8 +1254,6 @@
       
         
       
-        
-      
     
     
     
@@ -1311,8 +1309,6 @@
       
         
           
-        
-      
         
       
         
@@ -1483,8 +1479,6 @@
       
         
       
-        
-      
     
     
     
@@ -1558,8 +1552,6 @@
       
         
       
-        
-      
     
     
     
@@ -1615,8 +1607,6 @@
       
         
           
-        
-      
         
       
         
@@ -1781,7 +1771,8 @@
 不等式 <code>a ≤ b</code> や <code>a &lt; b</code> は，両辺の型に入っている順序構造から作られる命題です．
 数値計算，線形不等式，多項式不等式，単調性，型変換を切り分けると，使う tactic や補題を選びやすくなります．</p>
 <p>Mathlib の証明は既存補題の組み合わせです．
-<code>#check</code>，<code>#synth</code>，命名規則，<code>simp</code>，<code>rw</code>，<code>ext</code>，<code>norm_num</code>，<code>linarith</code>，<code>nlinarith</code> を使いながら，ゴールに合う補題を探して適用します．</p>
+<code>#check</code>，<code>#synth</code>，命名規則，<code>simp</code>，<code>rw</code>，<code>ext</code>，<code>norm_num</code>，<code>linarith</code>，<code>nlinarith</code> を使いながら，ゴールに合う補題を探して適用します．
+大きな流れとしては，まず型クラスや bundled structure などの一般的な読み方を押さえ，その上で <code>Set</code>，<code>Finset</code>，実数，不等式の各対象に入ると，Mathlib の定理の形が見通しやすくなります．</p>
 
 
 

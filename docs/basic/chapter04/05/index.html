@@ -25,7 +25,7 @@
     
     
       
-        <title>`Real`, `NNReal`, `EReal`, `ENNReal`: 実数系の型 - 数学系エンドユーザーのためのLean入門</title>
+        <title>`Set`: 型の上の集合 - 数学系エンドユーザーのためのLean入門</title>
       
     
     
@@ -68,7 +68,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#real-nnreal-ereal-ennreal" class="md-skip">
+        <a href="#set" class="md-skip">
           コンテンツにスキップ
         </a>
       
@@ -104,7 +104,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              `Real`, `NNReal`, `EReal`, `ENNReal`: 実数系の型
+              `Set`: 型の上の集合
             
           </span>
         </div>
@@ -723,7 +723,7 @@
   <span class="md-ellipsis">
     
   
-    `Set`: 型の上の集合
+    bundled structure，morphism，subobject
   
 
     
@@ -751,7 +751,7 @@
   <span class="md-ellipsis">
     
   
-    `Finset`: 有限集合
+    coercion と subtype
   
 
     
@@ -788,7 +788,7 @@
   <span class="md-ellipsis">
     
   
-    `Real`, `NNReal`, `EReal`, `ENNReal`: 実数系の型
+    `Set`: 型の上の集合
   
 
     
@@ -806,7 +806,7 @@
   <span class="md-ellipsis">
     
   
-    `Real`, `NNReal`, `EReal`, `ENNReal`: 実数系の型
+    `Set`: 型の上の集合
   
 
     
@@ -832,32 +832,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#nnreal" class="md-nav__link">
+  <a href="#set-notation" class="md-nav__link">
     <span class="md-ellipsis">
       
-        NNReal: 非負実数
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#ennreal" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ENNReal: 拡張非負実数
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#ereal" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        EReal: 符号つき拡張実数
+        Set の notation の定義を読む
       
     </span>
   </a>
@@ -898,7 +876,7 @@
   <span class="md-ellipsis">
     
   
-    bundled structure，morphism，subobject
+    `Finset`: 有限集合
   
 
     
@@ -926,7 +904,7 @@
   <span class="md-ellipsis">
     
   
-    coercion と subtype
+    `Real`, `NNReal`, `EReal`, `ENNReal`: 実数系の型
   
 
     
@@ -1335,8 +1313,6 @@
       
         
       
-        
-      
     
     
     
@@ -1392,8 +1368,6 @@
       
         
           
-        
-      
         
       
         
@@ -1564,8 +1538,6 @@
       
         
       
-        
-      
     
     
     
@@ -1639,8 +1611,6 @@
       
         
       
-        
-      
     
     
     
@@ -1696,8 +1666,6 @@
       
         
           
-        
-      
         
       
         
@@ -1846,32 +1814,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#nnreal" class="md-nav__link">
+  <a href="#set-notation" class="md-nav__link">
     <span class="md-ellipsis">
       
-        NNReal: 非負実数
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#ennreal" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ENNReal: 拡張非負実数
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#ereal" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        EReal: 符号つき拡張実数
+        Set の notation の定義を読む
       
     </span>
   </a>
@@ -1906,199 +1852,120 @@
 
 
 
-<h1 id="real-nnreal-ereal-ennreal"><code>Real</code>, <code>NNReal</code>, <code>EReal</code>, <code>ENNReal</code>: 実数系の型<a class="headerlink" href="#real-nnreal-ereal-ennreal" title="Permanent link">&para;</a></h1>
-<p>数学では実数の構成として，Dedekind cut，Cauchy 列による完備化，完備順序体としての公理化など，いくつかの標準的な方法があります．
-Mathlib の <code>Real</code> は，実装上は有理数の Cauchy 列の同値類として構成されています．
-ただし，通常の形式化ではこの構成を直接展開することはほとんどありません．
-実用上は，<code>ℝ</code> が体，線形順序，位相空間，完備距離空間，条件付き完備線形順序などの構造を持つ型である，というインターフェースを使います．</p>
-<p>プログラミング言語の <code>Float</code> とも違います．
-Lean の <code>ℝ</code> は有限精度の浮動小数点数ではなく，証明対象としての数学的な実数です．
-丸め誤差を含む計算ではなく，定理として <code>a + b = b + a</code> や中間値の定理，完備性などを扱うための型です．</p>
-<p>Mathlib.Data 配下には，実数そのものに加えて，非負実数や拡張実数を表す型が用意されています．</p>
-<table>
-<thead>
-<tr>
-<th>型</th>
-<th>notation</th>
-<th>構成</th>
-<th>主な用途</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>Real</code></td>
-<td><code>ℝ</code></td>
-<td>有理数 Cauchy 列の同値類</td>
-<td>通常の実解析，代数，位相</td>
-</tr>
-<tr>
-<td><code>NNReal</code></td>
-<td><code>ℝ≥0</code></td>
-<td><code>{r : ℝ // 0 ≤ r}</code></td>
-<td>非負量，距離，ノルム，確率など</td>
-</tr>
-<tr>
-<td><code>ENNReal</code></td>
-<td><code>ℝ≥0∞</code></td>
-<td><code>WithTop ℝ≥0</code></td>
-<td>測度，拡張距離，<code>∞</code> を許す非負量</td>
-</tr>
-<tr>
-<td><code>EReal</code></td>
-<td>なし</td>
-<td><code>WithBot (WithTop ℝ)</code></td>
-<td><code>[-∞, ∞]</code> 型の拡張実数，limsup/liminf など</td>
-</tr>
-</tbody>
-</table>
-<p>名前だけ見ると似ていますが，これらは別々の型です．
-型が違うものを混ぜるときは，coercion や <code>toReal</code>，<code>ofReal</code>，<code>toNNReal</code> などの変換を確認します．
-特に，<code>toReal</code> や <code>ofReal</code> には情報を失うものがあります．</p>
-<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">Real</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">ℝ</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">NNReal</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">ℝ</span><span class="bp">≥</span><span class="mi">0</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">ENNReal</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">ℝ</span><span class="bp">≥</span><span class="mi">0</span><span class="bp">∞</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">EReal</span>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="bp">#</span><span class="n">synth</span><span class="w"> </span><span class="n">Field</span><span class="w"> </span><span class="n">ℝ</span>
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="bp">#</span><span class="n">synth</span><span class="w"> </span><span class="n">LinearOrder</span><span class="w"> </span><span class="n">ℝ</span>
-<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="bp">#</span><span class="n">synth</span><span class="w"> </span><span class="n">IsStrictOrderedRing</span><span class="w"> </span><span class="n">ℝ</span>
-<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="bp">#</span><span class="n">synth</span><span class="w"> </span><span class="n">Archimedean</span><span class="w"> </span><span class="n">ℝ</span>
-<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="bp">#</span><span class="n">synth</span><span class="w"> </span><span class="n">TopologicalSpace</span><span class="w"> </span><span class="n">ℝ</span>
-<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="bp">#</span><span class="n">synth</span><span class="w"> </span><span class="n">CompleteSpace</span><span class="w"> </span><span class="n">ℝ</span>
-<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="bp">#</span><span class="n">synth</span><span class="w"> </span><span class="n">ConditionallyCompleteLinearOrder</span><span class="w"> </span><span class="n">ℝ</span>
-<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>
-<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="bp">#</span><span class="n">synth</span><span class="w"> </span><span class="n">LinearOrderedCommGroupWithZero</span><span class="w"> </span><span class="n">ℝ</span><span class="bp">≥</span><span class="mi">0</span>
-<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="bp">#</span><span class="n">synth</span><span class="w"> </span><span class="n">ConditionallyCompleteLinearOrderBot</span><span class="w"> </span><span class="n">ℝ</span><span class="bp">≥</span><span class="mi">0</span>
-<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="bp">#</span><span class="n">synth</span><span class="w"> </span><span class="n">CompleteLinearOrder</span><span class="w"> </span><span class="n">ℝ</span><span class="bp">≥</span><span class="mi">0</span><span class="bp">∞</span>
-<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="bp">#</span><span class="n">synth</span><span class="w"> </span><span class="n">CompleteLinearOrder</span><span class="w"> </span><span class="n">EReal</span>
-<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>
-<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">Real</span><span class="bp">.</span><span class="n">equivCauchy</span>
-<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">Real</span><span class="bp">.</span><span class="n">sqrt</span>
-<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">Real</span><span class="bp">.</span><span class="n">sqrt_sq_eq_abs</span>
-<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>
-<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a><span class="kn">example</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="o">((</span><span class="mi">3</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="o">)</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a><span class="w">  </span><span class="n">norm_num</span>
-<a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a>
-<a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="bp">≤</span><span class="w"> </span><span class="bp">|</span><span class="n">x</span><span class="bp">|</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a><span class="w">  </span><span class="n">exact</span><span class="w"> </span><span class="n">abs_nonneg</span><span class="w"> </span><span class="n">x</span>
-<a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a>
-<a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Real</span><span class="bp">.</span><span class="n">sqrt</span><span class="w"> </span><span class="o">(</span><span class="n">x</span><span class="w"> </span><span class="bp">^</span><span class="w"> </span><span class="mi">2</span><span class="o">)</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="bp">|</span><span class="n">x</span><span class="bp">|</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a><span class="w">  </span><span class="n">simpa</span><span class="w"> </span><span class="kn">using</span><span class="w"> </span><span class="n">Real</span><span class="bp">.</span><span class="n">sqrt_sq_eq_abs</span><span class="w"> </span><span class="n">x</span>
+<h1 id="set"><code>Set</code>: 型の上の集合<a class="headerlink" href="#set" title="Permanent link">&para;</a></h1>
+<p>Lean は型理論を基礎にしているため，「集合」は型として定義されます．
+たとえば自然数全体は <code>Nat</code>，実数全体は <code>ℝ</code> という型です．
+<code>Set α</code> は「型 <code>α</code> の部分集合」の型を表します．
+定義は単純で，<code>Set α</code> は <code>α → Prop</code> として実装されています．</p>
+<div class="language-lean4 highlight"><span class="filename">Mathlib.Data.Set.Defs</span><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">def</span><span class="w"> </span><span class="n">Set</span><span class="w"> </span><span class="o">(</span><span class="n">α</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Type</span><span class="w"> </span><span class="n">u</span><span class="o">)</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">α</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="kt">Prop</span>
 </code></pre></div>
-<p><code>norm_num</code> は数値計算に強い tactic です．
-実数上の具体的な数値等式・不等式を閉じるときによく使います．
-<code>Real.sqrt</code> のような標準関数も <code>Real</code> 名前空間に置かれ，補題名も <code>Real.sqrt_sq_eq_abs</code> のように整理されています．</p>
-<h2 id="nnreal"><code>NNReal</code>: 非負実数<a class="headerlink" href="#nnreal" title="Permanent link">&para;</a></h2>
-<p><code>NNReal</code> は nonnegative real，つまり <span class="arithmatex">\([0, \infty)\)</span> に対応する型です．
-notation は <code>ℝ≥0</code> です．
-実装は <code>ℝ</code> の subtype で，</p>
-<div class="language-lean4 highlight"><span class="filename">Mathlib.Data.NNReal.Defs</span><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">def</span><span class="w"> </span><span class="n">NNReal</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="w"> </span><span class="bp">//</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="bp">≤</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">}</span>
+<p>つまり，<code>s : Set α</code> とは，各 <code>x : α</code> に対して「<code>x</code> が <code>s</code> に属する」という命題を返す述語です．
+所属 <code>x ∈ s</code> は，内部的には <code>s x</code> と同じ意味です．
+この意味で，Lean の <code>Set α</code> は固定された型 <code>α</code> 上の部分集合全体，つまり冪集合 <span class="arithmatex">\(\mathcal P(\alpha)\)</span> に対応します．
+ただし実際の証明では，<code>Set</code> が関数として実装されていることを直接展開するより，<code>{x | p x}</code> や <code>x ∈ s</code> や <code>s ⊆ t</code> のような集合のインターフェースを使うのが普通です．</p>
+<p>対応を大まかに書くと，次のようになります．</p>
+<ul>
+<li>全体集合・台集合 <span class="arithmatex">\(\alpha\)</span>: Lean では多くの場合 <code>α : Type*</code></li>
+<li>部分集合 <span class="arithmatex">\(s \subseteq \alpha\)</span>: Lean では <code>s : Set α</code></li>
+<li>冪集合 <span class="arithmatex">\(\mathcal P(\alpha)\)</span>: Lean では <code>Set α</code> という型</li>
+<li>条件 <span class="arithmatex">\(x \in s\)</span>: Lean では命題 <code>x ∈ s</code> または <code>s x</code></li>
+</ul>
+<h2 id="set-notation"><code>Set</code> の notation の定義を読む<a class="headerlink" href="#set-notation" title="Permanent link">&para;</a></h2>
+<p><code>Set</code> の記法は，主に次の定義に対応します．
+<code>x ∈ s</code> は <code>Set.Mem s x</code>，つまり <code>s x</code> です．
+<code>{x | p x}</code> は述語 <code>p</code> から集合を作る <code>setOf</code> の記法です．
+<code>s ⊆ t</code> は，<code>s</code> の任意の元が <code>t</code> にも入るという命題です．</p>
+<div class="language-lean4 highlight"><span class="filename">.lake/packages/mathlib/Mathlib/Data/Set/Defs.lean</span><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">def</span><span class="w"> </span><span class="n">Set</span><span class="w"> </span><span class="o">(</span><span class="n">α</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Type</span><span class="w"> </span><span class="n">u</span><span class="o">)</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">α</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="kt">Prop</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="kn">def</span><span class="w"> </span><span class="n">setOf</span><span class="w"> </span><span class="o">{</span><span class="n">α</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Type</span><span class="w"> </span><span class="n">u</span><span class="o">}</span><span class="w"> </span><span class="o">(</span><span class="n">p</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">α</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="kt">Prop</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Set</span><span class="w"> </span><span class="n">α</span><span class="w"> </span><span class="o">:=</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">  </span><span class="n">p</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="kn">namespace</span><span class="w"> </span><span class="n">Set</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="kn">protected</span><span class="w"> </span><span class="kn">def</span><span class="w"> </span><span class="n">Mem</span><span class="w"> </span><span class="o">(</span><span class="n">s</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Set</span><span class="w"> </span><span class="n">α</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">a</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">α</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Prop</span><span class="w"> </span><span class="o">:=</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">  </span><span class="n">s</span><span class="w"> </span><span class="n">a</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="kn">instance</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Membership</span><span class="w"> </span><span class="n">α</span><span class="w"> </span><span class="o">(</span><span class="n">Set</span><span class="w"> </span><span class="n">α</span><span class="o">)</span><span class="w"> </span><span class="o">:=</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">  </span><span class="bp">⟨</span><span class="n">Set</span><span class="bp">.</span><span class="n">Mem</span><span class="bp">⟩</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="kn">protected</span><span class="w"> </span><span class="kn">def</span><span class="w"> </span><span class="n">Subset</span><span class="w"> </span><span class="o">(</span><span class="n">s₁</span><span class="w"> </span><span class="n">s₂</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Set</span><span class="w"> </span><span class="n">α</span><span class="o">)</span><span class="w"> </span><span class="o">:=</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="w">  </span><span class="bp">∀</span><span class="w"> </span><span class="o">⦃</span><span class="n">a</span><span class="o">⦄,</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="bp">∈</span><span class="w"> </span><span class="n">s₁</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="bp">∈</span><span class="w"> </span><span class="n">s₂</span>
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="kn">instance</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">LE</span><span class="w"> </span><span class="o">(</span><span class="n">Set</span><span class="w"> </span><span class="n">α</span><span class="o">)</span><span class="w"> </span><span class="o">:=</span>
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="w">  </span><span class="bp">⟨</span><span class="n">Set</span><span class="bp">.</span><span class="n">Subset</span><span class="bp">⟩</span>
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a><span class="kn">instance</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">HasSubset</span><span class="w"> </span><span class="o">(</span><span class="n">Set</span><span class="w"> </span><span class="n">α</span><span class="o">)</span><span class="w"> </span><span class="o">:=</span>
+<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a><span class="w">  </span><span class="bp">⟨</span><span class="o">(</span><span class="bp">·</span><span class="w"> </span><span class="bp">≤</span><span class="w"> </span><span class="bp">·</span><span class="o">)</span><span class="bp">⟩</span>
 </code></pre></div>
-<p>です．
-要素は実数 <code>r</code> と証明 <code>0 ≤ r</code> の組ですが，通常は coercion により実数としても使えます．
-<code>NNReal.mk x hx</code> は，非負性の証明 <code>hx : 0 ≤ x</code> から <code>x : ℝ≥0</code> を作るコンストラクタです．
-一方，<code>Real.toNNReal x</code> は任意の実数を非負実数に送りますが，負の値は <code>0</code> に潰します．
-したがってこれは単なる型変換ではありません．</p>
-<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">NNReal</span><span class="bp">.</span><span class="n">mk</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">NNReal</span><span class="bp">.</span><span class="n">toReal</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">Real</span><span class="bp">.</span><span class="n">toNNReal</span>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">Real</span><span class="bp">.</span><span class="n">coe_toNNReal</span>
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">Real</span><span class="bp">.</span><span class="n">toNNReal_of_nonpos</span>
+<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">Set</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">Set</span><span class="bp">.</span><span class="n">powerset</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">Set</span><span class="bp">.</span><span class="n">ext</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">Set</span><span class="bp">.</span><span class="n">mem_setOf</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">Set</span><span class="bp">.</span><span class="n">setOf_bijective</span>
 <a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="bp">≥</span><span class="mi">0</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="o">(</span><span class="mi">0</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="o">)</span><span class="w"> </span><span class="bp">≤</span><span class="w"> </span><span class="o">(</span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="o">)</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">  </span><span class="n">exact</span><span class="w"> </span><span class="n">x</span><span class="bp">.</span><span class="n">property</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="kn">def</span><span class="w"> </span><span class="n">ltThreeSet</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Set</span><span class="w"> </span><span class="n">Nat</span><span class="w"> </span><span class="o">:=</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">  </span><span class="o">{</span><span class="n">n</span><span class="w"> </span><span class="bp">|</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="bp">&lt;</span><span class="w"> </span><span class="mi">3</span><span class="o">}</span>
 <a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>
-<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">hx</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="bp">≤</span><span class="w"> </span><span class="n">x</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="o">((</span><span class="n">Real</span><span class="bp">.</span><span class="n">toNNReal</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="bp">≥</span><span class="mi">0</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="o">)</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">  </span><span class="n">exact</span><span class="w"> </span><span class="n">Real</span><span class="bp">.</span><span class="n">coe_toNNReal</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="n">hx</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">n</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="bp">∈</span><span class="w"> </span><span class="n">ltThreeSet</span><span class="w"> </span><span class="bp">↔</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="bp">&lt;</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">  </span><span class="n">rfl</span>
 <a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>
-<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="kn">example</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="o">((</span><span class="n">Real</span><span class="bp">.</span><span class="n">toNNReal</span><span class="w"> </span><span class="o">(</span><span class="bp">-</span><span class="mi">3</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="bp">≥</span><span class="mi">0</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="o">)</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="w">  </span><span class="n">norm_num</span><span class="w"> </span><span class="o">[</span><span class="n">Real</span><span class="bp">.</span><span class="n">toNNReal</span><span class="o">]</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="kn">example</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="bp">∈</span><span class="w"> </span><span class="n">ltThreeSet</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="w">  </span><span class="n">norm_num</span><span class="w"> </span><span class="o">[</span><span class="n">ltThreeSet</span><span class="o">]</span>
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="kn">example</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="bp">∉</span><span class="w"> </span><span class="n">ltThreeSet</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="w">  </span><span class="n">norm_num</span><span class="w"> </span><span class="o">[</span><span class="n">ltThreeSet</span><span class="o">]</span>
+<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>
+<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">s</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Set</span><span class="w"> </span><span class="n">Nat</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="bp">∈</span><span class="w"> </span><span class="n">Set</span><span class="bp">.</span><span class="n">powerset</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="bp">↔</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="bp">⊆</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a><span class="w">  </span><span class="n">exact</span><span class="w"> </span><span class="n">Set</span><span class="bp">.</span><span class="n">mem_powerset_iff</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="n">s</span>
 </code></pre></div>
-<p><code>ℝ≥0</code> は非負性を型に持たせたいときに便利です．
-たとえば距離，ノルム，確率，非負関数などは，値が常に非負であることを命題として毎回仮定するより，値域を <code>ℝ≥0</code> にすると扱いやすくなります．
-ただし，<code>ℝ≥0</code> は体ではありません．
-負数を持たないので，通常の <code>ℝ</code> と同じ引き算・反数の感覚で使うと詰まります．</p>
-<h2 id="ennreal"><code>ENNReal</code>: 拡張非負実数<a class="headerlink" href="#ennreal" title="Permanent link">&para;</a></h2>
-<p><code>ENNReal</code> は extended nonnegative real，つまり <span class="arithmatex">\([0, \infty]\)</span> に対応する型です．
-notation は <code>ℝ≥0∞</code> で，実装は <code>WithTop ℝ≥0</code> です．
-これは <code>ℝ≥0</code> に新しい最大元 <code>∞</code> を付け加えた型です．</p>
-<p>測度論では，測度や非負関数の積分値が <code>∞</code> になりうるため，<code>ENNReal</code> がよく現れます．
-また，拡張距離 <code>edist</code> の値域としても使われます．
-<code>ENNReal</code> には <code>∞</code> があるため，<code>toReal</code> は <code>∞</code> を <code>0</code> に送ります．
-また，<code>ENNReal.ofReal</code> は負の実数を <code>0</code> に送ります．
-したがって，<code>toReal</code> と <code>ofReal</code> は情報を失う変換です．</p>
-<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">ENNReal</span><span class="bp">.</span><span class="n">ofReal</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">ENNReal</span><span class="bp">.</span><span class="n">toReal</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">ENNReal</span><span class="bp">.</span><span class="n">toNNReal</span>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">ENNReal</span><span class="bp">.</span><span class="n">ofReal_ne_top</span>
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">ENNReal</span><span class="bp">.</span><span class="n">toReal_ofReal</span>
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>
-<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="kn">example</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="o">(</span><span class="mi">0</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="bp">≥</span><span class="mi">0</span><span class="bp">∞</span><span class="o">)</span><span class="w"> </span><span class="bp">≤</span><span class="w"> </span><span class="bp">∞</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">  </span><span class="n">simp</span>
-<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>
-<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="kn">example</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="o">(</span><span class="bp">∞</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="bp">≥</span><span class="mi">0</span><span class="bp">∞</span><span class="o">)</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="bp">∞</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="w">  </span><span class="n">simp</span>
-<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>
-<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="kn">example</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="o">(</span><span class="mi">1</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="bp">≥</span><span class="mi">0</span><span class="bp">∞</span><span class="o">)</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="w">  </span><span class="n">norm_num</span>
-<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>
-<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="kn">example</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ENNReal</span><span class="bp">.</span><span class="n">ofReal</span><span class="w"> </span><span class="o">(</span><span class="bp">-</span><span class="mi">3</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="o">)</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="w">  </span><span class="n">norm_num</span><span class="w"> </span><span class="o">[</span><span class="n">ENNReal</span><span class="bp">.</span><span class="n">ofReal</span><span class="o">,</span><span class="w"> </span><span class="n">Real</span><span class="bp">.</span><span class="n">toNNReal</span><span class="o">]</span>
-<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a>
-<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">hx</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="bp">≤</span><span class="w"> </span><span class="n">x</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="o">(</span><span class="n">ENNReal</span><span class="bp">.</span><span class="n">ofReal</span><span class="w"> </span><span class="n">x</span><span class="o">)</span><span class="bp">.</span><span class="n">toReal</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a><span class="w">  </span><span class="n">exact</span><span class="w"> </span><span class="n">ENNReal</span><span class="bp">.</span><span class="n">toReal_ofReal</span><span class="w"> </span><span class="n">hx</span>
-<a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a>
-<a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a><span class="kn">example</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="o">(</span><span class="bp">∞</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="bp">≥</span><span class="mi">0</span><span class="bp">∞</span><span class="o">)</span><span class="bp">.</span><span class="n">toReal</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a><span class="w">  </span><span class="n">rfl</span>
+<p>集合の等式は，通常，外延性で証明します．
+数学で「任意の <code>x</code> について <code>x ∈ A</code> と <code>x ∈ B</code> が同値だから <code>A = B</code>」と言う議論に対応するのが <code>Set.ext</code> や tactic の <code>ext</code> です．</p>
+<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">A</span><span class="w"> </span><span class="n">B</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Set</span><span class="w"> </span><span class="n">Nat</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="bp">∩</span><span class="w"> </span><span class="n">B</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">B</span><span class="w"> </span><span class="bp">∩</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="n">ext</span><span class="w"> </span><span class="n">x</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">  </span><span class="n">simp</span><span class="w"> </span><span class="o">[</span><span class="n">and_comm</span><span class="o">]</span>
 </code></pre></div>
-<p><code>ENNReal.ofReal x</code> は常に有限な <code>ℝ≥0∞</code> です．
-そのため <code>ENNReal.ofReal_ne_top</code> のような補題があります．
-一方で，<code>∞</code> から <code>ℝ</code> に戻すと <code>0</code> になるので，<code>toReal</code> を使うときは有限性の仮定 <code>a ≠ ∞</code> が必要になることが多いです．</p>
-<h2 id="ereal"><code>EReal</code>: 符号つき拡張実数<a class="headerlink" href="#ereal" title="Permanent link">&para;</a></h2>
-<p><code>EReal</code> は extended real，つまり <span class="arithmatex">\([-\infty, \infty]\)</span> に対応する型です．
-実装は <code>WithBot (WithTop ℝ)</code> で，<code>ℝ</code> に上端 <code>⊤</code> と下端 <code>⊥</code> を追加したものです．
-<code>ENNReal</code> が非負側だけを拡張するのに対し，<code>EReal</code> は正負両方向に無限大を持ちます．</p>
-<p><code>EReal</code> は完備線形順序として扱えるため，順序論的な上限・下限や limsup/liminf のように，正負の無限大が自然に出る場面で使います．
-ただし，代数演算には通常の実数とは違う注意点があります．
-たとえば <code>EReal.toReal</code> も <code>⊤</code> と <code>⊥</code> を <code>0</code> に送ります．</p>
-<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">EReal</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">EReal</span><span class="bp">.</span><span class="n">toReal</span>
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">EReal</span><span class="bp">.</span><span class="n">toReal_top</span>
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">EReal</span><span class="bp">.</span><span class="n">toReal_bot</span>
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">EReal</span><span class="bp">.</span><span class="n">toReal_coe</span>
-<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>
-<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="kn">example</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">EReal</span><span class="bp">.</span><span class="n">toReal</span><span class="w"> </span><span class="o">(</span><span class="bp">⊤</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">EReal</span><span class="o">)</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">  </span><span class="n">exact</span><span class="w"> </span><span class="n">EReal</span><span class="bp">.</span><span class="n">toReal_top</span>
-<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>
-<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="kn">example</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">EReal</span><span class="bp">.</span><span class="n">toReal</span><span class="w"> </span><span class="o">(</span><span class="bp">⊥</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">EReal</span><span class="o">)</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="w">  </span><span class="n">exact</span><span class="w"> </span><span class="n">EReal</span><span class="bp">.</span><span class="n">toReal_bot</span>
-<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>
-<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">EReal</span><span class="bp">.</span><span class="n">toReal</span><span class="w"> </span><span class="o">(</span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">EReal</span><span class="o">)</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="w">  </span><span class="n">exact</span><span class="w"> </span><span class="n">EReal</span><span class="bp">.</span><span class="n">toReal_coe</span><span class="w"> </span><span class="n">x</span>
+<p><code>Set α</code> と似て見えるものに <code>Subtype</code> があります．
+<code>s : Set α</code> は <code>α</code> 上の述語であり，それ自体は <code>Set α</code> 型の項です．
+一方，<code>{x : α // x ∈ s}</code> は，<code>s</code> に属する元だけを集めた新しい型です．
+要素は値 <code>x : α</code> と証明 <code>x ∈ s</code> の組です．</p>
+<p>Mathlib では <code>s : Set α</code> を型として使うと，この subtype へ coercion されます．
+たとえば <code>x : ltThreeSubtype</code> は「<code>ltThreeSet</code> の元」としてのデータであり，<code>(x : Nat)</code> に戻すと元の自然数が得られます．</p>
+<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">abbrev</span><span class="w"> </span><span class="n">ltThreeSubtype</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Type</span><span class="w"> </span><span class="o">:=</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span><span class="o">{</span><span class="n">n</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="w"> </span><span class="bp">//</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="bp">∈</span><span class="w"> </span><span class="n">ltThreeSet</span><span class="o">}</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">Subtype</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">Set</span><span class="bp">.</span><span class="n">coe_eq_subtype</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">Subtype</span><span class="bp">.</span><span class="n">mem</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="kn">example</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="o">(</span><span class="bp">⟨</span><span class="mi">2</span><span class="o">,</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">norm_num</span><span class="w"> </span><span class="o">[</span><span class="n">ltThreeSet</span><span class="o">]</span><span class="bp">⟩</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ltThreeSubtype</span><span class="o">)</span><span class="bp">.</span><span class="m">1</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">  </span><span class="n">rfl</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ltThreeSubtype</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="o">(</span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="o">)</span><span class="w"> </span><span class="bp">∈</span><span class="w"> </span><span class="n">ltThreeSet</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="w">  </span><span class="n">exact</span><span class="w"> </span><span class="n">x</span><span class="bp">.</span><span class="n">property</span>
 </code></pre></div>
-<p>まとめると，通常の実解析ではまず <code>ℝ</code> を使います．
-値が非負であることを型に持たせたいなら <code>ℝ≥0</code>，非負で <code>∞</code> も許したいなら <code>ℝ≥0∞</code>，正負両方の無限大を許したいなら <code>EReal</code> を使います．
-変換関数の名前を見たら，それが埋め込みなのか，負の値や無限大を <code>0</code> に潰す写像なのかを確認するのが重要です．</p>
 <h2 id="_1">演習<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<p><code>Real</code>，<code>NNReal</code>，<code>ENNReal</code>，<code>EReal</code> の型と変換を確認してください．</p>
-<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">Real</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">NNReal</span>
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">ENNReal</span>
-<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">EReal</span>
-<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="bp">#</span><span class="n">synth</span><span class="w"> </span><span class="n">TopologicalSpace</span><span class="w"> </span><span class="n">ℝ</span>
-<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="bp">#</span><span class="n">synth</span><span class="w"> </span><span class="n">ConditionallyCompleteLinearOrder</span><span class="w"> </span><span class="n">ℝ</span>
-<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="bp">#</span><span class="n">synth</span><span class="w"> </span><span class="n">CompleteLinearOrder</span><span class="w"> </span><span class="n">ℝ</span><span class="bp">≥</span><span class="mi">0</span><span class="bp">∞</span>
-<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="bp">#</span><span class="n">synth</span><span class="w"> </span><span class="n">CompleteLinearOrder</span><span class="w"> </span><span class="n">EReal</span>
-<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>
-<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">hx</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="bp">≤</span><span class="w"> </span><span class="n">x</span><span class="o">)</span><span class="w"> </span><span class="o">:</span>
-<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="w">    </span><span class="o">((</span><span class="n">Real</span><span class="bp">.</span><span class="n">toNNReal</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="bp">≥</span><span class="mi">0</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="o">)</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="w">  </span><span class="gr">sorry</span>
-<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>
-<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="kn">example</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ENNReal</span><span class="bp">.</span><span class="n">ofReal</span><span class="w"> </span><span class="o">(</span><span class="bp">-</span><span class="mi">3</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="o">)</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="w">  </span><span class="gr">sorry</span>
+<p><code>Set</code> が部分集合として振る舞うことを，membership と外延性で確認してください．</p>
+<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">n</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="bp">∈</span><span class="w"> </span><span class="n">ltThreeSet</span><span class="w"> </span><span class="bp">↔</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="bp">&lt;</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">  </span><span class="c1">-- 解答例:</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">  </span><span class="c1">--   rfl</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">  </span><span class="gr">sorry</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">s</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Set</span><span class="w"> </span><span class="n">Nat</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="bp">∈</span><span class="w"> </span><span class="n">Set</span><span class="bp">.</span><span class="n">powerset</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="bp">↔</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="bp">⊆</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="w">  </span><span class="c1">-- 解答例:</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="w">  </span><span class="c1">--   exact Set.mem_powerset_iff t s</span>
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="w">  </span><span class="gr">sorry</span>
+</code></pre></div>
+<p><code>Set.ext</code> を使って集合の等式を証明してください．</p>
+<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kn">example</span><span class="w"> </span><span class="o">{</span><span class="n">α</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Type</span><span class="o">}</span><span class="w"> </span><span class="o">(</span><span class="n">s</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Set</span><span class="w"> </span><span class="n">α</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="bp">∩</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="bp">∩</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">  </span><span class="c1">-- `ext x`, `constructor`, `intro h` で進める．</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">  </span><span class="c1">-- 解答例:</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">  </span><span class="c1">--   ext x</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">  </span><span class="c1">--   constructor</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">  </span><span class="c1">--   · intro h</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="w">  </span><span class="c1">--     exact ⟨h.2, h.1⟩</span>
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="w">  </span><span class="c1">--   · intro h</span>
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="w">  </span><span class="c1">--     exact ⟨h.2, h.1⟩</span>
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="w">  </span><span class="gr">sorry</span>
 </code></pre></div>
 
 
@@ -2135,7 +2002,7 @@ notation は <code>ℝ≥0∞</code> で，実装は <code>WithTop ℝ≥0</code
       <nav class="md-footer__inner md-grid" aria-label="フッター" >
         
           
-          <a href="../04/" class="md-footer__link md-footer__link--prev" aria-label="前: `Finset`: 有限集合">
+          <a href="../04/" class="md-footer__link md-footer__link--prev" aria-label="前: coercion と subtype">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -2145,20 +2012,20 @@ notation は <code>ℝ≥0∞</code> で，実装は <code>WithTop ℝ≥0</code
                 前
               </span>
               <div class="md-ellipsis">
-                `Finset`: 有限集合
+                coercion と subtype
               </div>
             </div>
           </a>
         
         
           
-          <a href="../06/" class="md-footer__link md-footer__link--next" aria-label="次: bundled structure，morphism，subobject">
+          <a href="../06/" class="md-footer__link md-footer__link--next" aria-label="次: `Finset`: 有限集合">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 次
               </span>
               <div class="md-ellipsis">
-                bundled structure，morphism，subobject
+                `Finset`: 有限集合
               </div>
             </div>
             <div class="md-footer__button md-icon">
