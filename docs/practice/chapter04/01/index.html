@@ -1213,6 +1213,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mathlib における微分の形式化
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -1229,6 +1247,36 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#hasderivat-differentiableat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        HasDerivAt と DifferentiableAt の定義を読む
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1692,6 +1740,25 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#hasderivat-differentiableat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        HasDerivAt と DifferentiableAt の定義を読む
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1709,14 +1776,12 @@
 
 <h1 id="mathlib">Mathlib における微分の形式化<a class="headerlink" href="#mathlib" title="Permanent link">&para;</a></h1>
 <p>Mathlib の微分は，1 変数実関数の極限</p>
-<div class="language-text highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>(f x&#39; - f x) / (x&#39; - x)
-</code></pre></div>
+<div class="arithmatex">\[\lim_{x' \to x} \frac{f(x') - f(x)}{x' - x}\]</div>
 <p>から直接始めるのではなく，ノルム空間上の <strong>Fréchet 微分</strong>を中心に実装されています．
 基礎になる型は，ノルム体 <code>𝕜</code> 上のノルム空間 <code>E</code>，<code>F</code> と，関数 <code>f : E → F</code> です．
 点 <code>x : E</code> における微分は数ではなく，連続線形写像 <code>f' : E →L[𝕜] F</code> として表されます．</p>
 <p>数学的には，<code>HasFDerivAt f f' x</code> は</p>
-<div class="language-text highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>f x&#39; = f x + f&#39; (x&#39; - x) + o(x&#39; - x)    as x&#39; → x
-</code></pre></div>
+<div class="arithmatex">\[f (x') = f (x) + f' (x' - x) + o(x' - x) \quad \text{as } x' \to x\]</div>
 <p>という一次近似を表します．
 Lean ではこの <code>o</code> はフィルター <code>𝓝 x</code> に沿った漸近記法として表されます．
 Mathlib の定義ファイルでは，さらに一般に <code>HasFDerivAtFilter</code> が用意されており，
@@ -1730,46 +1795,76 @@ Mathlib の定義ファイルでは，さらに一般に <code>HasFDerivAtFilter
 関数 <code>f : 𝕜 → F</code> の微分係数 <code>f' : F</code> を，<code>h ↦ h • f'</code> という連続線形写像に対応させて <code>HasFDerivAt</code> に戻しています．
 特に <code>f : ℝ → ℝ</code> なら，いつもの微分係数は実数として現れます．
 <code>deriv f x</code> は <code>fderiv 𝕜 f x</code> を方向 <code>1</code> に評価したものです．</p>
-<p>Mathematics in Lean Chapter 12 もこの構成に沿っており，前半では <code>HasDerivAt</code>，<code>deriv</code>，Rolle の定理や平均値の定理を扱い，
+<p>前半では <code>HasDerivAt</code>，<code>deriv</code>，Rolle の定理や平均値の定理を扱い，
 後半ではノルム空間，連続線形写像 <code>E →L[𝕜] F</code>，漸近記法 <code>=O</code>・<code>=o</code>，<code>HasFDerivAt</code>，<code>ContDiff</code>，逆関数定理へ進みます．</p>
-<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">HasFDerivAtFilter</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">HasFDerivAt</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">HasDerivAtFilter</span>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">HasDerivAt</span>
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">fderiv</span>
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">deriv</span>
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>
-<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="kn">section</span><span class="w"> </span><span class="n">DifferentialDefinitions</span>
-<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>
-<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="kn">open</span><span class="w"> </span><span class="n">Asymptotics</span>
-<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>
-<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="kn">variable</span><span class="w"> </span><span class="o">{</span><span class="n">𝕜</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Type</span><span class="bp">*</span><span class="o">}</span><span class="w"> </span><span class="o">[</span><span class="n">NontriviallyNormedField</span><span class="w"> </span><span class="n">𝕜</span><span class="o">]</span>
-<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="kn">variable</span><span class="w"> </span><span class="o">{</span><span class="n">E</span><span class="w"> </span><span class="n">F</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Type</span><span class="bp">*</span><span class="o">}</span>
-<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="kn">variable</span><span class="w"> </span><span class="o">[</span><span class="n">NormedAddCommGroup</span><span class="w"> </span><span class="n">E</span><span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="n">NormedSpace</span><span class="w"> </span><span class="n">𝕜</span><span class="w"> </span><span class="n">E</span><span class="o">]</span>
-<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="kn">variable</span><span class="w"> </span><span class="o">[</span><span class="n">NormedAddCommGroup</span><span class="w"> </span><span class="n">F</span><span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="n">NormedSpace</span><span class="w"> </span><span class="n">𝕜</span><span class="w"> </span><span class="n">F</span><span class="o">]</span>
-<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>
-<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="kn">example</span><span class="w"> </span><span class="o">{</span><span class="n">f</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">E</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">F</span><span class="o">}</span><span class="w"> </span><span class="o">{</span><span class="n">f&#39;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">E</span><span class="w"> </span><span class="bp">→</span><span class="n">L</span><span class="o">[</span><span class="n">𝕜</span><span class="o">]</span><span class="w"> </span><span class="n">F</span><span class="o">}</span><span class="w"> </span><span class="o">{</span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">E</span><span class="o">}</span><span class="w"> </span><span class="o">:</span>
-<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a><span class="w">    </span><span class="n">HasFDerivAt</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">f&#39;</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="bp">↔</span>
-<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a><span class="w">      </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="n">x&#39;</span><span class="w"> </span><span class="bp">=&gt;</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">x&#39;</span><span class="w"> </span><span class="bp">-</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="bp">-</span><span class="w"> </span><span class="n">f&#39;</span><span class="w"> </span><span class="o">(</span><span class="n">x&#39;</span><span class="w"> </span><span class="bp">-</span><span class="w"> </span><span class="n">x</span><span class="o">))</span><span class="w"> </span><span class="bp">=</span><span class="n">o</span><span class="o">[</span><span class="n">𝓝</span><span class="w"> </span><span class="n">x</span><span class="o">]</span><span class="w"> </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="n">x&#39;</span><span class="w"> </span><span class="bp">=&gt;</span><span class="w"> </span><span class="n">x&#39;</span><span class="w"> </span><span class="bp">-</span><span class="w"> </span><span class="n">x</span><span class="o">)</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a><span class="w">  </span><span class="n">exact</span><span class="w"> </span><span class="n">hasFDerivAt_iff_isLittleO</span>
-<a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a>
-<a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a><span class="kn">example</span><span class="w"> </span><span class="o">{</span><span class="n">f</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">E</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">F</span><span class="o">}</span><span class="w"> </span><span class="o">{</span><span class="n">f&#39;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">E</span><span class="w"> </span><span class="bp">→</span><span class="n">L</span><span class="o">[</span><span class="n">𝕜</span><span class="o">]</span><span class="w"> </span><span class="n">F</span><span class="o">}</span><span class="w"> </span><span class="o">{</span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">E</span><span class="o">}</span><span class="w"> </span><span class="o">:</span>
-<a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a><span class="w">    </span><span class="n">HasFDerivAt</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">f&#39;</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="bp">↔</span>
-<a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a><span class="w">      </span><span class="n">Filter</span><span class="bp">.</span><span class="n">Tendsto</span>
-<a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a><span class="w">        </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="n">x&#39;</span><span class="w"> </span><span class="bp">=&gt;</span><span class="w"> </span><span class="bp">‖</span><span class="n">x&#39;</span><span class="w"> </span><span class="bp">-</span><span class="w"> </span><span class="n">x</span><span class="bp">‖⁻¹</span><span class="w"> </span><span class="bp">*</span><span class="w"> </span><span class="bp">‖</span><span class="n">f</span><span class="w"> </span><span class="n">x&#39;</span><span class="w"> </span><span class="bp">-</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="bp">-</span><span class="w"> </span><span class="n">f&#39;</span><span class="w"> </span><span class="o">(</span><span class="n">x&#39;</span><span class="w"> </span><span class="bp">-</span><span class="w"> </span><span class="n">x</span><span class="o">)</span><span class="bp">‖</span><span class="o">)</span>
-<a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a><span class="w">        </span><span class="o">(</span><span class="n">𝓝</span><span class="w"> </span><span class="n">x</span><span class="o">)</span>
-<a id="__codelineno-2-27" name="__codelineno-2-27" href="#__codelineno-2-27"></a><span class="w">        </span><span class="o">(</span><span class="n">𝓝</span><span class="w"> </span><span class="mi">0</span><span class="o">)</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-2-28" name="__codelineno-2-28" href="#__codelineno-2-28"></a><span class="w">  </span><span class="n">exact</span><span class="w"> </span><span class="n">hasFDerivAt_iff_tendsto</span>
-<a id="__codelineno-2-29" name="__codelineno-2-29" href="#__codelineno-2-29"></a>
-<a id="__codelineno-2-30" name="__codelineno-2-30" href="#__codelineno-2-30"></a><span class="kn">example</span><span class="w"> </span><span class="o">{</span><span class="n">f</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">𝕜</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">F</span><span class="o">}</span><span class="w"> </span><span class="o">{</span><span class="n">f&#39;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">F</span><span class="o">}</span><span class="w"> </span><span class="o">{</span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">𝕜</span><span class="o">}</span><span class="w"> </span><span class="o">:</span>
-<a id="__codelineno-2-31" name="__codelineno-2-31" href="#__codelineno-2-31"></a><span class="w">    </span><span class="n">HasDerivAt</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">f&#39;</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="bp">↔</span>
-<a id="__codelineno-2-32" name="__codelineno-2-32" href="#__codelineno-2-32"></a><span class="w">      </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="n">x&#39;</span><span class="w"> </span><span class="bp">=&gt;</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">x&#39;</span><span class="w"> </span><span class="bp">-</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="bp">-</span><span class="w"> </span><span class="o">(</span><span class="n">x&#39;</span><span class="w"> </span><span class="bp">-</span><span class="w"> </span><span class="n">x</span><span class="o">)</span><span class="w"> </span><span class="bp">•</span><span class="w"> </span><span class="n">f&#39;</span><span class="o">)</span><span class="w"> </span><span class="bp">=</span><span class="n">o</span><span class="o">[</span><span class="n">𝓝</span><span class="w"> </span><span class="n">x</span><span class="o">]</span><span class="w"> </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="n">x&#39;</span><span class="w"> </span><span class="bp">=&gt;</span><span class="w"> </span><span class="n">x&#39;</span><span class="w"> </span><span class="bp">-</span><span class="w"> </span><span class="n">x</span><span class="o">)</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-2-33" name="__codelineno-2-33" href="#__codelineno-2-33"></a><span class="w">  </span><span class="n">exact</span><span class="w"> </span><span class="n">hasDerivAt_iff_isLittleO</span>
-<a id="__codelineno-2-34" name="__codelineno-2-34" href="#__codelineno-2-34"></a>
-<a id="__codelineno-2-35" name="__codelineno-2-35" href="#__codelineno-2-35"></a><span class="kn">example</span><span class="w"> </span><span class="o">{</span><span class="n">f</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">𝕜</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">F</span><span class="o">}</span><span class="w"> </span><span class="o">{</span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">𝕜</span><span class="o">}</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">deriv</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="o">(</span><span class="n">fderiv</span><span class="w"> </span><span class="n">𝕜</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">x</span><span class="o">)</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-2-36" name="__codelineno-2-36" href="#__codelineno-2-36"></a><span class="w">  </span><span class="n">rfl</span>
-<a id="__codelineno-2-37" name="__codelineno-2-37" href="#__codelineno-2-37"></a>
-<a id="__codelineno-2-38" name="__codelineno-2-38" href="#__codelineno-2-38"></a><span class="kn">end</span><span class="w"> </span><span class="n">DifferentialDefinitions</span>
+<h2 id="hasderivat-differentiableat"><code>HasDerivAt</code> と <code>DifferentiableAt</code> の定義を読む<a class="headerlink" href="#hasderivat-differentiableat" title="Permanent link">&para;</a></h2>
+<p>1 変数の微分係数 <code>HasDerivAt f f' x</code> は，Mathlib のソースでは次のように定義されています．</p>
+<div class="language-lean4 highlight"><span class="filename">.lake/packages/mathlib/Mathlib/Analysis/Calculus/Deriv/Basic.lean</span><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">def</span><span class="w"> </span><span class="n">HasDerivAtFilter</span><span class="w"> </span><span class="o">(</span><span class="n">f</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">𝕜</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">F</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">f&#39;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">F</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">L</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Filter</span><span class="w"> </span><span class="o">(</span><span class="n">𝕜</span><span class="w"> </span><span class="bp">×</span><span class="w"> </span><span class="n">𝕜</span><span class="o">))</span><span class="w"> </span><span class="o">:=</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="n">HasFDerivAtFilter</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="o">(</span><span class="n">toSpanSingleton</span><span class="w"> </span><span class="n">𝕜</span><span class="w"> </span><span class="n">f&#39;</span><span class="o">)</span><span class="w"> </span><span class="n">L</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="kn">def</span><span class="w"> </span><span class="n">HasDerivAt</span><span class="w"> </span><span class="o">(</span><span class="n">f</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">𝕜</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">F</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">f&#39;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">F</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">𝕜</span><span class="o">)</span><span class="w"> </span><span class="o">:=</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">  </span><span class="n">HasDerivAtFilter</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">f&#39;</span><span class="w"> </span><span class="o">(</span><span class="n">𝓝</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="bp">×ˢ</span><span class="w"> </span><span class="n">pure</span><span class="w"> </span><span class="n">x</span><span class="o">)</span>
+</code></pre></div>
+<p>ここで <code>toSpanSingleton 𝕜 f'</code> は，ベクトル <code>f' : F</code> を
+<code>h ↦ h • f'</code> という連続線形写像 <code>𝕜 →L[𝕜] F</code> に変換するものです．
+したがって数学的には，<code>HasDerivAt f f' x</code> は</p>
+<div class="language-text highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>f x&#39; = f x + (x&#39; - x) • f&#39; + o(x&#39; - x)    as x&#39; → x
+</code></pre></div>
+<p>という一次近似を表します．
+特に <code>f : ℝ → ℝ</code> の場合，これは通常の</p>
+<div class="language-text highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>lim_{x&#39; → x} (f x&#39; - f x) / (x&#39; - x) = f&#39;
+</code></pre></div>
+<p>という微分係数の定義と対応します．</p>
+<p>一方，<code>DifferentiableAt</code> は微分係数そのものを指定せず，「ある Fréchet 微分が存在する」と定義されています．</p>
+<div class="language-lean4 highlight"><span class="filename">.lake/packages/mathlib/Mathlib/Analysis/Calculus/FDeriv/Defs.lean</span><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">def</span><span class="w"> </span><span class="n">HasFDerivAt</span><span class="w"> </span><span class="o">(</span><span class="n">f</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">E</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">F</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">f&#39;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">E</span><span class="w"> </span><span class="bp">→</span><span class="n">L</span><span class="o">[</span><span class="n">𝕜</span><span class="o">]</span><span class="w"> </span><span class="n">F</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">E</span><span class="o">)</span><span class="w"> </span><span class="o">:=</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="n">HasFDerivAtFilter</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">f&#39;</span><span class="w"> </span><span class="o">(</span><span class="n">𝓝</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="bp">×ˢ</span><span class="w"> </span><span class="n">pure</span><span class="w"> </span><span class="n">x</span><span class="o">)</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="kn">def</span><span class="w"> </span><span class="n">DifferentiableAt</span><span class="w"> </span><span class="o">(</span><span class="n">f</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">E</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">F</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">E</span><span class="o">)</span><span class="w"> </span><span class="o">:=</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">  </span><span class="bp">∃</span><span class="w"> </span><span class="n">f&#39;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">E</span><span class="w"> </span><span class="bp">→</span><span class="n">L</span><span class="o">[</span><span class="n">𝕜</span><span class="o">]</span><span class="w"> </span><span class="n">F</span><span class="o">,</span><span class="w"> </span><span class="n">HasFDerivAt</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">f&#39;</span><span class="w"> </span><span class="n">x</span>
+</code></pre></div>
+<p>つまり <code>DifferentiableAt 𝕜 f x</code> は，点 <code>x</code> の近くで</p>
+<div class="language-text highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>f x&#39; = f x + f&#39; (x&#39; - x) + o(x&#39; - x)
+</code></pre></div>
+<p>を満たす連続線形写像 <code>f' : E →L[𝕜] F</code> が存在する，という命題です．
+<code>HasDerivAt</code> は微分係数の値まで指定する述語，<code>DifferentiableAt</code> は値を指定せず存在だけを主張する述語，と読むと使い分けやすいです．</p>
+<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">HasFDerivAtFilter</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">HasFDerivAt</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">HasDerivAtFilter</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">HasDerivAt</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">fderiv</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">deriv</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="kn">section</span><span class="w"> </span><span class="n">DifferentialDefinitions</span>
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="kn">open</span><span class="w"> </span><span class="n">Asymptotics</span>
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="kn">variable</span><span class="w"> </span><span class="o">{</span><span class="n">𝕜</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Type</span><span class="bp">*</span><span class="o">}</span><span class="w"> </span><span class="o">[</span><span class="n">NontriviallyNormedField</span><span class="w"> </span><span class="n">𝕜</span><span class="o">]</span>
+<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="kn">variable</span><span class="w"> </span><span class="o">{</span><span class="n">E</span><span class="w"> </span><span class="n">F</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Type</span><span class="bp">*</span><span class="o">}</span>
+<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="kn">variable</span><span class="w"> </span><span class="o">[</span><span class="n">NormedAddCommGroup</span><span class="w"> </span><span class="n">E</span><span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="n">NormedSpace</span><span class="w"> </span><span class="n">𝕜</span><span class="w"> </span><span class="n">E</span><span class="o">]</span>
+<a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="kn">variable</span><span class="w"> </span><span class="o">[</span><span class="n">NormedAddCommGroup</span><span class="w"> </span><span class="n">F</span><span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="n">NormedSpace</span><span class="w"> </span><span class="n">𝕜</span><span class="w"> </span><span class="n">F</span><span class="o">]</span>
+<a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a>
+<a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a><span class="kn">example</span><span class="w"> </span><span class="o">{</span><span class="n">f</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">E</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">F</span><span class="o">}</span><span class="w"> </span><span class="o">{</span><span class="n">f&#39;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">E</span><span class="w"> </span><span class="bp">→</span><span class="n">L</span><span class="o">[</span><span class="n">𝕜</span><span class="o">]</span><span class="w"> </span><span class="n">F</span><span class="o">}</span><span class="w"> </span><span class="o">{</span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">E</span><span class="o">}</span><span class="w"> </span><span class="o">:</span>
+<a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a><span class="w">    </span><span class="n">HasFDerivAt</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">f&#39;</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="bp">↔</span>
+<a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a><span class="w">      </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="n">x&#39;</span><span class="w"> </span><span class="bp">=&gt;</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">x&#39;</span><span class="w"> </span><span class="bp">-</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="bp">-</span><span class="w"> </span><span class="n">f&#39;</span><span class="w"> </span><span class="o">(</span><span class="n">x&#39;</span><span class="w"> </span><span class="bp">-</span><span class="w"> </span><span class="n">x</span><span class="o">))</span><span class="w"> </span><span class="bp">=</span><span class="n">o</span><span class="o">[</span><span class="n">𝓝</span><span class="w"> </span><span class="n">x</span><span class="o">]</span><span class="w"> </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="n">x&#39;</span><span class="w"> </span><span class="bp">=&gt;</span><span class="w"> </span><span class="n">x&#39;</span><span class="w"> </span><span class="bp">-</span><span class="w"> </span><span class="n">x</span><span class="o">)</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a><span class="w">  </span><span class="n">exact</span><span class="w"> </span><span class="n">hasFDerivAt_iff_isLittleO</span>
+<a id="__codelineno-5-21" name="__codelineno-5-21" href="#__codelineno-5-21"></a>
+<a id="__codelineno-5-22" name="__codelineno-5-22" href="#__codelineno-5-22"></a><span class="kn">example</span><span class="w"> </span><span class="o">{</span><span class="n">f</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">E</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">F</span><span class="o">}</span><span class="w"> </span><span class="o">{</span><span class="n">f&#39;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">E</span><span class="w"> </span><span class="bp">→</span><span class="n">L</span><span class="o">[</span><span class="n">𝕜</span><span class="o">]</span><span class="w"> </span><span class="n">F</span><span class="o">}</span><span class="w"> </span><span class="o">{</span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">E</span><span class="o">}</span><span class="w"> </span><span class="o">:</span>
+<a id="__codelineno-5-23" name="__codelineno-5-23" href="#__codelineno-5-23"></a><span class="w">    </span><span class="n">HasFDerivAt</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">f&#39;</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="bp">↔</span>
+<a id="__codelineno-5-24" name="__codelineno-5-24" href="#__codelineno-5-24"></a><span class="w">      </span><span class="n">Filter</span><span class="bp">.</span><span class="n">Tendsto</span>
+<a id="__codelineno-5-25" name="__codelineno-5-25" href="#__codelineno-5-25"></a><span class="w">        </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="n">x&#39;</span><span class="w"> </span><span class="bp">=&gt;</span><span class="w"> </span><span class="bp">‖</span><span class="n">x&#39;</span><span class="w"> </span><span class="bp">-</span><span class="w"> </span><span class="n">x</span><span class="bp">‖⁻¹</span><span class="w"> </span><span class="bp">*</span><span class="w"> </span><span class="bp">‖</span><span class="n">f</span><span class="w"> </span><span class="n">x&#39;</span><span class="w"> </span><span class="bp">-</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="bp">-</span><span class="w"> </span><span class="n">f&#39;</span><span class="w"> </span><span class="o">(</span><span class="n">x&#39;</span><span class="w"> </span><span class="bp">-</span><span class="w"> </span><span class="n">x</span><span class="o">)</span><span class="bp">‖</span><span class="o">)</span>
+<a id="__codelineno-5-26" name="__codelineno-5-26" href="#__codelineno-5-26"></a><span class="w">        </span><span class="o">(</span><span class="n">𝓝</span><span class="w"> </span><span class="n">x</span><span class="o">)</span>
+<a id="__codelineno-5-27" name="__codelineno-5-27" href="#__codelineno-5-27"></a><span class="w">        </span><span class="o">(</span><span class="n">𝓝</span><span class="w"> </span><span class="mi">0</span><span class="o">)</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-5-28" name="__codelineno-5-28" href="#__codelineno-5-28"></a><span class="w">  </span><span class="n">exact</span><span class="w"> </span><span class="n">hasFDerivAt_iff_tendsto</span>
+<a id="__codelineno-5-29" name="__codelineno-5-29" href="#__codelineno-5-29"></a>
+<a id="__codelineno-5-30" name="__codelineno-5-30" href="#__codelineno-5-30"></a><span class="kn">example</span><span class="w"> </span><span class="o">{</span><span class="n">f</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">𝕜</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">F</span><span class="o">}</span><span class="w"> </span><span class="o">{</span><span class="n">f&#39;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">F</span><span class="o">}</span><span class="w"> </span><span class="o">{</span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">𝕜</span><span class="o">}</span><span class="w"> </span><span class="o">:</span>
+<a id="__codelineno-5-31" name="__codelineno-5-31" href="#__codelineno-5-31"></a><span class="w">    </span><span class="n">HasDerivAt</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">f&#39;</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="bp">↔</span>
+<a id="__codelineno-5-32" name="__codelineno-5-32" href="#__codelineno-5-32"></a><span class="w">      </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="n">x&#39;</span><span class="w"> </span><span class="bp">=&gt;</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">x&#39;</span><span class="w"> </span><span class="bp">-</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="bp">-</span><span class="w"> </span><span class="o">(</span><span class="n">x&#39;</span><span class="w"> </span><span class="bp">-</span><span class="w"> </span><span class="n">x</span><span class="o">)</span><span class="w"> </span><span class="bp">•</span><span class="w"> </span><span class="n">f&#39;</span><span class="o">)</span><span class="w"> </span><span class="bp">=</span><span class="n">o</span><span class="o">[</span><span class="n">𝓝</span><span class="w"> </span><span class="n">x</span><span class="o">]</span><span class="w"> </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="n">x&#39;</span><span class="w"> </span><span class="bp">=&gt;</span><span class="w"> </span><span class="n">x&#39;</span><span class="w"> </span><span class="bp">-</span><span class="w"> </span><span class="n">x</span><span class="o">)</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-5-33" name="__codelineno-5-33" href="#__codelineno-5-33"></a><span class="w">  </span><span class="n">exact</span><span class="w"> </span><span class="n">hasDerivAt_iff_isLittleO</span>
+<a id="__codelineno-5-34" name="__codelineno-5-34" href="#__codelineno-5-34"></a>
+<a id="__codelineno-5-35" name="__codelineno-5-35" href="#__codelineno-5-35"></a><span class="kn">example</span><span class="w"> </span><span class="o">{</span><span class="n">f</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">𝕜</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">F</span><span class="o">}</span><span class="w"> </span><span class="o">{</span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">𝕜</span><span class="o">}</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">deriv</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="o">(</span><span class="n">fderiv</span><span class="w"> </span><span class="n">𝕜</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">x</span><span class="o">)</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-5-36" name="__codelineno-5-36" href="#__codelineno-5-36"></a><span class="w">  </span><span class="n">rfl</span>
+<a id="__codelineno-5-37" name="__codelineno-5-37" href="#__codelineno-5-37"></a>
+<a id="__codelineno-5-38" name="__codelineno-5-38" href="#__codelineno-5-38"></a><span class="kn">end</span><span class="w"> </span><span class="n">DifferentialDefinitions</span>
 </code></pre></div>
 
 

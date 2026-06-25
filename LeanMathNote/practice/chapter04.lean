@@ -40,9 +40,7 @@ open scoped Topology
 
 Mathlib の微分は，1 変数実関数の極限
 
-```text
-(f x' - f x) / (x' - x)
-```
+$$\lim_{x' \to x} \frac{f(x') - f(x)}{x' - x}$$
 
 から直接始めるのではなく，ノルム空間上の **Fréchet 微分**を中心に実装されています．
 基礎になる型は，ノルム体 `𝕜` 上のノルム空間 `E`，`F` と，関数 `f : E → F` です．
@@ -50,9 +48,7 @@ Mathlib の微分は，1 変数実関数の極限
 
 数学的には，`HasFDerivAt f f' x` は
 
-```text
-f x' = f x + f' (x' - x) + o(x' - x)    as x' → x
-```
+$$f (x') = f (x) + f' (x' - x) + o(x' - x) \quad \text{as } x' \to x$$
 
 という一次近似を表します．
 Lean ではこの `o` はフィルター `𝓝 x` に沿った漸近記法として表されます．
@@ -70,8 +66,58 @@ Mathlib の定義ファイルでは，さらに一般に `HasFDerivAtFilter` が
 特に `f : ℝ → ℝ` なら，いつもの微分係数は実数として現れます．
 `deriv f x` は `fderiv 𝕜 f x` を方向 `1` に評価したものです．
 
-Mathematics in Lean Chapter 12 もこの構成に沿っており，前半では `HasDerivAt`，`deriv`，Rolle の定理や平均値の定理を扱い，
+前半では `HasDerivAt`，`deriv`，Rolle の定理や平均値の定理を扱い，
 後半ではノルム空間，連続線形写像 `E →L[𝕜] F`，漸近記法 `=O`・`=o`，`HasFDerivAt`，`ContDiff`，逆関数定理へ進みます．
+-/
+
+/-
+### `HasDerivAt` と `DifferentiableAt` の定義を読む
+
+1 変数の微分係数 `HasDerivAt f f' x` は，Mathlib のソースでは次のように定義されています．
+
+```lean title=".lake/packages/mathlib/Mathlib/Analysis/Calculus/Deriv/Basic.lean"
+def HasDerivAtFilter (f : 𝕜 → F) (f' : F) (L : Filter (𝕜 × 𝕜)) :=
+  HasFDerivAtFilter f (toSpanSingleton 𝕜 f') L
+
+def HasDerivAt (f : 𝕜 → F) (f' : F) (x : 𝕜) :=
+  HasDerivAtFilter f f' (𝓝 x ×ˢ pure x)
+```
+
+ここで `toSpanSingleton 𝕜 f'` は，ベクトル `f' : F` を
+`h ↦ h • f'` という連続線形写像 `𝕜 →L[𝕜] F` に変換するものです．
+したがって数学的には，`HasDerivAt f f' x` は
+
+```text
+f x' = f x + (x' - x) • f' + o(x' - x)    as x' → x
+```
+
+という一次近似を表します．
+特に `f : ℝ → ℝ` の場合，これは通常の
+
+```text
+lim_{x' → x} (f x' - f x) / (x' - x) = f'
+```
+
+という微分係数の定義と対応します．
+
+一方，`DifferentiableAt` は微分係数そのものを指定せず，「ある Fréchet 微分が存在する」と定義されています．
+
+```lean title=".lake/packages/mathlib/Mathlib/Analysis/Calculus/FDeriv/Defs.lean"
+def HasFDerivAt (f : E → F) (f' : E →L[𝕜] F) (x : E) :=
+  HasFDerivAtFilter f f' (𝓝 x ×ˢ pure x)
+
+def DifferentiableAt (f : E → F) (x : E) :=
+  ∃ f' : E →L[𝕜] F, HasFDerivAt f f' x
+```
+
+つまり `DifferentiableAt 𝕜 f x` は，点 `x` の近くで
+
+```text
+f x' = f x + f' (x' - x) + o(x' - x)
+```
+
+を満たす連続線形写像 `f' : E →L[𝕜] F` が存在する，という命題です．
+`HasDerivAt` は微分係数の値まで指定する述語，`DifferentiableAt` は値を指定せず存在だけを主張する述語，と読むと使い分けやすいです．
 -/
 
 #check HasFDerivAtFilter
