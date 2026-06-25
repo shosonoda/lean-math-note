@@ -25,7 +25,7 @@
     
     
       
-        <title>具体的な極限計算 - 数学系エンドユーザーのためのLean入門</title>
+        <title>距離空間での読み替え - 数学系エンドユーザーのためのLean入門</title>
       
     
     
@@ -104,7 +104,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              具体的な極限計算
+              距離空間での読み替え
             
           </span>
         </div>
@@ -1069,6 +1069,8 @@
       
         
       
+        
+      
     
     
     
@@ -1164,7 +1166,7 @@
   <span class="md-ellipsis">
     
   
-    距離空間
+    フィルター
   
 
     
@@ -1192,7 +1194,7 @@
   <span class="md-ellipsis">
     
   
-    コンパクト性
+    収束と連続性
   
 
     
@@ -1220,7 +1222,7 @@
   <span class="md-ellipsis">
     
   
-    フィルター
+    コンパクト性と連結性
   
 
     
@@ -1250,6 +1252,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    距離空間での読み替え
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -1257,7 +1277,7 @@
   <span class="md-ellipsis">
     
   
-    具体的な極限計算
+    距離空間での読み替え
   
 
     
@@ -1266,6 +1286,36 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        演習問題
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1286,7 +1336,7 @@
   <span class="md-ellipsis">
     
   
-    連続性
+    具体的な極限計算
   
 
     
@@ -1314,7 +1364,7 @@
   <span class="md-ellipsis">
     
   
-    長めの例: 連続関数の零点集合は閉集合
+    具体的な連続性計算
   
 
     
@@ -1342,7 +1392,7 @@
   <span class="md-ellipsis">
     
   
-    長めの例: compact set の連続像
+    長めの例: 連続関数の零点集合は閉集合
   
 
     
@@ -1370,7 +1420,7 @@
   <span class="md-ellipsis">
     
   
-    長めの例: 中間値の定理
+    長めの例: コンパクト集合の連続像
   
 
     
@@ -1392,6 +1442,34 @@
   
     <li class="md-nav__item">
       <a href="../10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    長めの例: 中間値の定理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11/" class="md-nav__link">
         
   
   
@@ -1720,6 +1798,25 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        演習問題
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1735,58 +1832,77 @@
 
 
 
-<h1 id="_1">具体的な極限計算<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
-<p>実数列 <span class="arithmatex">\(a_n\)</span> が <span class="arithmatex">\(+\infty\)</span> に発散することは，Lean では</p>
-<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">Tendsto</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">atTop</span><span class="w"> </span><span class="n">atTop</span>
+<h1 id="_1">距離空間での読み替え<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<p>距離空間や擬距離空間では，<code>dist x y</code>，開球 <code>Metric.ball x ε</code>，閉球 <code>Metric.closedBall x ε</code> などを使います．
+距離空間は位相空間構造を誘導するため，距離の話から <code>IsOpen</code> や <code>Continuous</code> の話へ移れます．
+また <code>ContinuousAt</code> のフィルターによる定義は，距離空間では通常の <code>ε</code>-<code>δ</code> 条件と同値になります．</p>
+<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">PseudoMetricSpace</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">Metric</span><span class="bp">.</span><span class="n">ball</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">Metric</span><span class="bp">.</span><span class="n">closedBall</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">dist</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">Metric</span><span class="bp">.</span><span class="n">continuousAt_iff</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="kn">section</span><span class="w"> </span><span class="n">MetricSpaces</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="kn">open</span><span class="w"> </span><span class="n">Metric</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="kn">variable</span><span class="w"> </span><span class="o">{</span><span class="n">X</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Type</span><span class="bp">*</span><span class="o">}</span><span class="w"> </span><span class="o">[</span><span class="n">PseudoMetricSpace</span><span class="w"> </span><span class="n">X</span><span class="o">]</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">X</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">dist</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="w">  </span><span class="n">simp</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">x</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">X</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="bp">≤</span><span class="w"> </span><span class="n">dist</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="w">  </span><span class="n">exact</span><span class="w"> </span><span class="n">dist_nonneg</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">X</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">ε</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">hε</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="bp">&lt;</span><span class="w"> </span><span class="n">ε</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="bp">∈</span><span class="w"> </span><span class="n">Metric</span><span class="bp">.</span><span class="n">ball</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="n">ε</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="w">  </span><span class="n">simpa</span><span class="w"> </span><span class="o">[</span><span class="n">Metric</span><span class="bp">.</span><span class="n">mem_ball</span><span class="o">]</span><span class="w"> </span><span class="kn">using</span><span class="w"> </span><span class="n">hε</span>
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">X</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">ε</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">IsOpen</span><span class="w"> </span><span class="o">(</span><span class="n">Metric</span><span class="bp">.</span><span class="n">ball</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="n">ε</span><span class="o">)</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="w">  </span><span class="n">exact</span><span class="w"> </span><span class="n">Metric</span><span class="bp">.</span><span class="n">isOpen_ball</span>
+<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>
+<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a><span class="kn">end</span><span class="w"> </span><span class="n">MetricSpaces</span>
+<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a>
+<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a><span class="kn">section</span><span class="w"> </span><span class="n">MetricContinuity</span>
+<a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a>
+<a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a><span class="kn">example</span><span class="w"> </span><span class="o">{</span><span class="n">f</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">ℝ</span><span class="o">}</span><span class="w"> </span><span class="o">{</span><span class="n">a</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="o">}</span><span class="w"> </span><span class="o">:</span>
+<a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a><span class="w">    </span><span class="n">ContinuousAt</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="bp">↔</span><span class="w"> </span><span class="bp">∀</span><span class="w"> </span><span class="n">ε</span><span class="w"> </span><span class="bp">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="o">,</span><span class="w"> </span><span class="bp">∃</span><span class="w"> </span><span class="n">δ</span><span class="w"> </span><span class="bp">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="o">,</span><span class="w"> </span><span class="bp">∀</span><span class="w"> </span><span class="o">⦃</span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="o">⦄,</span>
+<a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a><span class="w">      </span><span class="n">dist</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="bp">&lt;</span><span class="w"> </span><span class="n">δ</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">dist</span><span class="w"> </span><span class="o">(</span><span class="n">f</span><span class="w"> </span><span class="n">x</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">f</span><span class="w"> </span><span class="n">a</span><span class="o">)</span><span class="w"> </span><span class="bp">&lt;</span><span class="w"> </span><span class="n">ε</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a><span class="w">  </span><span class="n">exact</span><span class="w"> </span><span class="n">Metric</span><span class="bp">.</span><span class="n">continuousAt_iff</span>
+<a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a>
+<a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a><span class="kn">example</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="bp">∀</span><span class="w"> </span><span class="n">ε</span><span class="w"> </span><span class="bp">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="o">,</span><span class="w"> </span><span class="bp">∃</span><span class="w"> </span><span class="n">δ</span><span class="w"> </span><span class="bp">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="o">,</span><span class="w"> </span><span class="bp">∀</span><span class="w"> </span><span class="o">⦃</span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="o">⦄,</span>
+<a id="__codelineno-0-35" name="__codelineno-0-35" href="#__codelineno-0-35"></a><span class="w">    </span><span class="n">dist</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="bp">&lt;</span><span class="w"> </span><span class="n">δ</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">dist</span><span class="w"> </span><span class="o">(</span><span class="n">x</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="mi">1</span><span class="o">)</span><span class="w"> </span><span class="o">((</span><span class="mi">3</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="o">)</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="mi">1</span><span class="o">)</span><span class="w"> </span><span class="bp">&lt;</span><span class="w"> </span><span class="n">ε</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-0-36" name="__codelineno-0-36" href="#__codelineno-0-36"></a><span class="w">  </span><span class="k">have</span><span class="w"> </span><span class="n">h</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ContinuousAt</span><span class="w"> </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="w"> </span><span class="bp">=&gt;</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="mi">1</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="mi">3</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="o">)</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-0-37" name="__codelineno-0-37" href="#__codelineno-0-37"></a><span class="w">    </span><span class="n">exact</span><span class="w"> </span><span class="o">(</span><span class="n">continuousAt_id</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ContinuousAt</span><span class="w"> </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="w"> </span><span class="bp">=&gt;</span><span class="w"> </span><span class="n">y</span><span class="o">)</span><span class="w"> </span><span class="mi">3</span><span class="o">)</span><span class="bp">.</span><span class="n">add</span><span class="w"> </span><span class="n">continuousAt_const</span>
+<a id="__codelineno-0-38" name="__codelineno-0-38" href="#__codelineno-0-38"></a><span class="w">  </span><span class="n">exact</span><span class="w"> </span><span class="n">Metric</span><span class="bp">.</span><span class="n">continuousAt_iff</span><span class="bp">.</span><span class="n">mp</span><span class="w"> </span><span class="n">h</span>
+<a id="__codelineno-0-39" name="__codelineno-0-39" href="#__codelineno-0-39"></a>
+<a id="__codelineno-0-40" name="__codelineno-0-40" href="#__codelineno-0-40"></a><span class="kn">end</span><span class="w"> </span><span class="n">MetricContinuity</span>
 </code></pre></div>
-<p>と書きます．</p>
-<p>たとえば，自然数を実数に埋め込んだ列 <span class="arithmatex">\(n \mapsto n\)</span> は <code>atTop</code> に収束します．</p>
-<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">section</span><span class="w"> </span><span class="n">ConcreteLimits</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="kn">example</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Tendsto</span><span class="w"> </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℕ</span><span class="w"> </span><span class="bp">=&gt;</span><span class="w"> </span><span class="o">(</span><span class="n">n</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="o">))</span><span class="w"> </span><span class="n">atTop</span><span class="w"> </span><span class="n">atTop</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">  </span><span class="n">exact</span><span class="w"> </span><span class="n">tendsto_natCast_atTop_atTop</span>
+<p><code>Metric.ball x ε</code> は集合です．
+したがって <code>x ∈ Metric.ball x ε</code> や <code>IsOpen (Metric.ball x ε)</code> のように，集合に関する命題として扱えます．</p>
+<p><code>Metric.continuousAt_iff</code> を使うと，具体的な関数の連続性から
+<code>ε</code>-<code>δ</code> 条件を取り出せます．
+上の例は <span class="arithmatex">\(x \mapsto x+1\)</span> が <span class="arithmatex">\(x=3\)</span> で連続であることを，
+距離による条件として読み替えています．</p>
+<h2 id="_2">演習問題<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<ol>
+<li>
+<p>距離空間で，開球が開集合であることをもう一度証明してください．</p>
+<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">example</span><span class="w"> </span><span class="o">{</span><span class="n">X</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Type</span><span class="bp">*</span><span class="o">}</span><span class="w"> </span><span class="o">[</span><span class="n">PseudoMetricSpace</span><span class="w"> </span><span class="n">X</span><span class="o">]</span><span class="w"> </span><span class="o">(</span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">X</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">r</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="o">)</span><span class="w"> </span><span class="o">:</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="n">IsOpen</span><span class="w"> </span><span class="o">(</span><span class="n">Metric</span><span class="bp">.</span><span class="n">ball</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="n">r</span><span class="o">)</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">  </span><span class="c1">-- `Metric.isOpen_ball`．</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">  </span><span class="gr">sorry</span>
 </code></pre></div>
-<p>一点での関数の極限は，始域側を <code>𝓝 a</code>，終域側を <code>𝓝 b</code> として</p>
-<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">Tendsto</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="o">(</span><span class="n">𝓝</span><span class="w"> </span><span class="n">a</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">𝓝</span><span class="w"> </span><span class="n">b</span><span class="o">)</span>
+</li>
+<li>
+<p>距離空間で，<code>ContinuousAt</code> が <code>ε</code>-<code>δ</code> 条件と同値であることを確認してください．</p>
+<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">example</span><span class="w"> </span><span class="o">{</span><span class="n">f</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">ℝ</span><span class="o">}</span><span class="w"> </span><span class="o">{</span><span class="n">a</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="o">}</span><span class="w"> </span><span class="o">:</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="n">ContinuousAt</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="bp">↔</span><span class="w"> </span><span class="bp">∀</span><span class="w"> </span><span class="n">ε</span><span class="w"> </span><span class="bp">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="o">,</span><span class="w"> </span><span class="bp">∃</span><span class="w"> </span><span class="n">δ</span><span class="w"> </span><span class="bp">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="o">,</span><span class="w"> </span><span class="bp">∀</span><span class="w"> </span><span class="o">⦃</span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="o">⦄,</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">      </span><span class="n">dist</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="bp">&lt;</span><span class="w"> </span><span class="n">δ</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">dist</span><span class="w"> </span><span class="o">(</span><span class="n">f</span><span class="w"> </span><span class="n">x</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">f</span><span class="w"> </span><span class="n">a</span><span class="o">)</span><span class="w"> </span><span class="bp">&lt;</span><span class="w"> </span><span class="n">ε</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">  </span><span class="c1">-- ヒント: `exact Metric.continuousAt_iff`</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">  </span><span class="gr">sorry</span>
 </code></pre></div>
-<p>と書きます．</p>
-<p>以下は <span class="arithmatex">\(\lim_{x \to 2} (x+3) = 5\)</span> です．
-<code>Continuous.tendsto</code> は，連続性からその点での極限を取り出す補題です．
-最後の <code>norm_num</code> は，<code>2 + 3 = 5</code> の数値計算を処理しています．</p>
-<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">example</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Tendsto</span><span class="w"> </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="w"> </span><span class="bp">=&gt;</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="mi">3</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">𝓝</span><span class="w"> </span><span class="mi">2</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">𝓝</span><span class="w"> </span><span class="mi">5</span><span class="o">)</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="n">convert</span><span class="w"> </span><span class="o">(((</span><span class="n">continuous_id</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Continuous</span><span class="w"> </span><span class="k">fun</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="w"> </span><span class="bp">=&gt;</span><span class="w"> </span><span class="n">x</span><span class="o">)</span><span class="bp">.</span><span class="n">add</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="o">(</span><span class="n">continuous_const</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Continuous</span><span class="w"> </span><span class="k">fun</span><span class="w"> </span><span class="bp">_</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="w"> </span><span class="bp">=&gt;</span><span class="w"> </span><span class="o">(</span><span class="mi">3</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="o">)))</span><span class="bp">.</span><span class="n">tendsto</span><span class="w"> </span><span class="o">(</span><span class="mi">2</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="o">))</span><span class="w"> </span><span class="kn">using</span><span class="w"> </span><span class="mi">1</span>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">  </span><span class="n">norm_num</span>
-</code></pre></div>
-<p>ここで使っている <code>convert</code> は，手元にある定理の結論が現在のゴールと「ほとんど同じ」だが，
-一部の式だけがまだ一致していないときに便利な tactic です．</p>
-<p>上の例では，連続性から得られる極限はまず</p>
-<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">Tendsto</span><span class="w"> </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="w"> </span><span class="bp">=&gt;</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="mi">3</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">𝓝</span><span class="w"> </span><span class="mi">2</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">𝓝</span><span class="w"> </span><span class="o">(</span><span class="mi">2</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="mi">3</span><span class="o">))</span>
-</code></pre></div>
-<p>という形です．
-一方，示したいゴールは終域側が <code>𝓝 5</code> です．
-<code>convert ... using 1</code> は，この 2 つの主張を対応させたうえで，
-残った差分 <code>2 + 3 = 5</code> を新しいゴールとして残します．
-最後の <code>norm_num</code> がその数値計算を閉じています．</p>
-<p>同じ方針で，多項式や初等関数の極限も計算できます．
-次は <span class="arithmatex">\(\lim_{x \to 3} (x^2+1) = 10\)</span> と
-<span class="arithmatex">\(\lim_{x \to 0}(\sin x + x^2)=0\)</span> です．</p>
-<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kn">example</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Tendsto</span><span class="w"> </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="w"> </span><span class="bp">=&gt;</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="bp">^</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="mi">1</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">𝓝</span><span class="w"> </span><span class="mi">3</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">𝓝</span><span class="w"> </span><span class="mi">10</span><span class="o">)</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">  </span><span class="n">convert</span><span class="w"> </span><span class="o">((</span><span class="k">by</span><span class="w"> </span><span class="n">continuity</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Continuous</span><span class="w"> </span><span class="k">fun</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="w"> </span><span class="bp">=&gt;</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="bp">^</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="mi">1</span><span class="o">)</span><span class="bp">.</span><span class="n">tendsto</span><span class="w"> </span><span class="o">(</span><span class="mi">3</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="o">))</span><span class="w"> </span><span class="kn">using</span><span class="w"> </span><span class="mi">1</span>
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">  </span><span class="n">norm_num</span>
-<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>
-<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="kn">example</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Tendsto</span><span class="w"> </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="w"> </span><span class="bp">=&gt;</span><span class="w"> </span><span class="n">Real</span><span class="bp">.</span><span class="n">sin</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="bp">^</span><span class="w"> </span><span class="mi">2</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">𝓝</span><span class="w"> </span><span class="mi">0</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">𝓝</span><span class="w"> </span><span class="mi">0</span><span class="o">)</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">  </span><span class="n">simpa</span><span class="w"> </span><span class="kn">using</span><span class="w"> </span><span class="o">((</span><span class="k">by</span><span class="w"> </span><span class="n">continuity</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Continuous</span><span class="w"> </span><span class="k">fun</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="w"> </span><span class="bp">=&gt;</span><span class="w"> </span><span class="n">Real</span><span class="bp">.</span><span class="n">sin</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="bp">^</span><span class="w"> </span><span class="mi">2</span><span class="o">)</span><span class="bp">.</span><span class="n">tendsto</span><span class="w"> </span><span class="o">(</span><span class="mi">0</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="o">))</span>
-</code></pre></div>
-<p>無限遠での極限も同じ <code>Tendsto</code> です．
-次は <span class="arithmatex">\(\lim_{x \to +\infty} 1/x = 0\)</span> です．
-ここでは始域側のフィルターが <code>atTop</code>，終域側のフィルターが <code>𝓝 0</code> になっています．</p>
-<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kn">example</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Tendsto</span><span class="w"> </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="w"> </span><span class="bp">=&gt;</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="bp">/</span><span class="w"> </span><span class="n">x</span><span class="o">)</span><span class="w"> </span><span class="n">atTop</span><span class="w"> </span><span class="o">(</span><span class="n">𝓝</span><span class="w"> </span><span class="mi">0</span><span class="o">)</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">  </span><span class="n">simpa</span><span class="w"> </span><span class="o">[</span><span class="n">one_div</span><span class="o">]</span><span class="w"> </span><span class="kn">using</span>
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="o">(</span><span class="n">tendsto_inv_atTop_zero</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Tendsto</span><span class="w"> </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="w"> </span><span class="bp">=&gt;</span><span class="w"> </span><span class="n">x</span><span class="bp">⁻¹</span><span class="o">)</span><span class="w"> </span><span class="n">atTop</span><span class="w"> </span><span class="o">(</span><span class="n">𝓝</span><span class="w"> </span><span class="mi">0</span><span class="o">))</span>
-<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>
-<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="kn">end</span><span class="w"> </span><span class="n">ConcreteLimits</span>
-</code></pre></div>
+</li>
+</ol>
 
 
 
@@ -1822,7 +1938,7 @@
       <nav class="md-footer__inner md-grid" aria-label="フッター" >
         
           
-          <a href="../04/" class="md-footer__link md-footer__link--prev" aria-label="前: フィルター">
+          <a href="../04/" class="md-footer__link md-footer__link--prev" aria-label="前: コンパクト性と連結性">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -1832,20 +1948,20 @@
                 前
               </span>
               <div class="md-ellipsis">
-                フィルター
+                コンパクト性と連結性
               </div>
             </div>
           </a>
         
         
           
-          <a href="../06/" class="md-footer__link md-footer__link--next" aria-label="次: 連続性">
+          <a href="../06/" class="md-footer__link md-footer__link--next" aria-label="次: 具体的な極限計算">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 次
               </span>
               <div class="md-ellipsis">
-                連続性
+                具体的な極限計算
               </div>
             </div>
             <div class="md-footer__button md-icon">

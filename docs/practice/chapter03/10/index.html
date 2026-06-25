@@ -14,7 +14,7 @@
         <link rel="prev" href="../09/">
       
       
-        <link rel="next" href="../../chapter04/">
+        <link rel="next" href="../11/">
       
       
         
@@ -25,7 +25,7 @@
     
     
       
-        <title>まとめ - 数学系エンドユーザーのためのLean入門</title>
+        <title>長めの例: 中間値の定理 - 数学系エンドユーザーのためのLean入門</title>
       
     
     
@@ -104,7 +104,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              まとめ
+              長めの例: 中間値の定理
             
           </span>
         </div>
@@ -1069,6 +1069,8 @@
       
         
       
+        
+      
     
     
     
@@ -1164,7 +1166,7 @@
   <span class="md-ellipsis">
     
   
-    距離空間
+    フィルター
   
 
     
@@ -1192,7 +1194,7 @@
   <span class="md-ellipsis">
     
   
-    コンパクト性
+    収束と連続性
   
 
     
@@ -1220,7 +1222,7 @@
   <span class="md-ellipsis">
     
   
-    フィルター
+    コンパクト性と連結性
   
 
     
@@ -1248,7 +1250,7 @@
   <span class="md-ellipsis">
     
   
-    具体的な極限計算
+    距離空間での読み替え
   
 
     
@@ -1276,7 +1278,7 @@
   <span class="md-ellipsis">
     
   
-    連続性
+    具体的な極限計算
   
 
     
@@ -1304,7 +1306,7 @@
   <span class="md-ellipsis">
     
   
-    長めの例: 連続関数の零点集合は閉集合
+    具体的な連続性計算
   
 
     
@@ -1332,7 +1334,7 @@
   <span class="md-ellipsis">
     
   
-    長めの例: compact set の連続像
+    長めの例: 連続関数の零点集合は閉集合
   
 
     
@@ -1360,7 +1362,7 @@
   <span class="md-ellipsis">
     
   
-    長めの例: 中間値の定理
+    長めの例: コンパクト集合の連続像
   
 
     
@@ -1397,7 +1399,7 @@
   <span class="md-ellipsis">
     
   
-    まとめ
+    長めの例: 中間値の定理
   
 
     
@@ -1415,7 +1417,7 @@
   <span class="md-ellipsis">
     
   
-    まとめ
+    長めの例: 中間値の定理
   
 
     
@@ -1441,10 +1443,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#tips" class="md-nav__link">
+  <a href="#mathlib" class="md-nav__link">
     <span class="md-ellipsis">
       
-        形式化の tips
+        Mathlib の証明の読み方
       
     </span>
   </a>
@@ -1455,6 +1457,34 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    まとめ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -1775,10 +1805,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#tips" class="md-nav__link">
+  <a href="#mathlib" class="md-nav__link">
     <span class="md-ellipsis">
       
-        形式化の tips
+        Mathlib の証明の読み方
       
     </span>
   </a>
@@ -1802,25 +1832,109 @@
 
 
 
-<h1 id="_1">まとめ<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
-<p>Mathlib の位相では，極限を直接 <code>ε</code>-<code>δ</code> で定義するのではなく，フィルター <code>Tendsto</code> を基礎にします．
-開集合・閉集合・閉包・内部は <code>Set</code> 上の述語や操作として扱われます．
-距離空間では <code>Metric.ball</code> や <code>dist</code> を使い，連続性は <code>Continuous</code>，<code>ContinuousAt</code>，<code>ContinuousOn</code> で表します．
-特に <code>ContinuousAt f x</code> は <code>Tendsto f (𝓝 x) (𝓝 (f x))</code> なので，点での連続性もフィルターの極限として読めます．
-中間値の定理では，閉区間 <code>Icc a b</code> が <code>IsPreconnected</code> であることと，
-連続関数の大小関係で定まる閉集合が閉じていることを組み合わせます．</p>
-<p>微分と積分の章では，これらの位相的な語彙がそのまま使われます．</p>
-<h2 id="tips">形式化の tips<a class="headerlink" href="#tips" title="Permanent link">&para;</a></h2>
-<p>位相の形式化では，同じ定理が「集合の言葉」「フィルターの言葉」「距離の言葉」で出てきます．
-どのレベルで証明するかを選ぶのが重要です．</p>
+<h1 id="_1">長めの例: 中間値の定理<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<p>位相のもう 1 つの典型例として，中間値の定理を見ます．</p>
+<p>紙の数学では「閉区間 <span class="arithmatex">\([a,b]\)</span> は連結であり，連続写像は連結集合を連結集合へ送る．
+したがって実数値連続関数の像は区間になり，端点値の間の値をすべて取る」と説明します．
+前の節で見た <code>IsPreconnected</code> と <code>intermediate_value_Icc</code> を使うと，
+この議論をそのまま Lean で表せます．</p>
+<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">section</span><span class="w"> </span><span class="n">IntermediateValueTheorem</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">example</span><span class="w"> </span><span class="o">{</span><span class="n">X</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Type</span><span class="bp">*</span><span class="o">}</span><span class="w"> </span><span class="o">[</span><span class="n">TopologicalSpace</span><span class="w"> </span><span class="n">X</span><span class="o">]</span><span class="w"> </span><span class="o">{</span><span class="n">s</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Set</span><span class="w"> </span><span class="n">X</span><span class="o">}</span><span class="w"> </span><span class="o">(</span><span class="n">hs</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">IsPreconnected</span><span class="w"> </span><span class="n">s</span><span class="o">)</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="o">{</span><span class="n">a</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">X</span><span class="o">}</span><span class="w"> </span><span class="o">(</span><span class="n">ha</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="bp">∈</span><span class="w"> </span><span class="n">s</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">hb</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="bp">∈</span><span class="w"> </span><span class="n">s</span><span class="o">)</span><span class="w"> </span><span class="o">{</span><span class="n">f</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">X</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">ℝ</span><span class="o">}</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="o">(</span><span class="n">hf</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ContinuousOn</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">s</span><span class="o">)</span><span class="w"> </span><span class="o">:</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="n">Icc</span><span class="w"> </span><span class="o">(</span><span class="n">f</span><span class="w"> </span><span class="n">a</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">f</span><span class="w"> </span><span class="n">b</span><span class="o">)</span><span class="w"> </span><span class="bp">⊆</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="bp">&#39;&#39;</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">  </span><span class="n">exact</span><span class="w"> </span><span class="n">hs</span><span class="bp">.</span><span class="n">intermediate_value</span><span class="w"> </span><span class="n">ha</span><span class="w"> </span><span class="n">hb</span><span class="w"> </span><span class="n">hf</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="kn">example</span><span class="w"> </span><span class="o">{</span><span class="n">X</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Type</span><span class="bp">*</span><span class="o">}</span><span class="w"> </span><span class="o">[</span><span class="n">TopologicalSpace</span><span class="w"> </span><span class="n">X</span><span class="o">]</span><span class="w"> </span><span class="o">{</span><span class="n">s</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Set</span><span class="w"> </span><span class="n">X</span><span class="o">}</span><span class="w"> </span><span class="o">(</span><span class="n">hs</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">IsPreconnected</span><span class="w"> </span><span class="n">s</span><span class="o">)</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">    </span><span class="o">{</span><span class="n">a</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">X</span><span class="o">}</span><span class="w"> </span><span class="o">(</span><span class="n">ha</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="bp">∈</span><span class="w"> </span><span class="n">s</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">hb</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="bp">∈</span><span class="w"> </span><span class="n">s</span><span class="o">)</span><span class="w"> </span><span class="o">{</span><span class="n">f</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">X</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">ℝ</span><span class="o">}</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">    </span><span class="o">(</span><span class="n">hf</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ContinuousOn</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">s</span><span class="o">)</span><span class="w"> </span><span class="o">{</span><span class="n">c</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="o">}</span><span class="w"> </span><span class="o">(</span><span class="n">hc</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="bp">∈</span><span class="w"> </span><span class="n">Icc</span><span class="w"> </span><span class="o">(</span><span class="n">f</span><span class="w"> </span><span class="n">a</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">f</span><span class="w"> </span><span class="n">b</span><span class="o">))</span><span class="w"> </span><span class="o">:</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">    </span><span class="bp">∃</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="bp">∈</span><span class="w"> </span><span class="n">s</span><span class="o">,</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">  </span><span class="n">rcases</span><span class="w"> </span><span class="n">hs</span><span class="bp">.</span><span class="n">intermediate_value</span><span class="w"> </span><span class="n">ha</span><span class="w"> </span><span class="n">hb</span><span class="w"> </span><span class="n">hf</span><span class="w"> </span><span class="n">hc</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="bp">⟨</span><span class="n">x</span><span class="o">,</span><span class="w"> </span><span class="n">hx</span><span class="o">,</span><span class="w"> </span><span class="n">hfx</span><span class="bp">⟩</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="w">  </span><span class="n">exact</span><span class="w"> </span><span class="bp">⟨</span><span class="n">x</span><span class="o">,</span><span class="w"> </span><span class="n">hx</span><span class="o">,</span><span class="w"> </span><span class="n">hfx</span><span class="bp">⟩</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="kn">example</span><span class="w"> </span><span class="o">{</span><span class="n">f</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">ℝ</span><span class="o">}</span><span class="w"> </span><span class="o">{</span><span class="n">a</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="o">}</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="w">    </span><span class="o">(</span><span class="n">hab</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="bp">≤</span><span class="w"> </span><span class="n">b</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">hf</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ContinuousOn</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="o">(</span><span class="n">Icc</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">b</span><span class="o">))</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="w">    </span><span class="o">(</span><span class="n">ha</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="bp">≤</span><span class="w"> </span><span class="n">c</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">hb</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="bp">≤</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">b</span><span class="o">)</span><span class="w"> </span><span class="o">:</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="w">    </span><span class="bp">∃</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="bp">∈</span><span class="w"> </span><span class="n">Icc</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">b</span><span class="o">,</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="w">  </span><span class="n">exact</span><span class="w"> </span><span class="n">intermediate_value_Icc</span><span class="w"> </span><span class="n">hab</span><span class="w"> </span><span class="n">hf</span><span class="w"> </span><span class="bp">⟨</span><span class="n">ha</span><span class="o">,</span><span class="w"> </span><span class="n">hb</span><span class="bp">⟩</span>
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="kn">example</span><span class="w"> </span><span class="o">{</span><span class="n">f</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">ℝ</span><span class="o">}</span><span class="w"> </span><span class="o">{</span><span class="n">a</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="o">}</span>
+<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="w">    </span><span class="o">(</span><span class="n">hab</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="bp">≤</span><span class="w"> </span><span class="n">b</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">hf</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ContinuousOn</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="o">(</span><span class="n">Icc</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">b</span><span class="o">))</span>
+<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="w">    </span><span class="o">(</span><span class="n">ha</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="bp">≤</span><span class="w"> </span><span class="n">c</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">hb</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="bp">≤</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">a</span><span class="o">)</span><span class="w"> </span><span class="o">:</span>
+<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a><span class="w">    </span><span class="bp">∃</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="bp">∈</span><span class="w"> </span><span class="n">Icc</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">b</span><span class="o">,</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a><span class="w">  </span><span class="n">exact</span><span class="w"> </span><span class="n">intermediate_value_Icc&#39;</span><span class="w"> </span><span class="n">hab</span><span class="w"> </span><span class="n">hf</span><span class="w"> </span><span class="bp">⟨</span><span class="n">ha</span><span class="o">,</span><span class="w"> </span><span class="n">hb</span><span class="bp">⟩</span>
+<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a>
+<a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a><span class="kn">end</span><span class="w"> </span><span class="n">IntermediateValueTheorem</span>
+</code></pre></div>
+<p>最後の 2 つの例は，端点値の順序に応じて定理を使い分けています．
+<code>intermediate_value_Icc</code> は <code>f a ≤ c ≤ f b</code> の場合，
+<code>intermediate_value_Icc'</code> は <code>f b ≤ c ≤ f a</code> の場合です．</p>
+<p>具体例として，<span class="arithmatex">\(x^2\)</span> が <span class="arithmatex">\([0,2]\)</span> 上で値 <span class="arithmatex">\(2\)</span> を取ることを示します．
+これは平方根の存在そのものではありませんが，中間値の定理の使い方としては典型的です．</p>
+<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">example</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="bp">∃</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="bp">∈</span><span class="w"> </span><span class="n">Icc</span><span class="w"> </span><span class="o">(</span><span class="mi">0</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="o">)</span><span class="w"> </span><span class="mi">2</span><span class="o">,</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="bp">^</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="k">have</span><span class="w"> </span><span class="n">hcont</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ContinuousOn</span><span class="w"> </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="w"> </span><span class="bp">=&gt;</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="bp">^</span><span class="w"> </span><span class="mi">2</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">Icc</span><span class="w"> </span><span class="o">(</span><span class="mi">0</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="o">)</span><span class="w"> </span><span class="mi">2</span><span class="o">)</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="n">exact</span><span class="w"> </span><span class="o">((</span><span class="n">continuous_id</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Continuous</span><span class="w"> </span><span class="k">fun</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="w"> </span><span class="bp">=&gt;</span><span class="w"> </span><span class="n">x</span><span class="o">)</span><span class="bp">.</span><span class="n">pow</span><span class="w"> </span><span class="mi">2</span><span class="o">)</span><span class="bp">.</span><span class="n">continuousOn</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">  </span><span class="k">have</span><span class="w"> </span><span class="n">h2</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="o">(</span><span class="mi">2</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="o">)</span><span class="w"> </span><span class="bp">∈</span><span class="w"> </span><span class="n">Icc</span><span class="w"> </span><span class="o">((</span><span class="k">fun</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="w"> </span><span class="bp">=&gt;</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="bp">^</span><span class="w"> </span><span class="mi">2</span><span class="o">)</span><span class="w"> </span><span class="mi">0</span><span class="o">)</span><span class="w"> </span><span class="o">((</span><span class="k">fun</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="w"> </span><span class="bp">=&gt;</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="bp">^</span><span class="w"> </span><span class="mi">2</span><span class="o">)</span><span class="w"> </span><span class="mi">2</span><span class="o">)</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="n">norm_num</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">  </span><span class="n">simpa</span><span class="w"> </span><span class="kn">using</span><span class="w"> </span><span class="n">intermediate_value_Icc</span><span class="w"> </span><span class="o">(</span><span class="k">by</span><span class="w"> </span><span class="n">norm_num</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="o">(</span><span class="mi">0</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="o">)</span><span class="w"> </span><span class="bp">≤</span><span class="w"> </span><span class="mi">2</span><span class="o">)</span><span class="w"> </span><span class="n">hcont</span><span class="w"> </span><span class="n">h2</span>
+</code></pre></div>
+<h2 id="mathlib">Mathlib の証明の読み方<a class="headerlink" href="#mathlib" title="Permanent link">&para;</a></h2>
+<p>Mathlib の本体では，まず次のような少し強い形を証明しています．</p>
+<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">intermediate_value_univ₂</span><span class="w"> </span><span class="o">:</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="n">Continuous</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">Continuous</span><span class="w"> </span><span class="n">g</span><span class="w"> </span><span class="bp">→</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">  </span><span class="n">f</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="bp">≤</span><span class="w"> </span><span class="n">g</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">g</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="bp">≤</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="bp">∃</span><span class="w"> </span><span class="n">x</span><span class="o">,</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">g</span><span class="w"> </span><span class="n">x</span>
+</code></pre></div>
+<p>証明の核だけを抜き出すと次の部分です．</p>
+<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">obtain</span><span class="w"> </span><span class="bp">⟨</span><span class="n">x</span><span class="o">,</span><span class="w"> </span><span class="bp">_</span><span class="o">,</span><span class="w"> </span><span class="n">hfg</span><span class="o">,</span><span class="w"> </span><span class="n">hgf</span><span class="bp">⟩</span><span class="w"> </span><span class="o">:</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="o">(</span><span class="n">univ</span><span class="w"> </span><span class="bp">∩</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="bp">|</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="bp">≤</span><span class="w"> </span><span class="n">g</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="bp">∧</span><span class="w"> </span><span class="n">g</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="bp">≤</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">})</span><span class="bp">.</span><span class="n">Nonempty</span><span class="w"> </span><span class="o">:=</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">  </span><span class="n">isPreconnected_closed_iff</span><span class="bp">.</span><span class="m">1</span><span class="w"> </span><span class="n">PreconnectedSpace</span><span class="bp">.</span><span class="n">isPreconnected_univ</span><span class="w"> </span><span class="bp">_</span><span class="w"> </span><span class="bp">_</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="o">(</span><span class="n">isClosed_le</span><span class="w"> </span><span class="n">hf</span><span class="w"> </span><span class="n">hg</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">isClosed_le</span><span class="w"> </span><span class="n">hg</span><span class="w"> </span><span class="n">hf</span><span class="o">)</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="bp">_</span><span class="w"> </span><span class="bp">_</span><span class="w"> </span><span class="bp">=&gt;</span><span class="w"> </span><span class="n">le_total</span><span class="w"> </span><span class="bp">_</span><span class="w"> </span><span class="bp">_</span><span class="o">)</span><span class="w"> </span><span class="bp">⟨</span><span class="n">a</span><span class="o">,</span><span class="w"> </span><span class="n">trivial</span><span class="o">,</span><span class="w"> </span><span class="n">ha</span><span class="bp">⟩</span><span class="w"> </span><span class="bp">⟨</span><span class="n">b</span><span class="o">,</span><span class="w"> </span><span class="n">trivial</span><span class="o">,</span><span class="w"> </span><span class="n">hb</span><span class="bp">⟩</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="n">exact</span><span class="w"> </span><span class="bp">⟨</span><span class="n">x</span><span class="o">,</span><span class="w"> </span><span class="n">le_antisymm</span><span class="w"> </span><span class="n">hfg</span><span class="w"> </span><span class="n">hgf</span><span class="bp">⟩</span>
+</code></pre></div>
+<p>ここで考える閉集合は</p>
+<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="o">{</span><span class="n">x</span><span class="w"> </span><span class="bp">|</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="bp">≤</span><span class="w"> </span><span class="n">g</span><span class="w"> </span><span class="n">x</span><span class="o">},</span><span class="w">   </span><span class="o">{</span><span class="n">x</span><span class="w"> </span><span class="bp">|</span><span class="w"> </span><span class="n">g</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="bp">≤</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">x</span><span class="o">}</span>
+</code></pre></div>
+<p>です．
+<code>isClosed_le hf hg</code> によって，連続関数の大小関係で定まる集合が閉集合であることが分かります．
+また任意の点 <code>x</code> では <code>le_total (f x) (g x)</code> により，少なくともどちらか一方の閉集合に入ります．
+端点の仮定 <code>f a ≤ g a</code> と <code>g b ≤ f b</code> は，それぞれの閉集合が空でないことを与えます．</p>
+<p>連結性はここで使われます．
+<code>isPreconnected_closed_iff</code> は，preconnected な集合を 2 つの閉集合で覆い，
+両方に点があるなら，2 つの閉集合の交わりにも点がある，という形の補題です．
+その交点の点 <code>x</code> では</p>
+<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">f</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="bp">≤</span><span class="w"> </span><span class="n">g</span><span class="w"> </span><span class="n">x</span><span class="o">,</span><span class="w">   </span><span class="n">g</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="bp">≤</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">x</span>
+</code></pre></div>
+<p>が同時に成り立つので，<code>le_antisymm</code> から <code>f x = g x</code> が出ます．</p>
+<p>次に，集合 <code>s</code> 上の定理</p>
+<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">IsPreconnected</span><span class="bp">.</span><span class="n">intermediate_value₂</span>
+</code></pre></div>
+<p>は，<code>s</code> を部分型として見て全空間版を適用します．
+このとき <code>Subtype.preconnectedSpace hs</code> が「preconnected な集合 <code>s</code> は，
+部分型として preconnected な空間になる」ことを与え，
+<code>continuousOn_iff_continuous_restrict</code> が <code>ContinuousOn f s</code> を
+部分型上の <code>Continuous</code> に読み替えます．</p>
+<p>最後に，通常の中間値の定理</p>
+<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="n">IsPreconnected</span><span class="bp">.</span><span class="n">intermediate_value</span>
+</code></pre></div>
+<p>は，2 つ目の関数 <code>g</code> として定数関数 <code>fun _ =&gt; c</code> を取った特殊ケースです．
+閉区間版</p>
+<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">intermediate_value_Icc</span>
+</code></pre></div>
+<p>はさらに <code>s = Icc a b</code> とし，<code>isPreconnected_Icc</code>，
+<code>left_mem_Icc.2 hab</code>，<code>right_mem_Icc.2 hab</code> を渡したものです．
+実際の定理の本体はほぼ次の 1 行です．</p>
+<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="n">isPreconnected_Icc</span><span class="bp">.</span><span class="n">intermediate_value</span><span class="w"> </span><span class="o">(</span><span class="n">left_mem_Icc</span><span class="bp">.</span><span class="m">2</span><span class="w"> </span><span class="n">hab</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">right_mem_Icc</span><span class="bp">.</span><span class="m">2</span><span class="w"> </span><span class="n">hab</span><span class="o">)</span><span class="w"> </span><span class="n">hf</span>
+</code></pre></div>
+<p>つまり Mathlib の中間値の定理は，</p>
 <ol>
-<li>開集合・閉集合の問題なら <code>IsOpen</code>，<code>IsClosed</code> を探す．</li>
-<li>極限の問題なら <code>Tendsto</code> と <code>𝓝</code> を読む．</li>
-<li>距離空間の問題なら <code>Metric.ball</code>，<code>dist</code>，<code>Metric.mem_ball</code> を使う．</li>
-<li>連続性の合成なら <code>Continuous.comp</code> または <code>hg.comp hf</code> を使う．</li>
-<li>compactness では，Hausdorff 条件 <code>[T2Space X]</code> が必要かを確認する．</li>
-<li>中間値の定理では <code>intermediate_value_Icc</code> と <code>intermediate_value_Icc'</code> を探す．</li>
+<li>連続関数の大小で定まる閉集合を作る．</li>
+<li>preconnected 性から，2 つの閉集合の交点を得る．</li>
+<li>交点では両向きの不等式があるので等式にする．</li>
+<li>一般の集合から閉区間へ特殊化する．</li>
 </ol>
+<p>という流れで証明されています．</p>
 
 
 
@@ -1856,7 +1970,7 @@
       <nav class="md-footer__inner md-grid" aria-label="フッター" >
         
           
-          <a href="../09/" class="md-footer__link md-footer__link--prev" aria-label="前: 長めの例: 中間値の定理">
+          <a href="../09/" class="md-footer__link md-footer__link--prev" aria-label="前: 長めの例: コンパクト集合の連続像">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -1866,20 +1980,20 @@
                 前
               </span>
               <div class="md-ellipsis">
-                長めの例: 中間値の定理
+                長めの例: コンパクト集合の連続像
               </div>
             </div>
           </a>
         
         
           
-          <a href="../../chapter04/" class="md-footer__link md-footer__link--next" aria-label="次: Chapter 04: 微分">
+          <a href="../11/" class="md-footer__link md-footer__link--next" aria-label="次: まとめ">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 次
               </span>
               <div class="md-ellipsis">
-                Chapter 04: 微分
+                まとめ
               </div>
             </div>
             <div class="md-footer__button md-icon">

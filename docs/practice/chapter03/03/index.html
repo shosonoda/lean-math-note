@@ -25,7 +25,7 @@
     
     
       
-        <title>コンパクト性 - 数学系エンドユーザーのためのLean入門</title>
+        <title>収束と連続性 - 数学系エンドユーザーのためのLean入門</title>
       
     
     
@@ -104,7 +104,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              コンパクト性
+              収束と連続性
             
           </span>
         </div>
@@ -1069,6 +1069,8 @@
       
         
       
+        
+      
     
     
     
@@ -1164,7 +1166,7 @@
   <span class="md-ellipsis">
     
   
-    距離空間
+    フィルター
   
 
     
@@ -1194,6 +1196,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    収束と連続性
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -1201,7 +1221,7 @@
   <span class="md-ellipsis">
     
   
-    コンパクト性
+    収束と連続性
   
 
     
@@ -1210,6 +1230,36 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        演習問題
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1230,7 +1280,7 @@
   <span class="md-ellipsis">
     
   
-    フィルター
+    コンパクト性と連結性
   
 
     
@@ -1258,7 +1308,7 @@
   <span class="md-ellipsis">
     
   
-    具体的な極限計算
+    距離空間での読み替え
   
 
     
@@ -1286,7 +1336,7 @@
   <span class="md-ellipsis">
     
   
-    連続性
+    具体的な極限計算
   
 
     
@@ -1314,7 +1364,7 @@
   <span class="md-ellipsis">
     
   
-    長めの例: 連続関数の零点集合は閉集合
+    具体的な連続性計算
   
 
     
@@ -1342,7 +1392,7 @@
   <span class="md-ellipsis">
     
   
-    長めの例: compact set の連続像
+    長めの例: 連続関数の零点集合は閉集合
   
 
     
@@ -1370,7 +1420,7 @@
   <span class="md-ellipsis">
     
   
-    長めの例: 中間値の定理
+    長めの例: コンパクト集合の連続像
   
 
     
@@ -1392,6 +1442,34 @@
   
     <li class="md-nav__item">
       <a href="../10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    長めの例: 中間値の定理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11/" class="md-nav__link">
         
   
   
@@ -1720,6 +1798,25 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        演習問題
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1735,24 +1832,99 @@
 
 
 
-<h1 id="_1">コンパクト性<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
-<p>コンパクト性は <code>IsCompact s</code> で表されます．
-これは <code>s : Set X</code> に対する述語です．
-閉集合や連続写像との相互作用は，解析や微分積分で頻繁に使います．</p>
-<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">IsCompact</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">IsCompact</span><span class="bp">.</span><span class="n">image</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">IsClosed</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="kn">section</span><span class="w"> </span><span class="n">Compactness</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="kn">variable</span><span class="w"> </span><span class="o">{</span><span class="n">X</span><span class="w"> </span><span class="n">Y</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Type</span><span class="bp">*</span><span class="o">}</span><span class="w"> </span><span class="o">[</span><span class="n">TopologicalSpace</span><span class="w"> </span><span class="n">X</span><span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="n">TopologicalSpace</span><span class="w"> </span><span class="n">Y</span><span class="o">]</span>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="kn">variable</span><span class="w"> </span><span class="o">{</span><span class="n">s</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Set</span><span class="w"> </span><span class="n">X</span><span class="o">}</span><span class="w"> </span><span class="o">{</span><span class="n">f</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">X</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">Y</span><span class="o">}</span>
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">hs</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">IsCompact</span><span class="w"> </span><span class="n">s</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">hf</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Continuous</span><span class="w"> </span><span class="n">f</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">IsCompact</span><span class="w"> </span><span class="o">(</span><span class="n">f</span><span class="w"> </span><span class="bp">&#39;&#39;</span><span class="w"> </span><span class="n">s</span><span class="o">)</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">  </span><span class="n">exact</span><span class="w"> </span><span class="n">hs</span><span class="bp">.</span><span class="n">image</span><span class="w"> </span><span class="n">hf</span>
-<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>
-<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="kn">end</span><span class="w"> </span><span class="n">Compactness</span>
+<h1 id="_1">収束と連続性<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<p>関数 <code>f : X → Y</code> の連続性は <code>Continuous f</code> です．
+一点 <code>x</code> での連続性は <code>ContinuousAt f x</code>，集合 <code>s</code> 上の連続性は <code>ContinuousOn f s</code> です．
+Mathlib では，一点での連続性がフィルターで定義されています:</p>
+<div class="language-lean4 highlight"><span class="filename">Mathlib.Topology.Defs</span><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">def</span><span class="w"> </span><span class="n">ContinuousAt</span><span class="w"> </span><span class="o">(</span><span class="n">f</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">X</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">Y</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">X</span><span class="o">)</span><span class="w"> </span><span class="o">:=</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="n">Tendsto</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="o">(</span><span class="n">𝓝</span><span class="w"> </span><span class="n">x</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">𝓝</span><span class="w"> </span><span class="o">(</span><span class="n">f</span><span class="w"> </span><span class="n">x</span><span class="o">))</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">def</span><span class="w"> </span><span class="n">ContinuousOn</span><span class="w"> </span><span class="o">(</span><span class="n">f</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">X</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">Y</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">s</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Set</span><span class="w"> </span><span class="n">X</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Prop</span><span class="w"> </span><span class="o">:=</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span><span class="bp">∀</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="bp">∈</span><span class="w"> </span><span class="n">s</span><span class="o">,</span><span class="w"> </span><span class="n">ContinuousWithinAt</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="n">x</span>
 </code></pre></div>
+<p>これは「<code>x</code> に十分近い点を <code>f</code> で送ると，<code>f x</code> に十分近い点になる」という意味です．
+より展開すると，<code>f x</code> の任意の近傍 <code>A</code> に対して，その逆像 <code>f ⁻¹' A</code> が <code>x</code> の近傍である，という条件になります．
+位相空間の教科書では大域的な連続性を「開集合の逆像が開集合」と定義することが多いですが，
+フィルターを使うと点での連続性，数列や関数の極限，無限遠での極限を同じ <code>Tendsto</code> の形で扱えます．</p>
+<p>距離空間では，この定義は通常の <code>ε</code>-<code>δ</code> に戻ります．
+この読み替えは，後の「距離空間での読み替え」で扱います．</p>
+<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">Continuous</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">ContinuousAt</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">ContinuousOn</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="kn">section</span><span class="w"> </span><span class="n">Continuity</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="kn">variable</span><span class="w"> </span><span class="o">{</span><span class="n">X</span><span class="w"> </span><span class="n">Y</span><span class="w"> </span><span class="n">Z</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Type</span><span class="bp">*</span><span class="o">}</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="kn">variable</span><span class="w"> </span><span class="o">[</span><span class="n">TopologicalSpace</span><span class="w"> </span><span class="n">X</span><span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="n">TopologicalSpace</span><span class="w"> </span><span class="n">Y</span><span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="n">TopologicalSpace</span><span class="w"> </span><span class="n">Z</span><span class="o">]</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="kn">example</span><span class="w"> </span><span class="o">{</span><span class="n">f</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">X</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">Y</span><span class="o">}</span><span class="w"> </span><span class="o">{</span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">X</span><span class="o">}</span><span class="w"> </span><span class="o">:</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">    </span><span class="n">ContinuousAt</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">Tendsto</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="o">(</span><span class="n">𝓝</span><span class="w"> </span><span class="n">x</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">𝓝</span><span class="w"> </span><span class="o">(</span><span class="n">f</span><span class="w"> </span><span class="n">x</span><span class="o">))</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">  </span><span class="n">rfl</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="kn">example</span><span class="w"> </span><span class="o">{</span><span class="n">f</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">X</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">Y</span><span class="o">}</span><span class="w"> </span><span class="o">{</span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">X</span><span class="o">}</span><span class="w"> </span><span class="o">:</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="w">    </span><span class="n">ContinuousAt</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="bp">↔</span><span class="w"> </span><span class="bp">∀</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="bp">∈</span><span class="w"> </span><span class="n">𝓝</span><span class="w"> </span><span class="o">(</span><span class="n">f</span><span class="w"> </span><span class="n">x</span><span class="o">),</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="bp">⁻¹&#39;</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="bp">∈</span><span class="w"> </span><span class="n">𝓝</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="w">  </span><span class="n">exact</span><span class="w"> </span><span class="n">continuousAt_def</span>
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="kn">example</span><span class="w"> </span><span class="o">{</span><span class="n">α</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Type</span><span class="bp">*</span><span class="o">}</span><span class="w"> </span><span class="o">{</span><span class="n">f</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">α</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">Y</span><span class="o">}</span><span class="w"> </span><span class="o">{</span><span class="n">l</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Filter</span><span class="w"> </span><span class="n">α</span><span class="o">}</span><span class="w"> </span><span class="o">{</span><span class="n">y</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Y</span><span class="o">}</span><span class="w"> </span><span class="o">:</span>
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="w">    </span><span class="n">Tendsto</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">l</span><span class="w"> </span><span class="o">(</span><span class="n">𝓝</span><span class="w"> </span><span class="n">y</span><span class="o">)</span><span class="w"> </span><span class="bp">↔</span><span class="w"> </span><span class="bp">∀</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Set</span><span class="w"> </span><span class="n">Y</span><span class="o">,</span><span class="w"> </span><span class="n">IsOpen</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="bp">∈</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="bp">⁻¹&#39;</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="bp">∈</span><span class="w"> </span><span class="n">l</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a><span class="w">  </span><span class="n">exact</span><span class="w"> </span><span class="n">tendsto_nhds</span>
+<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>
+<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a><span class="kn">example</span><span class="w"> </span><span class="o">{</span><span class="n">f</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">X</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">Y</span><span class="o">}</span><span class="w"> </span><span class="o">(</span><span class="n">hf</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Continuous</span><span class="w"> </span><span class="n">f</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">X</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ContinuousAt</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a><span class="w">  </span><span class="n">exact</span><span class="w"> </span><span class="n">hf</span><span class="bp">.</span><span class="n">continuousAt</span>
+<a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a>
+<a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a><span class="kn">example</span><span class="w"> </span><span class="o">{</span><span class="n">f</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">X</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">Y</span><span class="o">}</span><span class="w"> </span><span class="o">{</span><span class="n">g</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Y</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">Z</span><span class="o">}</span><span class="w"> </span><span class="o">(</span><span class="n">hf</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Continuous</span><span class="w"> </span><span class="n">f</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">hg</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Continuous</span><span class="w"> </span><span class="n">g</span><span class="o">)</span><span class="w"> </span><span class="o">:</span>
+<a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a><span class="w">    </span><span class="n">Continuous</span><span class="w"> </span><span class="k">fun</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="bp">=&gt;</span><span class="w"> </span><span class="n">g</span><span class="w"> </span><span class="o">(</span><span class="n">f</span><span class="w"> </span><span class="n">x</span><span class="o">)</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a><span class="w">  </span><span class="n">exact</span><span class="w"> </span><span class="n">hg</span><span class="bp">.</span><span class="n">comp</span><span class="w"> </span><span class="n">hf</span>
+<a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a>
+<a id="__codelineno-1-29" name="__codelineno-1-29" href="#__codelineno-1-29"></a><span class="kn">end</span><span class="w"> </span><span class="n">Continuity</span>
+</code></pre></div>
+<h2 id="_2">演習問題<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<ol>
+<li>
+<p>開集合の連続写像による逆像が開集合であることを示してください．</p>
+<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">example</span><span class="w"> </span><span class="o">{</span><span class="n">X</span><span class="w"> </span><span class="n">Y</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Type</span><span class="bp">*</span><span class="o">}</span><span class="w"> </span><span class="o">[</span><span class="n">TopologicalSpace</span><span class="w"> </span><span class="n">X</span><span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="n">TopologicalSpace</span><span class="w"> </span><span class="n">Y</span><span class="o">]</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="o">{</span><span class="n">f</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">X</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">Y</span><span class="o">}</span><span class="w"> </span><span class="o">(</span><span class="n">hf</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Continuous</span><span class="w"> </span><span class="n">f</span><span class="o">)</span><span class="w"> </span><span class="o">{</span><span class="n">U</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Set</span><span class="w"> </span><span class="n">Y</span><span class="o">}</span><span class="w"> </span><span class="o">(</span><span class="n">hU</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">IsOpen</span><span class="w"> </span><span class="n">U</span><span class="o">)</span><span class="w"> </span><span class="o">:</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="n">IsOpen</span><span class="w"> </span><span class="o">(</span><span class="n">f</span><span class="w"> </span><span class="bp">⁻¹&#39;</span><span class="w"> </span><span class="n">U</span><span class="o">)</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">  </span><span class="c1">-- `hU.preimage hf` を試す．</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">  </span><span class="gr">sorry</span>
+</code></pre></div>
+</li>
+<li>
+<p>閉集合の連続写像による逆像が閉集合であることを示してください．</p>
+<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">example</span><span class="w"> </span><span class="o">{</span><span class="n">X</span><span class="w"> </span><span class="n">Y</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Type</span><span class="bp">*</span><span class="o">}</span><span class="w"> </span><span class="o">[</span><span class="n">TopologicalSpace</span><span class="w"> </span><span class="n">X</span><span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="n">TopologicalSpace</span><span class="w"> </span><span class="n">Y</span><span class="o">]</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="o">{</span><span class="n">f</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">X</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">Y</span><span class="o">}</span><span class="w"> </span><span class="o">(</span><span class="n">hf</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Continuous</span><span class="w"> </span><span class="n">f</span><span class="o">)</span><span class="w"> </span><span class="o">{</span><span class="n">C</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Set</span><span class="w"> </span><span class="n">Y</span><span class="o">}</span><span class="w"> </span><span class="o">(</span><span class="n">hC</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">IsClosed</span><span class="w"> </span><span class="n">C</span><span class="o">)</span><span class="w"> </span><span class="o">:</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="n">IsClosed</span><span class="w"> </span><span class="o">(</span><span class="n">f</span><span class="w"> </span><span class="bp">⁻¹&#39;</span><span class="w"> </span><span class="n">C</span><span class="o">)</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">  </span><span class="c1">-- `hC.preimage hf` を試す．</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">  </span><span class="gr">sorry</span>
+</code></pre></div>
+</li>
+<li>
+<p>実数値連続関数 <code>f g : X → ℝ</code> について，集合 <code>{x | f x ≤ g x}</code> が閉集合であることを示してください．</p>
+<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">example</span><span class="w"> </span><span class="o">{</span><span class="n">X</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Type</span><span class="bp">*</span><span class="o">}</span><span class="w"> </span><span class="o">[</span><span class="n">TopologicalSpace</span><span class="w"> </span><span class="n">X</span><span class="o">]</span><span class="w"> </span><span class="o">{</span><span class="n">f</span><span class="w"> </span><span class="n">g</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">X</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">ℝ</span><span class="o">}</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="o">(</span><span class="n">hf</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Continuous</span><span class="w"> </span><span class="n">f</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">hg</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Continuous</span><span class="w"> </span><span class="n">g</span><span class="o">)</span><span class="w"> </span><span class="o">:</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="n">IsClosed</span><span class="w"> </span><span class="o">{</span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">X</span><span class="w"> </span><span class="bp">|</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="bp">≤</span><span class="w"> </span><span class="n">g</span><span class="w"> </span><span class="n">x</span><span class="o">}</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">  </span><span class="c1">-- `isClosed_le hf hg` を調べる．</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">  </span><span class="gr">sorry</span>
+</code></pre></div>
+</li>
+<li>
+<p><code>{x | f x &lt; g x}</code> が開集合であることを調べてください．</p>
+<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kn">example</span><span class="w"> </span><span class="o">{</span><span class="n">X</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Type</span><span class="bp">*</span><span class="o">}</span><span class="w"> </span><span class="o">[</span><span class="n">TopologicalSpace</span><span class="w"> </span><span class="n">X</span><span class="o">]</span><span class="w"> </span><span class="o">{</span><span class="n">f</span><span class="w"> </span><span class="n">g</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">X</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">ℝ</span><span class="o">}</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span><span class="o">(</span><span class="n">hf</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Continuous</span><span class="w"> </span><span class="n">f</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">hg</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Continuous</span><span class="w"> </span><span class="n">g</span><span class="o">)</span><span class="w"> </span><span class="o">:</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="n">IsOpen</span><span class="w"> </span><span class="o">{</span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">X</span><span class="w"> </span><span class="bp">|</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="bp">&lt;</span><span class="w"> </span><span class="n">g</span><span class="w"> </span><span class="n">x</span><span class="o">}</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">  </span><span class="c1">-- `isOpen_lt hf hg` を調べる．</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">  </span><span class="gr">sorry</span>
+</code></pre></div>
+</li>
+<li>
+<p><code>ContinuousAt</code> が <code>Tendsto</code> であることを確認してください．</p>
+<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kn">example</span><span class="w"> </span><span class="o">{</span><span class="n">X</span><span class="w"> </span><span class="n">Y</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Type</span><span class="bp">*</span><span class="o">}</span><span class="w"> </span><span class="o">[</span><span class="n">TopologicalSpace</span><span class="w"> </span><span class="n">X</span><span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="n">TopologicalSpace</span><span class="w"> </span><span class="n">Y</span><span class="o">]</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span><span class="o">{</span><span class="n">f</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">X</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">Y</span><span class="o">}</span><span class="w"> </span><span class="o">{</span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">X</span><span class="o">}</span><span class="w"> </span><span class="o">:</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="n">ContinuousAt</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">Tendsto</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="o">(</span><span class="n">𝓝</span><span class="w"> </span><span class="n">x</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">𝓝</span><span class="w"> </span><span class="o">(</span><span class="n">f</span><span class="w"> </span><span class="n">x</span><span class="o">))</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">  </span><span class="c1">-- ヒント: `rfl`</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">  </span><span class="gr">sorry</span>
+</code></pre></div>
+</li>
+</ol>
 
 
 
@@ -1788,7 +1960,7 @@
       <nav class="md-footer__inner md-grid" aria-label="フッター" >
         
           
-          <a href="../02/" class="md-footer__link md-footer__link--prev" aria-label="前: 距離空間">
+          <a href="../02/" class="md-footer__link md-footer__link--prev" aria-label="前: フィルター">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -1798,20 +1970,20 @@
                 前
               </span>
               <div class="md-ellipsis">
-                距離空間
+                フィルター
               </div>
             </div>
           </a>
         
         
           
-          <a href="../04/" class="md-footer__link md-footer__link--next" aria-label="次: フィルター">
+          <a href="../04/" class="md-footer__link md-footer__link--next" aria-label="次: コンパクト性と連結性">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 次
               </span>
               <div class="md-ellipsis">
-                フィルター
+                コンパクト性と連結性
               </div>
             </div>
             <div class="md-footer__button md-icon">
