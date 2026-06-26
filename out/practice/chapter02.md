@@ -153,6 +153,7 @@ example {K V W : Type*} [Field K]
     (f : V →ₗ[K] W) :
     f 0 = 0 := by
   -- `map_zero` または `simp`．
+  -- 解答例: exact map_zero f
   sorry
 ```
 
@@ -222,6 +223,7 @@ end Submodules
         (f : V →ₗ[K] W) (x : V) :
         x ∈ LinearMap.ker f ↔ f x = 0 := by
       -- `rfl` で閉じるか確認する．
+      -- 解答例: rfl
       sorry
     ```
 
@@ -234,6 +236,7 @@ end Submodules
         (f : V →ₗ[K] W) (S : Submodule K V) (y : W) :
         y ∈ Submodule.map f S ↔ ∃ x ∈ S, f x = y := by
       -- `Submodule.mem_map` を調べる．
+      -- 解答例: exact Submodule.mem_map
       sorry
     ```
 
@@ -322,12 +325,14 @@ end Matrices
 1. `Matrix (Fin 2) (Fin 2) K` の単位行列の行列式が 1 であることを，`simp` 以外の方法でも調べてください．
 
     ```lean4
+    -- 解答例: `Matrix.det_one` が単位行列の行列式を述べる定理です．
     #check Matrix.det_one
     ```
 
 2. 行列と線形写像の橋渡しとして `Matrix.toLin` の型を読み，どこで基底が必要になるか説明してください．
 
     ```lean4
+    -- 解答例: `Matrix.toLin` は，始域と終域の基底を使って行列を線形写像に変換します．
     #check Matrix.toLin
     ```
 
@@ -435,9 +440,15 @@ end CoordinateLinearMaps
       toFun p := p.1 - p.2
       map_add' := by
         -- 座標計算．
+        -- 解答例:
+        --   intro x y
+        --   simp [sub_eq_add_neg, add_assoc, add_comm, add_left_comm]
         sorry
       map_smul' := by
         -- スカラー倍の分配法則．
+        -- 解答例:
+        --   intro a x
+        --   simp [mul_sub]
         sorry
     ```
 
@@ -447,6 +458,7 @@ end CoordinateLinearMaps
     example {K : Type*} [Field K] (x y : K) :
         (x, y) ∈ LinearMap.ker (sumPairLinear : (K × K) →ₗ[K] K) ↔ x + y = 0 := by
       -- `show` でゴールを見てから `simp [sumPairLinear]` を試す．
+      -- 解答例: simpa [sumPairLinear]
       sorry
     ```
 
@@ -458,6 +470,17 @@ end CoordinateLinearMaps
         LinearIndependent K (fun i : Fin 2 =>
           if i = 0 then (planeE1 : K × K) else planeE2) := by
       -- 方針: `linearIndependent_iff` 系の補題を探す．
+      -- 解答例:
+      --   rw [linearIndependent_iff]
+      --   intro s hzero
+      --   ext i
+      --   fin_cases i
+      --   · have h1 := congrArg Prod.fst hzero
+      --     simp [Finsupp.linearCombination, planeE1, planeE2, Finsupp.sum_fintype] at h1
+      --     simpa using h1
+      --   · have h2 := congrArg Prod.snd hzero
+      --     simp [Finsupp.linearCombination, planeE1, planeE2, Finsupp.sum_fintype] at h2
+      --     simpa using h2
       sorry
     ```
 
@@ -467,6 +490,7 @@ end CoordinateLinearMaps
     example {K : Type*} [Field K] (p : K × K) :
         p = p.1 • planeE1 + p.2 • planeE2 := by
       -- ヒント: `ext <;> simp [planeE1, planeE2]`
+      -- 解答例: ext <;> simp [planeE1, planeE2]
       sorry
     ```
 

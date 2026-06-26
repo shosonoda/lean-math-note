@@ -1785,12 +1785,14 @@
 <ol>
 <li>
 <p><code>Matrix (Fin 2) (Fin 2) K</code> の単位行列の行列式が 1 であることを，<code>simp</code> 以外の方法でも調べてください．</p>
-<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">Matrix</span><span class="bp">.</span><span class="n">det_one</span>
+<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1">-- 解答例: `Matrix.det_one` が単位行列の行列式を述べる定理です．</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">Matrix</span><span class="bp">.</span><span class="n">det_one</span>
 </code></pre></div>
 </li>
 <li>
 <p>行列と線形写像の橋渡しとして <code>Matrix.toLin</code> の型を読み，どこで基底が必要になるか説明してください．</p>
-<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">Matrix</span><span class="bp">.</span><span class="n">toLin</span>
+<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1">-- 解答例: `Matrix.toLin` は，始域と終域の基底を使って行列を線形写像に変換します．</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">Matrix</span><span class="bp">.</span><span class="n">toLin</span>
 </code></pre></div>
 </li>
 </ol>

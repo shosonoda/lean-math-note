@@ -265,6 +265,7 @@ end RealDerivatives
     ```lean4
     example (x : ℝ) : DifferentiableAt ℝ (fun y : ℝ => y ^ 4) x := by
       -- `fun_prop` または `hasDerivAt_pow` から `.differentiableAt`．
+      -- 解答例: fun_prop
       sorry
     ```
 
@@ -273,6 +274,7 @@ end RealDerivatives
     ```lean4
     example : deriv (fun x : ℝ => x ^ 2) 3 = 6 := by
       -- `simp` と `norm_num` を試す．
+      -- 解答例: norm_num [deriv_pow]
       sorry
     ```
 
@@ -282,12 +284,15 @@ end RealDerivatives
     example {f : ℝ → ℝ} {x a : ℝ} (h : HasDerivAt f a x) :
         DifferentiableAt ℝ f x := by
       -- ヒント: `exact h.differentiableAt`
+      -- 解答例: exact h.differentiableAt
       sorry
     ```
 
 4. `deriv` は微分不能な点で 0 と定義されることを，絶対値関数などで調べてください．
 
     ```lean4
+    -- 解答例: `deriv_zero_of_not_differentiableAt` が，
+    -- 微分不能な点で `deriv` が 0 になることを述べます．
     #check deriv_zero_of_not_differentiableAt
     ```
 -/
@@ -295,17 +300,22 @@ end RealDerivatives
 --#--
 example (x : ℝ) : DifferentiableAt ℝ (fun y : ℝ => y ^ 4) x := by
   -- `fun_prop` または `hasDerivAt_pow` から `.differentiableAt`．
+  -- 解答例: fun_prop
   sorry
 
 example : deriv (fun x : ℝ => x ^ 2) 3 = 6 := by
   -- `simp` と `norm_num` を試す．
+  -- 解答例: norm_num [deriv_pow]
   sorry
 
 example {f : ℝ → ℝ} {x a : ℝ} (h : HasDerivAt f a x) :
     DifferentiableAt ℝ f x := by
   -- ヒント: `exact h.differentiableAt`
+  -- 解答例: exact h.differentiableAt
   sorry
 
+-- 解答例: `deriv_zero_of_not_differentiableAt` が，
+-- 微分不能な点で `deriv` が 0 になることを述べます．
 #check deriv_zero_of_not_differentiableAt
 --#--
 
@@ -352,6 +362,7 @@ example {f g : ℝ → ℝ} {x : ℝ}
     (hf : DifferentiableAt ℝ f x) (hg : DifferentiableAt ℝ g x) :
     deriv (fun y => f y * g y) x = deriv f x * g x + f x * deriv g x := by
   -- ヒント: `exact deriv_mul hf hg`
+  -- 解答例: exact deriv_mul hf hg
   sorry
 ```
 -/
@@ -361,6 +372,7 @@ example {f g : ℝ → ℝ} {x : ℝ}
     (hf : DifferentiableAt ℝ f x) (hg : DifferentiableAt ℝ g x) :
     deriv (fun y => f y * g y) x = deriv f x * g x + f x * deriv g x := by
   -- ヒント: `exact deriv_mul hf hg`
+  -- 解答例: exact deriv_mul hf hg
   sorry
 --#--
 
@@ -398,11 +410,15 @@ end MeanValue
 平均値の定理の statement を読み，`ContinuousOn` と `DifferentiableOn` の役割を説明してください．
 
 ```lean4
+-- 解答例: 閉区間上で連続，開区間上で微分可能という仮定から，
+-- ある点で導関数が割線の傾きになることを述べます．
 #check exists_deriv_eq_slope
 ```
 -/
 
 --#--
+-- 解答例: 閉区間上で連続，開区間上で微分可能という仮定から，
+-- ある点で導関数が割線の傾きになることを述べます．
 #check exists_deriv_eq_slope
 --#--
 
@@ -507,12 +523,15 @@ end Frechet
         (L : E →L[ℝ] F) :
         Continuous L := by
       -- ヒント: `exact L.cont`
+      -- 解答例: exact L.cont
       sorry
     ```
 
 2. `HasFDerivAt` の statement を `#check` で表示し，実数 1 変数の `HasDerivAt` と何が違うか説明してください．
 
     ```lean4
+    -- 解答例: `HasFDerivAt` は連続線形写像を微分として指定し，
+    -- `HasDerivAt` は 1 変数の微分係数を指定します．
     #check HasFDerivAt
     #check HasDerivAt
     ```
@@ -523,6 +542,7 @@ end Frechet
     example {E : Type*} [NormedAddCommGroup E] [NormedSpace ℝ E] (x : E) :
         HasFDerivAt (ContinuousLinearMap.id ℝ E) (ContinuousLinearMap.id ℝ E) x := by
       -- ヒント: `exact (ContinuousLinearMap.id ℝ E).hasFDerivAt`
+      -- 解答例: exact (ContinuousLinearMap.id ℝ E).hasFDerivAt
       sorry
     ```
 -/
@@ -534,14 +554,18 @@ example {E F : Type*}
     (L : E →L[ℝ] F) :
     Continuous L := by
   -- ヒント: `exact L.cont`
+  -- 解答例: exact L.cont
   sorry
 
+-- 解答例: `HasFDerivAt` は連続線形写像を微分として指定し，
+-- `HasDerivAt` は 1 変数の微分係数を指定します．
 #check HasFDerivAt
 #check HasDerivAt
 
 example {E : Type*} [NormedAddCommGroup E] [NormedSpace ℝ E] (x : E) :
     HasFDerivAt (ContinuousLinearMap.id ℝ E) (ContinuousLinearMap.id ℝ E) x := by
   -- ヒント: `exact (ContinuousLinearMap.id ℝ E).hasFDerivAt`
+  -- 解答例: exact (ContinuousLinearMap.id ℝ E).hasFDerivAt
   sorry
 --#--
 
@@ -602,6 +626,12 @@ end PolynomialDerivativeExample
 ```lean4
 example : HasDerivAt (fun x : ℝ => 3 * x ^ 2) (12 : ℝ) 2 := by
   -- `hasDerivAt_pow` と `.const_mul` を使う．
+  -- 解答例:
+  --   have hpow : HasDerivAt (fun x : ℝ => x ^ 2) (2 * 2 ^ (2 - 1)) 2 := by
+  --     simpa using (hasDerivAt_pow 2 (2 : ℝ))
+  --   have h := hpow.const_mul (3 : ℝ)
+  --   norm_num at h
+  --   simpa [mul_comm, mul_left_comm, mul_assoc] using h
   sorry
 ```
 -/
@@ -609,6 +639,12 @@ example : HasDerivAt (fun x : ℝ => 3 * x ^ 2) (12 : ℝ) 2 := by
 --#--
 example : HasDerivAt (fun x : ℝ => 3 * x ^ 2) (12 : ℝ) 2 := by
   -- `hasDerivAt_pow` と `.const_mul` を使う．
+  -- 解答例:
+  --   have hpow : HasDerivAt (fun x : ℝ => x ^ 2) (2 * 2 ^ (2 - 1)) 2 := by
+  --     simpa using (hasDerivAt_pow 2 (2 : ℝ))
+  --   have h := hpow.const_mul (3 : ℝ)
+  --   norm_num at h
+  --   simpa [mul_comm, mul_left_comm, mul_assoc] using h
   sorry
 --#--
 

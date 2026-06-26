@@ -1222,7 +1222,7 @@
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        近傍フィルターによる収束と連続
+        近傍フィルターで収束と連続を読む
       
     </span>
   </a>
@@ -1263,7 +1263,7 @@
   <span class="md-ellipsis">
     
   
-    収束と連続性
+    連続性の基本 API
   
 
     
@@ -1291,7 +1291,7 @@
   <span class="md-ellipsis">
     
   
-    コンパクト性と連結性
+    具体的な極限計算
   
 
     
@@ -1319,7 +1319,7 @@
   <span class="md-ellipsis">
     
   
-    距離空間での読み替え
+    具体的な連続性計算
   
 
     
@@ -1347,7 +1347,7 @@
   <span class="md-ellipsis">
     
   
-    具体的な極限計算
+    距離空間での読み替え
   
 
     
@@ -1375,7 +1375,7 @@
   <span class="md-ellipsis">
     
   
-    具体的な連続性計算
+    コンパクト性と連結性
   
 
     
@@ -1819,7 +1819,7 @@
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        近傍フィルターによる収束と連続
+        近傍フィルターで収束と連続を読む
       
     </span>
   </a>
@@ -1855,195 +1855,327 @@
 
 
 <h1 id="_1">フィルター<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
-<p><code>Filter α</code> は，<code>α</code> の部分集合の集まりに閉性条件を入れた構造です．
-距離空間での点列の収束を一般化するために使われます．
-数学的には，集合 <span class="arithmatex">\(\alpha\)</span> 上のフィルター <span class="arithmatex">\(F \subset \mathcal P(\alpha)\)</span> は，<span class="arithmatex">\(\alpha\)</span> の部分集合からなる族で，次を満たすものです．</p>
+<p><code>Filter α</code> は，<code>α</code> の部分集合のうち「十分大きい」「十分近い」とみなす集合を集めたものです．
+数学的には，集合 <span class="arithmatex">\(X\)</span> 上のフィルター <span class="arithmatex">\(\mathcal F\)</span> は，部分集合族
+<span class="arithmatex">\(\mathcal F \subseteq \mathcal P(X)\)</span> であって，次を満たすものです．</p>
+<div class="arithmatex">\[
+X \in \mathcal F,
+\qquad
+A, B \in \mathcal F \Longrightarrow A \cap B \in \mathcal F,
+\qquad
+A \in \mathcal F,\ A \subseteq B \subseteq X \Longrightarrow B \in \mathcal F.
+\]</div>
+<p>通常の数学ではさらに <span class="arithmatex">\(\emptyset \notin \mathcal F\)</span> も仮定します．
+Lean の <code>Filter X</code> ではこの条件は定義には入っていませんが，
+この章で扱う <code>atTop</code> や <code>𝓝 x</code> を読むうえでは，まず意識しなくてかまいません．</p>
+<p>この章では，フィルターの一般論よりも，次の 3 つの読み方が重要です．</p>
 <ul>
-<li>全体集合 <span class="arithmatex">\(\alpha\)</span> を含む: <span class="arithmatex">\(\alpha \in F\)</span></li>
-<li>空集合 <span class="arithmatex">\(\emptyset\)</span> を含まない: <span class="arithmatex">\(\emptyset \notin F\)</span></li>
-<li>上に閉じている: <span class="arithmatex">\(U \in F, V \in \mathcal P(\alpha)\)</span> かつ <span class="arithmatex">\(U \subset V\)</span> なら <span class="arithmatex">\(V \in F\)</span>．</li>
-<li>共通部分演算で閉じている: <span class="arithmatex">\(U,V \in F\)</span> なら <span class="arithmatex">\(U \cap V \in F\)</span>．</li>
+<li><code>s ∈ l</code>: 集合 <code>s</code> はフィルター <code>l</code> の意味で十分大きい．</li>
+<li><code>∀ᶠ x in l, p x</code>: <code>p x</code> が成り立つような <code>x</code> 全体の集合が，
+  フィルター <code>l</code> の意味で十分大きい．
+  定義上は <code>{x | p x} ∈ l</code> という主張です．</li>
+<li><code>Tendsto f l m</code>: <code>x</code> が <code>l</code> に沿って動くとき，<code>f x</code> が <code>m</code> に沿って動く．</li>
 </ul>
-<p>ただし Lean の <code>Filter α</code> は技術的な都合で <code>∅</code> を含む退化したフィルターも許します．退化していないこと（真のフィルター）が必要な場面では，<code>NeBot l</code> という型クラスを仮定します．</p>
-<p>記法 <code>∀ᶠ x in l, p x</code> は，「フィルター <code>l</code> の意味で十分近い，あるいは十分先の <code>x</code> について <code>p x</code> が成り立つ」という意味です．
-フィルターに慣れていないうちは，「少数の例外を無視して <code>p x</code> が成り立つ」と読むとよいです．
-どの例外を無視してよいかは，フィルター <code>l</code> が決めます．
-定義上は，集合 <code>{x | p x}</code> がフィルター <code>l</code> に属する，という主張です．</p>
-<p>たとえば <code>∀ᶠ n in atTop, p n</code> は，数列や自然数添字の議論で使われます．
-これは「ある番号 <code>N</code> 以降のすべての <code>n</code> について <code>p n</code> が成り立つ」という意味で，有限個の初期項での失敗を無視します．
-極限の証明で「十分大きい <code>n</code> について」と言う場面は，Lean ではこの形で書くことが多いです．</p>
-<p>また <code>∀ᶠ y in 𝓝 x, p y</code> は，点 <code>x</code> の近くで成り立つ性質を表します．
-これは「<code>x</code> を含むある近傍のすべての点 <code>y</code> について <code>p y</code> が成り立つ」という意味です．
-連続性や局所的な議論で，「<code>x</code> の十分近くでは分母が 0 でない」「<code>x</code> の十分近くでは同じ式で表せる」といった主張を書くときに使います．</p>
-<p>測度論では <code>∀ᶠ x in ae μ, p x</code>，または同じ意味の記法 <code>∀ᵐ x ∂μ, p x</code> を使います．
-これは「測度 <code>μ</code> に関してほとんど至る所 <code>p x</code> が成り立つ」という意味です．
-失敗する点全体の集合が零測度なら，その例外を無視します．
-積分論や確率論では，関数が一点ごとに完全に一致しなくても，零測度集合を除いて一致すれば同じものとして扱いたい場面が多く，そのために <code>ae μ</code> が使われます．</p>
-<p>代表例は次の通りです．</p>
-<ul>
-<li><code>atTop</code>: 十分大きい値に対応するフィルター．<code>s ∈ atTop</code> は，ある境界より先の値がすべて <code>s</code> に入ることを意味する．自然数上では「十分大きい <code>n</code>」そのもの．</li>
-<li><code>𝓝 x</code>: 点 <code>x</code> の近傍フィルター（点 <span class="arithmatex">\(x\)</span> の近傍全体 <span class="arithmatex">\(\mathcal N(x)\)</span>）．<code>s ∈ 𝓝 x</code> は，<code>x</code> を含む開集合が <code>s</code> に含まれることを意味する．</li>
-<li><code>ae μ</code>: 測度 <code>μ</code> に関してほとんど至る所成り立つ，というフィルター．<code>s ∈ ae μ</code> は，補集合 <code>sᶜ</code> が零測度であることを意味する．</li>
-</ul>
+<p>数式で書くと，<code>∀ᶠ x in l, p x</code> は</p>
+<div class="arithmatex">\[
+\{x \in X \mid p(x)\} \in \mathcal F
+\]</div>
+<p>という条件です．
+また，写像 <span class="arithmatex">\(f : X \to Y\)</span> とフィルター <span class="arithmatex">\(\mathcal F\)</span>，<span class="arithmatex">\(\mathcal G\)</span> について
+<code>Tendsto f l m</code> は，次の条件に対応します．</p>
+<div class="arithmatex">\[
+\forall B \in \mathcal G,\quad f^{-1}(B) \in \mathcal F.
+\]</div>
+<p>この章で主に使うフィルターは，<code>atTop</code> と <code>𝓝 x</code> です．</p>
+<p><code>atTop</code> は，順序集合の「上の方へ行く」ことを表すフィルターです．
+自然数上では「十分大きい <code>n</code>」を意味します．
+自然数上の部分集合 <span class="arithmatex">\(S \subseteq \mathbb N\)</span> については，</p>
+<div class="arithmatex">\[
+S \in \mathrm{atTop}
+\quad\Longleftrightarrow\quad
+\exists N,\ \forall n \ge N,\ n \in S
+\]</div>
+<p>と読めます．
+この講義では，次の補題を <code>atTop</code> の定義のように読めば十分です．</p>
+<div class="language-lean4 highlight"><span class="filename">Mathlib/Order/Filter/AtTopBot/Basic.lean</span><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">lemma</span><span class="w"> </span><span class="n">mem_atTop_sets</span><span class="w"> </span><span class="o">:</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="n">s</span><span class="w"> </span><span class="bp">∈</span><span class="w"> </span><span class="o">(</span><span class="n">atTop</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Filter</span><span class="w"> </span><span class="n">α</span><span class="o">)</span><span class="w"> </span><span class="bp">↔</span><span class="w"> </span><span class="bp">∃</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">α</span><span class="o">,</span><span class="w"> </span><span class="bp">∀</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="bp">≥</span><span class="w"> </span><span class="n">a</span><span class="o">,</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="bp">∈</span><span class="w"> </span><span class="n">s</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="kn">lemma</span><span class="w"> </span><span class="n">eventually_atTop</span><span class="w"> </span><span class="o">:</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="o">(</span><span class="bp">∀ᶠ</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">atTop</span><span class="o">,</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">x</span><span class="o">)</span><span class="w"> </span><span class="bp">↔</span><span class="w"> </span><span class="bp">∃</span><span class="w"> </span><span class="n">a</span><span class="o">,</span><span class="w"> </span><span class="bp">∀</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="bp">≥</span><span class="w"> </span><span class="n">a</span><span class="o">,</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">b</span>
+</code></pre></div>
+<p>特に自然数列の命題 <code>P : ℕ → Prop</code> について，<code>∀ᶠ m in atTop, P m</code> は
+「ある <code>n</code> が存在して，<code>n ≤ m</code> なる任意の <code>m</code> について <code>P m</code>」という意味です．
+数式で書けば，</p>
+<div class="arithmatex">\[
+\forall^{\mathrm{eventually}} m,\ P(m)
+\quad\Longleftrightarrow\quad
+\exists N,\ \forall m \ge N,\ P(m)
+\]</div>
+<p>です．
+つまり，有限個の初期項を除けば <code>P m</code> が常に成り立つ，ということです．</p>
+<p>一方，<code>𝓝 x</code> は点 <code>x</code> の近傍フィルターです．
+<code>s ∈ 𝓝 x</code> は，<code>s</code> が <code>x</code> の近傍であることを意味します．
+位相空間 <span class="arithmatex">\(X\)</span> の点 <span class="arithmatex">\(x\)</span> と部分集合 <span class="arithmatex">\(S \subseteq X\)</span> については，</p>
+<div class="arithmatex">\[
+S \in \mathcal N(x)
+\quad\Longleftrightarrow\quad
+\exists U,\ x \in U,\ U \text{ is open},\ U \subseteq S.
+\]</div>
+<p>実際には，次の補題で読むのが便利です．</p>
+<div class="language-lean4 highlight"><span class="filename">Mathlib/Topology/Neighborhoods.lean</span><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">theorem</span><span class="w"> </span><span class="n">mem_nhds_iff</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="bp">∈</span><span class="w"> </span><span class="n">𝓝</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="bp">↔</span><span class="w"> </span><span class="bp">∃</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="bp">⊆</span><span class="w"> </span><span class="n">s</span><span class="o">,</span><span class="w"> </span><span class="n">IsOpen</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="bp">∧</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="bp">∈</span><span class="w"> </span><span class="n">t</span>
+</code></pre></div>
+<p>つまり，<code>s</code> が <code>x</code> の近傍であるとは，<code>s</code> の中に <code>x</code> を含む開集合 <code>t</code> があることです．</p>
 <p><code>Tendsto f l m</code> は，「<code>x</code> がフィルター <code>l</code> に沿って動くとき，<code>f x</code> がフィルター <code>m</code> に沿って動く」という意味です．
 数列の極限も，関数の一点での極限も，無限遠での極限も，この形で表されます．
-定義上は，<code>f</code> による <code>l</code> の像フィルター <code>map f l</code> が <code>m</code> より細かい，つまり <code>map f l ≤ m</code> であるという条件です．</p>
-<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">Filter</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">Tendsto</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">atTop</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">𝓝</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">Filter</span><span class="bp">.</span><span class="n">Eventually</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">MeasureTheory</span><span class="bp">.</span><span class="n">ae_iff</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">MeasureTheory</span><span class="bp">.</span><span class="n">mem_ae_iff</span>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="kn">section</span><span class="w"> </span><span class="n">Filters</span>
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
-<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="kn">example</span><span class="w"> </span><span class="o">{</span><span class="n">α</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Type</span><span class="bp">*</span><span class="o">}</span><span class="w"> </span><span class="o">{</span><span class="n">l</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Filter</span><span class="w"> </span><span class="n">α</span><span class="o">}</span><span class="w"> </span><span class="o">{</span><span class="n">p</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">α</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="kt">Prop</span><span class="o">}</span><span class="w"> </span><span class="o">:</span>
-<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">    </span><span class="o">(</span><span class="bp">∀ᶠ</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">l</span><span class="o">,</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">x</span><span class="o">)</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="o">({</span><span class="n">x</span><span class="w"> </span><span class="bp">|</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">x</span><span class="o">}</span><span class="w"> </span><span class="bp">∈</span><span class="w"> </span><span class="n">l</span><span class="o">)</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">  </span><span class="n">rfl</span>
-<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>
-<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="kn">example</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="o">(</span><span class="bp">∀ᶠ</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="o">(</span><span class="n">atTop</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Filter</span><span class="w"> </span><span class="n">Nat</span><span class="o">),</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="bp">≤</span><span class="w"> </span><span class="n">n</span><span class="o">)</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="w">  </span><span class="n">exact</span><span class="w"> </span><span class="n">eventually_ge_atTop</span><span class="w"> </span><span class="mi">3</span>
-<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>
-<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="kn">example</span><span class="w"> </span><span class="o">{</span><span class="n">X</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Type</span><span class="bp">*</span><span class="o">}</span><span class="w"> </span><span class="o">[</span><span class="n">TopologicalSpace</span><span class="w"> </span><span class="n">X</span><span class="o">]</span><span class="w"> </span><span class="o">{</span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">X</span><span class="o">}</span><span class="w"> </span><span class="o">{</span><span class="n">s</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Set</span><span class="w"> </span><span class="n">X</span><span class="o">}</span><span class="w"> </span><span class="o">:</span>
-<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="w">    </span><span class="n">s</span><span class="w"> </span><span class="bp">∈</span><span class="w"> </span><span class="n">𝓝</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="bp">↔</span><span class="w"> </span><span class="bp">∃</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="bp">⊆</span><span class="w"> </span><span class="n">s</span><span class="o">,</span><span class="w"> </span><span class="n">IsOpen</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="bp">∧</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="bp">∈</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="w">  </span><span class="n">exact</span><span class="w"> </span><span class="n">mem_nhds_iff</span>
-<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>
-<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="kn">example</span><span class="w"> </span><span class="o">{</span><span class="n">α</span><span class="w"> </span><span class="n">β</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Type</span><span class="bp">*</span><span class="o">}</span><span class="w"> </span><span class="o">{</span><span class="n">f</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">α</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">β</span><span class="o">}</span><span class="w"> </span><span class="o">{</span><span class="n">l</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Filter</span><span class="w"> </span><span class="n">α</span><span class="o">}</span><span class="w"> </span><span class="o">{</span><span class="n">m</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Filter</span><span class="w"> </span><span class="n">β</span><span class="o">}</span><span class="w"> </span><span class="o">:</span>
-<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="w">    </span><span class="n">Tendsto</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">l</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="o">(</span><span class="n">map</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">l</span><span class="w"> </span><span class="bp">≤</span><span class="w"> </span><span class="n">m</span><span class="o">)</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="w">  </span><span class="n">rfl</span>
-<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>
-<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a><span class="kn">end</span><span class="w"> </span><span class="n">Filters</span>
+内部的には <code>map f l ≤ m</code> という定義ですが，まずは
+「<code>m</code> の意味で十分な集合の逆像は，<code>l</code> の意味で十分な集合である」と読むのがよいです．</p>
+<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">Filter</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">Tendsto</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">atTop</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">𝓝</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">Filter</span><span class="bp">.</span><span class="n">Eventually</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">mem_atTop_sets</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">eventually_atTop</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">mem_nhds_iff</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="kn">section</span><span class="w"> </span><span class="n">Filters</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="kn">example</span><span class="w"> </span><span class="o">{</span><span class="n">α</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Type</span><span class="bp">*</span><span class="o">}</span><span class="w"> </span><span class="o">{</span><span class="n">l</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Filter</span><span class="w"> </span><span class="n">α</span><span class="o">}</span><span class="w"> </span><span class="o">{</span><span class="n">p</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">α</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="kt">Prop</span><span class="o">}</span><span class="w"> </span><span class="o">:</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="w">    </span><span class="o">(</span><span class="bp">∀ᶠ</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">l</span><span class="o">,</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">x</span><span class="o">)</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="o">({</span><span class="n">x</span><span class="w"> </span><span class="bp">|</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">x</span><span class="o">}</span><span class="w"> </span><span class="bp">∈</span><span class="w"> </span><span class="n">l</span><span class="o">)</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="w">  </span><span class="n">rfl</span>
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="kn">example</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="o">(</span><span class="bp">∀ᶠ</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="o">(</span><span class="n">atTop</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Filter</span><span class="w"> </span><span class="n">Nat</span><span class="o">),</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="bp">≤</span><span class="w"> </span><span class="n">n</span><span class="o">)</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="w">  </span><span class="n">exact</span><span class="w"> </span><span class="n">eventually_ge_atTop</span><span class="w"> </span><span class="mi">3</span>
+<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>
+<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a><span class="kn">example</span><span class="w"> </span><span class="o">{</span><span class="n">P</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℕ</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="kt">Prop</span><span class="o">}</span><span class="w"> </span><span class="o">:</span>
+<a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a><span class="w">    </span><span class="o">(</span><span class="bp">∀ᶠ</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="o">(</span><span class="n">atTop</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Filter</span><span class="w"> </span><span class="n">ℕ</span><span class="o">),</span><span class="w"> </span><span class="n">P</span><span class="w"> </span><span class="n">m</span><span class="o">)</span><span class="w"> </span><span class="bp">↔</span><span class="w"> </span><span class="bp">∃</span><span class="w"> </span><span class="n">n</span><span class="o">,</span><span class="w"> </span><span class="bp">∀</span><span class="w"> </span><span class="n">m</span><span class="o">,</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="bp">≤</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">P</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a><span class="w">  </span><span class="n">exact</span><span class="w"> </span><span class="n">eventually_atTop</span>
+<a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a>
+<a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a><span class="kn">example</span><span class="w"> </span><span class="o">{</span><span class="n">s</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Set</span><span class="w"> </span><span class="n">ℕ</span><span class="o">}</span><span class="w"> </span><span class="o">:</span>
+<a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a><span class="w">    </span><span class="n">s</span><span class="w"> </span><span class="bp">∈</span><span class="w"> </span><span class="o">(</span><span class="n">atTop</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Filter</span><span class="w"> </span><span class="n">ℕ</span><span class="o">)</span><span class="w"> </span><span class="bp">↔</span><span class="w"> </span><span class="bp">∃</span><span class="w"> </span><span class="n">n</span><span class="o">,</span><span class="w"> </span><span class="bp">∀</span><span class="w"> </span><span class="n">m</span><span class="o">,</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="bp">≤</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="bp">∈</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a><span class="w">  </span><span class="n">exact</span><span class="w"> </span><span class="n">mem_atTop_sets</span>
+<a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a>
+<a id="__codelineno-2-27" name="__codelineno-2-27" href="#__codelineno-2-27"></a><span class="kn">example</span><span class="w"> </span><span class="o">{</span><span class="n">X</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Type</span><span class="bp">*</span><span class="o">}</span><span class="w"> </span><span class="o">[</span><span class="n">TopologicalSpace</span><span class="w"> </span><span class="n">X</span><span class="o">]</span><span class="w"> </span><span class="o">{</span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">X</span><span class="o">}</span><span class="w"> </span><span class="o">{</span><span class="n">s</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Set</span><span class="w"> </span><span class="n">X</span><span class="o">}</span><span class="w"> </span><span class="o">:</span>
+<a id="__codelineno-2-28" name="__codelineno-2-28" href="#__codelineno-2-28"></a><span class="w">    </span><span class="n">s</span><span class="w"> </span><span class="bp">∈</span><span class="w"> </span><span class="n">𝓝</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="bp">↔</span><span class="w"> </span><span class="bp">∃</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="bp">⊆</span><span class="w"> </span><span class="n">s</span><span class="o">,</span><span class="w"> </span><span class="n">IsOpen</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="bp">∧</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="bp">∈</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-2-29" name="__codelineno-2-29" href="#__codelineno-2-29"></a><span class="w">  </span><span class="n">exact</span><span class="w"> </span><span class="n">mem_nhds_iff</span>
+<a id="__codelineno-2-30" name="__codelineno-2-30" href="#__codelineno-2-30"></a>
+<a id="__codelineno-2-31" name="__codelineno-2-31" href="#__codelineno-2-31"></a><span class="kn">example</span><span class="w"> </span><span class="o">{</span><span class="n">α</span><span class="w"> </span><span class="n">β</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Type</span><span class="bp">*</span><span class="o">}</span><span class="w"> </span><span class="o">{</span><span class="n">f</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">α</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">β</span><span class="o">}</span><span class="w"> </span><span class="o">{</span><span class="n">l</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Filter</span><span class="w"> </span><span class="n">α</span><span class="o">}</span><span class="w"> </span><span class="o">{</span><span class="n">m</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Filter</span><span class="w"> </span><span class="n">β</span><span class="o">}</span><span class="w"> </span><span class="o">:</span>
+<a id="__codelineno-2-32" name="__codelineno-2-32" href="#__codelineno-2-32"></a><span class="w">    </span><span class="n">Tendsto</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">l</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="o">(</span><span class="n">map</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">l</span><span class="w"> </span><span class="bp">≤</span><span class="w"> </span><span class="n">m</span><span class="o">)</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-2-33" name="__codelineno-2-33" href="#__codelineno-2-33"></a><span class="w">  </span><span class="n">rfl</span>
+<a id="__codelineno-2-34" name="__codelineno-2-34" href="#__codelineno-2-34"></a>
+<a id="__codelineno-2-35" name="__codelineno-2-35" href="#__codelineno-2-35"></a><span class="kn">end</span><span class="w"> </span><span class="n">Filters</span>
 </code></pre></div>
-<h2 id="_2">近傍フィルターによる収束と連続<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<p>位相空間における「近い」という情報は，Mathlib では点 <code>x</code> の近傍フィルター <code>𝓝 x</code> として扱われます．
-Mathlib 本体では，近傍フィルターは次のように定義されています．</p>
-<div class="language-lean4 highlight"><span class="filename">Mathlib/Topology/Defs/Filter.lean</span><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">irreducible_def</span><span class="w"> </span><span class="n">nhds</span><span class="w"> </span><span class="o">(</span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">X</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Filter</span><span class="w"> </span><span class="n">X</span><span class="w"> </span><span class="o">:=</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="bp">⨅</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="bp">∈</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Set</span><span class="w"> </span><span class="n">X</span><span class="w"> </span><span class="bp">|</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="bp">∈</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="bp">∧</span><span class="w"> </span><span class="n">IsOpen</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">},</span><span class="w"> </span><span class="n">𝓟</span><span class="w"> </span><span class="n">s</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="kn">scoped</span><span class="o">[</span><span class="n">Topology</span><span class="o">]</span><span class="w"> </span><span class="kn">notation</span><span class="w"> </span><span class="s2">&quot;𝓝&quot;</span><span class="w"> </span><span class="bp">=&gt;</span><span class="w"> </span><span class="n">nhds</span>
-</code></pre></div>
-<p>ここで <code>𝓟 s</code> は集合 <code>s</code> で生成される主フィルターです．
-つまり <code>𝓝 x</code> は，「<code>x</code> を含む開集合」から来る主フィルターをすべて集めたものです．
-実際に使うときは，この定義を直接展開するより，次の補題で読む方が便利です．</p>
-<div class="language-lean4 highlight"><span class="filename">Mathlib/Topology/Neighborhoods.lean</span><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">theorem</span><span class="w"> </span><span class="n">mem_nhds_iff</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="bp">∈</span><span class="w"> </span><span class="n">𝓝</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="bp">↔</span><span class="w"> </span><span class="bp">∃</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="bp">⊆</span><span class="w"> </span><span class="n">s</span><span class="o">,</span><span class="w"> </span><span class="n">IsOpen</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="bp">∧</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="bp">∈</span><span class="w"> </span><span class="n">t</span>
-</code></pre></div>
-<p>これは，<code>s</code> が <code>x</code> の近傍であるとは，<code>s</code> の中に <code>x</code> を含む開集合 <code>t</code> があることだ，という通常の定義そのものです．</p>
-<p>また <code>nhds (x) : Filter X</code> なので，近傍全体は Lean の意味でフィルターです．
-すなわち，全体集合を含み，上に閉じており，共通部分で閉じています．
-さらに近傍フィルターは退化していないので，<code>NeBot (𝓝 x)</code> も成り立ちます．</p>
-<p>点列 <code>u : ℕ → X</code> が <code>x</code> に収束することは，近傍フィルターを使うと</p>
+<h2 id="_2">近傍フィルターで収束と連続を読む<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>この節で使う対応は次の 2 つです．</p>
+<div class="arithmatex">\[
+\mathcal N(x) = \text{the neighborhood filter of } x,
+\]</div>
+<p>すなわち</p>
+<div class="arithmatex">\[
+A \in \mathcal N(x)
+\quad\Longleftrightarrow\quad
+\exists U,\ x \in U,\ U \text{ is open},\ U \subseteq A.
+\]</div>
+<p>また，写像 <span class="arithmatex">\(f : X \to Y\)</span> について</p>
+<div class="arithmatex">\[
+\operatorname{Tendsto}(f,\mathcal F,\mathcal G)
+\quad\Longleftrightarrow\quad
+\forall B \in \mathcal G,\ f^{-1}(B) \in \mathcal F.
+\]</div>
+<p>点列 <code>u : ℕ → X</code> が <code>x</code> に収束することは，次のように書きます．</p>
 <div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">Tendsto</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="n">atTop</span><span class="w"> </span><span class="o">(</span><span class="n">𝓝</span><span class="w"> </span><span class="n">x</span><span class="o">)</span>
 </code></pre></div>
-<p>と書けます．
-これは「十分大きい <code>n</code> について，<code>u n</code> は <code>x</code> の任意の近傍に入る」という意味です．
-実際，<code>tendsto_nhds</code> により，これは次の通常の点列収束の条件と同値です．</p>
-<div class="language-text highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>任意の開集合 U について，x ∈ U なら，十分大きい n で u n ∈ U
+<p>これは数式では，</p>
+<div class="arithmatex">\[
+\operatorname{Tendsto}(u,\mathrm{atTop},\mathcal N(x))
+\quad\Longleftrightarrow\quad
+\forall A \in \mathcal N(x),\ \{n \in \mathbb N \mid u_n \in A\} \in \mathrm{atTop}
+\]</div>
+<p>です．
+さらに，<span class="arithmatex">\(\mathrm{atTop}\)</span> を</p>
+<div class="arithmatex">\[
+S \in \mathrm{atTop}
+\quad\Longleftrightarrow\quad
+\exists N,\ \forall n \ge N,\ n \in S
+\]</div>
+<p>と読むと，これは通常の点列収束</p>
+<div class="arithmatex">\[
+u_n \to x
+\quad\Longleftrightarrow\quad
+\forall U,
+\bigl(U \text{ is open} \land x \in U\bigr)
+\Longrightarrow
+\exists N,\ \forall n \ge N,\ u_n \in U
+\]</div>
+<p>と同じです．
+<code>tendsto_nhds</code> は，この条件を開集合で読むための補題です．</p>
+<div class="language-lean4 highlight"><span class="filename">Mathlib/Topology/Neighborhoods.lean</span><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">theorem</span><span class="w"> </span><span class="n">tendsto_nhds</span><span class="w"> </span><span class="o">{</span><span class="n">a</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">X</span><span class="o">}</span><span class="w"> </span><span class="o">{</span><span class="n">f</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">α</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">X</span><span class="o">}</span><span class="w"> </span><span class="o">{</span><span class="n">l</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Filter</span><span class="w"> </span><span class="n">α</span><span class="o">}</span><span class="w"> </span><span class="o">:</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="n">Tendsto</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">l</span><span class="w"> </span><span class="o">(</span><span class="n">𝓝</span><span class="w"> </span><span class="n">a</span><span class="o">)</span><span class="w"> </span><span class="bp">↔</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">      </span><span class="bp">∀</span><span class="w"> </span><span class="n">s</span><span class="o">,</span><span class="w"> </span><span class="n">IsOpen</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="bp">∈</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="bp">⁻¹&#39;</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="bp">∈</span><span class="w"> </span><span class="n">l</span>
 </code></pre></div>
-<p>証明は次の通りです．
-<code>Tendsto u atTop (𝓝 x)</code> を展開すると，<code>x</code> の任意の近傍 <code>A</code> に対して <code>u ⁻¹' A ∈ atTop</code> であることです．
-特に <code>x</code> を含む開集合 <code>U</code> は <code>U ∈ 𝓝 x</code> なので，十分大きい <code>n</code> で <code>u n ∈ U</code> です．
-逆に，任意の開近傍 <code>U</code> について十分先で <code>u n ∈ U</code> だとします．
-任意の近傍 <code>A ∈ 𝓝 x</code> に対し，<code>mem_nhds_iff</code> から <code>x ∈ U</code> かつ <code>U ⊆ A</code> となる開集合 <code>U</code> が取れます．
-仮定より十分先で <code>u n ∈ U</code>，したがって十分先で <code>u n ∈ A</code> です．
-これが <code>Tendsto u atTop (𝓝 x)</code> です．</p>
-<p>連続性も同じ言葉で定義されます．
-一点 <code>x</code> での連続性は，<code>x</code> に近い点を <code>f</code> で送ると <code>f x</code> に近い点になる，という条件です．</p>
+<p>対応する証明は，次の式変形として読めます．</p>
+<p>まず <span class="arithmatex">\(U\)</span> が <span class="arithmatex">\(x\)</span> を含む開集合なら</p>
+<div class="arithmatex">\[
+x \in U,\ U \text{ is open}
+\quad\Longrightarrow\quad
+U \in \mathcal N(x).
+\]</div>
+<p>したがって</p>
+<div class="arithmatex">\[
+\operatorname{Tendsto}(u,\mathrm{atTop},\mathcal N(x))
+\quad\Longrightarrow\quad
+u^{-1}(U) \in \mathrm{atTop}
+\quad\Longleftrightarrow\quad
+\exists N,\ \forall n \ge N,\ u_n \in U.
+\]</div>
+<p>逆向きでは，任意の <span class="arithmatex">\(A \in \mathcal N(x)\)</span> に対して</p>
+<div class="arithmatex">\[
+A \in \mathcal N(x)
+\quad\Longrightarrow\quad
+\exists U,\ x \in U,\ U \text{ is open},\ U \subseteq A.
+\]</div>
+<p>仮定より</p>
+<div class="arithmatex">\[
+\exists N,\ \forall n \ge N,\ u_n \in U.
+\]</div>
+<p><span class="arithmatex">\(U \subseteq A\)</span> なので</p>
+<div class="arithmatex">\[
+\exists N,\ \forall n \ge N,\ u_n \in A,
+\]</div>
+<p>すなわち</p>
+<div class="arithmatex">\[
+u^{-1}(A) \in \mathrm{atTop}.
+\]</div>
+<p>一点 <code>x</code> での連続性も，同じ <code>Tendsto</code> で定義されます．</p>
 <div class="language-lean4 highlight"><span class="filename">Mathlib/Topology/Defs/Filter.lean</span><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kn">def</span><span class="w"> </span><span class="n">ContinuousAt</span><span class="w"> </span><span class="o">(</span><span class="n">f</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">X</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">Y</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">X</span><span class="o">)</span><span class="w"> </span><span class="o">:=</span>
 <a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">  </span><span class="n">Tendsto</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="o">(</span><span class="n">𝓝</span><span class="w"> </span><span class="n">x</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">𝓝</span><span class="w"> </span><span class="o">(</span><span class="n">f</span><span class="w"> </span><span class="n">x</span><span class="o">))</span>
 </code></pre></div>
-<p>一方，教科書でよく見る大域的な連続性は「開集合の逆像が開集合」として定義されます．
-Mathlib では次の補題がこの形を与えます．</p>
+<p>数式では，</p>
+<div class="arithmatex">\[
+f \text{ is continuous at } x
+\quad\Longleftrightarrow\quad
+\forall V \in \mathcal N(f(x)),\ f^{-1}(V) \in \mathcal N(x)
+\]</div>
+<p>です．
+開集合で書けば，</p>
+<div class="arithmatex">\[
+f \text{ is continuous at } x
+\quad\Longleftrightarrow\quad
+\forall V,
+\bigl(V \text{ is open} \land f(x) \in V\bigr)
+\Longrightarrow
+\exists U,\ x \in U,\ U \text{ is open},\ U \subseteq f^{-1}(V).
+\]</div>
+<p>大域的な連続性は，次の補題により「開集合の逆像が開集合」と同値になります．
+すなわち，</p>
+<div class="arithmatex">\[
+f \text{ is continuous}
+\quad\Longleftrightarrow\quad
+\forall V \subseteq Y,
+V \text{ is open} \Longrightarrow f^{-1}(V) \text{ is open}.
+\]</div>
 <div class="language-lean4 highlight"><span class="filename">Mathlib/Topology/Continuous.lean</span><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kn">theorem</span><span class="w"> </span><span class="n">continuous_def</span><span class="w"> </span><span class="o">:</span>
 <a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span><span class="n">Continuous</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="bp">↔</span><span class="w"> </span><span class="bp">∀</span><span class="w"> </span><span class="n">s</span><span class="o">,</span><span class="w"> </span><span class="n">IsOpen</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">IsOpen</span><span class="w"> </span><span class="o">(</span><span class="n">f</span><span class="w"> </span><span class="bp">⁻¹&#39;</span><span class="w"> </span><span class="n">s</span><span class="o">)</span>
 <a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
 <a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="kn">theorem</span><span class="w"> </span><span class="n">continuous_iff_continuousAt</span><span class="w"> </span><span class="o">:</span>
 <a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">    </span><span class="n">Continuous</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="bp">↔</span><span class="w"> </span><span class="bp">∀</span><span class="w"> </span><span class="n">x</span><span class="o">,</span><span class="w"> </span><span class="n">ContinuousAt</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">x</span>
 </code></pre></div>
-<p>自然言語で証明すると次のようになります．
-まず <code>f</code> が各点で近傍フィルターの意味で連続だとします．
-<code>Y</code> の開集合 <code>U</code> を取り，<code>x ∈ f ⁻¹' U</code> とします．
-すると <code>f x ∈ U</code> であり，<code>U</code> は開集合なので <code>U ∈ 𝓝 (f x)</code> です．
-点 <code>x</code> での連続性から <code>f ⁻¹' U ∈ 𝓝 x</code> です．
-したがって <code>f ⁻¹' U</code> は各点の近傍であり，開集合です．</p>
-<p>逆に，任意の開集合の逆像が開集合だとします．
-点 <code>x</code> と <code>f x</code> の近傍 <code>A</code> を取ります．
-<code>mem_nhds_iff</code> により，<code>f x ∈ U</code> かつ <code>U ⊆ A</code> となる開集合 <code>U</code> が取れます．
-仮定より <code>f ⁻¹' U</code> は開集合で，しかも <code>x ∈ f ⁻¹' U</code> です．
-よって <code>f ⁻¹' U ∈ 𝓝 x</code> であり，<code>f ⁻¹' U ⊆ f ⁻¹' A</code> から <code>f ⁻¹' A ∈ 𝓝 x</code> です．
-これは <code>Tendsto f (𝓝 x) (𝓝 (f x))</code>，すなわち点 <code>x</code> での連続性です．</p>
-<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">nhds</span>
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">mem_nhds_iff</span>
-<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">tendsto_nhds</span>
-<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">continuous_def</span>
-<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">continuous_iff_continuousAt</span>
+<p>この同値性の証明も，近傍の式で追えます．
+各点で</p>
+<div class="arithmatex">\[
+\forall x,\ \forall A \in \mathcal N(f(x)),\ f^{-1}(A) \in \mathcal N(x)
+\]</div>
+<p>が成り立つとします．
+<span class="arithmatex">\(V \subseteq Y\)</span> が開集合なら，</p>
+<div class="arithmatex">\[
+x \in f^{-1}(V)
+\quad\Longrightarrow\quad
+f(x) \in V
+\quad\Longrightarrow\quad
+V \in \mathcal N(f(x)).
+\]</div>
+<p>よって</p>
+<div class="arithmatex">\[
+f^{-1}(V) \in \mathcal N(x)
+\qquad (x \in f^{-1}(V)).
+\]</div>
+<p>任意の点 <span class="arithmatex">\(x \in f^{-1}(V)\)</span> で <span class="arithmatex">\(f^{-1}(V)\)</span> が <span class="arithmatex">\(x\)</span> の近傍なので，</p>
+<div class="arithmatex">\[
+f^{-1}(V) \text{ is open}.
+\]</div>
+<p>逆に，</p>
+<div class="arithmatex">\[
+\forall V \subseteq Y,
+V \text{ is open} \Longrightarrow f^{-1}(V) \text{ is open}
+\]</div>
+<p>を仮定します．
+<span class="arithmatex">\(A \in \mathcal N(f(x))\)</span> なら</p>
+<div class="arithmatex">\[
+\exists V,\ f(x) \in V,\ V \text{ is open},\ V \subseteq A.
+\]</div>
+<p>このとき</p>
+<div class="arithmatex">\[
+x \in f^{-1}(V),\qquad f^{-1}(V) \text{ is open},\qquad
+f^{-1}(V) \subseteq f^{-1}(A).
+\]</div>
+<p>したがって</p>
+<div class="arithmatex">\[
+f^{-1}(A) \in \mathcal N(x).
+\]</div>
+<p>これは</p>
+<div class="arithmatex">\[
+\operatorname{Tendsto}(f,\mathcal N(x),\mathcal N(f(x)))
+\]</div>
+<p>です．</p>
+<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">tendsto_nhds</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">continuous_def</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">continuous_iff_continuousAt</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="kn">section</span><span class="w"> </span><span class="n">NeighborhoodFilters</span>
 <a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>
-<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="kn">section</span><span class="w"> </span><span class="n">NeighborhoodFilters</span>
-<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>
-<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="kn">example</span><span class="w"> </span><span class="o">{</span><span class="n">X</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Type</span><span class="bp">*</span><span class="o">}</span><span class="w"> </span><span class="o">[</span><span class="n">TopologicalSpace</span><span class="w"> </span><span class="n">X</span><span class="o">]</span><span class="w"> </span><span class="o">(</span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">X</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Filter</span><span class="w"> </span><span class="n">X</span><span class="w"> </span><span class="o">:=</span>
-<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="w">  </span><span class="n">𝓝</span><span class="w"> </span><span class="n">x</span>
-<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>
-<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a><span class="kn">example</span><span class="w"> </span><span class="o">{</span><span class="n">X</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Type</span><span class="bp">*</span><span class="o">}</span><span class="w"> </span><span class="o">[</span><span class="n">TopologicalSpace</span><span class="w"> </span><span class="n">X</span><span class="o">]</span><span class="w"> </span><span class="o">(</span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">X</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="o">(</span><span class="n">univ</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Set</span><span class="w"> </span><span class="n">X</span><span class="o">)</span><span class="w"> </span><span class="bp">∈</span><span class="w"> </span><span class="n">𝓝</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a><span class="w">  </span><span class="n">exact</span><span class="w"> </span><span class="n">univ_mem</span>
-<a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a>
-<a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a><span class="kn">example</span><span class="w"> </span><span class="o">{</span><span class="n">X</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Type</span><span class="bp">*</span><span class="o">}</span><span class="w"> </span><span class="o">[</span><span class="n">TopologicalSpace</span><span class="w"> </span><span class="n">X</span><span class="o">]</span><span class="w"> </span><span class="o">{</span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">X</span><span class="o">}</span><span class="w"> </span><span class="o">{</span><span class="n">s</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Set</span><span class="w"> </span><span class="n">X</span><span class="o">}</span>
-<a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a><span class="w">    </span><span class="o">(</span><span class="n">hs</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="bp">∈</span><span class="w"> </span><span class="n">𝓝</span><span class="w"> </span><span class="n">x</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">ht</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="bp">∈</span><span class="w"> </span><span class="n">𝓝</span><span class="w"> </span><span class="n">x</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="bp">∩</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="bp">∈</span><span class="w"> </span><span class="n">𝓝</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a><span class="w">  </span><span class="n">exact</span><span class="w"> </span><span class="n">inter_mem</span><span class="w"> </span><span class="n">hs</span><span class="w"> </span><span class="n">ht</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="kn">example</span><span class="w"> </span><span class="o">{</span><span class="n">X</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Type</span><span class="bp">*</span><span class="o">}</span><span class="w"> </span><span class="o">[</span><span class="n">TopologicalSpace</span><span class="w"> </span><span class="n">X</span><span class="o">]</span><span class="w"> </span><span class="o">(</span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">X</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Filter</span><span class="w"> </span><span class="n">X</span><span class="w"> </span><span class="o">:=</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="w">  </span><span class="n">𝓝</span><span class="w"> </span><span class="n">x</span>
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="kn">example</span><span class="w"> </span><span class="o">{</span><span class="n">X</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Type</span><span class="bp">*</span><span class="o">}</span><span class="w"> </span><span class="o">[</span><span class="n">TopologicalSpace</span><span class="w"> </span><span class="n">X</span><span class="o">]</span><span class="w"> </span><span class="o">{</span><span class="n">u</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℕ</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">X</span><span class="o">}</span><span class="w"> </span><span class="o">{</span><span class="n">U</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Set</span><span class="w"> </span><span class="n">X</span><span class="o">}</span><span class="w"> </span><span class="o">:</span>
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="w">    </span><span class="o">(</span><span class="n">u</span><span class="w"> </span><span class="bp">⁻¹&#39;</span><span class="w"> </span><span class="n">U</span><span class="w"> </span><span class="bp">∈</span><span class="w"> </span><span class="n">atTop</span><span class="o">)</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="o">(</span><span class="bp">∀ᶠ</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">atTop</span><span class="o">,</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="bp">∈</span><span class="w"> </span><span class="n">U</span><span class="o">)</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a><span class="w">  </span><span class="n">rfl</span>
+<a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>
+<a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a><span class="kn">example</span><span class="w"> </span><span class="o">{</span><span class="n">X</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Type</span><span class="bp">*</span><span class="o">}</span><span class="w"> </span><span class="o">[</span><span class="n">TopologicalSpace</span><span class="w"> </span><span class="n">X</span><span class="o">]</span><span class="w"> </span><span class="o">(</span><span class="n">u</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℕ</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">X</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">X</span><span class="o">)</span><span class="w"> </span><span class="o">:</span>
+<a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a><span class="w">    </span><span class="n">Tendsto</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="n">atTop</span><span class="w"> </span><span class="o">(</span><span class="n">𝓝</span><span class="w"> </span><span class="n">x</span><span class="o">)</span><span class="w"> </span><span class="bp">↔</span>
+<a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a><span class="w">      </span><span class="bp">∀</span><span class="w"> </span><span class="n">U</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Set</span><span class="w"> </span><span class="n">X</span><span class="o">,</span><span class="w"> </span><span class="n">IsOpen</span><span class="w"> </span><span class="n">U</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="bp">∈</span><span class="w"> </span><span class="n">U</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="bp">∀ᶠ</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">atTop</span><span class="o">,</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="bp">∈</span><span class="w"> </span><span class="n">U</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a><span class="w">  </span><span class="n">exact</span><span class="w"> </span><span class="n">tendsto_nhds</span>
 <a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a>
-<a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a><span class="kn">example</span><span class="w"> </span><span class="o">{</span><span class="n">X</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Type</span><span class="bp">*</span><span class="o">}</span><span class="w"> </span><span class="o">[</span><span class="n">TopologicalSpace</span><span class="w"> </span><span class="n">X</span><span class="o">]</span><span class="w"> </span><span class="o">{</span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">X</span><span class="o">}</span><span class="w"> </span><span class="o">{</span><span class="n">s</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Set</span><span class="w"> </span><span class="n">X</span><span class="o">}</span>
-<a id="__codelineno-7-20" name="__codelineno-7-20" href="#__codelineno-7-20"></a><span class="w">    </span><span class="o">(</span><span class="n">hs</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="bp">∈</span><span class="w"> </span><span class="n">𝓝</span><span class="w"> </span><span class="n">x</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">hst</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="bp">⊆</span><span class="w"> </span><span class="n">t</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="bp">∈</span><span class="w"> </span><span class="n">𝓝</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-7-21" name="__codelineno-7-21" href="#__codelineno-7-21"></a><span class="w">  </span><span class="n">exact</span><span class="w"> </span><span class="n">mem_of_superset</span><span class="w"> </span><span class="n">hs</span><span class="w"> </span><span class="n">hst</span>
-<a id="__codelineno-7-22" name="__codelineno-7-22" href="#__codelineno-7-22"></a>
-<a id="__codelineno-7-23" name="__codelineno-7-23" href="#__codelineno-7-23"></a><span class="kn">example</span><span class="w"> </span><span class="o">{</span><span class="n">X</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Type</span><span class="bp">*</span><span class="o">}</span><span class="w"> </span><span class="o">[</span><span class="n">TopologicalSpace</span><span class="w"> </span><span class="n">X</span><span class="o">]</span><span class="w"> </span><span class="o">(</span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">X</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">NeBot</span><span class="w"> </span><span class="o">(</span><span class="n">𝓝</span><span class="w"> </span><span class="n">x</span><span class="o">)</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-7-24" name="__codelineno-7-24" href="#__codelineno-7-24"></a><span class="w">  </span><span class="n">infer_instance</span>
-<a id="__codelineno-7-25" name="__codelineno-7-25" href="#__codelineno-7-25"></a>
-<a id="__codelineno-7-26" name="__codelineno-7-26" href="#__codelineno-7-26"></a><span class="kn">def</span><span class="w"> </span><span class="n">SeqConvergesToByNhds</span><span class="w"> </span><span class="o">{</span><span class="n">X</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Type</span><span class="bp">*</span><span class="o">}</span><span class="w"> </span><span class="o">[</span><span class="n">TopologicalSpace</span><span class="w"> </span><span class="n">X</span><span class="o">]</span><span class="w"> </span><span class="o">(</span><span class="n">u</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℕ</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">X</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">X</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Prop</span><span class="w"> </span><span class="o">:=</span>
-<a id="__codelineno-7-27" name="__codelineno-7-27" href="#__codelineno-7-27"></a><span class="w">  </span><span class="n">Tendsto</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="n">atTop</span><span class="w"> </span><span class="o">(</span><span class="n">𝓝</span><span class="w"> </span><span class="n">x</span><span class="o">)</span>
+<a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a><span class="kn">example</span><span class="w"> </span><span class="o">{</span><span class="n">X</span><span class="w"> </span><span class="n">Y</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Type</span><span class="bp">*</span><span class="o">}</span><span class="w"> </span><span class="o">[</span><span class="n">TopologicalSpace</span><span class="w"> </span><span class="n">X</span><span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="n">TopologicalSpace</span><span class="w"> </span><span class="n">Y</span><span class="o">]</span>
+<a id="__codelineno-7-20" name="__codelineno-7-20" href="#__codelineno-7-20"></a><span class="w">    </span><span class="o">{</span><span class="n">f</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">X</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">Y</span><span class="o">}</span><span class="w"> </span><span class="o">{</span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">X</span><span class="o">}</span><span class="w"> </span><span class="o">:</span>
+<a id="__codelineno-7-21" name="__codelineno-7-21" href="#__codelineno-7-21"></a><span class="w">    </span><span class="n">ContinuousAt</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">Tendsto</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="o">(</span><span class="n">𝓝</span><span class="w"> </span><span class="n">x</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">𝓝</span><span class="w"> </span><span class="o">(</span><span class="n">f</span><span class="w"> </span><span class="n">x</span><span class="o">))</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-7-22" name="__codelineno-7-22" href="#__codelineno-7-22"></a><span class="w">  </span><span class="n">rfl</span>
+<a id="__codelineno-7-23" name="__codelineno-7-23" href="#__codelineno-7-23"></a>
+<a id="__codelineno-7-24" name="__codelineno-7-24" href="#__codelineno-7-24"></a><span class="kn">example</span><span class="w"> </span><span class="o">{</span><span class="n">X</span><span class="w"> </span><span class="n">Y</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Type</span><span class="bp">*</span><span class="o">}</span><span class="w"> </span><span class="o">[</span><span class="n">TopologicalSpace</span><span class="w"> </span><span class="n">X</span><span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="n">TopologicalSpace</span><span class="w"> </span><span class="n">Y</span><span class="o">]</span>
+<a id="__codelineno-7-25" name="__codelineno-7-25" href="#__codelineno-7-25"></a><span class="w">    </span><span class="o">{</span><span class="n">f</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">X</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">Y</span><span class="o">}</span><span class="w"> </span><span class="o">:</span>
+<a id="__codelineno-7-26" name="__codelineno-7-26" href="#__codelineno-7-26"></a><span class="w">    </span><span class="n">Continuous</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="bp">↔</span><span class="w"> </span><span class="bp">∀</span><span class="w"> </span><span class="n">x</span><span class="o">,</span><span class="w"> </span><span class="n">Tendsto</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="o">(</span><span class="n">𝓝</span><span class="w"> </span><span class="n">x</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">𝓝</span><span class="w"> </span><span class="o">(</span><span class="n">f</span><span class="w"> </span><span class="n">x</span><span class="o">))</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-7-27" name="__codelineno-7-27" href="#__codelineno-7-27"></a><span class="w">  </span><span class="n">simpa</span><span class="w"> </span><span class="o">[</span><span class="n">ContinuousAt</span><span class="o">]</span><span class="w"> </span><span class="kn">using</span><span class="w"> </span><span class="o">(</span><span class="n">continuous_iff_continuousAt</span><span class="w"> </span><span class="o">(</span><span class="n">f</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">f</span><span class="o">))</span>
 <a id="__codelineno-7-28" name="__codelineno-7-28" href="#__codelineno-7-28"></a>
-<a id="__codelineno-7-29" name="__codelineno-7-29" href="#__codelineno-7-29"></a><span class="kn">example</span><span class="w"> </span><span class="o">{</span><span class="n">X</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Type</span><span class="bp">*</span><span class="o">}</span><span class="w"> </span><span class="o">[</span><span class="n">TopologicalSpace</span><span class="w"> </span><span class="n">X</span><span class="o">]</span><span class="w"> </span><span class="o">{</span><span class="n">u</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℕ</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">X</span><span class="o">}</span><span class="w"> </span><span class="o">{</span><span class="n">U</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Set</span><span class="w"> </span><span class="n">X</span><span class="o">}</span><span class="w"> </span><span class="o">:</span>
-<a id="__codelineno-7-30" name="__codelineno-7-30" href="#__codelineno-7-30"></a><span class="w">    </span><span class="o">(</span><span class="n">u</span><span class="w"> </span><span class="bp">⁻¹&#39;</span><span class="w"> </span><span class="n">U</span><span class="w"> </span><span class="bp">∈</span><span class="w"> </span><span class="n">atTop</span><span class="o">)</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="o">(</span><span class="bp">∀ᶠ</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">atTop</span><span class="o">,</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="bp">∈</span><span class="w"> </span><span class="n">U</span><span class="o">)</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-7-31" name="__codelineno-7-31" href="#__codelineno-7-31"></a><span class="w">  </span><span class="n">rfl</span>
-<a id="__codelineno-7-32" name="__codelineno-7-32" href="#__codelineno-7-32"></a>
-<a id="__codelineno-7-33" name="__codelineno-7-33" href="#__codelineno-7-33"></a><span class="kn">example</span><span class="w"> </span><span class="o">{</span><span class="n">X</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Type</span><span class="bp">*</span><span class="o">}</span><span class="w"> </span><span class="o">[</span><span class="n">TopologicalSpace</span><span class="w"> </span><span class="n">X</span><span class="o">]</span><span class="w"> </span><span class="o">(</span><span class="n">u</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℕ</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">X</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">X</span><span class="o">)</span><span class="w"> </span><span class="o">:</span>
-<a id="__codelineno-7-34" name="__codelineno-7-34" href="#__codelineno-7-34"></a><span class="w">    </span><span class="n">SeqConvergesToByNhds</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="bp">↔</span>
-<a id="__codelineno-7-35" name="__codelineno-7-35" href="#__codelineno-7-35"></a><span class="w">      </span><span class="bp">∀</span><span class="w"> </span><span class="n">U</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Set</span><span class="w"> </span><span class="n">X</span><span class="o">,</span><span class="w"> </span><span class="n">IsOpen</span><span class="w"> </span><span class="n">U</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="bp">∈</span><span class="w"> </span><span class="n">U</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="bp">∀ᶠ</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">atTop</span><span class="o">,</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="bp">∈</span><span class="w"> </span><span class="n">U</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-7-36" name="__codelineno-7-36" href="#__codelineno-7-36"></a><span class="w">  </span><span class="n">unfold</span><span class="w"> </span><span class="n">SeqConvergesToByNhds</span>
-<a id="__codelineno-7-37" name="__codelineno-7-37" href="#__codelineno-7-37"></a><span class="w">  </span><span class="n">exact</span><span class="w"> </span><span class="n">tendsto_nhds</span>
-<a id="__codelineno-7-38" name="__codelineno-7-38" href="#__codelineno-7-38"></a>
-<a id="__codelineno-7-39" name="__codelineno-7-39" href="#__codelineno-7-39"></a><span class="kn">def</span><span class="w"> </span><span class="n">ContinuousAtByNhds</span><span class="w"> </span><span class="o">{</span><span class="n">X</span><span class="w"> </span><span class="n">Y</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Type</span><span class="bp">*</span><span class="o">}</span><span class="w"> </span><span class="o">[</span><span class="n">TopologicalSpace</span><span class="w"> </span><span class="n">X</span><span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="n">TopologicalSpace</span><span class="w"> </span><span class="n">Y</span><span class="o">]</span>
-<a id="__codelineno-7-40" name="__codelineno-7-40" href="#__codelineno-7-40"></a><span class="w">    </span><span class="o">(</span><span class="n">f</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">X</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">Y</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">X</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Prop</span><span class="w"> </span><span class="o">:=</span>
-<a id="__codelineno-7-41" name="__codelineno-7-41" href="#__codelineno-7-41"></a><span class="w">  </span><span class="n">Tendsto</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="o">(</span><span class="n">𝓝</span><span class="w"> </span><span class="n">x</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">𝓝</span><span class="w"> </span><span class="o">(</span><span class="n">f</span><span class="w"> </span><span class="n">x</span><span class="o">))</span>
-<a id="__codelineno-7-42" name="__codelineno-7-42" href="#__codelineno-7-42"></a>
-<a id="__codelineno-7-43" name="__codelineno-7-43" href="#__codelineno-7-43"></a><span class="kn">example</span><span class="w"> </span><span class="o">{</span><span class="n">X</span><span class="w"> </span><span class="n">Y</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Type</span><span class="bp">*</span><span class="o">}</span><span class="w"> </span><span class="o">[</span><span class="n">TopologicalSpace</span><span class="w"> </span><span class="n">X</span><span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="n">TopologicalSpace</span><span class="w"> </span><span class="n">Y</span><span class="o">]</span>
-<a id="__codelineno-7-44" name="__codelineno-7-44" href="#__codelineno-7-44"></a><span class="w">    </span><span class="o">{</span><span class="n">f</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">X</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">Y</span><span class="o">}</span><span class="w"> </span><span class="o">{</span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">X</span><span class="o">}</span><span class="w"> </span><span class="o">:</span>
-<a id="__codelineno-7-45" name="__codelineno-7-45" href="#__codelineno-7-45"></a><span class="w">    </span><span class="n">ContinuousAtByNhds</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">ContinuousAt</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-7-46" name="__codelineno-7-46" href="#__codelineno-7-46"></a><span class="w">  </span><span class="n">rfl</span>
-<a id="__codelineno-7-47" name="__codelineno-7-47" href="#__codelineno-7-47"></a>
-<a id="__codelineno-7-48" name="__codelineno-7-48" href="#__codelineno-7-48"></a><span class="kn">example</span><span class="w"> </span><span class="o">{</span><span class="n">X</span><span class="w"> </span><span class="n">Y</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Type</span><span class="bp">*</span><span class="o">}</span><span class="w"> </span><span class="o">[</span><span class="n">TopologicalSpace</span><span class="w"> </span><span class="n">X</span><span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="n">TopologicalSpace</span><span class="w"> </span><span class="n">Y</span><span class="o">]</span>
-<a id="__codelineno-7-49" name="__codelineno-7-49" href="#__codelineno-7-49"></a><span class="w">    </span><span class="o">{</span><span class="n">f</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">X</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">Y</span><span class="o">}</span><span class="w"> </span><span class="o">:</span>
-<a id="__codelineno-7-50" name="__codelineno-7-50" href="#__codelineno-7-50"></a><span class="w">    </span><span class="n">Continuous</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="bp">↔</span><span class="w"> </span><span class="bp">∀</span><span class="w"> </span><span class="n">x</span><span class="o">,</span><span class="w"> </span><span class="n">Tendsto</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="o">(</span><span class="n">𝓝</span><span class="w"> </span><span class="n">x</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">𝓝</span><span class="w"> </span><span class="o">(</span><span class="n">f</span><span class="w"> </span><span class="n">x</span><span class="o">))</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-7-51" name="__codelineno-7-51" href="#__codelineno-7-51"></a><span class="w">  </span><span class="n">simpa</span><span class="w"> </span><span class="o">[</span><span class="n">ContinuousAt</span><span class="o">]</span><span class="w"> </span><span class="kn">using</span><span class="w"> </span><span class="o">(</span><span class="n">continuous_iff_continuousAt</span><span class="w"> </span><span class="o">(</span><span class="n">f</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">f</span><span class="o">))</span>
-<a id="__codelineno-7-52" name="__codelineno-7-52" href="#__codelineno-7-52"></a>
-<a id="__codelineno-7-53" name="__codelineno-7-53" href="#__codelineno-7-53"></a><span class="kn">example</span><span class="w"> </span><span class="o">{</span><span class="n">X</span><span class="w"> </span><span class="n">Y</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Type</span><span class="bp">*</span><span class="o">}</span><span class="w"> </span><span class="o">[</span><span class="n">TopologicalSpace</span><span class="w"> </span><span class="n">X</span><span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="n">TopologicalSpace</span><span class="w"> </span><span class="n">Y</span><span class="o">]</span>
-<a id="__codelineno-7-54" name="__codelineno-7-54" href="#__codelineno-7-54"></a><span class="w">    </span><span class="o">{</span><span class="n">f</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">X</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">Y</span><span class="o">}</span><span class="w"> </span><span class="o">:</span>
-<a id="__codelineno-7-55" name="__codelineno-7-55" href="#__codelineno-7-55"></a><span class="w">    </span><span class="n">Continuous</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="bp">↔</span><span class="w"> </span><span class="bp">∀</span><span class="w"> </span><span class="n">U</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Set</span><span class="w"> </span><span class="n">Y</span><span class="o">,</span><span class="w"> </span><span class="n">IsOpen</span><span class="w"> </span><span class="n">U</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">IsOpen</span><span class="w"> </span><span class="o">(</span><span class="n">f</span><span class="w"> </span><span class="bp">⁻¹&#39;</span><span class="w"> </span><span class="n">U</span><span class="o">)</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-7-56" name="__codelineno-7-56" href="#__codelineno-7-56"></a><span class="w">  </span><span class="n">exact</span><span class="w"> </span><span class="n">continuous_def</span>
-<a id="__codelineno-7-57" name="__codelineno-7-57" href="#__codelineno-7-57"></a>
-<a id="__codelineno-7-58" name="__codelineno-7-58" href="#__codelineno-7-58"></a><span class="kn">example</span><span class="w"> </span><span class="o">{</span><span class="n">X</span><span class="w"> </span><span class="n">Y</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Type</span><span class="bp">*</span><span class="o">}</span><span class="w"> </span><span class="o">[</span><span class="n">TopologicalSpace</span><span class="w"> </span><span class="n">X</span><span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="n">TopologicalSpace</span><span class="w"> </span><span class="n">Y</span><span class="o">]</span>
-<a id="__codelineno-7-59" name="__codelineno-7-59" href="#__codelineno-7-59"></a><span class="w">    </span><span class="o">{</span><span class="n">f</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">X</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">Y</span><span class="o">}</span><span class="w"> </span><span class="o">:</span>
-<a id="__codelineno-7-60" name="__codelineno-7-60" href="#__codelineno-7-60"></a><span class="w">    </span><span class="o">(</span><span class="bp">∀</span><span class="w"> </span><span class="n">x</span><span class="o">,</span><span class="w"> </span><span class="n">Tendsto</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="o">(</span><span class="n">𝓝</span><span class="w"> </span><span class="n">x</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">𝓝</span><span class="w"> </span><span class="o">(</span><span class="n">f</span><span class="w"> </span><span class="n">x</span><span class="o">)))</span><span class="w"> </span><span class="bp">↔</span>
-<a id="__codelineno-7-61" name="__codelineno-7-61" href="#__codelineno-7-61"></a><span class="w">      </span><span class="bp">∀</span><span class="w"> </span><span class="n">U</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Set</span><span class="w"> </span><span class="n">Y</span><span class="o">,</span><span class="w"> </span><span class="n">IsOpen</span><span class="w"> </span><span class="n">U</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">IsOpen</span><span class="w"> </span><span class="o">(</span><span class="n">f</span><span class="w"> </span><span class="bp">⁻¹&#39;</span><span class="w"> </span><span class="n">U</span><span class="o">)</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
-<a id="__codelineno-7-62" name="__codelineno-7-62" href="#__codelineno-7-62"></a><span class="w">  </span><span class="n">rw</span><span class="w"> </span><span class="o">[</span><span class="bp">←</span><span class="w"> </span><span class="n">continuous_def</span><span class="o">]</span>
-<a id="__codelineno-7-63" name="__codelineno-7-63" href="#__codelineno-7-63"></a><span class="w">  </span><span class="n">simpa</span><span class="w"> </span><span class="o">[</span><span class="n">ContinuousAt</span><span class="o">]</span><span class="w"> </span><span class="kn">using</span><span class="w"> </span><span class="o">(</span><span class="n">continuous_iff_continuousAt</span><span class="w"> </span><span class="o">(</span><span class="n">f</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">f</span><span class="o">))</span><span class="bp">.</span><span class="n">symm</span>
-<a id="__codelineno-7-64" name="__codelineno-7-64" href="#__codelineno-7-64"></a>
-<a id="__codelineno-7-65" name="__codelineno-7-65" href="#__codelineno-7-65"></a><span class="kn">end</span><span class="w"> </span><span class="n">NeighborhoodFilters</span>
+<a id="__codelineno-7-29" name="__codelineno-7-29" href="#__codelineno-7-29"></a><span class="kn">example</span><span class="w"> </span><span class="o">{</span><span class="n">X</span><span class="w"> </span><span class="n">Y</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Type</span><span class="bp">*</span><span class="o">}</span><span class="w"> </span><span class="o">[</span><span class="n">TopologicalSpace</span><span class="w"> </span><span class="n">X</span><span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="n">TopologicalSpace</span><span class="w"> </span><span class="n">Y</span><span class="o">]</span>
+<a id="__codelineno-7-30" name="__codelineno-7-30" href="#__codelineno-7-30"></a><span class="w">    </span><span class="o">{</span><span class="n">f</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">X</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">Y</span><span class="o">}</span><span class="w"> </span><span class="o">:</span>
+<a id="__codelineno-7-31" name="__codelineno-7-31" href="#__codelineno-7-31"></a><span class="w">    </span><span class="n">Continuous</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="bp">↔</span><span class="w"> </span><span class="bp">∀</span><span class="w"> </span><span class="n">U</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Set</span><span class="w"> </span><span class="n">Y</span><span class="o">,</span><span class="w"> </span><span class="n">IsOpen</span><span class="w"> </span><span class="n">U</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">IsOpen</span><span class="w"> </span><span class="o">(</span><span class="n">f</span><span class="w"> </span><span class="bp">⁻¹&#39;</span><span class="w"> </span><span class="n">U</span><span class="o">)</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-7-32" name="__codelineno-7-32" href="#__codelineno-7-32"></a><span class="w">  </span><span class="n">exact</span><span class="w"> </span><span class="n">continuous_def</span>
+<a id="__codelineno-7-33" name="__codelineno-7-33" href="#__codelineno-7-33"></a>
+<a id="__codelineno-7-34" name="__codelineno-7-34" href="#__codelineno-7-34"></a><span class="kn">example</span><span class="w"> </span><span class="o">{</span><span class="n">X</span><span class="w"> </span><span class="n">Y</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Type</span><span class="bp">*</span><span class="o">}</span><span class="w"> </span><span class="o">[</span><span class="n">TopologicalSpace</span><span class="w"> </span><span class="n">X</span><span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="n">TopologicalSpace</span><span class="w"> </span><span class="n">Y</span><span class="o">]</span>
+<a id="__codelineno-7-35" name="__codelineno-7-35" href="#__codelineno-7-35"></a><span class="w">    </span><span class="o">{</span><span class="n">f</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">X</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">Y</span><span class="o">}</span><span class="w"> </span><span class="o">:</span>
+<a id="__codelineno-7-36" name="__codelineno-7-36" href="#__codelineno-7-36"></a><span class="w">    </span><span class="o">(</span><span class="bp">∀</span><span class="w"> </span><span class="n">x</span><span class="o">,</span><span class="w"> </span><span class="n">Tendsto</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="o">(</span><span class="n">𝓝</span><span class="w"> </span><span class="n">x</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">𝓝</span><span class="w"> </span><span class="o">(</span><span class="n">f</span><span class="w"> </span><span class="n">x</span><span class="o">)))</span><span class="w"> </span><span class="bp">↔</span>
+<a id="__codelineno-7-37" name="__codelineno-7-37" href="#__codelineno-7-37"></a><span class="w">      </span><span class="bp">∀</span><span class="w"> </span><span class="n">U</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Set</span><span class="w"> </span><span class="n">Y</span><span class="o">,</span><span class="w"> </span><span class="n">IsOpen</span><span class="w"> </span><span class="n">U</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">IsOpen</span><span class="w"> </span><span class="o">(</span><span class="n">f</span><span class="w"> </span><span class="bp">⁻¹&#39;</span><span class="w"> </span><span class="n">U</span><span class="o">)</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<a id="__codelineno-7-38" name="__codelineno-7-38" href="#__codelineno-7-38"></a><span class="w">  </span><span class="n">rw</span><span class="w"> </span><span class="o">[</span><span class="bp">←</span><span class="w"> </span><span class="n">continuous_def</span><span class="o">]</span>
+<a id="__codelineno-7-39" name="__codelineno-7-39" href="#__codelineno-7-39"></a><span class="w">  </span><span class="n">simpa</span><span class="w"> </span><span class="o">[</span><span class="n">ContinuousAt</span><span class="o">]</span><span class="w"> </span><span class="kn">using</span><span class="w"> </span><span class="o">(</span><span class="n">continuous_iff_continuousAt</span><span class="w"> </span><span class="o">(</span><span class="n">f</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">f</span><span class="o">))</span><span class="bp">.</span><span class="n">symm</span>
+<a id="__codelineno-7-40" name="__codelineno-7-40" href="#__codelineno-7-40"></a>
+<a id="__codelineno-7-41" name="__codelineno-7-41" href="#__codelineno-7-41"></a><span class="kn">end</span><span class="w"> </span><span class="n">NeighborhoodFilters</span>
 </code></pre></div>
 <h2 id="_3">演習問題<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
 <p><code>Tendsto</code> の定義を <code>map</code> と filter の順序として読み替えてください．</p>
 <div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kn">example</span><span class="w"> </span><span class="o">{</span><span class="n">α</span><span class="w"> </span><span class="n">β</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Type</span><span class="bp">*</span><span class="o">}</span><span class="w"> </span><span class="o">(</span><span class="n">f</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">α</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">β</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">l</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Filter</span><span class="w"> </span><span class="n">α</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">m</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Filter</span><span class="w"> </span><span class="n">β</span><span class="o">)</span><span class="w"> </span><span class="o">:</span>
 <a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">    </span><span class="n">Tendsto</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">l</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="o">(</span><span class="n">map</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">l</span><span class="w"> </span><span class="bp">≤</span><span class="w"> </span><span class="n">m</span><span class="o">)</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
 <a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">  </span><span class="c1">-- 定義そのもの．</span>
-<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">  </span><span class="gr">sorry</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">  </span><span class="c1">-- 解答例: rfl</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="w">  </span><span class="gr">sorry</span>
 </code></pre></div>
 
 
@@ -2097,13 +2229,13 @@ Mathlib では次の補題がこの形を与えます．</p>
         
         
           
-          <a href="../03/" class="md-footer__link md-footer__link--next" aria-label="次: 収束と連続性">
+          <a href="../03/" class="md-footer__link md-footer__link--next" aria-label="次: 連続性の基本 API">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 次
               </span>
               <div class="md-ellipsis">
-                収束と連続性
+                連続性の基本 API
               </div>
             </div>
             <div class="md-footer__button md-icon">

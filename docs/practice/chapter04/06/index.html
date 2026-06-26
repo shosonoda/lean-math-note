@@ -1822,13 +1822,16 @@ Frechet 微分では，導関数の値は連続線形写像になります．</p
 <a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="o">(</span><span class="n">L</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">E</span><span class="w"> </span><span class="bp">→</span><span class="n">L</span><span class="o">[</span><span class="n">ℝ</span><span class="o">]</span><span class="w"> </span><span class="n">F</span><span class="o">)</span><span class="w"> </span><span class="o">:</span>
 <a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="n">Continuous</span><span class="w"> </span><span class="n">L</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
 <a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">  </span><span class="c1">-- ヒント: `exact L.cont`</span>
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">  </span><span class="gr">sorry</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">  </span><span class="c1">-- 解答例: exact L.cont</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">  </span><span class="gr">sorry</span>
 </code></pre></div>
 </li>
 <li>
 <p><code>HasFDerivAt</code> の statement を <code>#check</code> で表示し，実数 1 変数の <code>HasDerivAt</code> と何が違うか説明してください．</p>
-<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">HasFDerivAt</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">HasDerivAt</span>
+<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1">-- 解答例: `HasFDerivAt` は連続線形写像を微分として指定し，</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="c1">-- `HasDerivAt` は 1 変数の微分係数を指定します．</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">HasFDerivAt</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">HasDerivAt</span>
 </code></pre></div>
 </li>
 <li>
@@ -1836,7 +1839,8 @@ Frechet 微分では，導関数の値は連続線形写像になります．</p
 <div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">example</span><span class="w"> </span><span class="o">{</span><span class="n">E</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Type</span><span class="bp">*</span><span class="o">}</span><span class="w"> </span><span class="o">[</span><span class="n">NormedAddCommGroup</span><span class="w"> </span><span class="n">E</span><span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="n">NormedSpace</span><span class="w"> </span><span class="n">ℝ</span><span class="w"> </span><span class="n">E</span><span class="o">]</span><span class="w"> </span><span class="o">(</span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">E</span><span class="o">)</span><span class="w"> </span><span class="o">:</span>
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="n">HasFDerivAt</span><span class="w"> </span><span class="o">(</span><span class="n">ContinuousLinearMap</span><span class="bp">.</span><span class="n">id</span><span class="w"> </span><span class="n">ℝ</span><span class="w"> </span><span class="n">E</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">ContinuousLinearMap</span><span class="bp">.</span><span class="n">id</span><span class="w"> </span><span class="n">ℝ</span><span class="w"> </span><span class="n">E</span><span class="o">)</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
 <a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">  </span><span class="c1">-- ヒント: `exact (ContinuousLinearMap.id ℝ E).hasFDerivAt`</span>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">  </span><span class="gr">sorry</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">  </span><span class="c1">-- 解答例: exact (ContinuousLinearMap.id ℝ E).hasFDerivAt</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">  </span><span class="gr">sorry</span>
 </code></pre></div>
 </li>
 </ol>
