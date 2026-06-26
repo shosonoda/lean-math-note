@@ -1855,7 +1855,7 @@
 
 
 <h1 id="_1">フィルター<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
-<p><code>Filter α</code> は，<code>α</code> の部分集合のうち「十分大きい」「十分近い」とみなす集合を集めたものです．
+<p><code>Filter α</code> は，<code>α</code> の部分集合のうち，どれをフィルターに含めるかを指定する構造です．
 数学的には，集合 <span class="arithmatex">\(X\)</span> 上のフィルター <span class="arithmatex">\(\mathcal F\)</span> は，部分集合族
 <span class="arithmatex">\(\mathcal F \subseteq \mathcal P(X)\)</span> であって，次を満たすものです．</p>
 <div class="arithmatex">\[
@@ -1868,13 +1868,16 @@ A \in \mathcal F,\ A \subseteq B \subseteq X \Longrightarrow B \in \mathcal F.
 <p>通常の数学ではさらに <span class="arithmatex">\(\emptyset \notin \mathcal F\)</span> も仮定します．
 Lean の <code>Filter X</code> ではこの条件は定義には入っていませんが，
 この章で扱う <code>atTop</code> や <code>𝓝 x</code> を読むうえでは，まず意識しなくてかまいません．</p>
-<p>この章では，フィルターの一般論よりも，次の 3 つの読み方が重要です．</p>
+<p>この章では，フィルターの一般論よりも，次の 3 つの読み方が重要です．
+型 <code>α</code> 上のフィルター <code>l : Filter α</code> を考えます．</p>
 <ul>
-<li><code>s ∈ l</code>: 集合 <code>s</code> はフィルター <code>l</code> の意味で十分大きい．</li>
-<li><code>∀ᶠ x in l, p x</code>: <code>p x</code> が成り立つような <code>x</code> 全体の集合が，
-  フィルター <code>l</code> の意味で十分大きい．
-  定義上は <code>{x | p x} ∈ l</code> という主張です．</li>
-<li><code>Tendsto f l m</code>: <code>x</code> が <code>l</code> に沿って動くとき，<code>f x</code> が <code>m</code> に沿って動く．</li>
+<li><code>s ∈ l</code>: <code>s : Set α</code> は <code>α</code> の部分集合であり，
+  <code>s</code> がフィルター <code>l</code> に含まれる，という意味です．</li>
+<li><code>∀ᶠ x in l, p x</code>: <code>x : α</code> は集合ではなく，<code>α</code> の点を表す束縛変数です．
+  <code>p : α → Prop</code> に対して，<code>p x</code> が成り立つような点 <code>x</code> 全体の集合が，
+  フィルター <code>l</code> に含まれる，という意味です．
+  定義上は <code>{x : α | p x} ∈ l</code> という主張です．</li>
+<li><code>Tendsto f l m</code>: <code>x : α</code> が <code>l</code> に沿って動くとき，<code>f x</code> が <code>m</code> に沿って動く．</li>
 </ul>
 <p>数式で書くと，<code>∀ᶠ x in l, p x</code> は</p>
 <div class="arithmatex">\[
@@ -1928,7 +1931,7 @@ S \in \mathcal N(x)
 <p><code>Tendsto f l m</code> は，「<code>x</code> がフィルター <code>l</code> に沿って動くとき，<code>f x</code> がフィルター <code>m</code> に沿って動く」という意味です．
 数列の極限も，関数の一点での極限も，無限遠での極限も，この形で表されます．
 内部的には <code>map f l ≤ m</code> という定義ですが，まずは
-「<code>m</code> の意味で十分な集合の逆像は，<code>l</code> の意味で十分な集合である」と読むのがよいです．</p>
+「<code>m</code> に含まれる任意の集合の逆像は，<code>l</code> に含まれる」と読むのがよいです．</p>
 <div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">Filter</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">Tendsto</span>
 <a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">atTop</span>
