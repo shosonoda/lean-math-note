@@ -59,7 +59,7 @@ Mathlib の定義ファイルでは，さらに一般に `HasFDerivAtFilter` が
 `DifferentiableAt 𝕜 f x` は「そのような連続線形写像 `f'` が存在する」という述語です．
 一方 `fderiv 𝕜 f x` は導関数を値として返す関数です．
 導関数が存在すればその値を返し，存在しなければ 0 に定義されます．
-そのため，証明ではまず `HasFDerivAt` や `HasDerivAt` を作り，最後に `.fderiv` や `.deriv` で値としての導関数へ移るのが安定です．
+そのため，証明ではまず `HasFDerivAt` や `HasDerivAt` を作り，最後に `.fderiv` や `.deriv` で値としての導関数へ移ります．
 
 1 変数の `HasDerivAt f f' x` は，この Fréchet 微分の特殊化です．
 関数 `f : 𝕜 → F` の微分係数 `f' : F` を，`h ↦ h • f'` という連続線形写像に対応させて `HasFDerivAt` に戻しています．
@@ -71,11 +71,65 @@ Mathlib の定義ファイルでは，さらに一般に `HasFDerivAtFilter` が
 -/
 
 /-
+### 漸近記法 `=o` を読む
+
+Mathlib では，Landau の little-o 記法を
+
+```lean4
+f =o[l] g
+```
+
+と書きます．
+これは「フィルター `l` に沿って，`f` は `g` より十分小さい」という意味です．
+たとえば `l = 𝓝 x` なら，変数が点 `x` に近づくときの漸近的な大小を表しています．
+
+Mathlib のソースでは，次のように定義されています．
+
+```lean title="Mathlib/Analysis/Asymptotics/Defs.lean"
+irreducible_def IsLittleO (l : Filter α) (f : α → E) (g : α → F) : Prop :=
+  ∀ ⦃c : ℝ⦄, 0 < c → IsBigOWith c l f g
+
+notation:100 f " =o[" l "] " g:100 => IsLittleO l f g
+
+theorem isLittleO_iff :
+    f =o[l] g ↔ ∀ ⦃c : ℝ⦄, 0 < c → ∀ᶠ x in l, ‖f x‖ ≤ c * ‖g x‖
+```
+
+最後の `isLittleO_iff` が，数学的な読み方に一番近いです．
+任意の正の定数 `c` に対して，`l` に沿って十分近いところでは
+
+```text
+‖f x‖ ≤ c * ‖g x‖
+```
+
+が成り立つ，という意味です．
+つまり，`f` は `g` の任意に小さい定数倍で抑えられるほど小さい，ということです．
+分母が 0 になる点を避けて直感的に書けば，`‖f x‖ / ‖g x‖ → 0` です．
+
+微分で出てくる
+
+```lean4
+(fun x' => f x' - f x - f' (x' - x)) =o[𝓝 x] (fun x' => x' - x)
+```
+
+は，`x' → x` のとき，一次近似
+
+```text
+f x + f' (x' - x)
+```
+
+からの誤差が，変位 `x' - x` に比べて高次の微小量であることを表しています．
+これが「`f'` が点 `x` での微分である」という条件です．
+`=O` は「ある定数倍で抑えられる」という有界な大小関係ですが，
+`=o` は「任意に小さい定数倍で抑えられる」という，より強い条件です．
+-/
+
+/-
 ### `HasDerivAt` と `DifferentiableAt` の定義を読む
 
 1 変数の微分係数 `HasDerivAt f f' x` は，Mathlib のソースでは次のように定義されています．
 
-```lean title=".lake/packages/mathlib/Mathlib/Analysis/Calculus/Deriv/Basic.lean"
+```lean title="Mathlib/Analysis/Calculus/Deriv/Basic.lean"
 def HasDerivAtFilter (f : 𝕜 → F) (f' : F) (L : Filter (𝕜 × 𝕜)) :=
   HasFDerivAtFilter f (toSpanSingleton 𝕜 f') L
 
@@ -87,22 +141,22 @@ def HasDerivAt (f : 𝕜 → F) (f' : F) (x : 𝕜) :=
 `h ↦ h • f'` という連続線形写像 `𝕜 →L[𝕜] F` に変換するものです．
 したがって数学的には，`HasDerivAt f f' x` は
 
-```text
-f x' = f x + (x' - x) • f' + o(x' - x)    as x' → x
-```
+$$
+f (x') = f (x) + (x' - x) \cdot f'  + o(x' - x) \quad \text{as } x' \to x
+$$
 
 という一次近似を表します．
 特に `f : ℝ → ℝ` の場合，これは通常の
 
-```text
-lim_{x' → x} (f x' - f x) / (x' - x) = f'
-```
+$$
+\lim_{x' \to x} \frac{f(x') - f(x)}{x' - x} = f'
+$$
 
 という微分係数の定義と対応します．
 
 一方，`DifferentiableAt` は微分係数そのものを指定せず，「ある Fréchet 微分が存在する」と定義されています．
 
-```lean title=".lake/packages/mathlib/Mathlib/Analysis/Calculus/FDeriv/Defs.lean"
+```lean title="Mathlib/Analysis/Calculus/FDeriv/Defs.lean"
 def HasFDerivAt (f : E → F) (f' : E →L[𝕜] F) (x : E) :=
   HasFDerivAtFilter f f' (𝓝 x ×ˢ pure x)
 
@@ -112,9 +166,9 @@ def DifferentiableAt (f : E → F) (x : E) :=
 
 つまり `DifferentiableAt 𝕜 f x` は，点 `x` の近くで
 
-```text
-f x' = f x + f' (x' - x) + o(x' - x)
-```
+$$
+f (x') = f (x) + f' (x' - x) + o(x' - x)
+$$
 
 を満たす連続線形写像 `f' : E →L[𝕜] F` が存在する，という命題です．
 `HasDerivAt` は微分係数の値まで指定する述語，`DifferentiableAt` は値を指定せず存在だけを主張する述語，と読むと使い分けやすいです．
@@ -126,6 +180,8 @@ f x' = f x + f' (x' - x) + o(x' - x)
 #check HasDerivAt
 #check fderiv
 #check deriv
+#check Asymptotics.IsLittleO
+#check Asymptotics.isLittleO_iff
 
 section DifferentialDefinitions
 
@@ -514,8 +570,9 @@ theorem cubicExample_hasDerivAt :
   have hlin : HasDerivAt (fun x : ℝ => 2 * x) (2 * 1) 5 := by
     simpa using ((hasDerivAt_id (5 : ℝ)).const_mul (2 : ℝ))
   have h := (hpow.add hlin).add_const (1 : ℝ)
-  convert h using 1
-  norm_num
+  have hcoeff : 3 * 5 ^ 2 + 2 = (77 : ℝ) := by
+    norm_num
+  simpa [Pi.add_apply, hcoeff] using h
 
 example : deriv (fun x : ℝ => x ^ 3 + 2 * x + 1) 5 = 77 := by
   exact cubicExample_hasDerivAt.deriv
@@ -531,9 +588,10 @@ end PolynomialDerivativeExample
 * `HasDerivAt.add`: 和の微分
 * `HasDerivAt.add_const`: 定数を足しても微分係数は変わらない
 
-最後の `convert h using 1` は，Lean が持っている導関数の値
-`3 * 5 ^ (3 - 1) + 2 * 1` と，目標の値 `77` を照合するために使っています．
-残った数値計算は `norm_num` で閉じます．
+最後は，Lean が持っている導関数の値を `hcoeff` で数値計算し，
+`simpa [Pi.add_apply, hcoeff] using h` で関数の表示と導関数の値を整理しています．
+`convert` を使うと，Mathlib のバージョンによっては型クラスインスタンスの等式まで
+余分なゴールとして現れることがあるため，ここでは数値計算を明示的に分けています．
 -/
 
 /-

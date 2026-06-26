@@ -162,7 +162,7 @@ end Filters
 位相空間における「近い」という情報は，Mathlib では点 `x` の近傍フィルター `𝓝 x` として扱われます．
 Mathlib 本体では，近傍フィルターは次のように定義されています．
 
-```lean title=".lake/packages/mathlib/Mathlib/Topology/Defs/Filter.lean"
+```lean title="Mathlib/Topology/Defs/Filter.lean"
 irreducible_def nhds (x : X) : Filter X :=
   ⨅ s ∈ { s : Set X | x ∈ s ∧ IsOpen s }, 𝓟 s
 
@@ -173,7 +173,7 @@ scoped[Topology] notation "𝓝" => nhds
 つまり `𝓝 x` は，「`x` を含む開集合」から来る主フィルターをすべて集めたものです．
 実際に使うときは，この定義を直接展開するより，次の補題で読む方が便利です．
 
-```lean title=".lake/packages/mathlib/Mathlib/Topology/Neighborhoods.lean"
+```lean title="Mathlib/Topology/Neighborhoods.lean"
 theorem mem_nhds_iff : s ∈ 𝓝 x ↔ ∃ t ⊆ s, IsOpen t ∧ x ∈ t
 ```
 
@@ -208,7 +208,7 @@ Tendsto u atTop (𝓝 x)
 連続性も同じ言葉で定義されます．
 一点 `x` での連続性は，`x` に近い点を `f` で送ると `f x` に近い点になる，という条件です．
 
-```lean title=".lake/packages/mathlib/Mathlib/Topology/Defs/Filter.lean"
+```lean title="Mathlib/Topology/Defs/Filter.lean"
 def ContinuousAt (f : X → Y) (x : X) :=
   Tendsto f (𝓝 x) (𝓝 (f x))
 ```
@@ -216,7 +216,7 @@ def ContinuousAt (f : X → Y) (x : X) :=
 一方，教科書でよく見る大域的な連続性は「開集合の逆像が開集合」として定義されます．
 Mathlib では次の補題がこの形を与えます．
 
-```lean title=".lake/packages/mathlib/Mathlib/Topology/Continuous.lean"
+```lean title="Mathlib/Topology/Continuous.lean"
 theorem continuous_def :
     Continuous f ↔ ∀ s, IsOpen s → IsOpen (f ⁻¹' s)
 

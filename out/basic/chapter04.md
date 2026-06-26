@@ -241,7 +241,7 @@ def Set (α : Type u) := α → Prop
 `{x | p x}` は述語 `p` から集合を作る `setOf` の記法です．
 `s ⊆ t` は，`s` の任意の元が `t` にも入るという命題です．
 
-```lean title=".lake/packages/mathlib/Mathlib/Data/Set/Defs.lean"
+```lean title="Mathlib/Data/Set/Defs.lean"
 def Set (α : Type u) := α → Prop
 
 def setOf {α : Type u} (p : α → Prop) : Set α :=
