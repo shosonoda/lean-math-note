@@ -596,6 +596,8 @@
       
         
       
+        
+      
     
     
     
@@ -1883,6 +1885,13 @@
 <code>ε</code>-<code>δ</code> 条件を取り出せます．
 上の例は <span class="arithmatex">\(x \mapsto x+1\)</span> が <span class="arithmatex">\(x=3\)</span> で連続であることを，
 距離による条件として読み替えています．</p>
+<p>ここに現れる <code>∀ ⦃x : ℝ⦄, ...</code> の <code>⦃x : ℝ⦄</code> は strict implicit binder です．
+<code>x</code> 自体は普通の実数の点ですが，定理を使うときには明示的に渡さず，
+後続の仮定 <code>dist x a &lt; δ</code> などから Lean が推論します．
+たとえば <code>h : ∀ ⦃x : ℝ⦄, dist x a &lt; δ → ...</code> があるとき，
+<code>h hx</code> のように書くと，<code>hx</code> の型から <code>x</code> が推論されます．
+構文としては <code>{{x : ℝ}}</code> と入力でき，表示上は <code>⦃x : ℝ⦄</code> になります．
+括弧の種類の一般的な説明は基礎編 Chapter 02 の <code>variable</code> と引数の節で扱いました．</p>
 <h2 id="_2">演習問題<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <ol>
 <li>

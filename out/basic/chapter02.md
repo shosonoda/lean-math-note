@@ -320,17 +320,21 @@ example : singletonList (-2 : Int) = [(-2 : Int)] := by
 end ImplicitVariableExamples
 ```
 
-### 引数に現れる `( )`，`{ }`，`[ ]`
+### 引数に現れる `( )`，`{ }`，`⦃ ⦄`，`[ ]`
 
 Lean の定義や定理では，引数の括弧に意味があります．
 Mathlib の定理を読むときに重要なので，ここで整理しておきます．
 
 * `(x : α)`: 明示的な引数です．通常，関数や定理を使う側が値を与えます．
 * `{α : Type}`: 暗黙引数です．Lean が周囲の式から推論できるなら，通常は書きません．
+* `⦃x : α⦄`: strict implicit 引数です．暗黙引数の一種で，
+  Lean が後続の明示的な引数などから推論できるときに補います．
 * `[Add α]`: 型クラス引数です．Lean が登録済みの `instance` から自動的に探します．
 
 たとえば `(h : P)` は「命題 `P` の証明 `h` を明示的な引数として受け取る」という意味です．
 一方，`{α : Type}` は命題の仮定ではなく，推論される型パラメータです．
+`⦃x : α⦄` も推論される引数ですが，通常の暗黙引数よりも，後ろに続く明示的な引数から値が決まる場面を意識した書き方です．
+入力するときは `{{x : α}}` と書くこともできますが，pretty printer では `⦃x : α⦄` と表示されます．
 `[Add α]` も通常の変数というより，「`α` には足し算がある」という構造を型クラス探索で要求している，と読みます．
 型クラスについては，後の `class` と `instance` の節で改めて扱います．
 
@@ -341,12 +345,17 @@ def explicitId (α : Type) (x : α) : α :=
 def implicitId {α : Type} (x : α) : α :=
   x
 
+def strictImplicitExample ⦃x : Nat⦄ (_h : x = x) : Nat :=
+  x
+
 def addWithClass {α : Type} [Add α] (x y : α) : α :=
   x + y
 
 #check explicitId
 #check implicitId
 #check @implicitId
+#check strictImplicitExample
+#check @strictImplicitExample
 #check addWithClass
 
 example : explicitId Nat 3 = 3 := by
@@ -355,19 +364,36 @@ example : explicitId Nat 3 = 3 := by
 example : implicitId 3 = 3 := by
   rfl
 
+example : strictImplicitExample (show (3 : Nat) = 3 from rfl) = 3 := by
+  rfl
+
+example : strictImplicitExample (x := 3) rfl = 3 := by
+  rfl
+
+example : (∀ ⦃n : Nat⦄, n = n → n = n) := by
+  intro n h
+  exact h
+
+example (h : ∀ ⦃n : Nat⦄, n = n → n = n) : (3 : Nat) = 3 := by
+  exact h rfl
+
 example : addWithClass 2 5 = 7 := by
   rfl
 ```
 
 暗黙引数を明示したいときは，名前付き引数 `(α := Nat)` を使うことがあります．
 また，`@implicitId` のように名前の前に `@` を付けると，通常は隠れている暗黙引数も含めた型を確認できます．
+strict implicit 引数も，必要なら `(x := 3)` のように名前付き引数で明示できます．
 
 ```lean4
 #check @implicitId
 #check implicitId (α := Nat)
+#check @strictImplicitExample
 ```
 
-最初は「丸括弧は普通に渡す，引数」，「波括弧は Lean が推論する，引数」，「角括弧は型クラス探索で探す，構造」と覚えておけば十分です．
+最初は「丸括弧は普通に渡す，引数」，「波括弧は Lean が推論する，引数」，
+「二重波括弧は，後続の情報から推論される暗黙引数」，
+「角括弧は型クラス探索で探す，構造」と覚えておけば十分です．
 
 ---
 ## `notation`
@@ -604,6 +630,22 @@ example : originStruct.x = 0 := by
 
 example : PointStruct.swap { x := 1, y := 2 } = { x := 2, y := 1 } := by
   rfl
+```
+
+`PointStruct.x` や `PointStruct.y` は，`structure` の中で宣言された field です．
+一方，`PointStruct.swap` は field ではなく，あとから `PointStruct` という名前空間に置いた普通の関数です．
+Lean では，名前空間にある関数や定理も，最初の明示的な引数の型からドット notation で呼べることがあります．
+そのため，`PointStruct.swap p` は `p.swap` とも書けます．
+このような関数は，プログラミング言語のメソッドのように見えますが，
+Lean の用語としては「名前空間にある関数」または「定理」をドット notation で適用している，と考えるのが安全です．
+field かどうかは，それが `structure` や `class` の中で宣言された成分かどうかで判断します．
+
+```lean
+#check PointStruct.x
+#check PointStruct.swap
+
+example (p : PointStruct) : PointStruct.swap p = p.swap := by
+  rfl
 
 def addPointStruct (p q : PointStruct) : PointStruct :=
   { x := p.x + q.x, y := p.y + q.y }
@@ -766,6 +808,65 @@ inductive Or (a b : Prop) : Prop where
 * 型を作る部分: 何を入れると型ができるか．例: `List : Type u → Type u`
 * constructor: その型の項をどう作るか．例: `List.nil`，`List.cons`
 * 消去・場合分け: `match`，`cases`，`induction` でどう使えるか．
+
+`inductive` は，型そのものが引数を取る形でも定義できます．
+たとえば `Option α` や `List α` は，型 `α` を 1 つ受け取って新しい型を作ります．
+この場合，`#check` で型名だけを見ると，値の型ではなく「型から型を作る関数」のように見えます．
+
+```lean
+inductive MyOption (α : Type) where
+  | none : MyOption α
+  | some (x : α) : MyOption α
+
+#check MyOption
+#check (MyOption : Type → Type)
+#check MyOption Nat
+#check MyOption.none
+#check MyOption.some
+```
+
+上の `#check MyOption` は，おおよそ
+
+```lean4
+MyOption : Type → Type
+```
+
+という意味です．
+Lean の表示では `MyOption (α : Type) : Type` のように，引数つきの形で表示されることもあります．
+`#check (MyOption : Type → Type)` と型注釈を付けると，`Type → Type` と見えていることを明示できます．
+これは `MyOption` だけではまだ具体的な値の型ではなく，
+`Nat` や `String` などの型を受け取って `MyOption Nat`，`MyOption String` という型を作る，という意味です．
+一方，`#check MyOption Nat` は
+
+```lean4
+MyOption Nat : Type
+```
+
+となります．
+つまり `MyOption Nat` は，「自然数が入っているかもしれない値」の型です．
+
+```lean
+def myOptionNat : MyOption Nat :=
+  MyOption.some 3
+
+def myOptionString : MyOption String :=
+  MyOption.none
+
+def myOptionGetD {α : Type} (default : α) : MyOption α → α
+  | MyOption.none => default
+  | MyOption.some x => x
+
+example : myOptionGetD 0 myOptionNat = 3 := by
+  rfl
+
+example : myOptionGetD "empty" myOptionString = "empty" := by
+  rfl
+```
+
+このように，引数を取る `inductive` 型では，
+まず `MyOption Nat` のように型引数を与えて具体的な型を作り，
+その型の項を constructor で作ります．
+`List α` や `Option α` も同じパターンです．
 
 ```lean
 inductive Sign where

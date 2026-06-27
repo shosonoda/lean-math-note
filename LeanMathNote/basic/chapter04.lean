@@ -893,6 +893,84 @@ example (x y c : ℝ) (hxy : x ≤ y) (hc : 0 ≤ c) : c * x ≤ c * y := by
 
 /-
 ---
+## 型クラスと名前空間から定理を探す
+
+Mathlib のような大きいライブラリでは，最初から正確な定理名を知っていることは多くありません．
+そのため，次の二つの方向から探すのが実用的です．
+
+* ゴールに出ている型が，どの型クラスインスタンスを持っているかを見る
+* 対象の名前空間に，どのような定理や関数があるかを見る
+
+たとえば，`+` は型クラス `Add` の field `add` から来ています．
+型クラスの中身は `#print` で確認でき，特定の field の型は `#check` で確認できます．
+また，ある型にその型クラスのインスタンスがあるかは `#synth` で確認できます．
+-/
+
+#print Add
+#check Add.add
+#synth Add Nat
+#synth Add ℝ
+
+/-
+順序や位相構造も同じです．
+`ℝ` が線形順序や位相空間の構造を持つことは，それぞれ `#synth` で確認できます．
+構造そのものを知りたいときは，型クラス名を `#print` します．
+ただし，大きい型クラスは field が多いので，最初は `#check` と `#synth` だけでも十分です．
+-/
+
+#check LE.le
+#check LT.lt
+#synth LinearOrder ℝ
+
+#check TopologicalSpace
+#check TopologicalSpace.IsOpen
+#synth TopologicalSpace ℝ
+
+/-
+一方，`Continuous.comp` のような名前は，型クラスの field ではなく，`Continuous` という名前空間に置かれた定理です．
+`hg.comp hf` と書けるのは，`hg : Continuous g` を第 1 引数とする定理 `Continuous.comp` が dot notation で使われているからです．
+このようなものは，「インスタンスが持つメソッド」というより，名前空間に置かれた定理・関数だと読む方が Lean では自然です．
+
+名前を知っているときは `#check` で型を確認します．
+暗黙引数も含めて詳しく見たいときは，名前の前に `@` を付けます．
+-/
+
+#check Continuous.comp
+#check @Continuous.comp
+
+#check Continuous.isOpen_preimage
+#check @Continuous.isOpen_preimage
+
+/-
+名前空間は，探すときの大きな手がかりです．
+集合なら `Set.`，有限集合なら `Finset.`，実数なら `Real.`，準同型なら `MonoidHom.` というように，対象の型名や構造名に対応する名前空間から候補を探します．
+エディタ上では `Set.` や `Real.` まで打つと補完候補が出るので，`#check` と補完を往復するのが実用的です．
+-/
+
+#check Set.mem_inter_iff
+#check Set.Subset.trans
+#check Finset.mem_union
+#check Finset.sum
+#check Real.sqrt
+#check Real.sqrt_sq_eq_abs
+#check MonoidHom.map_one
+#check MonoidHom.map_mul
+
+/-
+まとめると，Mathlib で使えそうな定理を探すときは，次の順に見るとよいです．
+
+1. ゴールと仮定に出ている型を `#check` で見る．
+2. その型が持つ構造を `#synth` で見る．
+3. 構造や対象の名前空間を補完と `#check` で見る．
+4. 暗黙引数が分からないときは `#check @定理名` で詳しく見る．
+5. それでも見つからないときは，後で見る `exact?`，`rw?`，`#loogle` などを使う．
+
+Lean には「このインスタンスが持つメソッドを一覧する」という単一の標準コマンドがあるというより，
+型クラスの field は `#print`，インスタンスの存在は `#synth`，名前空間の定理・関数は補完と `#check` で調べる，と考えると分かりやすいです．
+-/
+
+/-
+---
 ## Mathlib でよく使う証明パターン
 
 Mathlib を使う証明では，まず既存の補題を探し，`rw`，`simp`，`exact`，`apply`，`ext` などで組み合わせます．

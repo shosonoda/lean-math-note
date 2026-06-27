@@ -232,7 +232,10 @@ example {f : ℝ → ℝ} {x : ℝ} (h : ¬ DifferentiableAt ℝ f x) : deriv f 
   exact deriv_zero_of_not_differentiableAt h
 
 example : deriv (fun x : ℝ => x ^ 5) 6 = 5 * 6 ^ 4 := by
-  simp
+  calc
+    deriv (fun x : ℝ => x ^ 5) 6 = 5 * 6 ^ (5 - 1) := by
+      exact (hasDerivAt_pow 5 (6 : ℝ)).deriv
+    _ = 5 * 6 ^ 4 := by norm_num
 
 example : deriv sin π = -1 := by
   simp
@@ -243,6 +246,17 @@ end RealDerivatives
 `deriv f x` は，任意の関数 `f : ℝ → ℝ` と点 `x` に対して定義されています．
 ただし，微分可能でない点では値が 0 になります．
 そのため，定理を使うときには `HasDerivAt` や `DifferentiableAt` の仮定が必要かを確認します．
+
+微分の具体的な計算では，`calc` を使うと，紙の計算に近い形で式変形を読めます．
+たとえば上の例では，まず `deriv_pow` で
+
+$$
+\frac{d}{dx}x^5\bigg|_{x=6} = 5 \cdot 6^{5-1}
+$$
+
+を得て，次に `norm_num` で $5-1=4$ を計算しています．
+`HasDerivAt` や `DifferentiableAt` を作る部分は補題を使い，
+導関数の係数や数値だけを `calc` で整理すると読みやすくなります．
 
 ### 演習問題
 
@@ -260,7 +274,11 @@ end RealDerivatives
     ```lean4
     example : deriv (fun x : ℝ => x ^ 2) 3 = 6 := by
       -- `simp` と `norm_num` を試す．
-      -- 解答例: norm_num [deriv_pow]
+      -- 解答例:
+      --   calc
+      --     deriv (fun x : ℝ => x ^ 2) 3 = 2 * 3 ^ (2 - 1) := by
+      --       exact (hasDerivAt_pow 2 (3 : ℝ)).deriv
+      --     _ = 6 := by norm_num
       sorry
     ```
 
@@ -490,9 +508,9 @@ end Frechet
 
 ここでは，関数
 
-```text
+$$
 f(x) = x^3 + 2x + 1
-```
+$$
 
 が `x = 5` で微分係数 `77` を持つことを示します．
 紙の計算では `f'(x) = 3x^2 + 2` なので `f'(5) = 77` です．
@@ -510,7 +528,9 @@ theorem cubicExample_hasDerivAt :
     simpa using ((hasDerivAt_id (5 : ℝ)).const_mul (2 : ℝ))
   have h := (hpow.add hlin).add_const (1 : ℝ)
   have hcoeff : 3 * 5 ^ 2 + 2 = (77 : ℝ) := by
-    norm_num
+    calc
+      (3 : ℝ) * 5 ^ 2 + 2 = 3 * 25 + 2 := by norm_num
+      _ = 77 := by norm_num
   simpa [Pi.add_apply, hcoeff] using h
 
 example : deriv (fun x : ℝ => x ^ 3 + 2 * x + 1) 5 = 77 := by
@@ -529,6 +549,13 @@ end PolynomialDerivativeExample
 
 最後は，Lean が持っている導関数の値を `hcoeff` で数値計算し，
 `simpa [Pi.add_apply, hcoeff] using h` で関数の表示と導関数の値を整理しています．
+`hcoeff` の中では `calc` を使い，
+
+$$
+3 \cdot 5^2 + 2 = 3 \cdot 25 + 2 = 77
+$$
+
+という数値計算を段階的に書いています．
 `convert` を使うと，Mathlib のバージョンによっては型クラスインスタンスの等式まで
 余分なゴールとして現れることがあるため，ここでは数値計算を明示的に分けています．
 
@@ -543,8 +570,11 @@ example : HasDerivAt (fun x : ℝ => 3 * x ^ 2) (12 : ℝ) 2 := by
   --   have hpow : HasDerivAt (fun x : ℝ => x ^ 2) (2 * 2 ^ (2 - 1)) 2 := by
   --     simpa using (hasDerivAt_pow 2 (2 : ℝ))
   --   have h := hpow.const_mul (3 : ℝ)
-  --   norm_num at h
-  --   simpa [mul_comm, mul_left_comm, mul_assoc] using h
+  --   have hcoeff : (3 : ℝ) * (2 * 2) = 12 := by
+  --     calc
+  --       (3 : ℝ) * (2 * 2) = 3 * 4 := by norm_num
+  --       _ = 12 := by norm_num
+  --   simpa [mul_assoc, hcoeff] using h
   sorry
 ```
 

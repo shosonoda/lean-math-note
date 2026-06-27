@@ -14,7 +14,7 @@
         <link rel="prev" href="../10/">
       
       
-        <link rel="next" href="../../chapter05/">
+        <link rel="next" href="../12/">
       
       
         
@@ -25,7 +25,7 @@
     
     
       
-        <title>まとめ - 数学系エンドユーザーのためのLean入門</title>
+        <title>Mathlib の命名規則 - 数学系エンドユーザーのためのLean入門</title>
       
     
     
@@ -68,7 +68,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#_1" class="md-skip">
+        <a href="#mathlib" class="md-skip">
           コンテンツにスキップ
         </a>
       
@@ -104,7 +104,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              まとめ
+              Mathlib の命名規則
             
           </span>
         </div>
@@ -600,6 +600,8 @@
       
         
       
+        
+      
     
     
     
@@ -891,7 +893,7 @@
   <span class="md-ellipsis">
     
   
-    Mathlib でよく使う証明パターン
+    型クラスと名前空間から定理を探す
   
 
     
@@ -919,7 +921,7 @@
   <span class="md-ellipsis">
     
   
-    Mathlib の命名規則
+    Mathlib でよく使う証明パターン
   
 
     
@@ -949,7 +951,84 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mathlib の命名規則
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mathlib の命名規則
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        演習
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12/" class="md-nav__link">
         
   
   
@@ -965,7 +1044,6 @@
   
 
       </a>
-      
     </li>
   
 
@@ -1750,6 +1828,25 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        演習
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1765,16 +1862,44 @@
 
 
 
-<h1 id="_1">まとめ<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
-<p>Mathlib を使う証明では，具体的な対象だけでなく，それが持つ型クラスインスタンスを意識することが重要です．
-<code>Set α</code> は型 <code>α</code> 上の部分集合全体を表し，<code>Finset α</code> は有限集合をデータとして持つ型です．
-また，<code>ℝ</code>，<code>ℝ≥0</code>，<code>ℝ≥0∞</code>，<code>EReal</code> は別々の型であり，用途に応じて選びます．
-それぞれに登録された型クラスインスタンスと，型の間の coercion・変換関数を確認することが重要です．
-不等式 <code>a ≤ b</code> や <code>a &lt; b</code> は，両辺の型に入っている順序構造から作られる命題です．
-数値計算，線形不等式，多項式不等式，単調性，型変換を切り分けると，使う tactic や補題を選びやすくなります．</p>
-<p>Mathlib の証明は既存補題の組み合わせです．
-<code>#check</code>，<code>#synth</code>，命名規則，<code>simp</code>，<code>rw</code>，<code>ext</code>，<code>norm_num</code>，<code>linarith</code>，<code>nlinarith</code> を使いながら，ゴールに合う補題を探して適用します．
-大きな流れとしては，まず型クラスや bundled structure などの一般的な読み方を押さえ，その上で <code>Set</code>，<code>Finset</code>，実数，不等式の各対象に入ると，Mathlib の定理の形が見通しやすくなります．</p>
+<h1 id="mathlib">Mathlib の命名規則<a class="headerlink" href="#mathlib" title="Permanent link">&para;</a></h1>
+<p>Mathlib の名前には強い規則性があります．
+命名規則を知っていると，補題を推測したり，検索結果を読むのが楽になります．</p>
+<p>基本方針は次の通りです．</p>
+<ul>
+<li>定理名や証明項は <code>snake_case</code>: <code>add_comm</code>, <code>mul_assoc</code>, <code>not_le_of_gt</code></li>
+<li>型，命題，<code>structure</code>，クラスは <code>UpperCamelCase</code>: <code>Finset</code>, <code>MonoidHom</code>, <code>LinearOrder</code></li>
+<li>通常のデータや関数は <code>lowerCamelCase</code></li>
+<li>名前空間はドットで表す: <code>Nat.succ_ne_zero</code>, <code>Set.mem_inter_iff</code></li>
+<li>写像が構造を保つ補題は <code>map_add</code>, <code>map_mul</code>, <code>map_zero</code> のような名前になりやすい</li>
+</ul>
+<p>ただし，古い名前や歴史的事情による例外もあります．
+命名規則は検索の手がかりであって，完全な規格ではありません．</p>
+<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">Nat</span><span class="bp">.</span><span class="n">succ_ne_zero</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">Set</span><span class="bp">.</span><span class="n">mem_inter_iff</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">Set</span><span class="bp">.</span><span class="n">mem_union</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">add_comm</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">mul_assoc</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">map_add</span>
+</code></pre></div>
+<p>記号に対応する語もある程度決まっています．
+たとえば，<code>∈</code> は <code>mem</code>，<code>∩</code> は <code>inter</code>，<code>∪</code> は <code>union</code>，<code>≤</code> は <code>le</code>，<code>&lt;</code> は <code>lt</code>，<code>↔</code> は <code>iff</code> です．
+したがって，集合の所属条件を探すときには <code>mem_inter</code> や <code>mem_union</code> のような名前を予想できます．</p>
+<p>また，定理名では結論が先に来ることがよくあります．
+たとえば <code>not_le_of_gt</code> は「<code>&gt;</code> から <code>¬ ≤</code> が従う」と読みます．
+この名前は，結論 <code>not_le</code> と仮定 <code>of_gt</code> に分けて読むと分かりやすくなります．</p>
+<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">not_le_of_gt</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">lt_of_le_of_ne</span>
+</code></pre></div>
+<p>命名規則は公式の <a href="https://leanprover-community.github.io/contribute/naming.html">Mathlib naming conventions</a> に整理されています．
+新しい補題名を探すときは，記号を英語名に直し，名前空間と結論の形から推測するのが有効です．</p>
+<h2 id="_1">演習<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>命名規則を使って，次の補題名を予想し，<code>#check</code> で確認してください．</p>
+<div class="language-lean4 highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">Set</span><span class="bp">.</span><span class="n">mem_inter_iff</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">Set</span><span class="bp">.</span><span class="n">mem_union</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">not_le_of_gt</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">lt_of_le_of_ne</span>
+</code></pre></div>
 
 
 
@@ -1810,7 +1935,7 @@
       <nav class="md-footer__inner md-grid" aria-label="フッター" >
         
           
-          <a href="../10/" class="md-footer__link md-footer__link--prev" aria-label="前: Mathlib の命名規則">
+          <a href="../10/" class="md-footer__link md-footer__link--prev" aria-label="前: Mathlib でよく使う証明パターン">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -1820,20 +1945,20 @@
                 前
               </span>
               <div class="md-ellipsis">
-                Mathlib の命名規則
+                Mathlib でよく使う証明パターン
               </div>
             </div>
           </a>
         
         
           
-          <a href="../../chapter05/" class="md-footer__link md-footer__link--next" aria-label="次: Chapter 05: Lean Project の作成と操作">
+          <a href="../12/" class="md-footer__link md-footer__link--next" aria-label="次: まとめ">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 次
               </span>
               <div class="md-ellipsis">
-                Chapter 05: Lean Project の作成と操作
+                まとめ
               </div>
             </div>
             <div class="md-footer__button md-icon">

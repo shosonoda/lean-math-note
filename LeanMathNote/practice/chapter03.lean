@@ -36,6 +36,25 @@ open scoped Topology
 位相空間構造は `TopologicalSpace X` です．
 開集合は `IsOpen U`，閉集合は `IsClosed C` と書きます．
 `interior`，`closure`，`frontier` なども `Set X` に対する操作です．
+
+Mathlib では，位相空間構造の中に開集合を表す述語が入っています．
+`IsOpen` はその述語を取り出したものです．
+一方，`IsClosed C` は独立した原始概念ではなく，補集合 `Cᶜ` が開集合であることとして定義されています．
+
+```lean title="Mathlib/Topology/Defs/Basic.lean"
+class TopologicalSpace (X : Type u) where
+  protected IsOpen : Set X → Prop
+  protected isOpen_univ : IsOpen univ
+  protected isOpen_inter : ∀ s t, IsOpen s → IsOpen t → IsOpen (s ∩ t)
+  protected isOpen_sUnion : ∀ s, (∀ t ∈ s, IsOpen t) → IsOpen (⋃₀ s)
+
+def IsOpen : Set X → Prop := TopologicalSpace.IsOpen
+
+class IsClosed (s : Set X) : Prop where
+  isOpen_compl : IsOpen sᶜ
+```
+
+したがって，閉集合に関する主張は，補集合を取ると開集合に関する主張として読めます．
 -/
 
 #check TopologicalSpace
@@ -563,6 +582,12 @@ example {α β : Type*} (f : α → β) (l : Filter α) (m : Filter β) :
 * `tendsto_nhds`: 終域側が `𝓝 y` の `Tendsto` を開集合で読む．
 * `hf.continuousAt`: 大域的連続性から点での連続性を得る．
 * `hg.comp hf`: 連続写像の合成が連続であることを使う．
+
+ここで `Continuous.comp` は，`Continuous` の field ではなく，
+連続写像の合成が連続であることを述べる定理です．
+`hg.comp hf` のように書くとメソッドのように見えますが，
+Lean では名前空間 `Continuous` にある定理をドット notation で適用している，と読むとよいです．
+一方，`Continuous` の定義の中で宣言されている成分，たとえば開集合の逆像が開集合であることを表す成分は field です．
 -/
 
 #check Continuous
@@ -570,6 +595,7 @@ example {α β : Type*} (f : α → β) (l : Filter α) (m : Filter β) :
 #check ContinuousOn
 #check continuousAt_def
 #check tendsto_nhds
+#check Continuous.isOpen_preimage
 #check Continuous.comp
 
 section Continuity
@@ -611,6 +637,15 @@ Tendsto a atTop atTop
 と書きます．
 
 たとえば，自然数を実数に埋め込んだ列 $n \mapsto n$ は `atTop` に収束します．
+
+具体的な極限計算では，次の 2 つを分けると読みやすくなります．
+
+* `Continuous.tendsto` などで，まず `Tendsto` の証明を作る．
+* 終点の値の計算は `calc` で段階的に書く．
+
+`calc` は，等式や不等式を紙の計算に近い形で並べるための構文です．
+`Tendsto` そのものを `calc` で示すというより，
+`𝓝 ((3 : ℝ)^2 + 1)` を `𝓝 10` に直すような小さな計算に使うと効果的です．
 -/
 
 section ConcreteLimits
@@ -629,18 +664,20 @@ Tendsto f (𝓝 a) (𝓝 b)
 
 以下は $\lim_{x \to 2} (x+3) = 5$ です．
 `Continuous.tendsto` は，連続性からその点での極限を取り出す補題です．
-最後の `norm_num` は，`2 + 3 = 5` の数値計算を処理しています．
+最後に，`2 + 3 = 5` という数値計算を `calc` で明示します．
 -/
 
 example : Tendsto (fun x : ℝ => x + 3) (𝓝 2) (𝓝 5) := by
-  convert (((continuous_id : Continuous fun x : ℝ => x).add
-    (continuous_const : Continuous fun _ : ℝ => (3 : ℝ))).tendsto (2 : ℝ)) using 1
-  norm_num
+  have hlim :
+      Tendsto (fun x : ℝ => x + 3) (𝓝 2) (𝓝 ((2 : ℝ) + 3)) :=
+    ((by continuity : Continuous fun x : ℝ => x + 3).tendsto (2 : ℝ))
+  have hval : (2 : ℝ) + 3 = 5 := by
+    calc
+      (2 : ℝ) + 3 = (5 : ℝ) := by norm_num
+      _ = 5 := by rfl
+  simpa [hval] using hlim
 
 /-
-ここで使っている `convert` は，手元にある定理の結論が現在のゴールと「ほとんど同じ」だが，
-一部の式だけがまだ一致していないときに便利な tactic です．
-
 上の例では，連続性から得られる極限はまず
 
 ```lean4
@@ -649,9 +686,15 @@ Tendsto (fun x : ℝ => x + 3) (𝓝 2) (𝓝 (2 + 3))
 
 という形です．
 一方，示したいゴールは終域側が `𝓝 5` です．
-`convert ... using 1` は，この 2 つの主張を対応させたうえで，
-残った差分 `2 + 3 = 5` を新しいゴールとして残します．
-最後の `norm_num` がその数値計算を閉じています．
+そこで，まずこの極限を `hlim` として保存し，値の計算
+
+```lean4
+(2 : ℝ) + 3 = 5
+```
+
+を `hval` として別に示します．
+最後の `simpa [hval] using hlim` は，`hlim` の終域側の `𝓝 (2 + 3)` を
+`𝓝 5` に書き換えています．
 -/
 
 /-
@@ -661,8 +704,60 @@ $\lim_{x \to 0}(\sin x + x^2)=0$ です．
 -/
 
 example : Tendsto (fun x : ℝ => x ^ 2 + 1) (𝓝 3) (𝓝 10) := by
-  convert ((by continuity : Continuous fun x : ℝ => x ^ 2 + 1).tendsto (3 : ℝ)) using 1
-  norm_num
+  have hlim :
+      Tendsto (fun x : ℝ => x ^ 2 + 1) (𝓝 3) (𝓝 ((3 : ℝ) ^ 2 + 1)) :=
+    ((by continuity : Continuous fun x : ℝ => x ^ 2 + 1).tendsto (3 : ℝ))
+  have hval : (3 : ℝ) ^ 2 + 1 = 10 := by
+    calc
+      (3 : ℝ) ^ 2 + 1 = (9 : ℝ) + 1 := by norm_num
+      _ = 10 := by norm_num
+  simpa [hval] using hlim
+
+/-
+### 収束先の値を明示しない方法
+
+収束先の値をまだ計算したくないときは，`𝓝 10` のように数値を明示せず，
+`𝓝 (f a)` の形で書けます．
+たとえば次の例は，$\lim_{x \to 3}(x^2+1)$ の値を `10` まで計算せず，
+単に「点 `3` における関数値」へ収束する，という形で述べています．
+-/
+
+example :
+    Tendsto (fun x : ℝ => x ^ 2 + 1) (𝓝 3)
+      (𝓝 ((fun x : ℝ => x ^ 2 + 1) 3)) := by
+  exact ((by continuity : Continuous fun x : ℝ => x ^ 2 + 1).tendsto (3 : ℝ))
+
+/-
+より一般に，収束先の値そのものを命題の外に出したいなら，
+存在命題として
+
+```lean4
+∃ y : ℝ, Tendsto f (𝓝 a) (𝓝 y)
+```
+
+と書けます．
+この場合，証明の中では `refine ⟨..., ?_⟩` によって候補となる値を与えます．
+-/
+
+example :
+    ∃ y : ℝ, Tendsto (fun x : ℝ => x ^ 2 + 1) (𝓝 3) (𝓝 y) := by
+  refine ⟨(fun x : ℝ => x ^ 2 + 1) 3, ?_⟩
+  exact ((by continuity : Continuous fun x : ℝ => x ^ 2 + 1).tendsto (3 : ℝ))
+
+/-
+一方で，statement に直接 `𝓝 _` と書いて収束先を完全に空欄にする方法は，
+通常はうまくいきません．
+
+```lean4
+-- これは基本的には失敗します．
+-- example : Tendsto (fun x : ℝ => x ^ 2 + 1) (𝓝 3) (𝓝 _) := by
+--   exact ((by continuity : Continuous fun x : ℝ => x ^ 2 + 1).tendsto (3 : ℝ))
+```
+
+`example : ...` の型は証明本体を読む前に確定されるため，
+証明本体から `_` の中身を推論することはできないからです．
+値を計算したくない場合は，まず `𝓝 (f a)` の形で書くのが実用的です．
+-/
 
 example : Tendsto (fun x : ℝ => Real.sin x + x ^ 2) (𝓝 0) (𝓝 0) := by
   simpa using ((by continuity : Continuous fun x : ℝ => Real.sin x + x ^ 2).tendsto (0 : ℝ))
@@ -685,6 +780,10 @@ end ConcreteLimits
 
 実数上の初等関数の連続性は，`continuity` tactic で証明できることが多いです．
 失敗した場合は，`Continuous.add`，`Continuous.mul`，`Continuous.comp` などの補題を明示的に使います．
+
+式が長くなる場合は，1 行で全部を書くよりも，中間事実に名前を付けると読みやすくなります．
+たとえば分数関数では，分子の連続性，分母の連続性，分母が 0 でないことを別々の `have` にします．
+数値計算や式変形が長い場合は，前節と同じようにその部分だけ `calc` に切り出せます．
 -/
 
 section ConcreteContinuity
@@ -712,18 +811,21 @@ example : Continuous fun x : ℝ => Real.sin x + x ^ 2 := by
 一点での連続性なら，その点で分母が 0 でないことを示せば十分です．
 次は $x=0$ における
 
-```text
+$$
 (x^2+1)/(x+3)
-```
+$$
 
 の連続性です．
 -/
 
 example : ContinuousAt (fun x : ℝ => (x ^ 2 + 1) / (x + 3)) 0 := by
-  exact (((continuousAt_id : ContinuousAt (fun x : ℝ => x) 0).pow 2).add
-    continuousAt_const).div
-    ((continuousAt_id : ContinuousAt (fun x : ℝ => x) 0).add continuousAt_const)
-    (by norm_num)
+  have hnum : ContinuousAt (fun x : ℝ => x ^ 2 + 1) 0 :=
+    ((continuousAt_id : ContinuousAt (fun x : ℝ => x) 0).pow 2).add continuousAt_const
+  have hden : ContinuousAt (fun x : ℝ => x + 3) 0 :=
+    (continuousAt_id : ContinuousAt (fun x : ℝ => x) 0).add continuousAt_const
+  have hden0 : (0 : ℝ) + 3 ≠ 0 := by
+    norm_num
+  exact hnum.div hden hden0
 
 /-
 大域的な連続性では，すべての点で分母が 0 でないことを示します．
@@ -731,11 +833,14 @@ example : ContinuousAt (fun x : ℝ => (x ^ 2 + 1) / (x + 3)) 0 := by
 -/
 
 example : Continuous fun x : ℝ => (x ^ 2 + 1) / (x ^ 2 + 2) := by
-  exact (((continuous_id : Continuous fun x : ℝ => x).pow 2).add continuous_const).div
-    (((continuous_id : Continuous fun x : ℝ => x).pow 2).add continuous_const)
-    (by
-      intro x
-      positivity)
+  have hnum : Continuous fun x : ℝ => x ^ 2 + 1 :=
+    ((continuous_id : Continuous fun x : ℝ => x).pow 2).add continuous_const
+  have hden : Continuous fun x : ℝ => x ^ 2 + 2 :=
+    ((continuous_id : Continuous fun x : ℝ => x).pow 2).add continuous_const
+  have hden0 : ∀ x : ℝ, x ^ 2 + 2 ≠ 0 := by
+    intro x
+    positivity
+  exact hnum.div hden hden0
 
 end ConcreteContinuity
 
@@ -896,6 +1001,14 @@ end MetricContinuity
 `ε`-`δ` 条件を取り出せます．
 上の例は $x \mapsto x+1$ が $x=3$ で連続であることを，
 距離による条件として読み替えています．
+
+ここに現れる `∀ ⦃x : ℝ⦄, ...` の `⦃x : ℝ⦄` は strict implicit binder です．
+`x` 自体は普通の実数の点ですが，定理を使うときには明示的に渡さず，
+後続の仮定 `dist x a < δ` などから Lean が推論します．
+たとえば `h : ∀ ⦃x : ℝ⦄, dist x a < δ → ...` があるとき，
+`h hx` のように書くと，`hx` の型から `x` が推論されます．
+構文としては `{{x : ℝ}}` と入力でき，表示上は `⦃x : ℝ⦄` になります．
+括弧の種類の一般的な説明は基礎編 Chapter 02 の `variable` と引数の節で扱いました．
 -/
 
 /-
